@@ -62,6 +62,14 @@ final class DatabaseTimezoneCommand extends Command
             return self::FAILURE;
         }
         if (str_starts_with($winter, '2026-01-15 12:00:00') && str_starts_with($summer, '2026-07-15 12:00:00')) {
+            // TB 64: Mit --umrechnen vermerken, dass nichts umzurechnen ist — sonst empföhle der nächste Befund ohne --von
+            // ein Umrechnen aus der Server-Zone (Bestand, der schon in UTC geschrieben wurde)
+            if ((bool) $this->option('umrechnen')) {
+                $settings->set(self::SETTING, ['from' => $from, 'at' => CarbonImmutable::now()->toIso8601String()]);
+                $this->info(sprintf('«%s» entspricht UTC — nichts umzurechnen, vermerkt.', $from));
+
+                return self::SUCCESS;
+            }
             $this->info(sprintf('«%s» entspricht UTC — die gespeicherten Werte stimmen, nichts umzurechnen.', $from));
 
             return self::SUCCESS;

@@ -49,6 +49,7 @@ use Basalto\Core\Console\ThemePackCommand;
 use Basalto\Core\Console\ThemeVerifyCommand;
 use Basalto\Core\Console\TokensCommand;
 use Basalto\Core\Console\UpdateCommand;
+use Basalto\Core\Console\VendorSiteCommand;
 use Basalto\Core\Console\VerifyDomainsCommand;
 use Basalto\Core\Content\ContentTypes;
 use Basalto\Core\Content\Pages;
@@ -302,8 +303,8 @@ final class CoreServiceProvider extends ServiceProvider
             $this->commands([LoadTestCommand::class]);
             // TB 11 Scheibe 4 (G-10, G-08): Demo neu aufsetzen — nur mit BASALTO_DEMO=true; Doku aus docs/ als Seiten
             $this->commands([DemoResetCommand::class, DocsImportCommand::class]);
-            // CR-004 (P-03): lokale Landschaft des Herstellers unter Herd; TB 64: Testumgebung auf cyon
-            $this->commands([LocalCommand::class, TestingCommand::class]);
+            // CR-004 (P-03): lokale Landschaft des Herstellers unter Herd; TB 64/65: Testumgebung und Produktion auf cyon
+            $this->commands([LocalCommand::class, TestingCommand::class, VendorSiteCommand::class]);
             // CR-004 (P-05): Release-Archiv für den Web-Installer
             $this->commands([ReleaseCommand::class]);
             // Testdaten für Entwicklung, Test-Umgebungen und Demo

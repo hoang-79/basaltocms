@@ -18,6 +18,7 @@ use Basalto\Core\Models\Site;
 use Basalto\Core\Navigation\Navigation;
 use Basalto\Core\Publish\LegalTemplates;
 use Basalto\Core\Search\SiteSearch;
+use Basalto\Core\Support\DevServer;
 use Basalto\Core\Theme\ThemeAssets;
 use Basalto\Core\Theme\ThemeLoader;
 use Basalto\Lava\Runtime\Context;
@@ -218,12 +219,9 @@ final class EntryRenderer
     public static function assets(): string
     {
         $html = '<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">';
-        $hot = public_path('hot');
-        if (app()->environment(['local', 'testing']) && is_file($hot)) {
-            $server = rtrim(trim((string) file_get_contents($hot)), '/');
-            if ($server !== '') {
-                $html .= sprintf('<script type="module" src="%s/@vite/client"></script>', htmlspecialchars($server, ENT_QUOTES));
-            }
+        $server = DevServer::url();
+        if ($server !== null) {
+            $html .= sprintf('<script type="module" src="%s/@vite/client"></script>', htmlspecialchars($server, ENT_QUOTES));
         }
 
         return $html;

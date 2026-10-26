@@ -208,6 +208,9 @@ Gut zu wissen:
   Umrechnung nehmen Sie den Eintrag wieder heraus — der Befehl verweigert sie, solange die Verbindung nicht in UTC läuft.
 - Sicherungen behalten ihre Zeitpunkte unabhängig von der Zeitzone. Spielen Sie eine Sicherung von vor der Umrechnung
   zurück, rufen Sie `basalto:db-zeitzone` danach noch einmal auf.
+- Eine Neuinstallation ist beim Einrichten als «von Anfang an UTC» vermerkt; der Befehl meldet dann «nichts zu tun».
+  Wurde ein Bestand schon in UTC geschrieben, vermerkt `php artisan basalto:db-zeitzone --umrechnen --von=+00:00` das,
+  ohne etwas umzurechnen.
 - Zeitpunkte aus der doppelten Stunde bei der Rückstellung im Herbst (in Zürich 02:00–02:59) waren schon bisher
   mehrdeutig gespeichert und können nach der Umrechnung um eine Stunde abweichen.
 

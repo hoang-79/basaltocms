@@ -213,6 +213,9 @@ Bon à savoir :
   l’entrée pour la conversion — la commande la refuse tant que la connexion n’est pas en UTC.
 - Les sauvegardes conservent leurs horodatages indépendamment du fuseau horaire. Si vous restaurez une sauvegarde
   antérieure à la conversion, exécutez ensuite à nouveau `basalto:db-zeitzone`.
+- Une nouvelle installation est marquée « UTC dès le départ » lors de sa mise en place ; la commande indique alors
+  « rien à faire ». Si des données existantes ont déjà été écrites en UTC,
+  `php artisan basalto:db-zeitzone --umrechnen --von=+00:00` le note sans rien convertir.
 - Les horodatages de l’heure répétée lors du passage à l’heure d’hiver (à Zurich 02:00–02:59) étaient déjà enregistrés
   de manière ambiguë et peuvent différer d’une heure après la conversion.
 

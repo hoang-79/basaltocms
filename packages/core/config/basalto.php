@@ -28,6 +28,12 @@ return [
     'themes_path' => env('BASALTO_THEMES_PATH'),
 
     /*
+     * Hot-Datei des Vite-Dev-Servers fürs Frontend (L-13: Vite-Client in jeder Seite, kein Seiten-Cache). Leer =
+     * public/hot. Tests geben jedem Test eine eigene — parallele Prozesse nähmen sich die in public/ sonst gegenseitig weg.
+     */
+    'hot_file' => env('BASALTO_HOT_FILE'),
+
+    /*
      * Medien liegen auf der Standard-Disk (auf Laravel Cloud der private Bucket); Varianten erzeugt die Warteschlange.
      */
     // Seiten-Cache (M-16): fertiges HTML je Seite; in der lokalen Entwicklung aus, damit der Vite-Watcher jede Änderung zeigt

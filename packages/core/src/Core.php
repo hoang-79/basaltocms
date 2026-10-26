@@ -7,7 +7,7 @@ namespace Basalto\Core;
 /** Versionsstand des Kerns — in der Kopfzeile des Backends und im Betriebsstatus sichtbar. */
 final class Core
 {
-    public const VERSION = '1.0.0-dev';
+    public const VERSION = '1.2.0';
 
     /**
      * Öffentlicher Ed25519-Schlüssel des Produkts (K-18): Jede Installation prüft Lizenzschlüssel offline gegen ihn.

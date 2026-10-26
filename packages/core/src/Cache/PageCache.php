@@ -6,6 +6,7 @@ namespace Basalto\Core\Cache;
 
 use Basalto\Core\Models\Site;
 use Basalto\Core\Settings\Settings;
+use Basalto\Core\Support\DevServer;
 use Basalto\Core\Theme\ThemeLoader;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Http\Request;
@@ -73,7 +74,7 @@ final class PageCache
     /** Läuft der Vite-Dev-Server, tragen Seiten seinen Client (L-13) — solche Seiten gehören nie in den Cache. */
     private static function viteRunning(): bool
     {
-        return app()->environment(['local', 'testing']) && is_file(public_path('hot'));
+        return DevServer::running();
     }
 
     /** Die gecachte Antwort oder null. */

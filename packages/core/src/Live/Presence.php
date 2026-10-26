@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Cache;
  * Anwesenheit an einem Ort (TB 49): eine kurze Liste im Cache, wer gerade da ist — wer an einer Antwort tippt
  * (Community, `Typing`) oder wer eine Seite im Backend bearbeitet. Jeder Eintrag gilt `$ttl` Sekunden und wird mit
  * jeder Meldung verlängert; jede Meldung setzt ein Live-Signal, damit die anderen die neue Liste bekommen (die Liste
- * ist klein, die Signale gehen über Cache und Push).
+ * ist klein, die Signale gehen über Cache und Push). Die Uhr ist die von Laravel wie die des Caches — in Tests anhaltbar.
  */
 final class Presence
 {
@@ -26,7 +26,7 @@ final class Presence
                 $list = self::fresh(Cache::get($cacheKey, []));
                 $had = isset($list[$id]);
                 if ($active) {
-                    $list[$id] = ['name' => $name, 'bis' => time() + $ttl];
+                    $list[$id] = ['name' => $name, 'bis' => now()->getTimestamp() + $ttl];
                 } else {
                     unset($list[$id]);
                 }
@@ -47,7 +47,7 @@ final class Presence
      */
     public function current(int $siteId, string $key): array
     {
-        $now = time();
+        $now = now()->getTimestamp();
         $out = [];
         foreach (self::fresh(Cache::get(self::cacheKey($siteId, $key), [])) as $id => $entry) {
             $out[] = ['id' => $id, 'name' => $entry['name'], 'rest' => max(1, $entry['bis'] - $now)];
@@ -61,7 +61,7 @@ final class Presence
      */
     private static function fresh(mixed $list): array
     {
-        $now = time();
+        $now = now()->getTimestamp();
         $out = [];
         foreach (is_array($list) ? $list : [] as $id => $entry) {
             if (is_array($entry) && is_int($entry['bis'] ?? null) && $entry['bis'] > $now && is_string($entry['name'] ?? null)) {

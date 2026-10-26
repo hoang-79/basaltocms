@@ -124,6 +124,8 @@ final class TestdataImages
     private static function file(\GdImage $image, string $name): UploadedFile
     {
         $path = (string) tempnam(sys_get_temp_dir(), 'testdaten');
+        // Die Ablage kopiert das Bild — die Vorlage im Temp-Ordner ist am Ende des Prozesses weg (sonst bleiben je Lauf Hunderte liegen)
+        register_shutdown_function(static fn () => @unlink($path));
         imagepng($image, $path);
         imagedestroy($image);
 

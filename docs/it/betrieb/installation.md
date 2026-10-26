@@ -210,6 +210,9 @@ Da sapere:
   rimuova di nuovo la voce — il comando la rifiuta finché la connessione non è in UTC.
 - I backup conservano le loro date e ore indipendentemente dal fuso orario. Se ripristina un backup precedente alla
   conversione, esegua poi di nuovo `basalto:db-zeitzone`.
+- Una nuova installazione viene contrassegnata come «UTC fin dall’inizio» durante la configurazione; il comando
+  segnala allora «niente da fare». Se dati esistenti erano già scritti in UTC,
+  `php artisan basalto:db-zeitzone --umrechnen --von=+00:00` lo annota senza convertire nulla.
 - Le date e ore dell’ora ripetuta al ritorno dell’ora solare (a Zurigo 02:00–02:59) erano già salvate in modo ambiguo
   e dopo la conversione possono differire di un’ora.
 

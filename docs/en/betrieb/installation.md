@@ -204,6 +204,9 @@ Good to know:
   conversion — the command refuses it as long as the connection is not in UTC.
 - Backups keep their points in time regardless of the time zone. If you restore a backup from before the conversion,
   run `basalto:db-zeitzone` again afterwards.
+- A new installation is marked as “UTC from the start” when it is set up; the command then reports “nothing to do”.
+  If existing data was already written in UTC, `php artisan basalto:db-zeitzone --umrechnen --von=+00:00` records
+  that without converting anything.
 - Points in time from the repeated hour when the clocks go back in autumn (in Zurich 02:00–02:59) were already stored
   ambiguously and may differ by one hour after the conversion.
 
