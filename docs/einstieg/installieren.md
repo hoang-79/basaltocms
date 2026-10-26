@@ -28,7 +28,8 @@ Fehlt eine Voraussetzung, nennt der Installer sie unter «Voraussetzungen fehlen
 3. Öffnen Sie die Adresse im Browser, etwa `https://meine-site.ch` oder `http://meine-site.test`.
 4. Füllen Sie das Formular aus (Zahlen wie im Bild oben):
    1. **Name der Website** — aus dem Ordnernamen vorgeschlagen; Sie können ihn später ändern.
-   2. **Ihre E-Mail** — damit melden Sie sich künftig an, mit einem Code per Mail oder einem Passkey.
+   2. **Ihre E-Mail** — damit melden Sie sich künftig an, mit einem Code per Mail oder einem Passkey. Den Code tippen
+      oder fügen Sie in sechs Felder ein; sind alle Ziffern da, geht es von selbst weiter.
    3. **Sprache der Website** — die Standardsprache. Weitere Sprachen fügen Sie danach hinzu.
    4. **Erweitert** — nur, wenn Sie eine andere Datenbank nehmen oder gleich einen Lizenzschlüssel eingeben möchten.
    5. **«Installieren»**.

@@ -33,6 +33,7 @@ Changes save themselves (“saving …”, then “saved”). If a value is outs
 | Cache | Page cache | on | — | site | Pages come ready-made from the cache; every publication invalidates it and warms the page up. Individual pages are excluded in the page’s “Cache” tab. |
 | Cache | Pages in the cache at most | 24 hours | 1–168 | site | after that the next request renders anew, even without a change |
 | Sign-in | Validity of the sign-in code | 10 minutes | 2–60 | installation | how long the code from the email is valid |
+| Sign-in | New code at the earliest after | 30 seconds | 0–600 | installation | “Send code again” counts down this long after the last code; 0 = immediately |
 | Sign-in | Validity of one-time links | 60 minutes | 5–1440 | installation | links from installer and console |
 | Sign-in | Validity of an invitation | 72 hours | 1–720 | installation | see [Users](benutzer.md) |
 | Spam protection | Browser check for forms and comments | on | on/off | site | computing task in the background (proof of work), no puzzle; without JavaScript a simple sum |

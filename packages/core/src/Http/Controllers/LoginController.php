@@ -8,6 +8,7 @@ use Basalto\Core\Demo\DemoMode;
 use Basalto\Core\Events\UserLoggedIn;
 use Basalto\Core\Models\LoginChallenge;
 use Basalto\Core\Notifications\LoginCodeNotification;
+use Basalto\Core\Security\CodeResend;
 use Basalto\Core\Settings\Settings;
 use Basalto\Core\Sso\SsoLogin;
 use Basalto\Core\Support\Preferences;
@@ -40,11 +41,39 @@ final class LoginController
         ]);
     }
 
+    /** Wann der letzte Code ging (Sitzung) — für «Code erneut senden». */
+    public const SESSION_SENT = 'basalto.login.sent_at';
+
     /** Code anfordern — die Antwort ist immer dieselbe, ob das Konto existiert oder nicht. */
     public function requestCode(Request $request): RedirectResponse
     {
         $validated = $request->validate(['email' => ['required', 'email', 'max:200']]);
         $email = strtolower($validated['email']);
+        $minutes = $this->sendCode($request, $email);
+        $request->session()->put('basalto.login.email', $email);
+
+        return redirect()->route('basalto.login.verify')->with('status', __('Wenn ein Konto zu :email gehört, ist ein Code unterwegs (:minutes Minuten gültig).', ['email' => $email, 'minutes' => $minutes]));
+    }
+
+    /** TB 72: Code erneut senden — an dieselbe Adresse, frühestens nach der Wartezeit aus den Einstellungen. */
+    public function resendCode(Request $request, CodeResend $resend): RedirectResponse
+    {
+        $email = $request->session()->get('basalto.login.email');
+        if (! is_string($email)) {
+            return redirect()->route('basalto.login');
+        }
+        $wait = $resend->wait($request, self::SESSION_SENT);
+        if ($wait > 0) {
+            return redirect()->route('basalto.login.verify')->withErrors(['resend' => trans_choice('Bitte warten Sie noch :count Sekunde.|Bitte warten Sie noch :count Sekunden.', $wait)]);
+        }
+        $minutes = $this->sendCode($request, $email);
+
+        return redirect()->route('basalto.login.verify')->with('status', __('Wenn ein Konto zu :email gehört, ist ein neuer Code unterwegs (:minutes Minuten gültig).', ['email' => $email, 'minutes' => $minutes]));
+    }
+
+    /** Code erzeugen und senden, wenn es das Konto gibt; die Wartezeit läuft in jedem Fall. */
+    private function sendCode(Request $request, string $email): int
+    {
         /** @var class-string<Model> $userModel */
         $userModel = config('auth.providers.users.model');
         $user = $userModel::query()->where('email', $email)->first();
@@ -53,9 +82,9 @@ final class LoginController
             [, $code] = LoginChallenge::createCode((int) $user->getKey(), $minutes, $request->ip());
             $user->notify(new LoginCodeNotification($code, $minutes));
         }
-        $request->session()->put('basalto.login.email', $email);
+        app(CodeResend::class)->sent($request, self::SESSION_SENT);
 
-        return redirect()->route('basalto.login.verify')->with('status', __('Wenn ein Konto zu :email gehört, ist ein Code unterwegs (:minutes Minuten gültig).', ['email' => $email, 'minutes' => $minutes]));
+        return $minutes;
     }
 
     public function showCode(Request $request): Response|RedirectResponse
@@ -65,7 +94,11 @@ final class LoginController
             return redirect()->route('basalto.login');
         }
 
-        return Inertia::render('core::LoginCode', ['email' => $email, 'verifyUrl' => route('basalto.login.verify'), 'backUrl' => route('basalto.login'), 'status' => session('status')]);
+        $resend = app(CodeResend::class);
+
+        return Inertia::render('core::LoginCode', ['email' => $email, 'verifyUrl' => route('basalto.login.verify'), 'backUrl' => route('basalto.login'), 'status' => session('status'),
+            // TB 72: «Code erneut senden» nach der Wartezeit
+            'resend' => ['url' => route('basalto.login.resend'), 'wait' => $resend->wait($request, self::SESSION_SENT), 'seconds' => $resend->seconds()]]);
     }
 
     public function verifyCode(Request $request): RedirectResponse

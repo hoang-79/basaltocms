@@ -92,6 +92,8 @@ final class FrontendAccountsServiceProvider extends ServiceProvider
             Route::post('account/login', [CustomerLoginController::class, 'request'])->withoutMiddleware(PreventRequestForgery::class)
                 ->middleware('throttle:basalto-account-login')->name('basalto.account.login');
             Route::post('account/code', [CustomerLoginController::class, 'verify'])->middleware('throttle:basalto-account-verify')->name('basalto.account.code');
+            // TB 72: Code erneut senden (Wartezeit aus den Einstellungen, Drosselung wie die Code-Anfrage)
+            Route::post('account/code/erneut', [CustomerLoginController::class, 'resend'])->middleware('throttle:basalto-account-login')->name('basalto.account.resend');
             Route::post('account/logout', [CustomerLoginController::class, 'logout'])->name('basalto.account.logout');
             // TB 13 Scheibe 2: eigene Anmeldeseite im Layout des Themes — Ziel von «Anmelden» und der Mails der Mitglieder
             Route::get('account/login', [FrontendController::class, 'login'])->name('basalto.account.login.page');

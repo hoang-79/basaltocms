@@ -14,6 +14,7 @@ use Basalto\Core\License\LicenseVerifier;
 use Basalto\Core\License\VendorAccount;
 use Basalto\Core\Models\VendorConnection;
 use Basalto\Core\Saas\Saas;
+use Basalto\Core\Security\CodeResend;
 use Basalto\Core\Settings\Settings;
 use Basalto\Core\Sites\CurrentSite;
 use Basalto\Core\Vendor;
@@ -78,7 +79,10 @@ final class LicenseController
                 'connected_at' => $connection === null ? null : $this->dates->date($connection->created_at),
                 'pending_email' => $connection === null && is_string($pending = $request->session()->get(LicenseAccountController::SESSION_EMAIL)) ? $pending : null,
                 'urls' => ['code' => route('basalto.license.account.code'), 'restart' => route('basalto.license.account.restart'), 'connect' => route('basalto.license.account.connect'),
+                    'resend' => route('basalto.license.account.resend'),
                     'disconnect' => route('basalto.license.account.disconnect'), 'use_key' => route('basalto.license.account.key'), 'refresh' => route('basalto.license')],
+                // TB 72: «Code erneut senden» nach der Wartezeit
+                'resend' => ['wait' => app(CodeResend::class)->wait($request, LicenseAccountController::SESSION_SENT), 'seconds' => app(CodeResend::class)->seconds()],
             ] : null,
             'vendor_account' => $connection === null ? null : Inertia::defer(fn (): array => $this->vendorAccount($connection, $fresh, $key?->id)),
             'urls' => ['check' => route('basalto.license.check'), 'store' => route('basalto.license.store'), 'destroy' => route('basalto.license.destroy'),

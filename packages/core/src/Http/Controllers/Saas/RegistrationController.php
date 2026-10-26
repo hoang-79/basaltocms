@@ -13,6 +13,7 @@ use Basalto\Core\Saas\Plan;
 use Basalto\Core\Saas\Registrar;
 use Basalto\Core\Saas\Saas;
 use Basalto\Core\Saas\SiteProvisioner;
+use Basalto\Core\Security\CodeResend;
 use Basalto\Core\Security\ProofOfWork;
 use Basalto\Core\Theme\ThemeCatalog;
 use Closure;
@@ -38,6 +39,9 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 final class RegistrationController
 {
     public const SESSION = 'basalto.saas.registration';
+
+    /** TB 72: Zeitpunkt des letzten Codes — «Neuen Code senden» erst nach der Wartezeit. */
+    public const SESSION_SENT = 'basalto.saas.registration_sent_at';
 
     public const SPAM_HANDLE = 'saas-registration';
 
@@ -86,6 +90,7 @@ final class RegistrationController
                 'login' => route('basalto.login'),
             ],
             'status' => session('status'),
+            'resend' => $step === 'code' ? ['wait' => app(CodeResend::class)->wait($request, self::SESSION_SENT), 'seconds' => app(CodeResend::class)->seconds()] : null,
         ]);
     }
 
@@ -106,6 +111,7 @@ final class RegistrationController
         }
         $registration = $this->registrar->start((string) $data['name'], is_string($data['company'] ?? null) ? trim($data['company']) : null, $email, app()->getLocale(), $request->ip());
         $request->session()->put(self::SESSION, $registration->id);
+        app(CodeResend::class)->sent($request, self::SESSION_SENT);
 
         return redirect()->route('basalto.saas.register')->with('status', __('Ein Code ist unterwegs an :email — oder öffnen Sie den Link in der Mail.', ['email' => $email]));
     }
@@ -136,16 +142,21 @@ final class RegistrationController
         return redirect()->route('basalto.saas.register');
     }
 
-    public function resend(Request $request): RedirectResponse
+    public function resend(Request $request, CodeResend $resend): RedirectResponse
     {
         $registration = $this->current($request);
         if ($registration === null || $registration->isVerified()) {
             return redirect()->route('basalto.saas.register');
         }
+        $wait = $resend->wait($request, self::SESSION_SENT);
+        if ($wait > 0) {
+            return back()->withErrors(['resend' => trans_choice('Bitte warten Sie noch :count Sekunde.|Bitte warten Sie noch :count Sekunden.', $wait)]);
+        }
         if (! RateLimiter::attempt('basalto-saas-register-mail:'.hash('sha256', $registration->email), 5, static fn (): bool => true, 3600)) {
             return back()->withErrors(['code' => __('Zu viele Codes für diese Adresse — bitte versuchen Sie es in einer Stunde wieder.')]);
         }
         $this->registrar->send($registration);
+        $resend->sent($request, self::SESSION_SENT);
 
         return back()->with('status', __('Ein neuer Code ist unterwegs an :email.', ['email' => $registration->email]));
     }

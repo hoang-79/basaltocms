@@ -28,7 +28,7 @@ Modus «Verwaltung» › **Lizenz**.
 Wer auf basaltocms.com eine Lizenz gekauft hat, sieht Schlüssel, Rechnungen und Marktplatz-Käufe direkt hier (nur Betreiber):
 
 1. **E-Mail-Adresse** des Kundenkontos eingeben, **«Code anfordern»**. Gibt es dort ein Konto, kommt ein sechsstelliger Code an diese Adresse.
-2. **Code** eingeben, **«Verbinden»**.
+2. **Code** eingeben — je Ziffer ein Feld; Einfügen verteilt den ganzen Code. Sind alle sechs Ziffern da, verbindet Basalto von selbst. Kam nichts an, wird **«Code erneut senden»** nach einer kurzen Wartezeit frei (siehe [Einstellungen](einstellungen.md), «Neuer Code frühestens nach»).
 3. Verbunden zeigt die Karte die **Lizenzen** (mit «Diesen Schlüssel verwenden»), die **Rechnungen** als PDF und die **Käufe** im Marktplatz. «Aktualisieren» holt den neuesten Stand, «Trennen» löst die Verbindung.
 
 Die Lizenzprüfung bleibt dabei offline; verbunden wird nur für diese Übersicht. Einzelheiten für die Technik: [Lizenz](../betrieb/lizenz.md).

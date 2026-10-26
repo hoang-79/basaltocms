@@ -24,6 +24,9 @@ final class CustomerLogin
     /** Wozu angemeldet wird (z. B. «members») — aus dem Formular, bis zur Eingabe des Codes in der Sitzung. */
     public const SESSION_PURPOSE = 'account.login.purpose';
 
+    /** Wann der letzte Code ging (TB 72, für «Code erneut senden»). */
+    public const SESSION_SENT = 'account.login.sent_at';
+
     public function __construct(private readonly Settings $settings) {}
 
     public function minutes(Site $site): int

@@ -33,6 +33,7 @@ Les modifications s’enregistrent d’elles-mêmes (« enregistrement … », p
 | Cache | Cache des pages | activé | — | Site | Les pages sortent toutes prêtes du cache ; chaque publication l’invalide et préchauffe la page. Vous excluez certaines pages dans l’onglet « Cache » de la page. |
 | Cache | Pages dans le cache au maximum | 24 heures | 1–168 | Site | ensuite, la requête suivante refait le rendu, même sans modification |
 | Connexion | Validité du code de connexion | 10 minutes | 2–60 | Installation | durée de validité du code reçu par e-mail |
+| Connexion | Nouveau code au plus tôt après | 30 secondes | 0–600 | Installation | « Renvoyer le code » décompte ce délai après le dernier code ; 0 = tout de suite |
 | Connexion | Validité des liens à usage unique | 60 minutes | 5–1440 | Installation | liens de l’installateur et de la console |
 | Connexion | Validité d’une invitation | 72 heures | 1–720 | Installation | voir [Utilisateurs](benutzer.md) |
 | Protection anti-spam | Vérification dans le navigateur pour les formulaires et les commentaires | activée | oui/non | Site | tâche de calcul en arrière-plan (preuve de travail), sans énigme ; sans script, un petit calcul |

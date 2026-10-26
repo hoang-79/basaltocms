@@ -23,10 +23,12 @@ final class RegistrationCodeNotification extends Notification
 
     public function toMail(object $notifiable): MailMessage
     {
+        // TB 72: der Code in Ziffernfeldern nach der ersten Zeile (notifications::email)
         return (new MailMessage)
+            ->markdown('notifications::email', ['code' => $this->code])
             ->subject(__('Basalto · Ihr Code für die Registrierung'))
             ->greeting(__('Guten Tag'))
-            ->line(__('Ihr Code für die Registrierung lautet: **:code**', ['code' => $this->code]))
+            ->line(__('Ihr Code für die Registrierung:'))
             ->line(__('Er ist :minutes Minuten gültig. Oder öffnen Sie diesen Link im selben Browser:', ['minutes' => $this->minutes]))
             ->action(__('Registrierung bestätigen'), $this->url)
             ->line(__('Haben Sie sich nicht registriert, ignorieren Sie diese Nachricht — ohne Bestätigung entsteht kein Konto.'));

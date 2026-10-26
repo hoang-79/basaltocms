@@ -33,6 +33,7 @@ Le modifiche si salvano da sole («salvataggio …», poi «salvato»). Se un va
 | Cache | Cache delle pagine | attivo | — | Sito | Le pagine arrivano pronte dalla cache; ogni pubblicazione la invalida e preriscalda la pagina. Singole pagine le esclude nella scheda «Cache» della pagina. |
 | Cache | Pagine nella cache al massimo | 24 ore | 1–168 | Sito | poi la richiesta successiva esegue di nuovo il rendering, anche senza modifiche |
 | Accesso | Validità del codice di accesso | 10 minuti | 2–60 | Installazione | per quanto tempo vale il codice dell’e-mail |
+| Accesso | Nuovo codice al più presto dopo | 30 secondi | 0–600 | Installazione | «Invia di nuovo il codice» conta alla rovescia questo tempo dopo l’ultimo codice; 0 = subito |
 | Accesso | Validità dei link monouso | 60 minuti | 5–1440 | Installazione | link da installer e console |
 | Accesso | Validità di un invito | 72 ore | 1–720 | Installazione | vedi [Utenti](benutzer.md) |
 | Protezione antispam | Verifica nel browser per moduli e commenti | attiva | sì/no | Sito | compito di calcolo in background (proof of work), senza enigmi; senza script una semplice somma |

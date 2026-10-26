@@ -23,10 +23,12 @@ final class LoginCodeNotification extends Notification
 
     public function toMail(object $notifiable): MailMessage
     {
+        // TB 72: der Code in Ziffernfeldern nach der ersten Zeile (notifications::email)
         return (new MailMessage)
+            ->markdown('notifications::email', ['code' => $this->code])
             ->subject(__(':app · Ihr Anmeldecode', ['app' => (string) config('app.name')]))
             ->greeting(__('Guten Tag'))
-            ->line(__('Ihr Code für die Anmeldung lautet: **:code**', ['code' => $this->code]))
+            ->line(__('Ihr Code für die Anmeldung:'))
             ->line(__('Er ist :minutes Minuten gültig und nur für diese Anmeldung bestimmt. Haben Sie keinen Code angefordert, ignorieren Sie diese Nachricht.', ['minutes' => $this->minutes]));
     }
 }

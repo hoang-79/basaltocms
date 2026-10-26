@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Basalto\Core\FrontendAccounts;
 
+use Basalto\Core\Backend\Backend;
 use Basalto\Core\FrontendAccounts\Social\SocialButtons;
+use Basalto\Core\Security\CodeResend;
 use Basalto\Core\Security\ProofOfWork;
 use Basalto\Core\Sites\CurrentSite;
 use Illuminate\Http\Request;
@@ -82,16 +84,45 @@ final class LoginForm
     {
         $email = (string) $request->session()->get(CustomerLogin::SESSION_EMAIL);
         $errors = Html::errors($request, self::BAG);
+        $resendError = $errors->first('resend');
+        $errors->forget('resend');
         $status = $request->session()->get('account.status');
+        $t = static fn (string $text): string => Html::e(__($text, [], $lang));
         $html = is_string($status) ? Html::status($status, 'account-status') : '';
-        $html .= '<form class="form account-form account-code" method="post" action="/account/code">';
+        // TB 72: Mit Skript sechs Ziffernfelder, die von selbst senden (account/codefelder.ts); ohne Skript ein Feld mit Knopf
+        $html .= sprintf('<form class="form account-form account-code" method="post" action="/account/code" data-basalto-code data-ziffer-text="%s">', $t('Ziffer :n von :total'));
         $html .= Html::errorSummary($errors, $lang).Html::hidden($pagePath, $lang, true);
         $html .= Html::field('konto-code', 'code', Html::e(__('Code aus der Mail an :email', ['email' => $email], $lang)).Html::required(),
             '<input type="text" id="konto-code" name="code" value="" required inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code"{aria}>',
             (string) __('Sechs Ziffern. Nichts erhalten? Prüfen Sie den Spam-Ordner.', [], $lang), $errors);
-        $html .= sprintf('<button type="submit">%s</button></form>', Html::e(__('Anmelden', [], $lang)));
+        $html .= sprintf('<button type="submit" data-code-senden>%s</button></form>', $t('Anmelden'));
+        // «Code erneut senden»: zählt die Wartezeit herunter; der Server prüft sie in jedem Fall
+        $wait = app(CodeResend::class)->wait($request, CustomerLogin::SESSION_SENT);
+        $html .= sprintf('<form class="account-erneut" method="post" action="/account/code/erneut" data-basalto-erneut data-warten="%d" data-text-eins="%s" data-text-mehr="%s">%s<button type="submit" class="account-erneut__knopf">%s</button>%s</form>',
+            // Vorlagen mit «:count» für das Skript — die Zahl setzt erst der Countdown ein
+            $wait, Html::e(trans_choice('Neuer Code in :count Sekunde|Neuer Code in :count Sekunden', 1, ['count' => ':count'], $lang)),
+            Html::e(trans_choice('Neuer Code in :count Sekunde|Neuer Code in :count Sekunden', 2, ['count' => ':count'], $lang)),
+            Html::hidden($pagePath, $lang, true), $t('Code erneut senden'), $resendError === '' ? '' : sprintf('<span class="account-erneut__fehler" role="alert">%s</span>', Html::e($resendError)));
 
-        return $html.sprintf('<p class="account-alt"><a href="%s">%s</a></p>', Html::e(Html::url($pagePath, [], self::ANCHOR)), Html::e(__('Andere Adresse oder neuen Code', [], $lang)));
+        return $html.sprintf('<p class="account-alt"><a href="%s">%s</a></p>', Html::e(Html::url($pagePath, [], self::ANCHOR)), $t('Andere Adresse')).self::codeAssets();
+    }
+
+    /** Stil der Ziffernfelder und das kleine Skript — einmal je Seite. */
+    private static function codeAssets(): string
+    {
+        $request = request();
+        if ($request->attributes->get('basalto.code.assets') === true) {
+            return '';
+        }
+        $request->attributes->set('basalto.code.assets', true);
+
+        return '<style>.basalto-code{display:flex;gap:.5rem;margin:.25rem 0}.form .basalto-code input,.basalto-code input{width:2.75rem;min-width:0;height:3.25rem;'
+            .'padding:0;text-align:center;font-size:1.4rem;font-weight:600;font-variant-numeric:tabular-nums}@media (max-width:380px){.form .basalto-code input,'
+            .'.basalto-code input{width:2.4rem;height:3rem;font-size:1.25rem}}.account-erneut{margin:.75rem 0 0}.account-erneut .account-erneut__knopf{all:unset;'
+            .'cursor:pointer;text-decoration:underline;font-size:.9em}.account-erneut .account-erneut__knopf:disabled{cursor:default;text-decoration:none;opacity:.7}'
+            .'.account-erneut .account-erneut__knopf:focus-visible{outline:2px solid currentColor;outline-offset:2px}.account-erneut__fehler{display:block;font-size:.9em;margin-top:.25rem}'
+            .'.form .basalto-code input[aria-invalid=true]{border-color:var(--error,#b42318)}</style>'
+            .app(Backend::class)->vite()->withEntryPoints(['resources/js/codefelder.ts'])->toHtml();
     }
 
     /** Angemeldet: wer, und «Abmelden». */

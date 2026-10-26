@@ -3,9 +3,11 @@ import { Deferred, router, useForm, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import Button from './Button.vue';
 import Card from './Card.vue';
+import CodeInput from './CodeInput.vue';
 import Field from './Field.vue';
 import Notice from './Notice.vue';
 import PairRow from './PairRow.vue';
+import ResendCode from './ResendCode.vue';
 import StateTag from './StateTag.vue';
 
 /**
@@ -25,10 +27,12 @@ export type VendorInfo = {
         code: string;
         restart: string;
         connect: string;
+        resend: string;
         disconnect: string;
         use_key: string;
         refresh: string;
     };
+    resend: { wait: number; seconds: number };
 };
 
 export type VendorAccountData = {
@@ -99,10 +103,15 @@ function requestCode(): void {
     emailForm.post(props.vendor.urls.code, { preserveScroll: true });
 }
 
+/** TB 72: sind alle sechs Ziffern da, verbindet die Seite von selbst — ohne «Verbinden». */
 function connect(): void {
+    if (codeForm.processing || codeForm.code.length !== 6) {
+        return;
+    }
     codeForm.post(props.vendor.urls.connect, {
         preserveScroll: true,
         onSuccess: () => codeForm.reset(),
+        onError: () => codeForm.reset('code'),
     });
 }
 
@@ -201,28 +210,55 @@ function useKey(keyId: string): void {
                     )
                 }}
             </p>
-            <Field
+            <p
+                id="vendor-code-label"
+                class="mt-1 text-[12.5px] font-medium text-basalt"
+            >
+                {{ $t('Sechsstelliger Code') }}
+            </p>
+            <CodeInput
+                id="vendor-code"
                 v-model="codeForm.code"
-                :label="$t('Code')"
-                autocomplete="one-time-code"
-                inputmode="numeric"
-                :maxlength="7"
-                mono
-                required
-                :error="codeForm.errors.code"
+                align="start"
+                :invalid="!!codeForm.errors.code"
+                :disabled="codeForm.processing"
+                :autofocus="false"
+                describedby="vendor-code-label"
+                @complete="connect"
             />
-            <div class="flex flex-wrap gap-2">
-                <Button
-                    type="submit"
-                    :disabled="
-                        codeForm.code.trim() === '' || codeForm.processing
-                    "
-                    >{{ $t('Verbinden') }}</Button
-                >
+            <p
+                v-if="codeForm.errors.code"
+                class="text-danger text-xs"
+                role="alert"
+            >
+                {{ codeForm.errors.code }}
+            </p>
+            <p
+                v-if="codeForm.processing"
+                class="text-[11.5px] text-basalt-light"
+            >
+                {{ $t('Wird geprüft …') }}
+            </p>
+            <div
+                class="flex flex-wrap items-center gap-x-4 gap-y-1 text-[12.5px]"
+            >
+                <ResendCode
+                    :url="vendor.urls.resend"
+                    :wait="vendor.resend.wait"
+                    :seconds="vendor.resend.seconds"
+                    class="text-lava-dark hover:text-basalt"
+                />
                 <Button variant="link" @click="restart">{{
                     $t('Andere Adresse')
                 }}</Button>
             </div>
+            <p
+                v-if="page.props.errors?.resend"
+                class="text-danger text-xs"
+                role="alert"
+            >
+                {{ page.props.errors.resend }}
+            </p>
         </form>
 
         <!-- 3 · verbunden -->

@@ -14,6 +14,15 @@ Your customers sign in on the frontend with a passkey or with a Google, Microsof
 - **Otherwise a new customer account is created** — but only if the site allows new accounts. If members are set to “invitation only”, only existing accounts can sign in with a provider.
 - **In the account,** the **“Sign-in”** section shows the linked accounts. **Link** also works with an account that has a different address; **Disconnect** removes the link. The code by email always works.
 
+## Code by email
+
+Whoever enters their email address receives a six-digit code. The email shows it large in boxes and below it small as a row of digits — double-clicking it selects the whole code for copying.
+
+- **One box per digit.** Typing moves on, backspace moves back; pasting or autofill on the phone fills in the whole code.
+- **No button needed.** Once all six digits are in, sign-in continues by itself. A wrong code clears the boxes.
+- **“Send code again”** counts down after each code and becomes available afterwards. How long is set under [Settings](einstellungen.md): group “Sign-in”, **“New code at the earliest after”** (default 30 seconds).
+- Without JavaScript, a single field with “Sign in” remains.
+
 ## Passkeys
 
 Passkeys need no setup. Anyone who is signed in creates one in the account under **“Sign-in” › Add passkey** — confirmed with fingerprint, face or device lock. After that, **“Sign in with passkey”** is enough, without any code.

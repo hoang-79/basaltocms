@@ -28,7 +28,8 @@ S’il manque un prérequis, l’installateur l’indique sous « Prérequis man
 3. Ouvrez l’adresse dans le navigateur, par exemple `https://meine-site.ch` ou `http://meine-site.test`.
 4. Remplissez le formulaire (numéros comme sur l’image ci-dessus) :
    1. **Nom du site** — proposé à partir du nom du dossier ; vous pourrez le modifier plus tard.
-   2. **Votre e-mail** — c’est avec elle que vous vous connecterez désormais, avec un code par e-mail ou une passkey.
+   2. **Votre e-mail** — c’est avec elle que vous vous connecterez désormais, avec un code par e-mail ou une passkey. Vous tapez ou collez
+      le code dans six cases ; dès que tous les chiffres y sont, la suite se fait d’elle-même.
    3. **Langue du site** — la langue par défaut. Vous ajouterez d’autres langues ensuite.
    4. **Avancé** — uniquement si vous voulez utiliser une autre base de données ou saisir tout de suite une clé de
       licence.

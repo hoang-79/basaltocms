@@ -28,7 +28,7 @@ Modalità «Amministrazione» › **Licenza**.
 Chi ha acquistato una licenza su basaltocms.com vede chiavi, fatture e acquisti nel Marketplace direttamente qui (solo gestori):
 
 1. Inserire l’**indirizzo e-mail** del conto cliente, **«Richiedi codice»**. Se lì esiste un account, arriva un codice di sei cifre a questo indirizzo.
-2. Inserire il **codice**, **«Collega»**.
+2. Inserire il **codice** — una casella per cifra; incollando si riempie tutto il codice. Quando ci sono tutte e sei le cifre, Basalto si collega da solo. Se non è arrivato nulla, **«Invia di nuovo il codice»** si attiva dopo una breve attesa (vedi [Impostazioni](einstellungen.md), «Nuovo codice al più presto dopo»).
 3. Una volta collegata, la scheda mostra le **Licenze** (con «Usa questa chiave»), le **Fatture** in PDF e gli **acquisti** nel Marketplace. «Aggiorna» recupera lo stato più recente, «Scollega» scioglie il collegamento.
 
 La verifica della licenza resta comunque offline; il collegamento serve solo per questa panoramica. Dettagli per la tecnica: [Licenza](../betrieb/lizenz.md).

@@ -60,5 +60,7 @@
     ":count Konto verknüpft|:count Konten verknüpft": ":count Konto verknüpft|:count Konten verknüpft",
     ":count Passkey|:count Passkeys": ":count Passkey|:count Passkeys",
     ":count Aufruf ohne Einwilligung — anonym gezählt, ohne Besucher und Sitzung.|:count Aufrufe ohne Einwilligung — anonym gezählt, ohne Besucher und Sitzung.": ":count Aufruf ohne Einwilligung — anonym gezählt, ohne Besucher und Sitzung.|:count Aufrufe ohne Einwilligung — anonym gezählt, ohne Besucher und Sitzung.",
-    ":count offenes Anliegen|:count offene Anliegen": ":count offenes Anliegen|:count offene Anliegen"
+    ":count offenes Anliegen|:count offene Anliegen": ":count offenes Anliegen|:count offene Anliegen",
+    "Neuer Code in :count Sekunde|Neuer Code in :count Sekunden": "Neuer Code in :count Sekunde|Neuer Code in :count Sekunden",
+    "Bitte warten Sie noch :count Sekunde.|Bitte warten Sie noch :count Sekunden.": "Bitte warten Sie noch :count Sekunde.|Bitte warten Sie noch :count Sekunden."
 }

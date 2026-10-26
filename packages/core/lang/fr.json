@@ -1642,8 +1642,8 @@
     "Ich habe den Export erstellt oder brauche ihn nicht.": "J’ai créé l’export ou je n’en ai pas besoin.",
     "Ich stimme den :agb und der :privacy zu.": "J’accepte les :agb et la :privacy.",
     "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:": "Si le bouton « :actionText » ne fonctionne pas, copiez l’URL ci-dessous\ndans votre navigateur :",
-    "Ihr Code für die Anmeldung lautet: **:code**": "Votre code de connexion est : **:code**",
-    "Ihr Code für die Registrierung lautet: **:code**": "Votre code d’inscription est : **:code**",
+    "Ihr Code für die Anmeldung:": "Votre code de connexion :",
+    "Ihr Code für die Registrierung:": "Votre code d’inscription :",
     "Ihr Export ist bereit": "Votre export est prêt",
     "Ihr Gerät fragt gleich nach Touch ID oder PIN. Abbrechen ist jederzeit möglich.": "Votre appareil va demander Touch ID ou un code PIN. Vous pouvez annuler à tout moment.",
     "Ihr Gerät:": "Votre appareil :",
@@ -4524,5 +4524,16 @@
     "Anliegen öffnen": "Ouvrir les demandes",
     "Dieses Hosting erlaubt PHP keine eigenen Prozesse (proc_open ist aus). Spielen Sie das Update per SSH ein: :command": "Cet hébergement n’autorise pas PHP à lancer ses propres processus (proc_open est désactivé). Installez la mise à jour via SSH : :command",
     "Ihre Bereiche": "Vos domaines",
-    "Alles erledigt — nichts wartet auf Sie.": "Tout est fait — rien ne vous attend."
+    "Alles erledigt — nichts wartet auf Sie.": "Tout est fait — rien ne vous attend.",
+    "Ziffer :n von :total": "Chiffre :n sur :total",
+    "Code erneut senden": "Renvoyer le code",
+    "Neuer Code in :count Sekunde|Neuer Code in :count Sekunden": "Nouveau code dans :count seconde|Nouveau code dans :count secondes",
+    "Bitte warten Sie noch :count Sekunde.|Bitte warten Sie noch :count Sekunden.": "Veuillez patienter encore :count seconde.|Veuillez patienter encore :count secondes.",
+    "Wenn ein Konto zu :email gehört, ist ein neuer Code unterwegs (:minutes Minuten gültig).": "Si un compte correspond à :email, un nouveau code est en route (valable :minutes minutes).",
+    "Wenn die Adresse stimmt, ist ein neuer Code unterwegs (:minutes Minuten gültig).": "Si l’adresse est correcte, un nouveau code est en route (valable :minutes minutes).",
+    "Neuer Code frühestens nach": "Nouveau code au plus tôt après",
+    "So lange wartet «Code erneut senden» nach dem letzten Code — schützt das Postfach und das Mailkontingent.": "Délai d’attente de « Renvoyer le code » après le dernier code — protège la boîte aux lettres et le contingent d’e-mails.",
+    "Sekunden": "secondes",
+    "Sobald alle Ziffern stehen, geht es weiter.": "Dès que tous les chiffres sont saisis, la suite se fait automatiquement.",
+    "Wenn es zu :email ein Kundenkonto bei :host gibt, ist ein neuer Code unterwegs (:minutes Minuten gültig).": "S’il existe un compte client pour :email chez :host, un nouveau code est en route (valable :minutes minutes)."
 }

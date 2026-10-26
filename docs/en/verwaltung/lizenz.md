@@ -28,7 +28,7 @@ Under **Licence** you see which tier the installation runs on and whether it kee
 Whoever bought a licence on basaltocms.com sees keys, invoices and marketplace purchases directly here (owners only):
 
 1. Enter the customer account’s **email address**, **“Request code”**. If there is an account, a six-digit code arrives at this address.
-2. Enter the **code**, **“Connect”**.
+2. Enter the **code** — one box per digit; pasting fills in the whole code. Once all six digits are there, Basalto connects by itself. If nothing arrived, **“Send code again”** becomes available after a short wait (see [Settings](einstellungen.md), “New code at the earliest after”).
 3. Once connected, the card shows the **licences** (with “Use this key”), the **invoices** as PDF and the **purchases** in the marketplace. “Refresh” fetches the latest state, “Disconnect” ends the connection.
 
 The licence check stays offline; the connection is only for this overview. Details for the technical side: [Licence](../betrieb/lizenz.md).

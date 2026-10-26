@@ -1639,8 +1639,8 @@
     "Ich bin einverstanden, dass meine Angaben zur Beantwortung gespeichert werden.": "I agree that my details are stored in order to answer my request.",
     "Ich habe den Export erstellt oder brauche ihn nicht.": "I have created the export or do not need it.",
     "Ich stimme den :agb und der :privacy zu.": "I agree to the :agb and the :privacy.",
-    "Ihr Code für die Anmeldung lautet: **:code**": "Your sign-in code is: **:code**",
-    "Ihr Code für die Registrierung lautet: **:code**": "Your sign-up code is: **:code**",
+    "Ihr Code für die Anmeldung:": "Your sign-in code:",
+    "Ihr Code für die Registrierung:": "Your sign-up code:",
     "Ihr Export ist bereit": "Your export is ready",
     "Ihr Gerät fragt gleich nach Touch ID oder PIN. Abbrechen ist jederzeit möglich.": "Your device will ask for Touch ID or a PIN in a moment. You can cancel at any time.",
     "Ihr Gerät:": "Your device:",
@@ -4520,5 +4520,16 @@
     "Anliegen öffnen": "Open requests",
     "Dieses Hosting erlaubt PHP keine eigenen Prozesse (proc_open ist aus). Spielen Sie das Update per SSH ein: :command": "This hosting does not allow PHP to start its own processes (proc_open is disabled). Install the update via SSH: :command",
     "Ihre Bereiche": "Your areas",
-    "Alles erledigt — nichts wartet auf Sie.": "All done — nothing is waiting for you."
+    "Alles erledigt — nichts wartet auf Sie.": "All done — nothing is waiting for you.",
+    "Ziffer :n von :total": "Digit :n of :total",
+    "Code erneut senden": "Send code again",
+    "Neuer Code in :count Sekunde|Neuer Code in :count Sekunden": "New code in :count second|New code in :count seconds",
+    "Bitte warten Sie noch :count Sekunde.|Bitte warten Sie noch :count Sekunden.": "Please wait :count more second.|Please wait :count more seconds.",
+    "Wenn ein Konto zu :email gehört, ist ein neuer Code unterwegs (:minutes Minuten gültig).": "If an account belongs to :email, a new code is on its way (valid for :minutes minutes).",
+    "Wenn die Adresse stimmt, ist ein neuer Code unterwegs (:minutes Minuten gültig).": "If the address is correct, a new code is on its way (valid for :minutes minutes).",
+    "Neuer Code frühestens nach": "New code at the earliest after",
+    "So lange wartet «Code erneut senden» nach dem letzten Code — schützt das Postfach und das Mailkontingent.": "How long “Send code again” waits after the last code — protects the mailbox and the mail quota.",
+    "Sekunden": "seconds",
+    "Sobald alle Ziffern stehen, geht es weiter.": "As soon as all digits are in, it continues.",
+    "Wenn es zu :email ein Kundenkonto bei :host gibt, ist ein neuer Code unterwegs (:minutes Minuten gültig).": "If :email has a customer account with :host, a new code is on its way (valid for :minutes minutes)."
 }

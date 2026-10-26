@@ -14,6 +14,15 @@ Vos clientes et clients se connectent sur le frontend avec une passkey ou avec u
 - **Sinon, un nouveau compte client est créé** — mais seulement si le site accepte de nouveaux comptes. Si les membres sont réglés sur « uniquement sur invitation », seuls les comptes existants peuvent se connecter via un fournisseur.
 - **Dans le compte,** la section **« Connexion »** affiche les comptes liés. **Lier** fonctionne aussi avec un compte dont l’adresse est différente ; **Déconnecter** supprime le lien. Le code par e-mail fonctionne toujours.
 
+## Code par e-mail
+
+Qui saisit son adresse e-mail reçoit un code à six chiffres. L’e-mail l’affiche en grand dans des cases et, dessous, en petit sous forme de suite de chiffres — un double-clic sélectionne tout le code pour le copier.
+
+- **Une case par chiffre.** La saisie passe à la case suivante, la touche de retour revient en arrière ; un collage ou le remplissage automatique du téléphone répartit tout le code.
+- **Aucun bouton nécessaire.** Dès que les six chiffres sont là, la connexion se poursuit d’elle-même. Un code erroné vide les cases.
+- **« Renvoyer le code »** décompte après chaque code et se libère ensuite. La durée se règle sous [Paramètres](einstellungen.md) : groupe « Connexion », **« Nouveau code au plus tôt après »** (30 secondes par défaut).
+- Sans JavaScript, il reste un seul champ avec « Se connecter ».
+
 ## Passkeys
 
 Les passkeys ne demandent aucune configuration. Une fois connecté, on en crée une dans le compte sous **« Connexion » › Ajouter un passkey** — confirmée par empreinte digitale, visage ou verrouillage de l’appareil. Ensuite, **« Se connecter avec une passkey »** suffit, sans aucun code.

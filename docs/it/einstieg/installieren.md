@@ -28,7 +28,8 @@ Se manca un requisito, l’installer lo indica sotto «Requisiti mancanti» prim
 3. Apra l’indirizzo nel browser, per esempio `https://mio-sito.ch` o `http://mio-sito.test`.
 4. Compili il modulo (numeri come nell’immagine qui sopra):
    1. **Nome del sito** — proposto in base al nome della cartella; può cambiarlo in seguito.
-   2. **La Sua e-mail** — con essa accederà in futuro, con un codice via e-mail o un passkey.
+   2. **La Sua e-mail** — con essa accederà in futuro, con un codice via e-mail o un passkey. Il codice lo digita o
+      lo incolla in sei caselle; quando ci sono tutte le cifre, si prosegue da sé.
    3. **Lingua del sito** — la lingua predefinita. Altre lingue le aggiunge dopo.
    4. **Avanzate** — solo se desidera usare un altro database o inserire subito una chiave di licenza.
    5. **«Installa»**.

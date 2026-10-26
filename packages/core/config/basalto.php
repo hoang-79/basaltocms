@@ -84,6 +84,8 @@ return [
      */
     'auth' => [
         'code_minutes' => 10,
+        // TB 72: «Code erneut senden» frühestens nach so vielen Sekunden (Einstellung auth.code_resend_seconds)
+        'code_resend_seconds' => 30,
         'link_minutes' => 60,
         'password_login' => (bool) env('BASALTO_PASSWORD_LOGIN', false),
     ],

@@ -318,3 +318,36 @@ img {
 .break-all {
     word-break: break-all;
 }
+
+/* TB 72: Code in Ziffernfeldern, darunter die Ziffernreihe zum Kopieren */
+
+.code {
+    margin: 4px 0 18px;
+}
+
+.code-box {
+    background-color: #ffffff;
+    border: 1px solid #d9d4cb;
+    border-radius: 6px;
+    color: #23262b;
+    font-family:
+        'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas,
+        monospace;
+    font-size: 24px;
+    font-weight: 700;
+    height: 48px;
+    line-height: 48px;
+    text-align: center;
+    width: 40px;
+}
+
+.code-plain {
+    color: #62676e;
+    font-family:
+        'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas,
+        monospace;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    margin: 8px 0 0;
+    text-align: center;
+}

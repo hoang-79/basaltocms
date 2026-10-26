@@ -33,6 +33,7 @@ Je Wert eine Karte:
 | Cache | Seiten-Cache | an | — | Site | Seiten kommen fertig aus dem Cache; jede Veröffentlichung macht ihn ungültig und wärmt die Seite vor. Einzelne Seiten nehmen Sie im Reiter «Cache» der Seite aus. |
 | Cache | Seiten im Cache höchstens | 24 Stunden | 1–168 | Site | danach rendert die nächste Anfrage neu, auch ohne Änderung |
 | Anmeldung | Gültigkeit des Anmeldecodes | 10 Minuten | 2–60 | Installation | wie lange der Code aus der Mail gilt |
+| Anmeldung | Neuer Code frühestens nach | 30 Sekunden | 0–600 | Installation | so lange zählt «Code erneut senden» nach dem letzten Code herunter; 0 = sofort |
 | Anmeldung | Gültigkeit von Einmal-Links | 60 Minuten | 5–1440 | Installation | Links aus Installer und Konsole |
 | Anmeldung | Gültigkeit einer Einladung | 72 Stunden | 1–720 | Installation | siehe [Benutzer](benutzer.md) |
 | Spamschutz | Prüfung im Browser für Formulare und Kommentare | an | an/aus | Site | Rechenaufgabe im Hintergrund (Proof of Work), ohne Rätsel; ohne Skript eine Rechenfrage |

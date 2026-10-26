@@ -14,6 +14,15 @@ Sopra il campo e-mail compaiono «Accedi con passkey» e i pulsanti dei fornitor
 - **Altrimenti viene creato un nuovo account cliente**, ma solo se il sito ammette nuovi account. Se i membri sono impostati su «solo su invito», con un fornitore accedono solo gli account esistenti.
 - **Nell’account** la sezione **«Accesso»** mostra gli account collegati. **Collega** funziona anche con un account che ha un altro indirizzo; **Scollega** rimuove il collegamento. Il codice via e-mail funziona sempre.
 
+## Codice via e-mail
+
+Chi inserisce il proprio indirizzo e-mail riceve un codice di sei cifre. L’e-mail lo mostra in grande in caselle e sotto, in piccolo, come sequenza di cifre — un doppio clic seleziona l’intero codice da copiare.
+
+- **Una casella per cifra.** Digitando si passa avanti, il tasto di cancellazione torna indietro; incollando o con il completamento automatico del telefono si riempie tutto il codice.
+- **Nessun pulsante necessario.** Quando ci sono tutte e sei le cifre, l’accesso prosegue da sé. Un codice errato svuota le caselle.
+- **«Invia di nuovo il codice»** conta alla rovescia dopo ogni codice e poi si attiva. La durata si imposta in [Impostazioni](einstellungen.md): gruppo «Accesso», **«Nuovo codice al più presto dopo»** (predefinito 30 secondi).
+- Senza JavaScript resta un solo campo con «Accedi».
+
 ## Passkey
 
 Le passkey non richiedono alcuna configurazione. Chi ha effettuato l’accesso ne crea una nell’account in **«Accesso» › Aggiungi passkey**, confermata con impronta digitale, volto o blocco del dispositivo. Dopo basta **«Accedi con passkey»**, senza alcun codice.

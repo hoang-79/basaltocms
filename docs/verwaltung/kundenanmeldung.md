@@ -14,6 +14,15 @@ Ihre Kundinnen und Kunden melden sich im Frontend mit einem Passkey oder mit ein
 - **Sonst entsteht ein neues Kundenkonto** — aber nur, wenn die Site neue Konten zulässt. Stehen die Mitglieder auf «nur auf Einladung», melden sich über einen Anbieter nur bestehende Konten an.
 - **Im Konto** zeigt der Bereich **«Anmeldung»** die verknüpften Konten. **Verknüpfen** geht auch mit einem Konto, das eine andere Adresse hat; **Trennen** löst die Verbindung. Der Code per Mail geht immer.
 
+## Code per Mail
+
+Wer die E-Mail-Adresse eingibt, bekommt einen sechsstelligen Code. Die Mail zeigt ihn gross in Kästchen und darunter klein als Ziffernreihe — ein Doppelklick darauf markiert den ganzen Code zum Kopieren.
+
+- **Je Ziffer ein Feld.** Tippen springt weiter, die Rücktaste zurück; Einfügen oder das Ausfüllen durch das Telefon verteilt den ganzen Code.
+- **Kein Knopf nötig.** Sind alle sechs Ziffern da, geht die Anmeldung von selbst weiter. Ein falscher Code leert die Felder.
+- **«Code erneut senden»** zählt nach jedem Code herunter und wird danach frei. Wie lange, stellen Sie unter [Einstellungen](einstellungen.md) ein: Gruppe «Anmeldung», **«Neuer Code frühestens nach»** (Vorgabe 30 Sekunden).
+- Ohne JavaScript bleibt ein einzelnes Feld mit «Anmelden».
+
 ## Passkeys
 
 Passkeys brauchen keine Einrichtung. Wer angemeldet ist, legt im Konto unter **«Anmeldung» › Passkey hinzufügen** einen an — bestätigt mit Fingerabdruck, Gesicht oder Gerätesperre. Danach genügt **«Mit Passkey anmelden»**, ganz ohne Code.

@@ -28,7 +28,8 @@ If a requirement is missing, the installer lists it under “Requirements missin
 3. Open the address in the browser, such as `https://my-site.com` or `http://my-site.test`.
 4. Fill in the form (numbers as in the picture above):
    1. **Site name** — suggested from the folder name; you can change it later.
-   2. **Your email** — you sign in with it from now on, with a code by e-mail or a passkey.
+   2. **Your email** — you sign in with it from now on, with a code by e-mail or a passkey. You type or paste the
+      code into six boxes; once all digits are in, it continues by itself.
    3. **Site language** — the default language. You add more languages afterwards.
    4. **Advanced** — only if you want another database or want to enter a licence key straight away.
    5. **“Install”**.

@@ -5,10 +5,12 @@ import { computed, ref, watch } from 'vue';
 import AliasField from '../../components/AliasField.vue';
 import Button from '../../components/Button.vue';
 import Card from '../../components/Card.vue';
+import CodeInput from '../../components/CodeInput.vue';
 import Field from '../../components/Field.vue';
 import Hex from '../../components/Hex.vue';
 import Notice from '../../components/Notice.vue';
 import PairRow from '../../components/PairRow.vue';
+import ResendCode from '../../components/ResendCode.vue';
 import { browserTimezone } from '../../components/timezone';
 import { t } from '../../i18n';
 import { isEmbedded } from '../../components/embed';
@@ -62,6 +64,7 @@ const props = defineProps<{
         login: string;
     };
     status: string | null;
+    resend: { wait: number; seconds: number } | null;
 }>();
 
 const page = usePage<{ errors: Record<string, string> }>();
@@ -124,6 +127,14 @@ async function submitAccount(): Promise<void> {
 
 /* ── Schritt 1b · Code ── */
 const codeForm = useForm({ code: '' });
+
+/** TB 72: sind alle sechs Ziffern da, geht der Code von selbst los — ohne «Bestätigen». */
+function submitCode(): void {
+    if (codeForm.processing || codeForm.code.length !== 6) {
+        return;
+    }
+    codeForm.post(props.urls.verify, { onError: () => codeForm.reset('code') });
+}
 
 /* ── Schritt 2/3 · Site und Theme ── */
 const zones = computed(() => props.timezones);
@@ -483,35 +494,49 @@ const termsParts = computed(() => {
                 )
             }}
         </p>
-        <form
-            novalidate
-            class="mt-3"
-            @submit.prevent="codeForm.post(urls.verify)"
-        >
-            <Field
-                v-model="codeForm.code"
-                :label="$t('Code')"
-                inputmode="numeric"
-                autocomplete="one-time-code"
-                :maxlength="6"
-                mono
-                required
-                :error="codeForm.errors.code || codeError"
-            />
-            <div class="mt-3">
-                <Button type="submit" wide :disabled="codeForm.processing">{{
-                    $t('Bestätigen')
-                }}</Button>
-            </div>
-        </form>
-        <div class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[12px]">
-            <button
-                type="button"
-                class="text-lava-dark underline hover:text-basalt"
-                @click="router.post(urls.resend)"
+        <form novalidate class="mt-4" @submit.prevent="submitCode">
+            <p
+                id="code-label"
+                class="mb-2 text-center text-[12.5px] font-medium text-basalt"
             >
-                {{ $t('Neuen Code senden') }}
-            </button>
+                {{ $t('Sechsstelliger Code') }}
+            </p>
+            <CodeInput
+                id="code"
+                v-model="codeForm.code"
+                :invalid="!!(codeForm.errors.code || codeError)"
+                :disabled="codeForm.processing"
+                describedby="code-label code-help"
+                @complete="submitCode"
+            />
+            <p
+                v-if="codeForm.errors.code || codeError"
+                class="text-danger mt-2 text-center text-xs"
+                role="alert"
+            >
+                {{ codeForm.errors.code || codeError }}
+            </p>
+            <p
+                id="code-help"
+                class="mt-2 text-center text-[11.5px] text-basalt-light"
+            >
+                {{
+                    codeForm.processing
+                        ? $t('Wird geprüft …')
+                        : $t('Sobald alle Ziffern stehen, geht es weiter.')
+                }}
+            </p>
+        </form>
+        <div
+            class="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-1 text-[12px]"
+        >
+            <ResendCode
+                v-if="resend"
+                :url="urls.resend"
+                :wait="resend.wait"
+                :seconds="resend.seconds"
+                class="text-lava-dark hover:text-basalt"
+            />
             <button
                 type="button"
                 class="text-lava-dark underline hover:text-basalt"
@@ -520,6 +545,13 @@ const termsParts = computed(() => {
                 {{ $t('Andere Adresse') }}
             </button>
         </div>
+        <p
+            v-if="page.props.errors.resend"
+            class="text-danger mt-1 text-center text-[12px]"
+            role="alert"
+        >
+            {{ page.props.errors.resend }}
+        </p>
     </section>
 
     <!-- 2 · Site -->

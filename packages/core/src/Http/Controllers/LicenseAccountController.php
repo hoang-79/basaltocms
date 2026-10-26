@@ -9,6 +9,7 @@ use Basalto\Core\License\VendorAccount;
 use Basalto\Core\License\VendorAccountException;
 use Basalto\Core\Models\Site;
 use Basalto\Core\Saas\Saas;
+use Basalto\Core\Security\CodeResend;
 use Basalto\Core\Sites\CurrentSite;
 use Basalto\Core\Vendor;
 use Illuminate\Http\RedirectResponse;
@@ -26,6 +27,9 @@ final class LicenseAccountController
     /** Die Adresse zwischen «Code anfordern» und «Code eingeben». */
     public const SESSION_EMAIL = 'license.vendor.email';
 
+    /** TB 72: Zeitpunkt des letzten Codes — «Code erneut senden» erst nach der Wartezeit. */
+    public const SESSION_SENT = 'license.vendor.sent_at';
+
     public function __construct(private readonly CurrentSite $current, private readonly VendorAccount $account, private readonly Recorder $recorder) {}
 
     public function code(Request $request): RedirectResponse
@@ -39,8 +43,32 @@ final class LicenseAccountController
             return back()->withErrors(['email' => $e->getMessage()])->withInput();
         }
         $request->session()->put(self::SESSION_EMAIL, $email);
+        app(CodeResend::class)->sent($request, self::SESSION_SENT);
 
         return back()->with('status', __('Wenn es zu :email ein Kundenkonto bei :host gibt, ist ein Code unterwegs (:minutes Minuten gültig).',
+            ['email' => $email, 'host' => Vendor::host(), 'minutes' => $minutes]));
+    }
+
+    /** «Code erneut senden» an die gemerkte Adresse, frühestens nach der Wartezeit (TB 72). */
+    public function resend(Request $request, CodeResend $resend): RedirectResponse
+    {
+        $this->site();
+        $email = $request->session()->get(self::SESSION_EMAIL);
+        if (! is_string($email) || $email === '') {
+            return back();
+        }
+        $wait = $resend->wait($request, self::SESSION_SENT);
+        if ($wait > 0) {
+            return back()->withErrors(['resend' => trans_choice('Bitte warten Sie noch :count Sekunde.|Bitte warten Sie noch :count Sekunden.', $wait)]);
+        }
+        try {
+            $minutes = $this->account->requestCode($email, $request->getHost());
+        } catch (VendorAccountException $e) {
+            return back()->withErrors(['resend' => $e->getMessage()]);
+        }
+        $resend->sent($request, self::SESSION_SENT);
+
+        return back()->with('status', __('Wenn es zu :email ein Kundenkonto bei :host gibt, ist ein neuer Code unterwegs (:minutes Minuten gültig).',
             ['email' => $email, 'host' => Vendor::host(), 'minutes' => $minutes]));
     }
 

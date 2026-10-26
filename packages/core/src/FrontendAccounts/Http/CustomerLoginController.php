@@ -11,6 +11,7 @@ use Basalto\Core\FrontendAccounts\Events\CustomerSignedIn;
 use Basalto\Core\FrontendAccounts\Html;
 use Basalto\Core\FrontendAccounts\LoginForm;
 use Basalto\Core\Models\Site;
+use Basalto\Core\Security\CodeResend;
 use Basalto\Core\Security\ProofOfWork;
 use Basalto\Core\Security\StopForumSpam;
 use Basalto\Core\Sites\CurrentSite;
@@ -58,6 +59,7 @@ final class CustomerLoginController
                 ->withErrors(['email' => __('Diese Adresse oder Verbindung steht auf einer Liste bekannter Spam-Absender (Stop Forum Spam). Bitte wenden Sie sich an das Team der Site.', [], $lang)], LoginForm::BAG)->withInput($request->only('email'));
         }
         $minutes = $this->login->request($site, $email, $lang, $request->ip());
+        app(CodeResend::class)->sent($request, CustomerLogin::SESSION_SENT);
         $request->session()->put(CustomerLogin::SESSION_EMAIL, $email);
         $purpose = $request->input(LoginForm::PURPOSE);
         is_string($purpose) && preg_match(self::PURPOSE_PATTERN, $purpose) === 1
@@ -89,6 +91,31 @@ final class CustomerLoginController
         event(new CustomerSignedIn($customer, $site, is_string($purpose) ? $purpose : null));
 
         return redirect(Html::url($page, [], 'konto'))->with('account.status', __('Angemeldet als :email.', ['email' => $customer->email], $lang));
+    }
+
+    /**
+     * TB 72: Code erneut senden — an die Adresse aus der Sitzung, frühestens nach der Wartezeit aus den Einstellungen.
+     * Die Prüfung im Browser lief schon beim ersten Code; Wartezeit und Drosselung schützen vor Massenversand.
+     */
+    public function resend(Request $request, CodeResend $resend): RedirectResponse
+    {
+        $site = $this->site();
+        $page = Html::pagePath($request->input('_seite'));
+        $lang = self::lang($request, $site);
+        $email = $request->session()->get(CustomerLogin::SESSION_EMAIL);
+        if (! is_string($email)) {
+            return redirect(Html::url($page, [], LoginForm::ANCHOR));
+        }
+        $wait = $resend->wait($request, CustomerLogin::SESSION_SENT);
+        if ($wait > 0) {
+            return redirect(Html::url($page, [LoginForm::QUERY => LoginForm::CODE], LoginForm::ANCHOR))
+                ->withErrors(['resend' => trans_choice('Bitte warten Sie noch :count Sekunde.|Bitte warten Sie noch :count Sekunden.', $wait, [], $lang)], LoginForm::BAG);
+        }
+        $minutes = $this->login->request($site, $email, $lang, $request->ip());
+        $resend->sent($request, CustomerLogin::SESSION_SENT);
+
+        return redirect(Html::url($page, [LoginForm::QUERY => LoginForm::CODE], LoginForm::ANCHOR))
+            ->with('account.status', __('Wenn die Adresse stimmt, ist ein neuer Code unterwegs (:minutes Minuten gültig).', ['minutes' => $minutes], $lang));
     }
 
     public function logout(Request $request): RedirectResponse

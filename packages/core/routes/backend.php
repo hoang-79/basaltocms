@@ -72,6 +72,8 @@ Route::middleware(['web', SelectGuestLocale::class, HandleBackendRequests::class
     Route::post('login/code', [LoginController::class, 'requestCode'])->middleware('throttle:basalto-login')->name('login.code');
     Route::get('login/verify', [LoginController::class, 'showCode'])->name('login.verify.show');
     Route::post('login/verify', [LoginController::class, 'verifyCode'])->middleware('throttle:basalto-login-verify')->name('login.verify');
+    // TB 72: Code erneut senden (Wartezeit aus den Einstellungen, dazu dieselbe Drosselung wie die Code-Anfrage)
+    Route::post('login/resend', [LoginController::class, 'resendCode'])->middleware('throttle:basalto-login')->name('login.resend');
     Route::get('login/{token}', [LoginController::class, 'link'])->where('token', '[A-Za-z0-9]{64}')->name('login.link');
     // TB 11 Scheibe 4 (G-10): Schnellzugang der Demo — ohne BASALTO_DEMO=true antwortet die Adresse mit 404
     // TB 16 Nachtrag: auch GET — aus dem Fenster im Frontend der Demo (Seiten aus dem Cache tragen kein CSRF-Token). Eine Route
@@ -221,6 +223,7 @@ app(Backend::class)->routes(static function (): void {
     // TB 15 Scheibe 4 (CR-004 P-06): Kundenkonto beim Hersteller — verbinden per Mail-Code, Schlüssel übernehmen, trennen
     Route::post('lizenz/konto/code', [LicenseAccountController::class, 'code'])->name('license.account.code');
     Route::delete('lizenz/konto/code', [LicenseAccountController::class, 'restart'])->name('license.account.restart');
+    Route::post('lizenz/konto/code/erneut', [LicenseAccountController::class, 'resend'])->name('license.account.resend');
     Route::post('lizenz/konto', [LicenseAccountController::class, 'connect'])->name('license.account.connect');
     Route::delete('lizenz/konto', [LicenseAccountController::class, 'disconnect'])->name('license.account.disconnect');
     Route::put('lizenz/konto/schluessel', [LicenseAccountController::class, 'useKey'])->name('license.account.key');

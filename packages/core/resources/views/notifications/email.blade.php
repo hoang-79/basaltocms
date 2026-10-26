@@ -11,10 +11,14 @@
 @endif
 @endif
 
-{{-- Intro Lines --}}
+{{-- Intro Lines; TB 72: ein Code (`code` in den Daten) steht nach der ersten Zeile in Ziffernfeldern --}}
 @foreach ($introLines as $line)
 {{ $line }}
 
+@if ($loop->first && ! empty($code))
+<x-mail::code :code="$code" />
+
+@endif
 @endforeach
 
 {{-- Action Button --}}

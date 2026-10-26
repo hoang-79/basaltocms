@@ -32,6 +32,8 @@ final class Catalog
             self::item('cache.pages', 'cache', __('Seiten-Cache'), __('Ausgelieferte Seiten kommen fertig aus dem Cache; jede Veröffentlichung macht ihn sofort ungültig und wärmt die Seite vor. Einzelne Seiten lassen sich im Reiter «Cache» ausnehmen.'), 'bool', true, scope: 'site'),
             self::item('cache.page_hours', 'cache', __('Seiten im Cache höchstens'), __('Danach rendert die nächste Anfrage neu — auch ohne Änderung.'), 'int', 24, __('Stunden'), 1, 168, 'site'),
             self::item('auth.code_minutes', 'auth', __('Gültigkeit des Anmeldecodes'), null, 'int', (int) config('basalto.auth.code_minutes', 10), __('Minuten'), 2, 60),
+            // TB 72: «Code erneut senden» erst nach dieser Wartezeit (Backend, Extranet, Kundenkonten)
+            self::item('auth.code_resend_seconds', 'auth', __('Neuer Code frühestens nach'), __('So lange wartet «Code erneut senden» nach dem letzten Code — schützt das Postfach und das Mailkontingent.'), 'int', (int) config('basalto.auth.code_resend_seconds', 30), __('Sekunden'), 0, 600),
             self::item('auth.link_minutes', 'auth', __('Gültigkeit von Einmal-Links'), __('Installer und Konsole (basalto:login-link).'), 'int', (int) config('basalto.auth.link_minutes', 60), __('Minuten'), 5, 1440),
             self::item('auth.invitation_hours', 'auth', __('Gültigkeit einer Einladung'), null, 'int', 72, __('Stunden'), 1, 720),
             // TB 50 (CR-009): Spamschutz — Aufgabe im Browser und Stop Forum Spam
