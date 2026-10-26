@@ -163,6 +163,8 @@ return [
      */
     'operations' => [
         'queue_via_scheduler' => (bool) env('BASALTO_QUEUE_VIA_SCHEDULER', true),
+        // TB 64: die ausgelieferte Fassung (Commit, Zeitpunkt), von tools/ausliefern.sh geschrieben und in /up genannt
+        'release_file' => env('BASALTO_RELEASE_FILE', base_path('RELEASE')),
     ],
 
     /*
@@ -187,6 +189,9 @@ return [
     ],
 
     // CR-004 (P-01): der Hersteller — Adresse und Kontakt an einer Stelle (Lizenzkauf, Marktplatz, Hinweise); lokal https://basalto.test
+    // TB 64: Testumgebung — jede Antwort mit X-Robots-Tag noindex, robots.txt sperrt alles
+    'noindex' => (bool) env('BASALTO_NOINDEX', false),
+
     'vendor' => ['url' => env('BASALTO_VENDOR_URL', 'https://basaltocms.com'), 'email' => env('BASALTO_VENDOR_EMAIL', 'email@basaltocms.com')],
 
     /*

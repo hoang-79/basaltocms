@@ -24,6 +24,11 @@ final class PublishSettings
 
     public function robotsAllowed(Site $site): bool
     {
+        // TB 64: eine Testumgebung (BASALTO_NOINDEX) sperrt alles, gleich was das Theme sagt
+        if ((bool) config('basalto.noindex', false)) {
+            return false;
+        }
+
         return ! in_array($this->publish($site)?->value('robots'), ['disallow', 'deny', 'none', 'false'], true);
     }
 

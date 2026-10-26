@@ -5,19 +5,15 @@ declare(strict_types=1);
 namespace Basalto\Core\Console;
 
 use Basalto\Core\Cache\PageCache;
+use Basalto\Core\Console\Concerns\PreparesVendorSite;
 use Basalto\Core\Content\Pages;
 use Basalto\Core\Extranet\Extranet;
-use Basalto\Core\Models\Entry;
-use Basalto\Core\Models\EntryVersion;
 use Basalto\Core\Models\Site;
-use Basalto\Core\Models\SiteDomain;
 use Basalto\Core\Saas\LocalAliasFolders;
 use Basalto\Core\Saas\Saas;
 use Basalto\Core\Vendor;
 use Database\Seeders\BasaltoSiteSeeder;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\DB;
 
 /**
  * `basalto:local` (CR-004, P-03): die lokale Landschaft des Herstellers unter Laravel Herd. Der Ordner der Installation
@@ -33,6 +29,8 @@ use Illuminate\Support\Facades\DB;
  */
 final class LocalCommand extends Command
 {
+    use PreparesVendorSite;
+
     protected $signature = 'basalto:local
         {--herd-config= : Pfad der Herd-Konfiguration (valet/config.json)}
         {--no-publish : Inhalte nicht einspielen}';
@@ -57,38 +55,11 @@ final class LocalCommand extends Command
             ? $this->components->twoColumnDetail('Herd', sprintf('<fg=green>%s ist geparkt</> → %s', $parent, $host))
             : $this->components->warn(sprintf('%s ist in Herd nicht geparkt — «herd park» im Elternordner, sonst antwortet %s nicht.', $parent, $host));
 
-        $site = Site::query()->where('handle', BasaltoSiteSeeder::HANDLE)->first();
-        if ($site === null) {
-            Artisan::call('db:seed', ['--class' => BasaltoSiteSeeder::class, '--force' => true]);
-            $site = Site::query()->where('handle', BasaltoSiteSeeder::HANDLE)->firstOrFail();
-            $this->components->twoColumnDetail('Hersteller-Site', sprintf('«%s» angelegt', $site->handle));
-        } else {
-            $this->components->twoColumnDetail('Hersteller-Site', sprintf('«%s» vorhanden', $site->handle));
-        }
-
-        $taken = SiteDomain::query()->where('host', $host)->where('site_id', '!=', $site->id)->exists();
-        if ($taken) {
-            $this->error(sprintf('%s gehört schon einer anderen Site — dort entfernen und erneut ausführen.', $host));
-
+        $site = $this->vendorSite();
+        if (! $this->makePrimaryHost($site, $host)) {
             return self::FAILURE;
         }
-        DB::transaction(static function () use ($site, $host): void {
-            SiteDomain::query()->where('site_id', $site->id)->where('host', '!=', $host)->update(['is_primary' => false]);
-            SiteDomain::query()->updateOrCreate(['site_id' => $site->id, 'host' => $host], ['kind' => 'custom', 'is_primary' => true, 'verified_at' => now()]);
-        });
-        $this->components->twoColumnDetail('Domain', 'https://'.$host.' (primär)');
-
-        // Seiten zählen — die Doku (Typ «doc») legt der Seeder schon an, sie ersetzt keine Startinhalte
-        $hasContent = Entry::query()->withoutGlobalScopes()->where('site_id', $site->id)->where('type', '!=', 'doc')->exists();
-        if (! $hasContent && ! $this->option('no-publish')) {
-            Artisan::call('basalto:publish', ['site' => $site->handle]);
-            $this->components->twoColumnDetail('Inhalte', 'aus dem Seed des Themes eingespielt');
-        }
-
-        // Die Doku aus docs/ auffrischen (Typ «doc» im Theme basalto) — vor dem Umschreiben der Adressen
-        if (Artisan::call('basalto:docs-import', ['site' => $site->handle]) === self::SUCCESS) {
-            $this->components->twoColumnDetail('Doku', trim(collect(explode("\n", Artisan::output()))->filter()->last() ?? ''));
-        }
+        $this->fillContent($site, ! $this->option('no-publish'));
 
         $changed = $this->localizeLinks($site, $this->linkMap($host, $tld, $this->secured('demo-basalto.'.$tld)));
         $this->components->twoColumnDetail('Lokale Adressen', $changed === 0 ? 'nichts zu ändern' : sprintf('%d Fassungen angepasst', $changed));
@@ -145,54 +116,6 @@ final class LocalCommand extends Command
             'https://start.basaltocms.com' => 'https://'.$host,
             'https://basaltocms.com' => 'https://'.$host,
         ];
-    }
-
-    /**
-     * Ersetzt die Adressen in allen Fassungen der Site und in den Zielen ihrer Weiterleitungen — nur in Zeichenketten,
-     * Struktur bleibt.
-     *
-     * @param  array<string, string>  $map
-     */
-    private function localizeLinks(Site $site, array $map): int
-    {
-        $changed = 0;
-        $entryIds = Entry::query()->withoutGlobalScopes()->where('site_id', $site->id)->pluck('id');
-        EntryVersion::query()->whereIn('entry_id', $entryIds)->orderBy('id')->each(static function (EntryVersion $version) use ($map, &$changed): void {
-            $data = $version->data;
-            $localized = self::replaceIn($data, $map);
-            if ($localized !== $data) {
-                $version->forceFill(['data' => $localized])->saveQuietly();
-                $changed++;
-            }
-        });
-        Entry::query()->withoutGlobalScopes()->where('site_id', $site->id)->whereNotNull('redirect_to')->orderBy('id')->each(static function (Entry $entry) use ($map, &$changed): void {
-            $target = $entry->redirect_to;
-            $localized = is_array($target) ? self::replaceIn($target, $map) : $target;
-            if ($localized !== $target) {
-                $entry->forceFill(['redirect_to' => $localized])->saveQuietly();
-                $changed++;
-            }
-        });
-
-        return $changed;
-    }
-
-    /**
-     * @param  array<array-key, mixed>  $data
-     * @param  array<string, string>  $map
-     * @return array<array-key, mixed>
-     */
-    private static function replaceIn(array $data, array $map): array
-    {
-        foreach ($data as $key => $value) {
-            if (is_string($value)) {
-                $data[$key] = strtr($value, $map);
-            } elseif (is_array($value)) {
-                $data[$key] = self::replaceIn($value, $map);
-            }
-        }
-
-        return $data;
     }
 
     /** Ob Herd für den Host ein Zertifikat hat (dann HTTPS). */

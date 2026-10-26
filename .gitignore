@@ -60,3 +60,4 @@ yarn-error.log
 # Berichte und Pakete aus Werkzeugläufen
 /.lighthouseci
 *.vsix
+/RELEASE

@@ -25,7 +25,9 @@ use Throwable;
  *
  * Im Kopf steht das Logo der Site (TB 71) — als PNG, denn Gmail und Outlook zeigen kein SVG: ein Raster-Logo aus der
  * Mediathek oder neben dem Logo des Themes dieselbe Datei als `.png` (`assets/logo.svg` → `assets/logo.png`). Ein breites
- * Logo (Wortmarke) steht allein, ein Zeichen mit dem Namen daneben; ohne PNG bleibt der Name.
+ * Logo (Wortmarke) steht allein, ein Zeichen mit dem Namen daneben; ohne PNG bleibt der Name. Das PNG des Themes liegt
+ * in dreifacher Grösse vor und trägt bei dunklem Logo eine helle Fläche in der Farbe des Mailgrunds — die Gmail-App und
+ * Outlook färben im Dunkelmodus die Mail dunkel, Bilder aber nicht (`tools/mail-logo.py`).
  *
  * @phpstan-type Logo array{url: string, width: int, height: int, wordmark: bool}
  * @phpstan-type Brand array{name: string, url: string, logo: Logo|null, lines: list<string>, links: list<array{label: string, url: string}>, locale: string}
@@ -38,10 +40,15 @@ final class MailBrand
     /** Bildformate, die alle verbreiteten Mailprogramme zeigen. */
     private const RASTER = ['image/png', 'image/jpeg', 'image/gif'];
 
-    /** Höhe des Logos im Kopf in Pixeln: Wortmarke, Zeichen. */
+    /** Höhe eines Logos aus der Mediathek im Kopf in Pixeln: Wortmarke, Zeichen. */
     private const HEIGHT_WORDMARK = 28;
 
     private const HEIGHT_SIGN = 36;
+
+    /** Das PNG des Themes trägt drei Pixel je Bildpunkt; gezeigt zwischen diesen Höhen. */
+    private const THEME_DENSITY = 3;
+
+    private const THEME_HEIGHT = [16, 64];
 
     private ?Site $site = null;
 
@@ -119,14 +126,16 @@ final class MailBrand
             return null;
         }
 
-        return self::sized($site->publicUrl($url), $size[0], $size[1]);
+        $shown = max(self::THEME_HEIGHT[0], min(self::THEME_HEIGHT[1], (int) round($size[1] / self::THEME_DENSITY)));
+
+        return self::sized($site->publicUrl($url), $size[0], $size[1], $shown);
     }
 
     /** @return Logo */
-    private static function sized(string $url, int $width, int $height): array
+    private static function sized(string $url, int $width, int $height, ?int $shown = null): array
     {
         $wordmark = $width / $height >= 2;
-        $shown = $wordmark ? self::HEIGHT_WORDMARK : self::HEIGHT_SIGN;
+        $shown ??= $wordmark ? self::HEIGHT_WORDMARK : self::HEIGHT_SIGN;
 
         return ['url' => $url, 'width' => (int) round($shown * $width / $height), 'height' => $shown, 'wordmark' => $wordmark];
     }

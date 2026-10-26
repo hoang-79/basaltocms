@@ -43,6 +43,7 @@ use Basalto\Core\Console\ReleaseCommand;
 use Basalto\Core\Console\SearchIndexCommand;
 use Basalto\Core\Console\SeedCommand;
 use Basalto\Core\Console\TestdataCommand;
+use Basalto\Core\Console\TestingCommand;
 use Basalto\Core\Console\ThemePackCommand;
 use Basalto\Core\Console\ThemeVerifyCommand;
 use Basalto\Core\Console\TokensCommand;
@@ -58,6 +59,7 @@ use Basalto\Core\Extranet\Extranet;
 use Basalto\Core\Extranet\ExtranetAccess;
 use Basalto\Core\Extranet\ExtranetRegistry;
 use Basalto\Core\FrontendAccounts\FrontendAccountsServiceProvider;
+use Basalto\Core\Http\Middleware\KeepOutOfSearchEngines;
 use Basalto\Core\Http\Middleware\ResetRequestState;
 use Basalto\Core\Http\Middleware\ResolveSiteFromHost;
 use Basalto\Core\Http\Middleware\SelectBackendSite;
@@ -279,6 +281,8 @@ final class CoreServiceProvider extends ServiceProvider
         $kernel->addToMiddlewarePriorityBefore(SubstituteBindings::class, SelectBackendSite::class);
         // D-12: Frontend-Hinweis nach 30 Tagen «unregistriert» — über den Kernel in die web-Gruppe (der Router-Stand wird vom Kernel überschrieben).
         $kernel->appendMiddlewareToGroup('web', ShowLicenseBanner::class);
+        // TB 64: Testumgebung ohne Suchmaschinen (BASALTO_NOINDEX)
+        $kernel->pushMiddleware(KeepOutOfSearchEngines::class);
         // B-06: Zustand der Singletons je Anfrage leeren (Octane) — und vor jedem Job im Worker, nicht bei «sync» (mitten in einer Anfrage)
         $kernel->prependMiddleware(ResetRequestState::class);
         Queue::before(static function (JobProcessing $event): void {
@@ -296,8 +300,8 @@ final class CoreServiceProvider extends ServiceProvider
             $this->commands([LoadTestCommand::class]);
             // TB 11 Scheibe 4 (G-10, G-08): Demo neu aufsetzen — nur mit BASALTO_DEMO=true; Doku aus docs/ als Seiten
             $this->commands([DemoResetCommand::class, DocsImportCommand::class]);
-            // CR-004 (P-03): lokale Landschaft des Herstellers unter Herd
-            $this->commands([LocalCommand::class]);
+            // CR-004 (P-03): lokale Landschaft des Herstellers unter Herd; TB 64: Testumgebung auf cyon
+            $this->commands([LocalCommand::class, TestingCommand::class]);
             // CR-004 (P-05): Release-Archiv für den Web-Installer
             $this->commands([ReleaseCommand::class]);
             // Testdaten für Entwicklung, Test-Umgebungen und Demo

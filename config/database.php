@@ -61,8 +61,13 @@ return [
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
+            // TB 64: Sitzung in UTC (DB_TIMEZONE=+00:00) — sonst rechnet TIMESTAMP über die Serverzeit um (doppelte Stunde)
+            'timezone' => env('DB_TIMEZONE'),
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 Mysql::ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+                // TB 64: MariaDB vor 10.10 (cyon: 10.6) gibt `timestamp not null` sonst «0000-00-00» als Vorgabe und
+                // bricht im strikten Modus ab — so verhalten sich alle Versionen wie MariaDB 10.10+ und MySQL 8
+                Mysql::ATTR_INIT_COMMAND => 'SET SESSION explicit_defaults_for_timestamp = 1',
             ]) : [],
         ],
 
@@ -81,8 +86,13 @@ return [
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
+            // TB 64: Sitzung in UTC (DB_TIMEZONE=+00:00) — sonst rechnet TIMESTAMP über die Serverzeit um (doppelte Stunde)
+            'timezone' => env('DB_TIMEZONE'),
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 Mysql::ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+                // TB 64: MariaDB vor 10.10 (cyon: 10.6) gibt `timestamp not null` sonst «0000-00-00» als Vorgabe und
+                // bricht im strikten Modus ab — so verhalten sich alle Versionen wie MariaDB 10.10+ und MySQL 8
+                Mysql::ATTR_INIT_COMMAND => 'SET SESSION explicit_defaults_for_timestamp = 1',
             ]) : [],
         ],
 

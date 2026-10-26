@@ -26,6 +26,10 @@ use Throwable;
  * frische Installation ohne ersten Herzschlag gilt erst nach dieser Schwelle als gestört — sonst schlüge die erste
  * Readiness-Probe nach einem Deploy fehl, bevor der Scheduler je laufen konnte.
  *
+ * Fassung (TB 64): Legt die Auslieferung eine Datei `RELEASE` in die Anwendung (Commit und Zeitpunkt), nennt `/up` sie —
+ * so prüft `tools/ausliefern.sh` nach dem Umschalten, dass PHP den neuen Stand ausführt und nicht den alten aus dem
+ * OPcache.
+ *
  * @phpstan-type Check array{ok: bool, detail: string}
  */
 final class Health
@@ -43,7 +47,7 @@ final class Health
     }
 
     /**
-     * @return array{ok: bool, status: string, version: string, checks: array{database: Check, scheduler: Check}}
+     * @return array{ok: bool, status: string, version: string, release: string|null, checks: array{database: Check, scheduler: Check}}
      */
     public function readiness(): array
     {
@@ -55,11 +59,21 @@ final class Health
             'ok' => $ok,
             'status' => $ok ? 'bereit' : 'gestört',
             'version' => Core::VERSION,
+            'release' => $this->release(),
             'checks' => [
                 'database' => ['ok' => $database['ok'], 'detail' => $database['detail']],
                 'scheduler' => ['ok' => $scheduler['ok'], 'detail' => $scheduler['detail']],
             ],
         ];
+    }
+
+    /** Die ausgelieferte Fassung aus der Datei `RELEASE` (erste Zeile), sonst null. */
+    public function release(): ?string
+    {
+        $file = (string) config('basalto.operations.release_file', base_path('RELEASE'));
+        $line = is_file($file) ? strtok((string) file_get_contents($file, false, null, 0, 200), "\n") : false;
+
+        return is_string($line) && trim($line) !== '' ? mb_substr(trim($line), 0, 80) : null;
     }
 
     /** Schwelle aus den Einstellungen — ohne Datenbank die Vorgabe, damit `/up` dann 503 statt 500 meldet. */

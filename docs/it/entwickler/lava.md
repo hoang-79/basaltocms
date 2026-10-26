@@ -93,9 +93,12 @@ scegliendo «Chiaro» resta chiaro. I colori senza valore scuro valgono in entra
 i contrasti anche per la palette scura.
 
 **Logo nelle e-mail:** l’intestazione di ogni e-mail mostra il logo del sito. Gmail e Outlook non mostrano l’SVG — metta
-quindi accanto al logo lo stesso file in PNG (`logo: assets/logo.svg` → `assets/logo.png`, circa tre volte più alto di come
-appare). Un logo largo (logotipo) sta da solo, un simbolo con accanto il nome del sito; senza PNG compare il nome. Un logo della
-mediateca appare se è un PNG, JPEG o GIF.
+quindi accanto al logo lo stesso file in PNG (`logo: assets/logo.svg` → `assets/logo.png`) in dimensione tripla: l’e-mail
+mostra un terzo dei pixel (126 pixel di altezza → 42 pixel). Un logo largo (logotipo) sta da solo, un simbolo con accanto il
+nome del sito; senza PNG compare il nome. Un logo della mediateca appare se è un PNG, JPEG o GIF. Se il Suo logo è scuro, lo
+metta nel PNG su una superficie chiara e arrotondata in `#f6f4f0`, il colore dello sfondo dell’e-mail: in modalità scura
+l’app Gmail e Outlook scuriscono da sole l’e-mail, ma non le immagini — senza superficie un logo scuro scompare, con essa
+risalta su uno scudo chiaro.
 
 **Blocchi nella palette:** `group` assegna un blocco a un gruppo della palette nell’editor, `hint` è una
 frase sotto di esso — entrambi con varianti linguistiche come `label`:

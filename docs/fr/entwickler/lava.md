@@ -93,9 +93,12 @@ le choix « Clair » reste clair. Les couleurs sans valeur sombre valent dans le
 contrastes également pour la palette sombre.
 
 **Logo dans les e-mails :** l’en-tête de chaque e-mail montre le logo du site. Gmail et Outlook n’affichent pas le SVG —
-placez donc à côté du logo le même fichier en PNG (`logo: assets/logo.svg` → `assets/logo.png`, environ trois fois plus haut
-qu’affiché). Un logo large (logotype) est seul, un symbole avec le nom du site à côté ; sans PNG, le nom s’affiche. Un logo de
-la médiathèque apparaît s’il est en PNG, JPEG ou GIF.
+placez donc à côté du logo le même fichier en PNG (`logo: assets/logo.svg` → `assets/logo.png`) en taille triple : l’e-mail
+affiche un tiers des pixels (126 pixels de haut → 42 pixels). Un logo large (logotype) est seul, un symbole avec le nom du
+site à côté ; sans PNG, le nom s’affiche. Un logo de la médiathèque apparaît s’il est en PNG, JPEG ou GIF. Si votre logo est
+sombre, placez-le dans le PNG sur une surface claire et arrondie en `#f6f4f0`, la couleur du fond de l’e-mail : en mode
+sombre, l’application Gmail et Outlook assombrissent elles-mêmes l’e-mail, mais pas les images — sans surface, un logo
+sombre disparaît ; avec elle, il se détache sur un écusson clair.
 
 **Blocs dans la palette :** `group` attribue un bloc à un groupe de la palette dans l’éditeur, `hint` est une
 phrase en dessous — les deux avec des variantes linguistiques comme `label` :

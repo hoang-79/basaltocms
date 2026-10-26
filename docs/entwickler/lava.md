@@ -93,9 +93,12 @@ Er gilt, wenn das Betriebssystem der Besucher dunkel eingestellt ist oder sie mi
 Kontraste auch für die dunkle Palette.
 
 **Logo in Mails:** Der Kopf jeder Mail zeigt das Logo der Site. Gmail und Outlook zeigen kein SVG — legen Sie
-deshalb neben das Logo dieselbe Datei als PNG (`logo: assets/logo.svg` → `assets/logo.png`, etwa dreimal so hoch wie
-gezeigt). Ein breites Logo (Wortmarke) steht allein, ein Zeichen mit dem Namen der Site daneben; ohne PNG steht der Name.
-Ein Logo aus der Mediathek erscheint, wenn es ein PNG, JPEG oder GIF ist.
+deshalb neben das Logo dieselbe Datei als PNG (`logo: assets/logo.svg` → `assets/logo.png`) in dreifacher Grösse: Die
+Mail zeigt ein Drittel der Pixel (126 Pixel hoch → 42 Pixel). Ein breites Logo (Wortmarke) steht allein, ein Zeichen mit
+dem Namen der Site daneben; ohne PNG steht der Name. Ein Logo aus der Mediathek erscheint, wenn es ein PNG, JPEG oder GIF
+ist. Ist Ihr Logo dunkel, legen Sie es im PNG auf eine helle, gerundete Fläche in `#f6f4f0`, der Farbe des Mailgrunds:
+Die Gmail-App und Outlook färben die Mail im Dunkelmodus selbst dunkel, Bilder aber nicht — ohne Fläche verschwindet
+ein dunkles Logo, mit ihr steht es auf einem hellen Schild.
 
 **Blöcke in der Palette:** `group` ordnet einen Block einer Gruppe der Palette im Editor zu, `hint` ist ein
 Satz darunter — beides mit Sprachvarianten wie `label`:

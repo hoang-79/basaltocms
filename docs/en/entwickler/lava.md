@@ -93,9 +93,12 @@ stays light. Colours without a dark value apply in both. `basalto:check` also ca
 palette.
 
 **Logo in emails:** the header of every email shows the logo of the site. Gmail and Outlook do not show SVG — so put
-the same file as PNG next to the logo (`logo: assets/logo.svg` → `assets/logo.png`, about three times as high as
-shown). A wide logo (wordmark) stands alone, a sign with the name of the site next to it; without a PNG the name is shown.
-A logo from the media library appears if it is a PNG, JPEG or GIF.
+the same file as PNG next to the logo (`logo: assets/logo.svg` → `assets/logo.png`) at three times the size: the email
+shows a third of the pixels (126 pixels high → 42 pixels). A wide logo (wordmark) stands alone, a sign with the name of the
+site next to it; without a PNG the name is shown. A logo from the media library appears if it is a PNG, JPEG or GIF. If
+your logo is dark, place it in the PNG on a light, rounded area in `#f6f4f0`, the colour of the email background: the
+Gmail app and Outlook darken the email themselves in dark mode, but not images — without the area a dark logo
+disappears, with it the logo stands on a light badge.
 
 **Blocks in the palette:** `group` assigns a block to a group of the palette in the editor, `hint` is a sentence
 below it — both with language variants like `label`:
