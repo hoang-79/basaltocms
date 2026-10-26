@@ -45,6 +45,7 @@ Testmanagement, `basalto:licensing-revocations` aus dem Modul Lizenzverkauf.
 | `basalto:cleanup` | Protokoll und archivierte Fassungen nach den Aufbewahrungsfristen löschen | — (läuft im Scheduler) |
 | `basalto:media-purge` | Medien endgültig löschen, die länger als die Frist im Papierkorb liegen | `--days` (Vorgabe 30) |
 | `basalto:error-alarm` | Betreiber per Mail benachrichtigen, wenn sich gemeldete Ausnahmen häufen (gedrosselt) | — (läuft im Scheduler; Schwellen unter Verwaltung › Einstellungen › Betrieb) |
+| `basalto:db-zeitzone` | Zeitzone der Datenbank prüfen und Zeitpunkte, die vor der UTC-Verbindung geschrieben wurden, einmal umrechnen (nur MariaDB/MySQL, [Zeitzone der Datenbank](installation.md#zeitzone-der-datenbank)) | `--umrechnen`, `--von=<zone>` (sonst die des Servers), `--force` |
 
 ## Sicherung und Umzug
 

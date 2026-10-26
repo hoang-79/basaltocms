@@ -45,6 +45,7 @@ test management module, `basalto:licensing-revocations` from the licence sales m
 | `basalto:cleanup` | delete log entries and archived versions according to the retention periods | — (runs in the scheduler) |
 | `basalto:media-purge` | permanently delete media that have been in the trash longer than the period | `--days` (default 30) |
 | `basalto:error-alarm` | notify operators by email when reported exceptions pile up (throttled) | — (runs in the scheduler; thresholds under Administration › Settings › Operations) |
+| `basalto:db-zeitzone` | check the database time zone and convert points in time written before the UTC connection once (MariaDB/MySQL only, [Database time zone](installation.md#database-time-zone)) | `--umrechnen`, `--von=<zone>` (otherwise the server's), `--force` |
 
 ## Backup and moving
 

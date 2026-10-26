@@ -94,6 +94,8 @@ php artisan up
 
 4. Im Frontend eine Seite mit Bildern und ein Formular öffnen, im Backend eine Seite bearbeiten.
 5. **Verwaltung › Lizenz:** Ist der Update-Anspruch abgelaufen, erscheint dort ein Hinweis ([Lizenz](lizenz.md)).
+6. **MariaDB oder MySQL:** `php artisan basalto:db-zeitzone` meldet, ob ältere Zeitpunkte umzurechnen sind
+   ([Zeitzone der Datenbank](installation.md#zeitzone-der-datenbank)).
 
 Geht etwas schief: Wartungsmodus bleibt an, Stand aus der Sicherung zurückholen ([Backup](backup.md#wiederherstellen)).
 

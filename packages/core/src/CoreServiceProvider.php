@@ -22,6 +22,7 @@ use Basalto\Core\Console\BackupVerifyCommand;
 use Basalto\Core\Console\BenchmarkCommand;
 use Basalto\Core\Console\CancellationsCommand;
 use Basalto\Core\Console\CleanupCommand;
+use Basalto\Core\Console\DatabaseTimezoneCommand;
 use Basalto\Core\Console\DemoResetCommand;
 use Basalto\Core\Console\DocsImportCommand;
 use Basalto\Core\Console\ErrorAlarmCommand;
@@ -73,6 +74,7 @@ use Basalto\Core\Live\LivePush;
 use Basalto\Core\Live\LiveSources;
 use Basalto\Core\Live\Presence;
 use Basalto\Core\Mail\MailBrand;
+use Basalto\Core\Mail\UndeliverableRecipients;
 use Basalto\Core\Models\ApiToken;
 use Basalto\Core\Models\Entry;
 use Basalto\Core\Models\Media;
@@ -310,6 +312,8 @@ final class CoreServiceProvider extends ServiceProvider
             $this->commands([UpdateCommand::class]);
             // CR-011 TB 59: vorgemerkte Kündigungen ausführen
             $this->commands([CancellationsCommand::class]);
+            // Zeitzone der Datenbank-Session: alte TIMESTAMP-Werte auf UTC umrechnen
+            $this->commands([DatabaseTimezoneCommand::class]);
         }
         // Zeitplan aus dem Paket: Herzschlag jede Minute, Domain-Prüfung alle zehn Minuten, Lizenzstand stündlich — je nur auf einem Server (Cloud-Replikate).
         $this->callAfterResolving(Schedule::class, static function (Schedule $schedule): void {
@@ -337,6 +341,8 @@ final class CoreServiceProvider extends ServiceProvider
         });
         // TB 11 Scheibe 4 (G-10): im Demo-Modus jede Mail abfangen statt zustellen
         DemoMode::boot();
+        // TB 64: Mails an reservierte Adressen (Testdaten @testdaten.example) gehen nie hinaus
+        UndeliverableRecipients::boot();
         // CR-007: Der Freipass für den Wartungsmodus wird vor der Entschlüsselung gelesen — er darf nicht verschlüsselt sein
         EncryptCookies::except('laravel_maintenance');
         // TB 54: Löschlauf der Statistik — ältere Seitenaufrufe nach der eingestellten Frist

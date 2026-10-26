@@ -142,6 +142,7 @@ backend sous **Administration › Sites**.
 | `DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` | `sqlite` | `mariadb`, `mysql`, `pgsql` ou `sqlite` |
 | `CACHE_STORE`, `SESSION_DRIVER`, `QUEUE_CONNECTION` | `database` | `database` suffit ; sur Laravel Cloud, Valkey (`redis`) |
 | `FILESYSTEM_DISK` | `local` | `local` ou `s3` (bucket, avec `AWS_*`) |
+| `DB_TIMEZONE` | non défini, `+00:00` s’applique | fuseau horaire de la session de base de données avec MariaDB et MySQL ; laissez `+00:00`, voir [Fuseau horaire de la base de données](#fuseau-horaire-de-la-base-de-données) |
 | `MAIL_MAILER`, `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`, `MAIL_FROM_ADDRESS` | `log` | envoi réel pour les codes de connexion, les invitations, les formulaires et l’alerte d’erreurs |
 
 Les e-mails portent l’en-tête et le pied de page du site auquel appartient la destinataire (sans site : le site de
@@ -176,6 +177,44 @@ dans `.env.example` ; vous ne définissez les autres qu’en cas de besoin.
 | `BASALTO_CLOUD_ENVIRONMENT`, `BASALTO_CLOUD_BINARY`, `LARAVEL_CLOUD_TOKEN` | vide, `vendor/bin/cloud`, vide | domaines clients via la CLI Cloud (Laravel Cloud uniquement) ; le token uniquement comme secret, jamais dans un fichier |
 
 Pour Pulse et Nightwatch, voir [Surveillance](monitoring.md).
+
+### Fuseau horaire de la base de données
+
+Basalto enregistre tous les horodatages en UTC. MariaDB et MySQL interprètent les horodatages dans le fuseau horaire de
+la connexion — si le serveur de base de données tourne par exemple en Europe/Zurich, il n’existe aucune heure entre
+02:00 et 02:59 le dernier dimanche de mars, et l’enregistrement échoue avec « Incorrect datetime value ». C’est
+pourquoi Basalto règle la connexion sur UTC (`DB_TIMEZONE`, par défaut `+00:00`). Les nouvelles installations n’ont
+rien à faire ; SQLite et PostgreSQL ne sont pas concernés.
+
+Si vous exploitiez déjà Basalto sur un serveur qui n’est pas en UTC, les horodatages enregistrés jusqu’ici apparaissent
+décalés du décalage du serveur après la mise à jour (à Zurich une heure en hiver, deux en été). Voici comment les
+convertir une fois :
+
+1. Consultez le constat — la commande indique le fuseau horaire du serveur et les colonnes concernées, mais ne change
+   rien :
+
+   ```sh
+   php artisan basalto:db-zeitzone
+   ```
+
+2. Créez une sauvegarde : `php artisan basalto:backup` ([Sauvegarde](backup.md)).
+3. Convertissez :
+
+   ```sh
+   php artisan basalto:db-zeitzone --umrechnen
+   ```
+
+La commande mémorise la conversion ; une deuxième exécution ne change rien. Si vous connaissez le fuseau horaire dans
+lequel les données ont été écrites, indiquez-le avec `--von=+01:00` ; sinon elle prend celui du serveur.
+
+Bon à savoir :
+
+- Jusqu’à la conversion, `DB_TIMEZONE=SYSTEM` dans `.env` conserve le comportement précédent. Retirez à nouveau
+  l’entrée pour la conversion — la commande la refuse tant que la connexion n’est pas en UTC.
+- Les sauvegardes conservent leurs horodatages indépendamment du fuseau horaire. Si vous restaurez une sauvegarde
+  antérieure à la conversion, exécutez ensuite à nouveau `basalto:db-zeitzone`.
+- Les horodatages de l’heure répétée lors du passage à l’heure d’hiver (à Zurich 02:00–02:59) étaient déjà enregistrés
+  de manière ambiguë et peuvent différer d’une heure après la conversion.
 
 ## Pour continuer
 

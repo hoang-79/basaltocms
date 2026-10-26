@@ -57,12 +57,13 @@ return [
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
+            // Session in UTC wie die App: TIMESTAMP rechnet mit der Session-Zeitzone um, in der Zeitumstellung des
+            // Servers fehlt sonst eine Stunde (Fehler 1292). Bestand anderer Zeitzone: php artisan basalto:db-zeitzone
+            'timezone' => env('DB_TIMEZONE', '+00:00'),
             'prefix' => '',
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
-            // TB 64: Sitzung in UTC (DB_TIMEZONE=+00:00) — sonst rechnet TIMESTAMP über die Serverzeit um (doppelte Stunde)
-            'timezone' => env('DB_TIMEZONE'),
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 Mysql::ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
                 // TB 64: MariaDB vor 10.10 (cyon: 10.6) gibt `timestamp not null` sonst «0000-00-00» als Vorgabe und
@@ -82,12 +83,13 @@ return [
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
+            // Session in UTC wie die App: TIMESTAMP rechnet mit der Session-Zeitzone um, in der Zeitumstellung des
+            // Servers fehlt sonst eine Stunde (Fehler 1292). Bestand anderer Zeitzone: php artisan basalto:db-zeitzone
+            'timezone' => env('DB_TIMEZONE', '+00:00'),
             'prefix' => '',
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
-            // TB 64: Sitzung in UTC (DB_TIMEZONE=+00:00) — sonst rechnet TIMESTAMP über die Serverzeit um (doppelte Stunde)
-            'timezone' => env('DB_TIMEZONE'),
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 Mysql::ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
                 // TB 64: MariaDB vor 10.10 (cyon: 10.6) gibt `timestamp not null` sonst «0000-00-00» als Vorgabe und

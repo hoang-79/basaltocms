@@ -45,6 +45,7 @@ actuelle, `php artisan <befehl> --help` les options d’une commande. La plupart
 | `basalto:cleanup` | supprimer le journal et les versions archivées selon les délais de conservation | — (s’exécute dans le scheduler) |
 | `basalto:media-purge` | supprimer définitivement les médias qui se trouvent dans la corbeille depuis plus longtemps que le délai | `--days` (30 par défaut) |
 | `basalto:error-alarm` | avertir les exploitants par e-mail lorsque les exceptions signalées s’accumulent (avec limitation) | — (s’exécute dans le scheduler ; seuils sous Administration › Paramètres › Exploitation) |
+| `basalto:db-zeitzone` | vérifier le fuseau horaire de la base de données et convertir une fois les horodatages écrits avant la connexion en UTC (MariaDB/MySQL seulement, [Fuseau horaire de la base de données](installation.md#fuseau-horaire-de-la-base-de-données)) | `--umrechnen`, `--von=<zone>` (sinon celui du serveur), `--force` |
 
 ## Sauvegarde et transfert
 

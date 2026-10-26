@@ -134,6 +134,7 @@ php artisan basalto:legal my-site datenschutz
 | `APP_URL` | `http://localhost:8000` | public address with HTTPS |
 | `APP_LOCALE`, `APP_FALLBACK_LOCALE` | `de`, `en` | language of the interface |
 | `DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` | `sqlite` | `mariadb`, `mysql`, `pgsql` or `sqlite` |
+| `DB_TIMEZONE` | not set, `+00:00` applies | time zone of the database session with MariaDB and MySQL; leave it at `+00:00`, see [Database time zone](#database-time-zone) |
 | `CACHE_STORE`, `SESSION_DRIVER`, `QUEUE_CONNECTION` | `database` | `database` is enough; on Laravel Cloud Valkey (`redis`) |
 | `FILESYSTEM_DISK` | `local` | `local` or `s3` (bucket, with `AWS_*`) |
 | `MAIL_MAILER`, `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`, `MAIL_FROM_ADDRESS` | `log` | real sending for login codes, invitations, forms and the error alarm |
@@ -170,6 +171,41 @@ are in `.env.example`; you only set the others when needed.
 | `BASALTO_CLOUD_ENVIRONMENT`, `BASALTO_CLOUD_BINARY`, `LARAVEL_CLOUD_TOKEN` | empty, `vendor/bin/cloud`, empty | customer domains via the Cloud CLI (Laravel Cloud only); the token only as a secret, never in a file |
 
 For Pulse and Nightwatch see [Monitoring](monitoring.md).
+
+### Database time zone
+
+Basalto stores all points in time in UTC. MariaDB and MySQL interpret points in time in the time zone of the
+connection — if the database server runs in Europe/Zurich, for example, there is no time between 02:00 and 02:59 on the
+last Sunday in March, and saving fails with “Incorrect datetime value”. That is why Basalto sets the connection to UTC
+(`DB_TIMEZONE`, default `+00:00`). New installations need not do anything; SQLite and PostgreSQL are not affected.
+
+If you ran Basalto before on a server that is not in UTC, the points in time stored so far appear shifted by the
+server's offset after the update (in Zurich one hour in winter, two in summer). This is how you convert them once:
+
+1. Look at the findings — the command names the server's time zone and the affected columns but changes nothing:
+
+   ```sh
+   php artisan basalto:db-zeitzone
+   ```
+
+2. Create a backup: `php artisan basalto:backup` ([Backup](backup.md)).
+3. Convert:
+
+   ```sh
+   php artisan basalto:db-zeitzone --umrechnen
+   ```
+
+The command remembers the conversion; running it a second time changes nothing. If you know the time zone the data
+was written in, give it with `--von=+01:00`; otherwise it takes the server's.
+
+Good to know:
+
+- Until you convert, `DB_TIMEZONE=SYSTEM` in `.env` keeps the previous behaviour. Remove the entry again for the
+  conversion — the command refuses it as long as the connection is not in UTC.
+- Backups keep their points in time regardless of the time zone. If you restore a backup from before the conversion,
+  run `basalto:db-zeitzone` again afterwards.
+- Points in time from the repeated hour when the clocks go back in autumn (in Zurich 02:00–02:59) were already stored
+  ambiguously and may differ by one hour after the conversion.
 
 ## Next
 

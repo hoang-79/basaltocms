@@ -45,6 +45,7 @@ le opzioni di un comando `php artisan <befehl> --help`. La maggior parte dei com
 | `basalto:cleanup` | eliminare registro e versioni archiviate secondo i termini di conservazione | — (gira nello scheduler) |
 | `basalto:media-purge` | eliminare definitivamente i media che si trovano nel cestino da più tempo del termine | `--days` (predefinito 30) |
 | `basalto:error-alarm` | avvisare i gestori via e-mail quando le eccezioni segnalate si accumulano (con limitazione) | — (gira nello scheduler; soglie in Amministrazione › Impostazioni › Esercizio) |
+| `basalto:db-zeitzone` | verificare il fuso orario del database e convertire una volta le date e ore scritte prima della connessione in UTC (solo MariaDB/MySQL, [Fuso orario del database](installation.md#fuso-orario-del-database)) | `--umrechnen`, `--von=<zona>` (altrimenti quella del server), `--force` |
 
 ## Backup e trasloco
 

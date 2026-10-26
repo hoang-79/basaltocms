@@ -93,6 +93,8 @@ php artisan up
 
 4. In the frontend open a page with images and a form, in the backend edit a page.
 5. **Administration › Licence:** If the update entitlement has expired, a notice appears there ([Licence](lizenz.md)).
+6. **MariaDB or MySQL:** `php artisan basalto:db-zeitzone` reports whether older points in time need converting
+   ([Database time zone](installation.md#database-time-zone)).
 
 If something goes wrong: maintenance mode stays on, restore the state from the backup ([Backup](backup.md#restoring)).
 

@@ -137,6 +137,7 @@ php artisan basalto:legal meine-site datenschutz
 | `APP_URL` | `http://localhost:8000` | öffentliche Adresse mit HTTPS |
 | `APP_LOCALE`, `APP_FALLBACK_LOCALE` | `de`, `en` | Sprache der Oberfläche |
 | `DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` | `sqlite` | `mariadb`, `mysql`, `pgsql` oder `sqlite` |
+| `DB_TIMEZONE` | nicht gesetzt, gilt `+00:00` | Zeitzone der Datenbank-Session bei MariaDB und MySQL; `+00:00` lassen, siehe [Zeitzone der Datenbank](#zeitzone-der-datenbank) |
 | `CACHE_STORE`, `SESSION_DRIVER`, `QUEUE_CONNECTION` | `database` | `database` genügt; auf Laravel Cloud Valkey (`redis`) |
 | `FILESYSTEM_DISK` | `local` | `local` oder `s3` (Bucket, mit `AWS_*`) |
 | `MAIL_MAILER`, `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`, `MAIL_FROM_ADDRESS` | `log` | echter Versand für Anmeldecodes, Einladungen, Formulare und Fehleralarm |
@@ -173,6 +174,42 @@ Die Schlüssel liest `config/basalto.php` des Kerns (`packages/core/config/basal
 | `BASALTO_CLOUD_ENVIRONMENT`, `BASALTO_CLOUD_BINARY`, `LARAVEL_CLOUD_TOKEN` | leer, `vendor/bin/cloud`, leer | Kundendomains über die Cloud-CLI (nur Laravel Cloud); das Token nur als Secret, nie in einer Datei |
 
 Für Pulse und Nightwatch siehe [Monitoring](monitoring.md).
+
+### Zeitzone der Datenbank
+
+Basalto speichert alle Zeitpunkte in UTC. MariaDB und MySQL deuten Zeitpunkte in der Zeitzone der Verbindung — läuft
+der Datenbankserver zum Beispiel in Europe/Zurich, gibt es dort am letzten Sonntag im März keine Uhrzeit zwischen
+02:00 und 02:59, und das Speichern scheitert mit «Incorrect datetime value». Deshalb stellt Basalto die Verbindung auf
+UTC (`DB_TIMEZONE`, Vorgabe `+00:00`). Neue Installationen müssen nichts tun; SQLite und PostgreSQL betrifft das nicht.
+
+Haben Sie Basalto schon vorher auf einem Server betrieben, der nicht in UTC läuft, erscheinen die bisher gespeicherten
+Zeitpunkte nach dem Update um den Abstand zur Serverzeit verschoben (in Zürich eine Stunde im Winter, zwei im Sommer).
+So rechnen Sie sie einmal um:
+
+1. Befund ansehen — der Befehl nennt die Zeitzone des Servers und die betroffenen Spalten, ändert aber nichts:
+
+   ```sh
+   php artisan basalto:db-zeitzone
+   ```
+
+2. Eine Sicherung anlegen: `php artisan basalto:backup` ([Backup](backup.md)).
+3. Umrechnen:
+
+   ```sh
+   php artisan basalto:db-zeitzone --umrechnen
+   ```
+
+Der Befehl merkt sich die Umrechnung; ein zweiter Aufruf ändert nichts mehr. Wenn Sie die Zeitzone kennen, in der
+bisher geschrieben wurde, geben Sie sie mit `--von=+01:00` an; sonst nimmt er die des Servers.
+
+Gut zu wissen:
+
+- Bis Sie umrechnen, können Sie mit `DB_TIMEZONE=SYSTEM` in der `.env` beim bisherigen Verhalten bleiben. Für die
+  Umrechnung nehmen Sie den Eintrag wieder heraus — der Befehl verweigert sie, solange die Verbindung nicht in UTC läuft.
+- Sicherungen behalten ihre Zeitpunkte unabhängig von der Zeitzone. Spielen Sie eine Sicherung von vor der Umrechnung
+  zurück, rufen Sie `basalto:db-zeitzone` danach noch einmal auf.
+- Zeitpunkte aus der doppelten Stunde bei der Rückstellung im Herbst (in Zürich 02:00–02:59) waren schon bisher
+  mehrdeutig gespeichert und können nach der Umrechnung um eine Stunde abweichen.
 
 ## Weiter
 

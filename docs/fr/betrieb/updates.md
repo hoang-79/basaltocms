@@ -96,6 +96,8 @@ php artisan up
 4. Ouvrir dans le frontend une page avec des images et un formulaire, modifier une page dans le backend.
 5. **Administration › Licence :** si le droit aux mises à jour a expiré, une indication y apparaît
    ([Licence](lizenz.md)).
+6. **MariaDB ou MySQL :** `php artisan basalto:db-zeitzone` indique si des horodatages plus anciens doivent être
+   convertis ([Fuseau horaire de la base de données](installation.md#fuseau-horaire-de-la-base-de-données)).
 
 En cas de problème : le mode maintenance reste activé, rétablir l’état à partir de la sauvegarde
 ([Sauvegarde](backup.md#restaurer)).

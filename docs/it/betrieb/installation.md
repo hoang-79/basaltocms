@@ -141,6 +141,7 @@ php artisan basalto:legal meine-site datenschutz
 | `DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` | `sqlite` | `mariadb`, `mysql`, `pgsql` o `sqlite` |
 | `CACHE_STORE`, `SESSION_DRIVER`, `QUEUE_CONNECTION` | `database` | `database` è sufficiente; su Laravel Cloud Valkey (`redis`) |
 | `FILESYSTEM_DISK` | `local` | `local` o `s3` (bucket, con `AWS_*`) |
+| `DB_TIMEZONE` | non impostata, vale `+00:00` | fuso orario della sessione del database con MariaDB e MySQL; lo lasci su `+00:00`, vedi [Fuso orario del database](#fuso-orario-del-database) |
 | `MAIL_MAILER`, `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`, `MAIL_FROM_ADDRESS` | `log` | invio reale per codici di accesso, inviti, moduli e allarme errori |
 
 Le e-mail portano intestazione e piè di pagina del sito a cui appartiene la destinataria (senza sito: il sito del
@@ -175,6 +176,42 @@ Le chiavi sono lette da `config/basalto.php` del core (`packages/core/config/bas
 | `BASALTO_CLOUD_ENVIRONMENT`, `BASALTO_CLOUD_BINARY`, `LARAVEL_CLOUD_TOKEN` | vuoto, `vendor/bin/cloud`, vuoto | domini dei clienti tramite la CLI di Cloud (solo Laravel Cloud); il token solo come secret, mai in un file |
 
 Per Pulse e Nightwatch vedi [Monitoraggio](monitoring.md).
+
+### Fuso orario del database
+
+Basalto salva tutte le date e ore in UTC. MariaDB e MySQL interpretano le date e ore nel fuso orario della
+connessione — se il server del database gira per esempio in Europe/Zurich, l’ultima domenica di marzo non esiste
+nessuna ora tra le 02:00 e le 02:59, e il salvataggio fallisce con «Incorrect datetime value». Per questo Basalto
+imposta la connessione su UTC (`DB_TIMEZONE`, predefinito `+00:00`). Le nuove installazioni non devono fare nulla;
+SQLite e PostgreSQL non sono interessati.
+
+Se gestiva già Basalto su un server che non è in UTC, dopo l’aggiornamento le date e ore salvate finora appaiono
+spostate dello scarto del server (a Zurigo un’ora in inverno, due in estate). Ecco come convertirle una volta:
+
+1. Guardi il resoconto — il comando indica il fuso orario del server e le colonne interessate, ma non cambia nulla:
+
+   ```sh
+   php artisan basalto:db-zeitzone
+   ```
+
+2. Crei un backup: `php artisan basalto:backup` ([Backup](backup.md)).
+3. Converta:
+
+   ```sh
+   php artisan basalto:db-zeitzone --umrechnen
+   ```
+
+Il comando ricorda la conversione; una seconda esecuzione non cambia nulla. Se conosce il fuso orario in cui sono stati
+scritti i dati, lo indichi con `--von=+01:00`; altrimenti prende quello del server.
+
+Da sapere:
+
+- Fino alla conversione, `DB_TIMEZONE=SYSTEM` in `.env` mantiene il comportamento precedente. Per la conversione
+  rimuova di nuovo la voce — il comando la rifiuta finché la connessione non è in UTC.
+- I backup conservano le loro date e ore indipendentemente dal fuso orario. Se ripristina un backup precedente alla
+  conversione, esegua poi di nuovo `basalto:db-zeitzone`.
+- Le date e ore dell’ora ripetuta al ritorno dell’ora solare (a Zurigo 02:00–02:59) erano già salvate in modo ambiguo
+  e dopo la conversione possono differire di un’ora.
 
 ## Per continuare
 

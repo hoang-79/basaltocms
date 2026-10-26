@@ -95,6 +95,8 @@ php artisan up
 
 4. Nel frontend aprire una pagina con immagini e un modulo, nel backend modificare una pagina.
 5. **Amministrazione › Licenza:** se il diritto agli aggiornamenti è scaduto, lì compare un avviso ([Licenza](lizenz.md)).
+6. **MariaDB o MySQL:** `php artisan basalto:db-zeitzone` indica se date e ore più vecchie vanno convertite
+   ([Fuso orario del database](installation.md#fuso-orario-del-database)).
 
 Se qualcosa va storto: la modalità manutenzione resta attiva, ripristinare lo stato dal backup
 ([Backup](backup.md#ripristino)).
