@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 300" width="840" height="300" role="img" aria-label="Tre fonti di un menu: albero delle pagine, libero, elenco di tipo">
+  <title>Tre fonti di un menu: albero delle pagine, libero, elenco di tipo</title>
+  <rect width="840" height="300" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Da dove un menu prende le sue voci</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Il tema stabilisce la fonte. Qui ordina solo i menu liberi; altrimenti l’ordine lo decide la fonte.</text>
+  <rect x="30" y="82" width="250" height="186" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="46" y="110" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">dall’albero delle pagine</text>
+  <text x="46" y="130" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">from: pages</text>
+  <text x="46" y="168" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· segue l’albero delle pagine</text>
+  <text x="46" y="198" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· profondità, livello iniziale, filtri</text>
+  <text x="46" y="228" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· ordine come in «Pagine»</text>
+  <rect x="300" y="82" width="250" height="186" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="316" y="110" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#b53f1d" text-anchor="start">libero (backend)</text>
+  <text x="316" y="130" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">items: db</text>
+  <text x="316" y="168" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· voci dall’albero o libere (URL)</text>
+  <text x="316" y="198" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· etichetta per lingua, nuova finestra</text>
+  <text x="316" y="228" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· trascinare, ← → per i sottolivelli</text>
+  <rect x="570" y="82" width="250" height="186" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="586" y="110" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">da un elenco di tipo</text>
+  <text x="586" y="130" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">from: type</text>
+  <text x="586" y="168" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· per esempio gli ultimi articoli</text>
+  <text x="586" y="198" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· ordine per data o titolo</text>
+  <text x="586" y="228" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· nessuna maniglia</text>
+</svg>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 336" width="840" height="336" role="img" aria-label="States of a comment: waiting, approved, spam, deleted, cleanup run">
+  <title>States of a comment: waiting, approved, spam, deleted, cleanup run</title>
+  <rect width="840" height="336" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">The states of a comment</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">The block’s moderation decides whether a comment waits first. “Approve” also brings back removed ones.</text>
+  <rect x="32" y="158" width="140" height="56" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="102.0" y="183.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Comment</text>
+  <text x="102.0" y="199.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">from a visitor</text>
+  <rect x="240" y="96" width="160" height="56" rx="8" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="320.0" y="121.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">waiting</text>
+  <text x="320.0" y="137.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">moderation “Approval”</text>
+  <rect x="240" y="222" width="160" height="56" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="320.0" y="247.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="middle">approved</text>
+  <text x="320.0" y="263.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">on the website</text>
+  <path d="M174 178L238 128" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M234.5 135.2L238 128L230.2 129.7" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="132" y="132" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#62676e" text-anchor="start">Approval</text>
+  <path d="M174 196L238 246" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M230.2 244.3L238 246L234.5 238.8" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="150" y="250" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#b53f1d" text-anchor="start">at once</text>
+  <path d="M320 154L320 220" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M316.5 212.8L320 220L323.5 212.8" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="328" y="192" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#b53f1d" text-anchor="start">Approve</text>
+  <rect x="480" y="96" width="150" height="56" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="555.0" y="121.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Spam</text>
+  <text x="555.0" y="137.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">marked by hand</text>
+  <rect x="480" y="222" width="150" height="56" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="555.0" y="247.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">deleted</text>
+  <text x="555.0" y="263.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">no longer visible</text>
+  <path d="M402 124L478 124" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M470.8 127.5L478 124L470.8 120.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M402 240L478 240" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M470.8 243.5L478 240L470.8 236.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M478 266L402 266" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-dasharray="4 4"/>
+  <path d="M409.2 262.5L402 266L409.2 269.5" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="440" y="298" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#b53f1d" text-anchor="middle">“Approve” brings it back</text>
+  <rect x="690" y="158" width="120" height="56" rx="8" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="750.0" y="183.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Cleanup run</text>
+  <text x="750.0" y="199.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">after the period</text>
+  <path d="M632 124L688 176" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M680.4 173.6L688 176L685.1 168.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M632 250L688 198" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M685.1 205.5L688 198L680.4 200.4" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="32" y="324" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Spam detected automatically is never saved, only counted. Replies from the editorial team are visible at once.</text>
+</svg>

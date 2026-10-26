@@ -1,0 +1,31 @@
+{
+    "name": "basalto/module-comments",
+    "description": "Kommentare (M-27): Block «Kommentare» an Seiten und Beiträgen mit Einstellungen je Einbindung, zentrale Moderation mit Spam-Zähler, Datenschutz (IP als Prüfsumme, Aufbewahrung, Auskunft und Löschung) — je Site schaltbar.",
+    "type": "library",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.4",
+        "basalto/core": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Basalto\\Modules\\Comments\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Basalto\\Modules\\Comments\\CommentsServiceProvider"
+            ]
+        },
+        "basalto": {
+            "module": "comments",
+            "name": "Kommentare",
+            "api": 1,
+            "lava": "comments",
+            "switchable": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

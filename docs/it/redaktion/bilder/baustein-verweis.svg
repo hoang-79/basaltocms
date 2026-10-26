@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 310" width="900" height="310" role="img" aria-label="Blocco riutilizzabile come rimando: una modifica vale su tutte le pagine — sciogliere crea una copia solo per una pagina">
+  <title>Blocco riutilizzabile come rimando: una modifica vale su tutte le pagine — sciogliere crea una copia solo per una pagina</title>
+  <rect width="900" height="310" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Blocco riutilizzabile: si modifica una volta, vale ovunque</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">«Sciogli» sostituisce il rimando su una pagina con copie dei blocchi — il blocco riutilizzabile resta.</text>
+  <rect x="32" y="120" width="250" height="70" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="44" y="152.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="start">Blocco riutilizzabile</text>
+  <text x="44" y="168.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">«Barra contatti» · invito · testo</text>
+  <rect x="452" y="86" width="200" height="46" rx="8" fill="#ffffff" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="464" y="106.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Pagina iniziale</text>
+  <text x="464" y="122.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">rimanda al blocco</text>
+  <path d="M284 150L450 109" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M443.8 114.1L450 109L442.2 107.3" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="676" y="114" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="500" fill="#b53f1d" text-anchor="start">segue le modifiche</text>
+  <rect x="452" y="148" width="200" height="46" rx="8" fill="#ffffff" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="464" y="168.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Servizi</text>
+  <text x="464" y="184.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">rimanda al blocco</text>
+  <path d="M284 150L450 171" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M442.4 173.5L450 171L443.3 166.6" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="676" y="176" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="500" fill="#b53f1d" text-anchor="start">segue le modifiche</text>
+  <rect x="452" y="210" width="200" height="46" rx="8" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="464" y="230.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Contatti</text>
+  <text x="464" y="246.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">copia dei blocchi</text>
+  <path d="M284 160L450 233" stroke="#62676e" stroke-width="1.6" fill="none" stroke-dasharray="4 4"/>
+  <path d="M442.0 233.3L450 233L444.8 226.9" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="676" y="238" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="500" fill="#62676e" text-anchor="start">non segue più le modifiche</text>
+  <text x="32" y="292" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">I blocchi riutilizzabili esistono solo al primo livello di un elenco di blocchi; non ne contengono altri.</text>
+</svg>

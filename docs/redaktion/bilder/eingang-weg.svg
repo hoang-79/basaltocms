@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 300" width="840" height="300" role="img" aria-label="Der Weg einer Formular-Einsendung: Spamschutz, Eingang, Mail, Webhook, Glocke">
+  <title>Der Weg einer Formular-Einsendung: Spamschutz, Eingang, Mail, Webhook, Glocke</title>
+  <rect width="840" height="300" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Der Weg einer Einsendung</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Jede Aktion läuft für sich — scheitert die Mail, steht der Grund am Eingang, und man kann sie erneut senden.</text>
+  <rect x="32" y="104" width="150" height="56" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="107.0" y="129.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Besucherin sendet</text>
+  <text x="107.0" y="145.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">Formular auf der Seite</text>
+  <path d="M184 132L216 132" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M208.8 135.5L216 132L208.8 128.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="218" y="104" width="150" height="56" rx="8" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="293.0" y="129.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Spamschutz</text>
+  <text x="293.0" y="145.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">Fangfeld · Zeit · Limit</text>
+  <path d="M370 132L402 132" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M394.8 135.5L402 132L394.8 128.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="404" y="104" width="150" height="56" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="479.0" y="129.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="middle">Eingang</text>
+  <text x="479.0" y="145.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">gespeichert</text>
+  <rect x="620" y="70" width="180" height="48" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="632" y="91.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Mail an Empfänger</text>
+  <text x="632" y="107.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">am Formular eingetragen</text>
+  <path d="M556 132L618 94" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M613.7 100.7L618 94L610.0 94.8" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="620" y="132" width="180" height="48" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="632" y="153.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Webhook</text>
+  <text x="632" y="169.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">signiert, wenn eingerichtet</text>
+  <path d="M556 132L618 156" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M610.0 156.6L618 156L612.5 150.2" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="620" y="194" width="180" height="48" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="632" y="215.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Glocke</text>
+  <text x="632" y="231.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">für «Formulare»</text>
+  <path d="M556 132L618 218" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M611.0 214.2L618 218L616.6 210.1" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="32" y="282" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Ohne Speichern (store: false) gehen die Werte nur per Mail und Webhook weiter und verschwinden danach.</text>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 380" width="840" height="380" role="img" aria-label="Where to go after Getting started">
+  <title>Where to go after Getting started</title>
+  <rect width="840" height="380" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Where to go after Getting started</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Each role has its area of the help. Whatever a role may not do, the backend does not show.</text>
+  <rect x="24" y="82" width="300" height="44" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="58.4,98.0 58.4,110.0 48.0,116.0 37.6,110.0 37.6,98.0 48.0,92.0" fill="#e4572e" stroke="none"/>
+  <text x="70" y="101" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">Editor</text>
+  <text x="70" y="117" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">writes and submits</text>
+  <path d="M324 104L470 104" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M462.8 107.5L470 104L462.8 100.5" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="470" y="82" width="346" height="44" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="488" y="109" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="start">Editing</text>
+  <rect x="24" y="138" width="300" height="44" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="58.4,154.0 58.4,166.0 48.0,172.0 37.6,166.0 37.6,154.0 48.0,148.0" fill="#e4572e" stroke="none"/>
+  <text x="70" y="157" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">Approver</text>
+  <text x="70" y="173" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">reviews and publishes</text>
+  <path d="M324 160L470 160" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M462.8 163.5L470 160L462.8 156.5" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="470" y="138" width="346" height="44" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="488" y="165" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="start">Editing › Approval</text>
+  <rect x="24" y="194" width="300" height="44" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="58.4,210.0 58.4,222.0 48.0,228.0 37.6,222.0 37.6,210.0 48.0,204.0" fill="#e4572e" stroke="none"/>
+  <text x="70" y="213" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">Translator</text>
+  <text x="70" y="229" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">translates into more languages</text>
+  <path d="M324 216L470 216" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M462.8 219.5L470 216L462.8 212.5" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="470" y="194" width="346" height="44" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="488" y="221" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="start">Editing › Translation</text>
+  <rect x="24" y="250" width="300" height="44" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="58.4,266.0 58.4,278.0 48.0,284.0 37.6,278.0 37.6,266.0 48.0,260.0" fill="#23262b" stroke="none"/>
+  <text x="70" y="269" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">Administrator</text>
+  <text x="70" y="285" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">sets up the site</text>
+  <path d="M324 272L470 272" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M462.8 275.5L470 272L462.8 268.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="470" y="250" width="346" height="44" rx="8" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="488" y="277" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Setup, Administration</text>
+  <rect x="24" y="306" width="300" height="44" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="58.4,322.0 58.4,334.0 48.0,340.0 37.6,334.0 37.6,322.0 48.0,316.0" fill="#23262b" stroke="none"/>
+  <text x="70" y="325" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">Owner</text>
+  <text x="70" y="341" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">may do everything, licence too</text>
+  <path d="M324 328L470 328" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M462.8 331.5L470 328L462.8 324.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="470" y="306" width="346" height="44" rx="8" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="488" y="333" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Administration, Operations</text>
+</svg>

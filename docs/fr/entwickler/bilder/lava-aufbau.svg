@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 360" width="840" height="360" role="img" aria-label="Un thème en Lava">
+  <title>Un thème en Lava</title>
+  <rect width="840" height="360" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Un thème en Lava</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Dix mots-clés décrivent la structure, le balisage la dessine. La vérification suit la ligne rouge de A à Z.</text>
+  <text x="24" y="96" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">Structure</text>
+  <path d="M44 130L796 130" stroke="#e4572e" stroke-width="2.4" fill="none"/>
+  <polygon points="57.0,122.5 57.0,137.5 44.0,145.0 31.0,137.5 31.0,122.5 44.0,115.0" fill="#e4572e" stroke="none"/>
+  <text x="44.0" y="134.32" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">A</text>
+  <text x="44.0" y="166" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="600" fill="#23262b" text-anchor="middle">site</text>
+  <polygon points="140.5,122.5 140.5,137.5 127.5,145.0 114.5,137.5 114.5,122.5 127.5,115.0" fill="#e4572e" stroke="none"/>
+  <text x="127.5" y="134.32" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">B</text>
+  <text x="127.5" y="166" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="600" fill="#23262b" text-anchor="middle">design</text>
+  <polygon points="224.0,122.5 224.0,137.5 211.0,145.0 198.0,137.5 198.0,122.5 211.0,115.0" fill="#e4572e" stroke="none"/>
+  <text x="211.0" y="134.32" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">C</text>
+  <text x="211.0" y="166" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="600" fill="#23262b" text-anchor="middle">layout</text>
+  <polygon points="307.5,122.5 307.5,137.5 294.5,145.0 281.5,137.5 281.5,122.5 294.5,115.0" fill="#e4572e" stroke="none"/>
+  <text x="294.5" y="134.32" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">D</text>
+  <text x="294.5" y="166" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="600" fill="#23262b" text-anchor="middle">nav</text>
+  <polygon points="391.0,122.5 391.0,137.5 378.0,145.0 365.0,137.5 365.0,122.5 378.0,115.0" fill="#e4572e" stroke="none"/>
+  <text x="378.0" y="134.32" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">E</text>
+  <text x="378.0" y="166" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="600" fill="#23262b" text-anchor="middle">type</text>
+  <polygon points="474.5,122.5 474.5,137.5 461.5,145.0 448.5,137.5 448.5,122.5 461.5,115.0" fill="#e4572e" stroke="none"/>
+  <text x="461.5" y="134.32" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">F</text>
+  <text x="461.5" y="166" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="600" fill="#23262b" text-anchor="middle">block</text>
+  <polygon points="558.0,122.5 558.0,137.5 545.0,145.0 532.0,137.5 532.0,122.5 545.0,115.0" fill="#e4572e" stroke="none"/>
+  <text x="545.0" y="134.32" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">G</text>
+  <text x="545.0" y="166" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="600" fill="#23262b" text-anchor="middle">template</text>
+  <polygon points="641.5,122.5 641.5,137.5 628.5,145.0 615.5,137.5 615.5,122.5 628.5,115.0" fill="#e4572e" stroke="none"/>
+  <text x="628.5" y="134.32" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">H</text>
+  <text x="628.5" y="166" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="600" fill="#23262b" text-anchor="middle">form</text>
+  <polygon points="725.0,122.5 725.0,137.5 712.0,145.0 699.0,137.5 699.0,122.5 712.0,115.0" fill="#e4572e" stroke="none"/>
+  <text x="712.0" y="134.32" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">I</text>
+  <text x="712.0" y="166" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="600" fill="#23262b" text-anchor="middle">seed</text>
+  <polygon points="808.5,122.5 808.5,137.5 795.5,145.0 782.5,137.5 782.5,122.5 795.5,115.0" fill="#e4572e" stroke="none"/>
+  <text x="795.5" y="134.32" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Z</text>
+  <text x="795.5" y="166" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="600" fill="#23262b" text-anchor="middle">publish</text>
+  <text x="24" y="214" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">Balisage</text>
+  <rect x="24" y="226" width="520" height="44" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="40" y="253" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="12" font-weight="500" fill="#23262b" text-anchor="start">{{ page.title }} · {% each %} · {% if %} · filtres · macros</text>
+  <text x="40" y="292" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">pas de PHP — seulement ce que la registry connaît</text>
+  <rect x="568" y="196" width="248" height="92" rx="10" fill="#23262b" stroke="#23262b" stroke-width="1.2"/>
+  <text x="584" y="222" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="12" font-weight="700" fill="#ffffff" text-anchor="start">Vérification · basalto:check</text>
+  <text x="584" y="248" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11" font-weight="400" fill="#e3e6ea" text-anchor="start">A site ✓   B design ✓</text>
+  <text x="584" y="266" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11" font-weight="400" fill="#e3e6ea" text-anchor="start">…  Z publish ✓</text>
+  <text x="584" y="316" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="700" fill="#2a744a" text-anchor="start">✓ ligne rouge complète</text>
+</svg>

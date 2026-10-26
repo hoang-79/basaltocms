@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 260" width="840" height="260" role="img" aria-label="Was nach einer Kündigung gilt">
+  <title>Was nach einer Kündigung gilt</title>
+  <rect width="840" height="260" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Was nach einer Kündigung gilt</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Bis zum Ende der Laufzeit läuft alles weiter und lässt sich mit einem Klick zurücknehmen. Exportieren geht bis zur Löschung.</text>
+  <rect x="60" y="100" width="312" height="56" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="74" y="124" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#b53f1d" text-anchor="start">Laufzeit</text>
+  <text x="74" y="142" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">alles wie bisher</text>
+  <rect x="380" y="100" width="252" height="56" rx="8" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="394" y="124" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">30 Tage gesperrt</text>
+  <text x="394" y="142" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">nur lesen und exportieren</text>
+  <rect x="640" y="100" width="152" height="56" rx="8" fill="#ffffff" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="654" y="124" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#62676e" text-anchor="start">Löschung</text>
+  <text x="654" y="142" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Rechnungen bleiben</text>
+  <path d="M56 84L56 168" stroke="#e4572e" stroke-width="2.4" fill="none"/>
+  <text x="64" y="92" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="700" fill="#b53f1d" text-anchor="start">Kündigung</text>
+  <path d="M372 176L66 176" stroke="#2a744a" stroke-width="1.6" fill="none" stroke-dasharray="4 4"/>
+  <path d="M73.2 172.5L66 176L73.2 179.5" stroke="#2a744a" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="380" y="180" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#2a744a" text-anchor="start">Kündigung zurücknehmen</text>
+  <rect x="60" y="212" width="572" height="22" rx="11" fill="#e2efe7" stroke="#e2efe7" stroke-width="1.2"/>
+  <text x="346" y="227" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#2a744a" text-anchor="middle">Export ✓</text>
+</svg>

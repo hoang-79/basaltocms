@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 340" width="820" height="340" role="img" aria-label="Che cosa ereditano le sottopagine dalle pagine madri e che cosa no">
+  <title>Che cosa ereditano le sottopagine dalle pagine madri e che cosa no</title>
+  <rect width="820" height="340" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Che cosa ereditano le sottopagine</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Un’impostazione «per le sottopagine» vale per tutte le pagine sottostanti — finché un’indicazione propria non la sostituisce.</text>
+  <rect x="32" y="84" width="200" height="46" rx="8" fill="#ffffff" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="44" y="104.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Chi siamo</text>
+  <text x="44" y="120.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Livello 1 · imposta i valori</text>
+  <path d="M90 130V162H118" stroke="#9aa0a6" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="118" y="140" width="200" height="46" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="130" y="160.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Team</text>
+  <text x="130" y="176.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Livello 2 · eredita</text>
+  <path d="M176 186V218H204" stroke="#9aa0a6" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="204" y="196" width="200" height="46" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="216" y="216.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Lea Brunner</text>
+  <text x="216" y="232.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Livello 3 · eredita</text>
+  <text x="450" y="92" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="700" fill="#2a744a" text-anchor="start">Ereditato</text>
+  <rect x="450" y="104" width="340" height="34" rx="6" fill="#e2efe7" stroke="#e2efe7" stroke-width="1.2"/>
+  <text x="464" y="119" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="600" fill="#2a744a" text-anchor="start">✓ Layout per le sottopagine</text>
+  <text x="482" y="132" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="10.5" font-weight="400" fill="#62676e" text-anchor="start">scheda «Layout»</text>
+  <rect x="450" y="144" width="340" height="34" rx="6" fill="#e2efe7" stroke="#e2efe7" stroke-width="1.2"/>
+  <text x="464" y="159" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="600" fill="#2a744a" text-anchor="start">✓ Accesso — vale per le sottopagine</text>
+  <text x="482" y="172" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="10.5" font-weight="400" fill="#62676e" text-anchor="start">scheda «Accesso» (solo restringere)</text>
+  <text x="450" y="200" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="700" fill="#b8232f" text-anchor="start">Non ereditato</text>
+  <rect x="450" y="210" width="340" height="28" rx="6" fill="#f6e1e3" stroke="#f6e1e3" stroke-width="1.2"/>
+  <text x="464" y="228" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="600" fill="#b8232f" text-anchor="start">✗ Template proprio della pagina</text>
+  <text x="780" y="228" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="10.5" font-weight="400" fill="#62676e" text-anchor="end">solo per lei</text>
+  <rect x="450" y="243" width="340" height="28" rx="6" fill="#f6e1e3" stroke="#f6e1e3" stroke-width="1.2"/>
+  <text x="464" y="261" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="600" fill="#b8232f" text-anchor="start">✗ Cache delle pagine</text>
+  <text x="780" y="261" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="10.5" font-weight="400" fill="#62676e" text-anchor="end">per pagina</text>
+  <rect x="450" y="276" width="340" height="28" rx="6" fill="#f6e1e3" stroke="#f6e1e3" stroke-width="1.2"/>
+  <text x="464" y="294" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="600" fill="#b8232f" text-anchor="start">✗ Finestra temporale (da/a)</text>
+  <text x="780" y="294" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="10.5" font-weight="400" fill="#62676e" text-anchor="end">per pagina</text>
+</svg>

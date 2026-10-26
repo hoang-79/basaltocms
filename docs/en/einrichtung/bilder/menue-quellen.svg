@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 300" width="840" height="300" role="img" aria-label="Three sources of a menu: page tree, freely maintained, type list">
+  <title>Three sources of a menu: page tree, freely maintained, type list</title>
+  <rect width="840" height="300" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Where a menu gets its entries</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">The theme sets the source. You sort only freely maintained menus here; otherwise the source sets the order.</text>
+  <rect x="30" y="82" width="250" height="186" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="46" y="110" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">from the page tree</text>
+  <text x="46" y="130" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">from: pages</text>
+  <text x="46" y="168" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· follows the page tree</text>
+  <text x="46" y="198" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· depth, start level, exclusion, only</text>
+  <text x="46" y="228" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· order as in “Pages”</text>
+  <rect x="300" y="82" width="250" height="186" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="316" y="110" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#b53f1d" text-anchor="start">free (backend)</text>
+  <text x="316" y="130" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">items: db</text>
+  <text x="316" y="168" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· entries from page tree or free URL</text>
+  <text x="316" y="198" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· label per language, new window</text>
+  <text x="316" y="228" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· drag, ← → for sublevels</text>
+  <rect x="570" y="82" width="250" height="186" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="586" y="110" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">from a type list</text>
+  <text x="586" y="130" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">from: type</text>
+  <text x="586" y="168" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· for example the latest posts</text>
+  <text x="586" y="198" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· order by date or title</text>
+  <text x="586" y="228" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· no handles</text>
+</svg>

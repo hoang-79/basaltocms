@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 270" width="880" height="270" role="img" aria-label="Translation with source version: when the source changes, the translation is marked as outdated">
+  <title>Translation with source version: when the source changes, the translation is marked as outdated</title>
+  <rect width="880" height="270" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Source version: how “outdated” is detected</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Every translation remembers which version of the default language it was made from.</text>
+  <rect x="32" y="92" width="170" height="52" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="117.0" y="115.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">DE · Version 3</text>
+  <text x="117.0" y="131.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">source</text>
+  <rect x="32" y="180" width="170" height="52" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="117.0" y="203.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="middle">DE · Version 4</text>
+  <text x="117.0" y="219.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">new title and intro</text>
+  <path d="M117 144L117 178" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M113.5 170.8L117 178L120.5 170.8" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="420" y="92" width="200" height="52" rx="8" fill="#e2efe7" stroke="#e2efe7" stroke-width="1.2"/>
+  <text x="520.0" y="115.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#2a744a" text-anchor="middle">EN · Version 2</text>
+  <text x="520.0" y="131.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">translated from DE 3</text>
+  <path d="M204 118L418 118" stroke="#2a744a" stroke-width="1.6" fill="none"/>
+  <path d="M410.8 121.5L418 118L410.8 114.5" stroke="#2a744a" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="311.0" y="112.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="500" fill="#2a744a" text-anchor="middle">translated</text>
+  <rect x="420" y="180" width="200" height="52" rx="8" fill="#f6e1e3" stroke="#f6e1e3" stroke-width="1.2"/>
+  <text x="520.0" y="203.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#b8232f" text-anchor="middle">EN · outdated</text>
+  <text x="520.0" y="219.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">2 fields changed</text>
+  <path d="M204 206L418 206" stroke="#b8232f" stroke-width="1.6" fill="none" stroke-dasharray="4 4"/>
+  <path d="M410.8 209.5L418 206L410.8 202.5" stroke="#b8232f" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="311.0" y="200.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="500" fill="#b8232f" text-anchor="middle">source newer than the translation</text>
+  <text x="640" y="112" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#62676e" text-anchor="start">The translation page shows</text>
+  <text x="640" y="128" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">for every changed field</text>
+  <text x="640" y="144" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">“changed” and “before: …”.</text>
+  <text x="640" y="200" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#62676e" text-anchor="start">Empty fields of a translation</text>
+  <text x="640" y="216" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">also count as outdated.</text>
+</svg>

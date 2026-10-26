@@ -1,0 +1,31 @@
+{
+    "name": "basalto/module-ai",
+    "description": "KI-Vorschläge (M-24): Text verbessern, Alt-Texte, Übersetzung und SEO-Angaben über das Laravel AI SDK mit dem Schlüssel des Kunden — nur auf Klick, immer als Vorschlag in den Entwurf, jede Nutzung protokolliert. Je Site schaltbar, ab Werk aus.",
+    "type": "library",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.4",
+        "basalto/core": "*",
+        "laravel/ai": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Basalto\\Modules\\Ai\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Basalto\\Modules\\Ai\\AiModuleServiceProvider"
+            ]
+        },
+        "basalto": {
+            "module": "ai",
+            "name": "KI-Vorschläge",
+            "api": 1,
+            "switchable": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

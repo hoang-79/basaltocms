@@ -1,0 +1,31 @@
+{
+    "name": "basalto/module-forum",
+    "description": "Forum (CR-006): Kategorien, Foren und Themen nach dem Vorbild der WoltLab Suite, eingehängt unter einer Seite der Site (z. B. /community), mit Community-Profil, Besuchergruppen und Rechten je Forum aus dem Kern; Verwaltung im Hersteller-Extranet — je Site schaltbar, ab Werk aus.",
+    "type": "library",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.4",
+        "basalto/core": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Basalto\\Modules\\Forum\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Basalto\\Modules\\Forum\\ForumServiceProvider"
+            ]
+        },
+        "basalto": {
+            "module": "forum",
+            "name": "Forum",
+            "api": 1,
+            "lava": "forum",
+            "switchable": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

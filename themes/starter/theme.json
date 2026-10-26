@@ -1,0 +1,7 @@
+{
+    "label": "Starter",
+    "author": "Basalto",
+    "version": "1.0.0",
+    "license": "MIT",
+    "description": "Das Beispiel-Theme von Basalto: von A bis Z kommentiert, WCAG 2.2 AA, Lighthouse ≥ 95, ohne Fremdressource."
+}

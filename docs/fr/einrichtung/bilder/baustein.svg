@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 300" width="840" height="300" role="img" aria-label="Un bloc réutilisable sur plusieurs pages — et ce que fait la dissolution">
+  <title>Un bloc réutilisable sur plusieurs pages — et ce que fait la dissolution</title>
+  <rect width="840" height="300" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Modifier une fois, effet partout</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Les pages renvoient au bloc réutilisable. Dissoudre place ses blocs comme blocs propres dans chaque page — ensuite il disparaît.</text>
+  <rect x="40" y="120" width="200" height="80" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="140.0" y="157.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="middle">Bloc réutilisable</text>
+  <text x="140.0" y="173.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">Barre de contact · 2 blocs</text>
+  <rect x="330" y="84" width="160" height="46" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="342" y="104.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">À propos</text>
+  <text x="342" y="120.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">renvoie au bloc</text>
+  <path d="M328 107L244 160" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-dasharray="4 4"/>
+  <path d="M248.2 153.2L244 160L251.9 159.1" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="330" y="146" width="160" height="46" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="342" y="166.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Contact</text>
+  <text x="342" y="182.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">renvoie au bloc</text>
+  <path d="M328 169L244 160" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-dasharray="4 4"/>
+  <path d="M251.5 157.3L244 160L250.8 164.2" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="330" y="208" width="160" height="46" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="342" y="228.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Blog</text>
+  <text x="342" y="244.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">renvoie au bloc</text>
+  <path d="M328 231L244 160" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-dasharray="4 4"/>
+  <path d="M251.7 162.0L244 160L247.3 167.3" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M500 160L580 160" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M572.8 163.5L580 160L572.8 156.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="540.0" y="154.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="500" fill="#62676e" text-anchor="middle">Dissoudre</text>
+  <rect x="590" y="84" width="210" height="46" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="602" y="104.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">À propos</text>
+  <text x="602" y="120.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">blocs propres : appel, citation</text>
+  <rect x="590" y="146" width="210" height="46" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="602" y="166.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Contact</text>
+  <text x="602" y="182.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">blocs propres : appel, citation</text>
+  <rect x="590" y="208" width="210" height="46" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="602" y="228.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Blog</text>
+  <text x="602" y="244.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">blocs propres : appel, citation</text>
+  <text x="40" y="284" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Un bloc réutilisable n’en contient pas d’autres. On ne le supprime que s’il n’est sur aucune page — sinon, dissolvez-le d’abord.</text>
+</svg>

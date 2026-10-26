@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 330" width="840" height="330" role="img" aria-label="Ce dont une installation a besoin sur le serveur">
+  <title>Ce dont une installation a besoin sur le serveur</title>
+  <rect width="840" height="330" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Ce dont une installation a besoin sur le serveur</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Pas de Redis ni de worker : une entrée cron lance le scheduler chaque minute, le reste est dans la base de données.</text>
+  <rect x="24" y="82" width="184" height="84" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="54.7,99.0 54.7,109.0 46.0,114.0 37.3,109.0 37.3,99.0 46.0,94.0" fill="#23262b" stroke="none"/>
+  <text x="64" y="109" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">Serveur web</text>
+  <text x="40" y="132" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">racine sur public/,</text>
+  <text x="40" y="148" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">HTTPS</text>
+  <rect x="224" y="82" width="184" height="84" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="254.7,99.0 254.7,109.0 246.0,114.0 237.3,109.0 237.3,99.0 246.0,94.0" fill="#23262b" stroke="none"/>
+  <text x="264" y="109" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">PHP 8.4</text>
+  <text x="240" y="132" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">mbstring, intl, gd,</text>
+  <text x="240" y="148" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">zip, sodium</text>
+  <rect x="424" y="82" width="184" height="84" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="454.7,99.0 454.7,109.0 446.0,114.0 437.3,109.0 437.3,99.0 446.0,94.0" fill="#23262b" stroke="none"/>
+  <text x="464" y="109" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">Base de données</text>
+  <text x="440" y="132" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">SQLite, MariaDB,</text>
+  <text x="440" y="148" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">MySQL, PostgreSQL</text>
+  <rect x="624" y="82" width="184" height="84" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="654.7,99.0 654.7,109.0 646.0,114.0 637.3,109.0 637.3,99.0 646.0,94.0" fill="#23262b" stroke="none"/>
+  <text x="664" y="109" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">Stockage</text>
+  <text x="640" y="132" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">storage/ ou</text>
+  <text x="640" y="148" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">bucket (S3)</text>
+  <rect x="24" y="188" width="600" height="76" rx="10" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="44" y="212" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#b53f1d" text-anchor="start">Cron · chaque minute</text>
+  <text x="44" y="232" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="12" font-weight="500" fill="#23262b" text-anchor="start">php artisan schedule:run</text>
+  <text x="44" y="252" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">pulsation · publications planifiées · file d’attente · sauvegarde 03:15</text>
+  <rect x="644" y="188" width="172" height="76" rx="10" fill="#23262b" stroke="#23262b" stroke-width="1.2"/>
+  <text x="660" y="216" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="14" font-weight="700" fill="#ffffff" text-anchor="start">/up</text>
+  <text x="660" y="240" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#e3e6ea" text-anchor="start">santé</text>
+  <text x="24" y="300" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#2a744a" text-anchor="start">200 prêt · 503 perturbé</text>
+</svg>

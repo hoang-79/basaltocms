@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 270" width="840" height="270" role="img" aria-label="Chaîne de vérification d’une suggestion IA : module, clé, fonction, limite par minute, limite journalière, plafond de coûts, fournisseur">
+  <title>Chaîne de vérification d’une suggestion IA : module, clé, fonction, limite par minute, limite journalière, plafond de coûts, fournisseur</title>
+  <rect width="840" height="270" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Avant qu’une suggestion n’arrive</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Basalto vérifie dans l’ordre. Si une étape échoue, la fenêtre en donne la raison — rien n’est perdu.</text>
+  <rect x="24" y="92" width="104" height="58" rx="8" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="76.0" y="118.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Module</text>
+  <text x="76.0" y="134.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">actif sur le site</text>
+  <rect x="140" y="92" width="104" height="58" rx="8" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="192.0" y="118.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Clé</text>
+  <text x="192.0" y="134.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">enregistrée</text>
+  <path d="M129 121L139 121" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M131.8 124.5L139 121L131.8 117.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="256" y="92" width="104" height="58" rx="8" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="308.0" y="118.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Fonction</text>
+  <text x="308.0" y="134.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">activée</text>
+  <path d="M245 121L255 121" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M247.8 124.5L255 121L247.8 117.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="372" y="92" width="104" height="58" rx="8" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="424.0" y="118.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">10 par minute</text>
+  <text x="424.0" y="134.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">par personne</text>
+  <path d="M361 121L371 121" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M363.8 124.5L371 121L363.8 117.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="488" y="92" width="104" height="58" rx="8" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="540.0" y="118.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Limite/jour</text>
+  <text x="540.0" y="134.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">100 par défaut</text>
+  <path d="M477 121L487 121" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M479.8 124.5L487 121L479.8 117.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="604" y="92" width="104" height="58" rx="8" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="656.0" y="118.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Plafond</text>
+  <text x="656.0" y="134.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">jetons par mois</text>
+  <path d="M593 121L603 121" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M595.8 124.5L603 121L595.8 117.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="720" y="92" width="104" height="58" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="772.0" y="118.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="middle">Fournisseur</text>
+  <text x="772.0" y="134.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">répond</text>
+  <path d="M709 121L719 121" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M711.8 124.5L719 121L711.8 117.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M774 152L774 186" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M770.5 178.8L774 186L777.5 178.8" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="640" y="188" width="176" height="50" rx="8" fill="#ffffff" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="728.0" y="210.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Suggestion affichée</text>
+  <text x="728.0" y="226.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">actuel et suggestion</text>
+  <text x="24" y="206" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="600" fill="#62676e" text-anchor="start">Grisé avec « (IA désactivée) » : une des trois premières étapes manque.</text>
+  <text x="24" y="226" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="400" fill="#62676e" text-anchor="start">Limite ou plafond atteint, fournisseur surchargé : message avec « Réessayer ».</text>
+</svg>

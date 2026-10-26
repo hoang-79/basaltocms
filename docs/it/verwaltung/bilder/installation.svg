@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 360" width="840" height="360" role="img" aria-label="Installazione, siti, utenti e ruoli: che cosa vale dove">
+  <title>Installazione, siti, utenti e ruoli: che cosa vale dove</title>
+  <rect width="840" height="360" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Che cosa vale dove</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">I ruoli e alcune impostazioni valgono per tutta l’installazione; ruolo e contenuti per sito.</text>
+  <rect x="24" y="80" width="792" height="254" rx="10" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="42" y="104" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">Installazione</text>
+  <text x="150" y="104" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Ruoli · impostazioni «Installazione» · licenza · esercizio · registro</text>
+  <rect x="44" y="124" width="360" height="190" rx="8" fill="#ffffff" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="60" y="150" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#b53f1d" text-anchor="start">Sito «Azienda»</text>
+  <text x="60" y="170" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="start">Lingue · domini · tema · moduli · impostazioni «Sito»</text>
+  <rect x="60" y="186" width="328" height="46" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="72" y="206.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Anna — Amministratore</text>
+  <text x="72" y="222.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">un ruolo per sito</text>
+  <rect x="60" y="244" width="328" height="46" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="72" y="264.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Ben — Redattore</text>
+  <text x="72" y="280.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">un ruolo per sito</text>
+  <rect x="434" y="124" width="360" height="190" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="450" y="150" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">Sito «Associazione»</text>
+  <text x="450" y="170" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="start">Lingue · domini · tema · moduli · impostazioni «Sito»</text>
+  <rect x="450" y="186" width="328" height="46" rx="8" fill="#f6f4f0" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="462" y="206.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Anna — Redattore</text>
+  <text x="462" y="222.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">un ruolo per sito</text>
+  <rect x="450" y="244" width="328" height="46" rx="8" fill="#f6f4f0" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="462" y="264.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Chiara — Traduttore</text>
+  <text x="462" y="280.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">un ruolo per sito</text>
+  <text x="42" y="352" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Una persona ha esattamente un ruolo per sito — Anna è Amministratore in un sito e Redattore nell’altro.</text>
+</svg>

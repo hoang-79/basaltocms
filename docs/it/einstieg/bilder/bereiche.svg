@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 420" width="840" height="420" role="img" aria-label="La guida per compiti">
+  <title>La guida per compiti</title>
+  <rect width="840" height="420" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">La guida per compiti</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Ogni area si rivolge a un lettore — cominci dai primi passi, poi vada dove si trova il Suo lavoro.</text>
+  <rect x="24" y="84" width="184" height="148" rx="10" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <polygon points="61.3,107.5 61.3,120.5 50.0,127.0 38.7,120.5 38.7,107.5 50.0,101.0" fill="#e4572e" stroke="none"/>
+  <text x="72" y="119" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#b53f1d" text-anchor="start">Primi passi</text>
+  <text x="40" y="154" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="600" fill="#23262b" text-anchor="start">per la prima volta qui</text>
+  <text x="40" y="180" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Installare, visita,</text>
+  <text x="40" y="197" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">prima pagina</text>
+  <rect x="224" y="84" width="184" height="148" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="261.3,107.5 261.3,120.5 250.0,127.0 238.7,120.5 238.7,107.5 250.0,101.0" fill="#23262b" stroke="none"/>
+  <text x="272" y="119" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">Redazione</text>
+  <text x="240" y="154" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="600" fill="#23262b" text-anchor="start">curare i contenuti</text>
+  <text x="240" y="180" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Pagine, blocchi, media,</text>
+  <text x="240" y="197" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">traduzione, approvazione</text>
+  <rect x="424" y="84" width="184" height="148" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="461.3,107.5 461.3,120.5 450.0,127.0 438.7,120.5 438.7,107.5 450.0,101.0" fill="#23262b" stroke="none"/>
+  <text x="472" y="119" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">Configurazione</text>
+  <text x="440" y="154" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="600" fill="#23262b" text-anchor="start">progettare il sito</text>
+  <text x="440" y="180" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Aspetto, struttura, menu,</text>
+  <text x="440" y="197" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">tipi di contenuto, online</text>
+  <rect x="624" y="84" width="184" height="148" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="661.3,107.5 661.3,120.5 650.0,127.0 638.7,120.5 638.7,107.5 650.0,101.0" fill="#23262b" stroke="none"/>
+  <text x="672" y="119" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">Amministrazione</text>
+  <text x="640" y="154" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="600" fill="#23262b" text-anchor="start">gestire l’installazione</text>
+  <text x="640" y="180" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Siti, utenti, ruoli,</text>
+  <text x="640" y="197" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">impostazioni, aggiornamenti</text>
+  <rect x="24" y="250" width="184" height="148" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="61.3,273.5 61.3,286.5 50.0,293.0 38.7,286.5 38.7,273.5 50.0,267.0" fill="#23262b" stroke="none"/>
+  <text x="72" y="285" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">Community</text>
+  <text x="40" y="320" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="600" fill="#23262b" text-anchor="start">forum e membri</text>
+  <text x="40" y="346" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Leggere, scrivere,</text>
+  <text x="40" y="363" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">moderare</text>
+  <rect x="224" y="250" width="184" height="148" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="261.3,273.5 261.3,286.5 250.0,293.0 238.7,286.5 238.7,273.5 250.0,267.0" fill="#23262b" stroke="none"/>
+  <text x="272" y="285" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">Marketplace</text>
+  <text x="240" y="320" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="600" fill="#23262b" text-anchor="start">temi e plugin</text>
+  <text x="240" y="346" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Trovare, provare,</text>
+  <text x="240" y="363" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">offrire</text>
+  <rect x="424" y="250" width="184" height="148" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="461.3,273.5 461.3,286.5 450.0,293.0 438.7,286.5 438.7,273.5 450.0,267.0" fill="#23262b" stroke="none"/>
+  <text x="472" y="285" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">Sviluppatori</text>
+  <text x="440" y="320" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="600" fill="#23262b" text-anchor="start">creare temi e moduli</text>
+  <text x="440" y="346" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Lava, temi,</text>
+  <text x="440" y="363" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">estensioni, API</text>
+  <rect x="624" y="250" width="184" height="148" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="661.3,273.5 661.3,286.5 650.0,293.0 638.7,286.5 638.7,273.5 650.0,267.0" fill="#23262b" stroke="none"/>
+  <text x="672" y="285" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">Esercizio</text>
+  <text x="640" y="320" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="600" fill="#23262b" text-anchor="start">gestire il server</text>
+  <text x="640" y="346" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Installazione, hosting,</text>
+  <text x="640" y="363" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">backup, monitoraggio</text>
+</svg>

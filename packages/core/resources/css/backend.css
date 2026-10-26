@@ -1,0 +1,411 @@
+@import 'tailwindcss' source(none);
+
+/* Quellen: der Kern und alle Module im Monorepo — Klassen aus Modulseiten landen im Build des Kerns (das «**» am
+   Ende braucht es: ein Muster, das auf einen Ordner endet, fand in Tailwind 4 keine Datei) */
+@source '../js';
+@source '../../../../modules/*/resources/js/**';
+
+/* Marke Basalto (03-foundation/gestaltung.md § 1 und § 7): Basalt, Lava, Asche, Papier; Zustände Erfolg, Warnung, Karmin.
+   Kontraste nach WCAG 2.2 gerechnet (barrierefreiheit-tb08.md): Asche (#9aa0a6) ist Rahmen- und Symbolfarbe und als Text
+   nur auf Basalt lesbar (5,7:1) — für leisen Text auf Weiss und Papier steht `ash-dark` (5,7:1 bzw. 5,2:1, auf
+   Asche-hell 4,55:1); auf Basalt-hell steht `ash-light` (8,5:1). Erfolg ist um eine Spur dunkler als in
+   gestaltung.md (#2e7d4f → #2a744a), damit grüner Text auch auf der eigenen Tönung über Papier 4,5:1 hält. */
+@theme {
+    --color-basalt: #23262b;
+    --color-basalt-light: #3b3f46;
+    --color-lava: #e4572e;
+    --color-lava-dark: #b53f1d;
+    --color-lava-light: #f28a69;
+    --color-ash: #9aa0a6;
+    --color-ash-dark: #62676e;
+    --color-ash-light: #e3e6ea;
+    --color-paper: #f6f4f0;
+    --color-success: #2a744a;
+    --color-warning: #8f5c00;
+    --color-danger: #b8232f;
+    --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+/* Das Sechseck — Grundform für Symbole, Avatare, Statuspunkte und Zustandsmarken (gestaltung.md § 7) */
+@utility hex {
+    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0 50%);
+}
+
+@layer base {
+    body {
+        @apply bg-paper font-sans text-basalt antialiased;
+        font-variant-numeric: tabular-nums;
+    }
+
+    /* Scrollen (Hoang, 15.10.2026): keine Scrollbalken — eine Verlaufskante mit Lava-Chevron zeigt, dass es weitergeht
+       (Seite: BackendLayout; Container: `scroll-y`). Waagrecht scrollen vermeiden: umbrechen, stapeln (`table-stack`),
+       Spalten weglassen; `scroll-x` nur, wenn der Platz es erzwingt (Code, Diff). */
+    * {
+        scrollbar-width: none;
+    }
+    *::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Fokus nicht verdeckt (WCAG 2.4.11): Beim Springen per Tab hält der Browser Abstand zu den klebenden Leisten
+       (Sammelleiste oben, Speichern-Leiste und Verlaufskante unten). */
+    html {
+        scroll-padding-block: 4rem 5rem;
+    }
+
+    /* Fokus sichtbar (WCAG 2.4.7, 1.4.11): 2 px Lava dunkel mit Abstand — 5,7:1 auf Weiss, 5,2:1 auf Papier.
+       Auf Basalt trägt Lava hell (6,2:1, auf Basalt-hell 4,3:1). Eingabefelder zeigen den Fokus mit Rand und Ring. */
+    :focus-visible {
+        outline: 2px solid var(--color-lava-dark);
+        outline-offset: 2px;
+    }
+    :is(.bg-basalt, .bg-basalt-light) :focus-visible {
+        outline-color: var(--color-lava-light);
+    }
+}
+
+/* Senkrecht scrollbarer Container: Kante und Chevron erscheinen nur, solange unten mehr folgt (Verläufe scrollen mit dem Inhalt) */
+@utility scroll-y {
+    overflow-y: auto;
+    background:
+        linear-gradient(to bottom, var(--scroll-bg, #fff) 50%, transparent) 0
+            0 / 100% 28px no-repeat local,
+        linear-gradient(to top, var(--scroll-bg, #fff) 50%, transparent) 0
+            100% / 100% 28px no-repeat local,
+        linear-gradient(
+                to bottom,
+                color-mix(in srgb, var(--color-basalt) 14%, transparent),
+                transparent
+            )
+            0 0 / 100% 10px no-repeat scroll,
+        linear-gradient(
+                to top,
+                color-mix(in srgb, var(--color-basalt) 14%, transparent),
+                transparent
+            )
+            0 100% / 100% 10px no-repeat scroll,
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23e4572e' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")
+            50% calc(100% - 3px) / 12px 8px no-repeat scroll;
+}
+
+/* Waagrecht scrollbarer Container — die Ausnahme (Code, Diff), nie für Leisten oder Tabellen */
+@utility scroll-x {
+    overflow-x: auto;
+    background:
+        linear-gradient(to right, var(--scroll-bg, #fff) 50%, transparent) 0 0 /
+            28px 100% no-repeat local,
+        linear-gradient(to left, var(--scroll-bg, #fff) 50%, transparent) 100%
+            0 / 28px 100% no-repeat local,
+        linear-gradient(
+                to right,
+                color-mix(in srgb, var(--color-basalt) 14%, transparent),
+                transparent
+            )
+            0 0 / 10px 100% no-repeat scroll,
+        linear-gradient(
+                to left,
+                color-mix(in srgb, var(--color-basalt) 14%, transparent),
+                transparent
+            )
+            100% 0 / 10px 100% no-repeat scroll,
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 12'%3E%3Cpath d='M1 1l5 5-5 5' fill='none' stroke='%23e4572e' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")
+            calc(100% - 3px) 50% / 8px 12px no-repeat scroll;
+}
+
+/* Tabellen unter 768 px: Zeilen werden zu Karten, jede Zelle trägt ihren Spaltentitel aus `data-label` (statt waagrecht zu scrollen) */
+@utility table-stack {
+    @media (max-width: 47.9375rem) {
+        & thead {
+            display: none;
+        }
+        & tbody,
+        & tr,
+        & td {
+            display: block;
+        }
+        & tr {
+            padding: 0.5rem 0.75rem;
+        }
+        & td {
+            padding: 0.2rem 0;
+            text-align: left;
+        }
+        & td[data-label]::before {
+            content: attr(data-label);
+            display: block;
+            margin-bottom: 0.1rem;
+            font-size: 9.5px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-basalt-light);
+        }
+    }
+}
+
+/* Fliesstext-Editor (M-04): der Inhalt des TipTap-Editors — Überschriften H2–H4, Listen, Aufgaben, Zitat, Code,
+   Tabelle, Bild mit Beschriftung und Ausrichtung, Einbettung als Platzhalter, Suchtreffer, Platzhaltertext */
+@layer components {
+    .rte-content > * + * {
+        margin-top: 0.5rem;
+    }
+    .rte-content h2,
+    .rte-content h3,
+    .rte-content h4 {
+        font-weight: 700;
+        line-height: 1.25;
+        letter-spacing: -0.01em;
+    }
+    .rte-content h2 {
+        font-size: 1.3rem;
+    }
+    .rte-content h3 {
+        font-size: 1.12rem;
+    }
+    .rte-content h4 {
+        font-size: 1rem;
+    }
+    .rte-content a {
+        color: var(--color-lava-dark);
+        text-decoration: underline;
+    }
+    .rte-content ul,
+    .rte-content ol {
+        padding-left: 1.4rem;
+    }
+    .rte-content ul {
+        list-style: disc;
+    }
+    .rte-content ol {
+        list-style: decimal;
+    }
+    .rte-content li > p {
+        margin: 0;
+    }
+    .rte-content li + li {
+        margin-top: 0.15rem;
+    }
+    .rte-content ul[data-type='taskList'] {
+        list-style: none;
+        padding-left: 0.2rem;
+    }
+    .rte-content ul[data-type='taskList'] li {
+        display: flex;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+    .rte-content ul[data-type='taskList'] li > label {
+        flex: 0 0 auto;
+        margin-top: 0.15rem;
+    }
+    .rte-content ul[data-type='taskList'] li > div {
+        flex: 1 1 auto;
+    }
+    .rte-content ul[data-type='taskList'] input[type='checkbox'] {
+        accent-color: var(--color-lava-dark);
+    }
+    .rte-content blockquote {
+        border-left: 3px solid var(--color-lava);
+        padding-left: 0.75rem;
+        color: var(--color-basalt-light);
+    }
+    .rte-content code {
+        font-family: var(--font-mono);
+        font-size: 0.92em;
+        background: var(--color-paper);
+        border: 1px solid var(--color-ash-light);
+        border-radius: 3px;
+        padding: 0 0.25em;
+    }
+    .rte-content pre {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        line-height: 1.5;
+        background: var(--color-basalt);
+        color: var(--color-paper);
+        border-radius: 6px;
+        padding: 0.6rem 0.75rem;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+    .rte-content pre code {
+        background: none;
+        border: 0;
+        padding: 0;
+        font-size: inherit;
+        color: inherit;
+    }
+    .rte-content pre .hljs-keyword,
+    .rte-content pre .hljs-tag,
+    .rte-content pre .hljs-name {
+        color: var(--color-lava-light);
+    }
+    .rte-content pre .hljs-string,
+    .rte-content pre .hljs-attr {
+        color: #b9d9a3;
+    }
+    .rte-content pre .hljs-comment {
+        color: var(--color-ash);
+    }
+    .rte-content pre .hljs-number,
+    .rte-content pre .hljs-literal {
+        color: #f1c983;
+    }
+    .rte-content hr {
+        border: 0;
+        border-top: 2px solid var(--color-lava);
+        margin: 0.75rem 0;
+    }
+    .rte-content table {
+        border-collapse: collapse;
+        width: 100%;
+        table-layout: fixed;
+        font-size: 12.5px;
+    }
+    .rte-content th,
+    .rte-content td {
+        border: 1px solid var(--color-ash);
+        padding: 0.3rem 0.45rem;
+        vertical-align: top;
+        min-width: 3rem;
+        position: relative;
+    }
+    .rte-content th {
+        background: var(--color-paper);
+        font-weight: 600;
+        text-align: left;
+    }
+    .rte-content th > p,
+    .rte-content td > p {
+        margin: 0;
+    }
+    .rte-content .selectedCell::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: color-mix(in srgb, var(--color-lava) 18%, transparent);
+        pointer-events: none;
+    }
+    .rte-content figure.rte-figure {
+        margin: 0.75rem 0;
+        max-width: 100%;
+    }
+    .rte-content figure.rte-figure img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+    }
+    .rte-content figure.rte-figure figcaption {
+        font-size: 11.5px;
+        color: var(--color-basalt-light);
+        margin-top: 0.25rem;
+    }
+    .rte-content figure.rte-align-left {
+        float: left;
+        max-width: 50%;
+        margin: 0.25rem 1rem 0.5rem 0;
+    }
+    .rte-content figure.rte-align-right {
+        float: right;
+        max-width: 50%;
+        margin: 0.25rem 0 0.5rem 1rem;
+    }
+    .rte-content figure.rte-align-center {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+    .rte-content figure.rte-align-center img {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .rte-content .ProseMirror-selectednode {
+        outline: 2px solid var(--color-lava);
+        outline-offset: 2px;
+    }
+    .rte-content .rte-embed {
+        border: 1px dashed var(--color-ash);
+        border-radius: 6px;
+        background: var(--color-paper);
+        padding: 0.6rem 0.75rem;
+        font-family: var(--font-mono);
+        font-size: 11.5px;
+        color: var(--color-basalt-light);
+        word-break: break-all;
+    }
+    .rte-content .rte-hit {
+        background: color-mix(in srgb, var(--color-warning) 28%, transparent);
+        border-radius: 2px;
+    }
+    .rte-content .rte-hit-current {
+        background: color-mix(in srgb, var(--color-lava) 35%, transparent);
+    }
+    .rte-content p.is-editor-empty:first-child::before {
+        content: attr(data-placeholder);
+        color: var(--color-ash-dark);
+        float: left;
+        height: 0;
+        pointer-events: none;
+    }
+    .rte-content img.ProseMirror-separator {
+        display: inline;
+    }
+}
+
+/* ── Dunkle Oberfläche (TB 21) ─────────────────────────────────────────────────────────────────────────────────────
+   Wahl im Profil: hell, dunkel, wie das System → `data-theme="dark"` am <html>. Statt jede Klasse anzufassen, bekommen
+   die Farbvariablen dunkle Werte: Papier wird die Seite, Weiss die Fläche, Basalt der Text; Links und Zustände sind
+   aufgehellt. Kontraste auf der Fläche #1e2125: Text 13:1, Basalt-hell 8,3:1, Asche-dunkel 6,6:1, Lava-dunkel 6,1:1,
+   Lava 5,2:1, Erfolg 7,4:1, Warnung 7,6:1, Karmin 6,1:1; Asche als Rahmen 3,4:1 (WCAG 1.4.11). */
+:root[data-theme='dark'] {
+    color-scheme: dark;
+    --color-paper: #15171a;
+    --color-white: #1e2125;
+    --color-basalt: #ebe8e3;
+    --color-basalt-light: #b5bac0;
+    --color-ash: #6e747b;
+    --color-ash-dark: #a0a6ad;
+    --color-ash-light: #33373d;
+    --color-lava: #ec6a43;
+    --color-lava-dark: #f0805d;
+    --color-lava-light: #f6a487;
+    --color-success: #5fc28c;
+    --color-warning: #e0a83a;
+    --color-danger: #f27a83;
+    --scroll-bg: #1e2125;
+}
+
+/* Was auf einer satten Farbe steht (Kopfzeile in Basalt, Knöpfe in Lava, Marken in Erfolg/Warnung/Karmin), ist schon
+   dunkel gestaltet: darin gilt die helle Palette weiter — weisser Text bleibt weiss, der Kopf bleibt Basalt. Nicht für
+   gesperrte Knöpfe: die zeigen ihre gesperrte Form (`disabled:bg-white`) in den dunklen Farben. */
+:root[data-theme='dark']
+    :where(
+        .bg-basalt,
+        .bg-basalt-light,
+        .bg-lava,
+        .bg-lava-dark,
+        .bg-success,
+        .bg-warning,
+        .bg-danger
+    ):not(:disabled) {
+    --color-basalt: #23262b;
+    --color-basalt-light: #3b3f46;
+    --color-lava: #e4572e;
+    --color-lava-dark: #b53f1d;
+    --color-lava-light: #f28a69;
+    --color-ash: #9aa0a6;
+    --color-ash-dark: #62676e;
+    --color-ash-light: #e3e6ea;
+    --color-paper: #f6f4f0;
+    --color-white: #ffffff;
+    --color-success: #2a744a;
+    --color-warning: #8f5c00;
+    --color-danger: #b8232f;
+}
+
+/* Abdunkeln hinter Dialogen: dunkel bleibt dunkel */
+:root[data-theme='dark'] :where([class*='bg-basalt/']) {
+    background-color: rgb(0 0 0 / 55%);
+}

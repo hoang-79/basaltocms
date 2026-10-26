@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 290" width="840" height="290" role="img" aria-label="Sicherung, Prüfung, Wiederherstellung">
+  <title>Sicherung, Prüfung, Wiederherstellung</title>
+  <rect width="840" height="290" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Sicherung, Prüfung, Wiederherstellung</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Die Sicherung läuft jede Nacht; prüfen und ausser Haus kopieren gehören dazu. Der APP_KEY steht nicht im Archiv.</text>
+  <path d="M110 112L730.0 112" stroke="#e4572e" stroke-width="2.4" fill="none"/>
+  <polygon points="127.3,102.0 127.3,122.0 110.0,132.0 92.7,122.0 92.7,102.0 110.0,92.0" fill="#e4572e" stroke="none"/>
+  <text x="110.0" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="110.0" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Sichern</text>
+  <text x="110.0" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">03:15 · basalto:backup</text>
+  <polygon points="334.0,102.0 334.0,122.0 316.7,132.0 299.3,122.0 299.3,102.0 316.7,92.0" fill="#e4572e" stroke="none"/>
+  <text x="316.66666666666663" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="316.66666666666663" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Prüfen</text>
+  <text x="316.66666666666663" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">basalto:backup-verify</text>
+  <polygon points="540.7,102.0 540.7,122.0 523.3,132.0 506.0,122.0 506.0,102.0 523.3,92.0" fill="#e4572e" stroke="none"/>
+  <text x="523.3333333333333" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="523.3333333333333" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Ausser Haus</text>
+  <text x="523.3333333333333" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">rclone, S3, Band</text>
+  <polygon points="747.3,102.0 747.3,122.0 730.0,132.0 712.7,122.0 712.7,102.0 730.0,92.0" fill="#e4572e" stroke="none"/>
+  <text x="730.0" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="730.0" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Wiederherstellen</text>
+  <text x="730.0" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">Datenbank, Dateien,</text>
+  <text x="730.0" y="189" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">.env mit APP_KEY</text>
+  <rect x="24" y="236" width="792" height="36" rx="18" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="420" y="259" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="600" fill="#62676e" text-anchor="middle">Export einer Site: basalto:export → basalto:import — für Umzug, Kopie, Austritt</text>
+</svg>

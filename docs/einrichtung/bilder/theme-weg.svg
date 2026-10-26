@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 300" width="840" height="300" role="img" aria-label="Vom Theme im Ordner zur eigenen Fassung: übernehmen, Entwurf, einreichen, veröffentlichen">
+  <title>Vom Theme im Ordner zur eigenen Fassung: übernehmen, Entwurf, einreichen, veröffentlichen</title>
+  <rect width="840" height="300" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Wie eine Änderung am Theme live geht</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Wie bei Inhalten: erst Entwurf, dann Freigabe. Wer Entwürfe schreibt oder einreicht, gibt sie nicht selbst frei.</text>
+  <rect x="24" y="98" width="148" height="64" rx="8" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="98.0" y="127.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Ordner</text>
+  <text x="98.0" y="143.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">nur lesen</text>
+  <rect x="186" y="98" width="148" height="64" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="260.0" y="127.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Datenbank</text>
+  <text x="260.0" y="143.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">übernehmen</text>
+  <path d="M174 130L184 130" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M176.8 133.5L184 130L176.8 126.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="348" y="98" width="148" height="64" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="422.0" y="127.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Entwurf</text>
+  <text x="422.0" y="143.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">speichern</text>
+  <path d="M336 130L346 130" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M338.8 133.5L346 130L338.8 126.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="510" y="98" width="148" height="64" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="584.0" y="127.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">eingereicht</text>
+  <text x="584.0" y="143.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">mit Notiz</text>
+  <path d="M498 130L508 130" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M500.8 133.5L508 130L500.8 126.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="672" y="98" width="148" height="64" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="746.0" y="127.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="middle">live</text>
+  <text x="746.0" y="143.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">Fassung 2</text>
+  <path d="M660 130L670 130" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M662.8 133.5L670 130L662.8 126.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M746 166L746 206" stroke="#62676e" stroke-width="1.6" fill="none" stroke-dasharray="4 4"/>
+  <path d="M742.5 198.8L746 206L749.5 198.8" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="620" y="208" width="196" height="52" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="718.0" y="231.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Fassungen</text>
+  <text x="718.0" y="247.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">als Entwurf zurückholen</text>
+  <path d="M200 166L200 206" stroke="#62676e" stroke-width="1.6" fill="none" stroke-dasharray="4 4"/>
+  <path d="M196.5 198.8L200 206L203.5 198.8" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="80" y="208" width="240" height="52" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="200.0" y="231.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Zurück zum Ordner</text>
+  <text x="200.0" y="247.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">Ihre Fassung bleibt in der Bibliothek</text>
+  <text x="360" y="238" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#62676e" text-anchor="start">Alle verwerfen: Entwürfe weg, live bleibt</text>
+</svg>

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 420" width="840" height="420" role="img" aria-label="Help by task">
+  <title>Help by task</title>
+  <rect width="840" height="420" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Help by task</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Each area speaks to one reader — start with Getting started, then go where your work is.</text>
+  <rect x="24" y="84" width="184" height="148" rx="10" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <polygon points="61.3,107.5 61.3,120.5 50.0,127.0 38.7,120.5 38.7,107.5 50.0,101.0" fill="#e4572e" stroke="none"/>
+  <text x="72" y="119" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#b53f1d" text-anchor="start">Getting started</text>
+  <text x="40" y="154" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="600" fill="#23262b" text-anchor="start">new to Basalto</text>
+  <text x="40" y="180" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Install, tour,</text>
+  <text x="40" y="197" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">first page</text>
+  <rect x="224" y="84" width="184" height="148" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="261.3,107.5 261.3,120.5 250.0,127.0 238.7,120.5 238.7,107.5 250.0,101.0" fill="#23262b" stroke="none"/>
+  <text x="272" y="119" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">Editing</text>
+  <text x="240" y="154" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="600" fill="#23262b" text-anchor="start">looking after content</text>
+  <text x="240" y="180" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Pages, blocks, media,</text>
+  <text x="240" y="197" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">translation, approval</text>
+  <rect x="424" y="84" width="184" height="148" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="461.3,107.5 461.3,120.5 450.0,127.0 438.7,120.5 438.7,107.5 450.0,101.0" fill="#23262b" stroke="none"/>
+  <text x="472" y="119" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">Setup</text>
+  <text x="440" y="154" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="600" fill="#23262b" text-anchor="start">shaping the site</text>
+  <text x="440" y="180" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Look, structure, menus,</text>
+  <text x="440" y="197" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">content types, go live</text>
+  <rect x="624" y="84" width="184" height="148" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="661.3,107.5 661.3,120.5 650.0,127.0 638.7,120.5 638.7,107.5 650.0,101.0" fill="#23262b" stroke="none"/>
+  <text x="672" y="119" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">Administration</text>
+  <text x="640" y="154" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="600" fill="#23262b" text-anchor="start">running the installation</text>
+  <text x="640" y="180" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Sites, users, roles,</text>
+  <text x="640" y="197" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">settings, updates</text>
+  <rect x="24" y="250" width="184" height="148" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="61.3,273.5 61.3,286.5 50.0,293.0 38.7,286.5 38.7,273.5 50.0,267.0" fill="#23262b" stroke="none"/>
+  <text x="72" y="285" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">Community</text>
+  <text x="40" y="320" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="600" fill="#23262b" text-anchor="start">forum and members</text>
+  <text x="40" y="346" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Read, write,</text>
+  <text x="40" y="363" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">moderate</text>
+  <rect x="224" y="250" width="184" height="148" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="261.3,273.5 261.3,286.5 250.0,293.0 238.7,286.5 238.7,273.5 250.0,267.0" fill="#23262b" stroke="none"/>
+  <text x="272" y="285" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">Marketplace</text>
+  <text x="240" y="320" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="600" fill="#23262b" text-anchor="start">themes and plugins</text>
+  <text x="240" y="346" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Find, try on,</text>
+  <text x="240" y="363" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">offer</text>
+  <rect x="424" y="250" width="184" height="148" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="461.3,273.5 461.3,286.5 450.0,293.0 438.7,286.5 438.7,273.5 450.0,267.0" fill="#23262b" stroke="none"/>
+  <text x="472" y="285" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">Developers</text>
+  <text x="440" y="320" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="600" fill="#23262b" text-anchor="start">building themes, modules</text>
+  <text x="440" y="346" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Lava, themes,</text>
+  <text x="440" y="363" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">extensions, API</text>
+  <rect x="624" y="250" width="184" height="148" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="661.3,273.5 661.3,286.5 650.0,293.0 638.7,286.5 638.7,273.5 650.0,267.0" fill="#23262b" stroke="none"/>
+  <text x="672" y="285" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">Operations</text>
+  <text x="640" y="320" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="600" fill="#23262b" text-anchor="start">running the server</text>
+  <text x="640" y="346" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Installation, hosting,</text>
+  <text x="640" y="363" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">backup, monitoring</text>
+</svg>

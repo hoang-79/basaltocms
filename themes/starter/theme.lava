@@ -1,0 +1,798 @@
+lava 1
+
+# ═══════════════════════════════════════════════════════════════════════════════════════════════════
+#  Starter — das Beispiel-Theme von Basalto, von A bis Z kommentiert (L-15).
+#
+#  Ein Theme beantwortet zehn Fragen, eine Station je Frage — die «rote Linie», die `php artisan basalto:check`
+#  und das Backend (Einrichtung) prüfen:
+#
+#    A site      Wer bin ich?              F block     Woraus bestehen Seiten?
+#    B design    Wie sehe ich aus?         G template  Wie wird ein Typ dargestellt?
+#    C layout    Wie ist eine Seite gebaut?   H form   Was dürfen Besucher senden?
+#    D nav       Wie findet man sich zurecht?  I seed  Womit fängt eine neue Site an?
+#    E type      Welche Inhalte gibt es?   Z publish   Wann darf die Site live?
+#
+#  Ziele dieses Themes: WCAG 2.2 AA ohne Anpassung (Kontraste gerechnet, Tastatur, Fokus sichtbar, Sprunglink),
+#  Lighthouse ≥ 95, keine Fremdressource (keine Web-Schrift aus dem Netz, kein Skript). Kopieren Sie den Ordner
+#  `themes/starter` unter neuem Namen und ändern Sie, was Sie brauchen — `basalto:check` sagt, was fehlt.
+# ═══════════════════════════════════════════════════════════════════════════════════════════════════
+
+# ── A · site ─────────────────────────────────────────────
+# Name, Sprachen (die erste ist die Standardsprache), Domain und Zeitzone. Weitere Sprachen ergänzt man hier und
+# bei den Sprachen der Site im Backend; Texte mit `.en`, `.fr`, `.it` an Eigenschaften übersetzen.
+site starter {
+  name: "Starter"
+  languages: de, en, fr, it
+  default: de
+  domain: example.ch
+  timezone: Europe/Zurich
+}
+
+# ── B · design ───────────────────────────────────────────
+# Jede Farbe, Schrift, jeder Abstand wird eine CSS-Variable im Kopf der Seite: `--color-text`, `--font-body`,
+# `--space-3`, `--radius`. Im Backend (Station B «Design») lassen sich Farben, Schriften und Logo je Site
+# überschreiben — ohne Build.
+#
+# Kontrast: Basalto rechnet ihn nach WCAG 2.2 für Paare, die sich aus den Namen ergeben — `text`, `muted` und
+# `link` auf `background`, `X-text` auf `X` (hier `accent-text` auf `accent`, `dark-text` auf `dark`). Unter 4,5:1
+# warnt `basalto:check`, und das Backend lässt eine solche Farbe nicht speichern. Die Farben sind die der Marke
+# Basalto (Basalt und Lava); Text liegt zwischen 5,2:1 und 13,8:1, Rahmen von Eingabefeldern über 3:1.
+design {
+  # «dark #…»: der Wert der dunklen Darstellung — wenn Besucher es im System so eingestellt oder mit {% appearance %}
+  # gewählt haben. Kontraste dunkel: Text 14,7:1, Leise 9,2:1, Link 6,8:1, Knopf 5,7:1.
+  color text: #23262b dark #ebe8e3
+  color background: #f6f4f0 dark #15171a
+  color surface: #ffffff dark #1e2125
+  color muted: #3b3f46 dark #b5bac0
+  color link: #b53f1d dark #f0805d
+  color accent: #b53f1d dark #ec6a43
+  color accent-text: #ffffff dark #15171a
+  color dark: #23262b dark #0e1012
+  color dark-text: #f6f4f0
+  color dark-muted: #9aa0a6
+  color border: #80868c dark #6e747b
+  color line: #e3e6ea dark #33373d
+  color marker: #e4572e dark #ec6a43
+  color focus: #b53f1d dark #f0805d
+  # Systemschriften: schnell, ohne Download, ohne Fremdressource. Eine eigene Schrift legt man als woff2 unter
+  # assets/fonts/ und nennt sie mit «src», z. B.:  font body: "Inter" weight 400 src assets/fonts/inter.woff2
+  font body: system-ui
+  font heading: system-ui weight 700
+  font code: ui-monospace fallback mono
+  space: 4, 8, 12, 16, 24, 32, 48, 64
+  radius: 6
+  # Das Stylesheet des Themes und das Logo liegen unter assets/ und kommen mit Prüfsumme in der Adresse (ein Jahr
+  # im Browser-Cache, jede Änderung bekommt eine neue Adresse).
+  css: assets/theme.css
+  logo: assets/logo.svg
+  # Bildvarianten: Basalto erzeugt sie beim Hochladen (WebP, auf Wunsch AVIF und 2×). «sizes» sagt dem Browser,
+  # wie breit das Bild auf der Seite wird.
+  images {
+    variant thumb { width: 320 }
+    variant card { width: 640  height: 400  mode: exact  densities: 1, 2 }
+    variant content { width: 1280  sizes: "(min-width: 72rem) 70rem, 100vw" }
+    variant hero { width: 1920  height: 960  mode: exact  sizes: "100vw"  densities: 1, 2  lazy: false }
+  }
+}
+
+# ── C · layout ───────────────────────────────────────────
+# Das Gerüst jeder Seite. Regionen sind benannte Plätze; Templates (Station G) füllen sie. Teile («part») sind
+# fertige Bausteine des Kerns: Navigation, Sprachwechsel, Brotkrumen, globale Inhalte, Formulare.
+# `{% assets %}` steht zuerst im Kopf: Zeichensatz, Viewport, Design-Variablen und Stylesheet. Das Menü für schmale
+# Bildschirme ist ein <details> — auf- und zuklappbar ohne Skript; das Stylesheet zeigt je nach Breite nur eine der
+# beiden Fassungen (die andere ist mit display:none auch für Screenreader weg).
+# «Anmelden»/«Abmelden» im Kopf kommt aus dem Modul «Mitglieder» ({% members.status %}) — nur, wenn es installiert und
+# für die Site an ist (site.modules.members). Gäste sehen «Anmelden» (der Link führt zur Anmeldeseite der Mitglieder),
+# Angemeldete «Abmelden». Eine geschützte Seite zeigt Gästen die Anmeldung von selbst; {% members.login %} und
+# {% members.account %} setzen sie auf jede andere Seite.
+layout standard {
+  region header: part main_nav, part lang_switch
+  region main
+  region aside optional
+  region footer
+  markup ```
+    <!doctype html>
+    <html lang="{{ site.language }}">
+    <head>{% assets %}{% seo %}</head>
+    <body class="layout-standard{% if page.css_class %} {{ page.css_class }}{% end %}">
+      <a class="skip-link" href="#inhalt">{% if site.language == "en" %}Skip to content{% elseif site.language == "fr" %}Aller au contenu{% elseif site.language == "it" %}Vai al contenuto{% else %}Zum Inhalt springen{% end %}</a>
+      <header class="site-header">
+        <div class="wrap header-inner">
+          <a class="brand" href="{% if site.language == "de" %}/{% else %}/{{ site.language }}{% end %}">{% if site.logo %}<img src="{{ site.logo }}" alt="" width="28" height="28">{% end %}<span>{{ site.name }}</span></a>
+          <div class="header-wide">{% region "header" %}</div>
+          {% appearance %}
+          {% if site.modules.members %}<div class="header-account">{% members.status %}</div>{% end %}
+          <details class="menu">
+            <summary>{% if site.language == "de" %}Menü{% else %}Menu{% end %}</summary>
+            <div class="menu-panel">{% region "header" %}</div>
+          </details>
+        </div>
+      </header>
+      <main id="inhalt" class="wrap" tabindex="-1">
+        {% breadcrumbs %}
+        {% region "main" %}
+      </main>
+      {% if regions.aside %}<aside class="wrap aside">{% region "aside" %}</aside>{% end %}
+      <footer class="site-footer">
+        <div class="wrap footer-inner">
+          {% region "footer" %}
+          {% if page.alternates %}<div class="footer-languages"><p class="footer-title">{% if site.language == "en" %}Language{% elseif site.language == "fr" %}Langue{% elseif site.language == "it" %}Lingua{% else %}Sprache{% end %}</p><ul>{% each page.alternates as alt %}<li>{% if alt.locale == page.locale %}<span aria-current="true" lang="{{ alt.locale }}">{{ alt.locale | upper }}</span>{% else %}<a href="{{ alt.url }}" hreflang="{{ alt.locale }}" lang="{{ alt.locale }}">{{ alt.locale | upper }}</a>{% end %}</li>{% end %}</ul></div>{% end %}
+        </div>
+      </footer>
+    </body>
+    </html>
+  ```
+}
+
+# Ein Layout kann ein anderes erweitern und Regionen ergänzen — hier eine Bühne vor dem Hauptteil.
+layout landing extends standard {
+  region hero before main
+}
+
+part main_nav: nav {
+  source: main
+  label: "Hauptnavigation"  label.en: "Main navigation"  label.fr: "Navigation principale"  label.it: "Navigazione principale"
+}
+
+part lang_switch: languages
+
+# ── D · nav ──────────────────────────────────────────────
+# Menüs aus dem Seitenbaum («from: pages») oder frei gepflegt («items: db», Einträge im Backend unter Navigation).
+nav main {
+  from: pages
+  depth: 2
+  exclude: legal
+}
+
+# Ein frei gepflegtes Menü sähe so aus — Einträge kommen dann aus dem Backend (Navigation), «item» sind Startwerte:
+#   nav footer { items: db  depth: 1  item "Kontakt" -> kontakt }
+
+# Eigenes Markup für ein Menü: Variable `nav` mit `label` und `items` (je Eintrag `href`, `label`, `current`).
+nav legal {
+  from: pages
+  only: legal
+  label: "Rechtliches"  label.en: "Legal"  label.fr: "Mentions légales"  label.it: "Note legali"
+  markup ```
+    <nav class="nav nav-legal" aria-label="{{ nav.label }}"><p class="footer-title">{{ nav.label }}</p><ul>{% each nav.items as item %}<li{% if item.current %} class="current active"{% else %}{% if item.active %} class="active"{% end %}{% end %}><a href="{{ item.href }}"{% if item.current %} aria-current="page"{% end %}{% if item.new_window %} target="_blank" rel="noopener"{% end %}>{{ item.label }}</a></li>{% end %}{% if site.cancellation %}<li><a href="{{ site.cancellation }}">{% if site.language == "en" %}Cancel contracts here{% elseif site.language == "fr" %}Résilier des contrats ici{% elseif site.language == "it" %}Disdire i contratti qui{% else %}Verträge hier kündigen{% end %}</a></li>{% end %}<li data-cookie-link hidden><a href="#cookie-einstellungen">{% if site.language == "en" %}Cookie settings{% elseif site.language == "fr" %}Paramètres des cookies{% elseif site.language == "it" %}Impostazioni dei cookie{% else %}Cookie-Einstellungen{% end %}</a></li></ul></nav>
+  ```
+}
+
+# ── E · type ─────────────────────────────────────────────
+# Inhaltstypen mit Feldern. «translatable» heisst: je Sprache ein eigener Wert. «route» legt die Adresse fest.
+type page {
+  label: "Seite"  label.en: "Page"  label.fr: "Page"  label.it: "Pagina"
+  field title: text required translatable { label: "Titel"  label.en: "Title"  label.fr: "Titre"  label.it: "Titolo" }
+  field slug: slug from title
+  field intro: richtext translatable { label: "Einleitung"  label.en: "Introduction"  label.fr: "Introduction"  label.it: "Introduzione" }
+  field content: blocks { allow: hero, spotlight, stats, steps, choices, features, notes, text, image, visual, cards, cta, quote, faq, form, posts, search, comments  label: "Inhalt"  label.en: "Content"  label.fr: "Contenu"  label.it: "Contenuto" }
+  field seo: seo
+  route: /{slug}
+  template: default
+}
+
+type post {
+  label: "Beitrag"  label.en: "Post"  label.fr: "Article"  label.it: "Articolo"
+  field title: text required translatable { label: "Titel"  label.en: "Title"  label.fr: "Titre"  label.it: "Titolo" }
+  field slug: slug from title
+  field date: date { label: "Datum"  label.en: "Date"  label.fr: "Date"  label.it: "Data" }
+  field intro: richtext translatable { label: "Einleitung"  label.en: "Introduction"  label.fr: "Introduction"  label.it: "Introduzione" }
+  field cover: image { label: "Titelbild"  label.en: "Cover image"  label.fr: "Image de couverture"  label.it: "Immagine di copertina" }
+  field art: text { pick: image  help: "Statt eines Titelbilds: ein Bild aus der Mediathek oder seine Adresse, z. B. /vendor/basalto/core/demo/beitrag-willkommen-foto.webp"  label: "Bild"  label.en: "Image"  label.fr: "Image"  label.it: "Immagine" }
+  field art_overlay: text { pick: image  help: "Durchsichtige Grafik aus der Mediathek oder ihre Adresse, deckungsgleich über dem Bild"  label: "Grafik darüber"  label.en: "Overlay graphic"  label.fr: "Graphique superposé"  label.it: "Grafica sovrapposta" }
+  field art_credit: text { help: "Bildnachweis klein auf dem Bild"  label: "Bildnachweis"  label.en: "Image credit"  label.fr: "Crédit photo"  label.it: "Credito fotografico" }
+  field category: select { options: Neuigkeiten, Anleitungen  label: "Kategorie"  label.en: "Category"  label.fr: "Catégorie"  label.it: "Categoria" }
+  field tags: tags { label: "Schlagworte"  label.en: "Tags"  label.fr: "Mots-clés"  label.it: "Parole chiave" }
+  field author: relation person { label: "Autorin oder Autor"  label.en: "Author"  label.fr: "Autrice ou auteur"  label.it: "Autrice o autore" }
+  field content: blocks { allow: text, image, quote, cta, comments  label: "Inhalt"  label.en: "Content"  label.fr: "Contenu"  label.it: "Contenuto" }
+  route: /blog/{slug}
+  template: post
+}
+
+type person {
+  label: "Person"  label.en: "Person"  label.fr: "Personne"  label.it: "Persona"
+  field name: text required { label: "Name"  label.en: "Name"  label.fr: "Nom"  label.it: "Nome" }
+  field role: text translatable { label: "Funktion"  label.en: "Role"  label.fr: "Fonction"  label.it: "Funzione" }
+}
+
+# Globale Inhalte gibt es einmal je Site — hier der Fuss.
+global footer {
+  label: "Fuss"  label.en: "Footer"  label.fr: "Pied de page"  label.it: "Piè di pagina"
+  field claim: text translatable { label: "Leitsatz"  label.en: "Claim"  label.fr: "Devise"  label.it: "Motto" }
+  field address: textarea { label: "Adresse"  label.en: "Address"  label.fr: "Adresse"  label.it: "Indirizzo" }
+}
+
+# ── F · block ────────────────────────────────────────────
+# Blöcke sind die Bausteine im Editor. Felder wie bei Typen, dazu Markup. `{{ … }}` gibt Werte maskiert aus,
+# `{{ raw … }}` nur für Fliesstext aus dem Editor (der Kern bereinigt ihn).
+block hero {
+  label: "Bühne"  label.en: "Hero"  label.fr: "Bandeau"  label.it: "Hero"
+  group: "Einstieg"  group.en: "Intro"  group.fr: "Ouverture"  group.it: "Apertura"
+  hint: "Grosser Titel mit Einleitung, Bild und bis zu zwei Knöpfen — oben auf der Seite."
+  hint.en: "Large title with introduction, image and up to two buttons — at the top of the page."
+  hint.fr: "Grand titre avec introduction, image et jusqu’à deux boutons — en haut de la page."
+  hint.it: "Grande titolo con introduzione, immagine e fino a due pulsanti — in cima alla pagina."
+  field title: text required translatable { label: "Titel"  label.en: "Title"  label.fr: "Titre"  label.it: "Titolo" }
+  field lead: richtext translatable { label: "Einleitung"  label.en: "Lead"  label.fr: "Introduction"  label.it: "Introduzione" }
+  field image: image { sizes: hero  label: "Bild"  label.en: "Image"  label.fr: "Image"  label.it: "Immagine" }
+  field cta: link { label: "Knopf (Link)"  label.en: "Button (link)"  label.fr: "Bouton (lien)"  label.it: "Pulsante (link)" }
+  field more: link { label: "Zweiter Link"  label.en: "Second link"  label.fr: "Deuxième lien"  label.it: "Secondo link" }
+  markup ```
+    <section class="hero">
+      <div class="hero-text">
+        <h1>{{ title }}</h1>
+        {% if lead %}<div class="lead">{{ raw lead }}</div>{% end %}
+        {% if cta or more %}<p class="actions">{% if cta %}{% link cta class: "button" %}{% end %}{% if more %}{% link more class: "more" %}{% end %}</p>{% end %}
+      </div>
+      {% if image %}<div class="hero-image">{% image image size: "hero" %}</div>{% end %}
+    </section>
+  ```
+}
+
+block text {
+  label: "Text"  label.en: "Text"  label.fr: "Texte"  label.it: "Testo"
+  group: "Text"  group.en: "Text"  group.fr: "Texte"  group.it: "Testo"
+  hint: "Fliesstext mit Zwischentiteln, Listen und Links."
+  hint.en: "Body text with subheadings, lists and links."
+  hint.fr: "Texte courant avec intertitres, listes et liens."
+  hint.it: "Testo continuo con sottotitoli, elenchi e link."
+  field body: richtext required translatable { label: "Text"  label.en: "Text"  label.fr: "Texte"  label.it: "Testo" }
+  markup ```
+    <div class="prose">{{ raw body }}</div>
+  ```
+}
+
+block image {
+  label: "Bild"  label.en: "Image"  label.fr: "Image"  label.it: "Immagine"
+  group: "Bilder"  group.en: "Images"  group.fr: "Images"  group.it: "Immagini"
+  hint: "Ein Bild aus den Medien mit Bildunterschrift — schmal, breit oder in voller Breite."
+  hint.en: "An image from the media library with a caption — narrow, wide or full width."
+  hint.fr: "Une image de la médiathèque avec légende — étroite, large ou pleine largeur."
+  hint.it: "Un’immagine dalla mediateca con didascalia — stretta, larga o a tutta larghezza."
+  field image: image required { label: "Bild"  label.en: "Image"  label.fr: "Image"  label.it: "Immagine" }
+  field caption: text translatable { label: "Bildunterschrift"  label.en: "Caption"  label.fr: "Légende"  label.it: "Didascalia" }
+  field width: select { options: contained, wide, full  default: contained  label: "Breite"  label.en: "Width"  label.fr: "Largeur"  label.it: "Larghezza" }
+  markup ```
+    <figure class="figure figure-{{ width | default("contained") }}">
+      {% image image size: "content" %}
+      {% if caption %}<figcaption>{{ caption }}</figcaption>{% end %}
+    </figure>
+  ```
+}
+
+# Bild mit Grafik: ein Bild über eine Adresse (nicht aus den Medien) und deckungsgleich darüber eine durchsichtige
+# Grafik — Foto mit Schema, wie auf der Startseite der Demo. Für Bilder aus der Mediathek gibt es «Bild».
+block visual {
+  label: "Bild mit Grafik"  label.en: "Image with graphic"  label.fr: "Image avec graphique"  label.it: "Immagine con grafica"
+  group: "Bilder"  group.en: "Images"  group.fr: "Images"  group.it: "Immagini"
+  hint: "Ein Foto mit einer deckungsgleichen Grafik darüber."
+  hint.en: "A photo with a matching graphic on top."
+  hint.fr: "Une photo avec un graphique superposé exactement."
+  hint.it: "Una foto con una grafica sovrapposta e allineata."
+  field art: text required { pick: image  help: "Bild aus der Mediathek oder Adresse des Bildes, z. B. /vendor/basalto/core/demo/funktion-seiten-foto.webp"  label: "Bild"  label.en: "Image"  label.fr: "Image"  label.it: "Immagine" }
+  field art_overlay: text { pick: image  help: "Durchsichtige Grafik aus der Mediathek oder ihre Adresse, deckungsgleich über dem Bild"  label: "Grafik darüber"  label.en: "Overlay graphic"  label.fr: "Graphique superposé"  label.it: "Grafica sovrapposta" }
+  field art_credit: text { help: "Bildnachweis klein auf dem Bild"  label: "Bildnachweis"  label.en: "Image credit"  label.fr: "Crédit photo"  label.it: "Credito fotografico" }
+  field caption: text translatable { label: "Bildunterschrift"  label.en: "Caption"  label.fr: "Légende"  label.it: "Didascalia" }
+  markup ```
+    <figure class="figure figure-wide visual"><div class="visual-frame"><img src="{{ art }}" alt="" width="800" height="300">{% if art_overlay %}<img class="art-overlay" src="{{ art_overlay }}" alt="" width="800" height="300">{% end %}{% if art_credit %}<span class="art-credit">{{ art_credit }}</span>{% end %}</div>{% if caption %}<figcaption>{{ caption }}</figcaption>{% end %}</figure>
+  ```
+}
+
+block cards {
+  label: "Karten"  label.en: "Cards"  label.fr: "Cartes"  label.it: "Schede"
+  group: "Listen und Raster"  group.en: "Lists and grids"  group.fr: "Listes et grilles"  group.it: "Elenchi e griglie"
+  hint: "Mehrere Karten nebeneinander, je mit Titel, Text und Link."
+  hint.en: "Several cards side by side, each with title, text and link."
+  hint.fr: "Plusieurs cartes côte à côte, chacune avec titre, texte et lien."
+  hint.it: "Più schede affiancate, ognuna con titolo, testo e link."
+  field title: text translatable { label: "Titel"  label.en: "Title"  label.fr: "Titre"  label.it: "Titolo" }
+  field items: repeater {
+    label: "Einträge"  label.en: "Items"  label.fr: "Éléments"  label.it: "Voci"
+    field title: text required translatable { label: "Titel"  label.en: "Title"  label.fr: "Titre"  label.it: "Titolo" }
+    field text: richtext translatable { label: "Text"  label.en: "Text"  label.fr: "Texte"  label.it: "Testo" }
+    field link: link { label: "Link"  label.en: "Link"  label.fr: "Lien"  label.it: "Link" }
+  }
+  markup ```
+    <section class="cards">
+      {% if title %}<h2>{{ title }}</h2>{% end %}
+      <ul class="card-grid">
+        {% each items as item %}
+          <li class="card"><h3>{% if item.link %}{% link item.link label: item.title %}{% else %}{{ item.title }}{% end %}</h3>{% if item.text %}<div class="card-text">{{ raw item.text }}</div>{% end %}</li>
+        {% end %}
+      </ul>
+    </section>
+  ```
+}
+
+block cta {
+  label: "Aufruf"  label.en: "Call to action"  label.fr: "Appel à l’action"  label.it: "Invito all’azione"
+  group: "Aktionen"  group.en: "Actions"  group.fr: "Actions"  group.it: "Azioni"
+  hint: "Ein Aufruf mit Titel, Satz und Knopf."
+  hint.en: "A call to action with title, sentence and button."
+  hint.fr: "Un appel à l’action avec titre, phrase et bouton."
+  hint.it: "Un invito all’azione con titolo, frase e pulsante."
+  field title: text required translatable { label: "Titel"  label.en: "Title"  label.fr: "Titre"  label.it: "Titolo" }
+  field text: text translatable { label: "Satz"  label.en: "Sentence"  label.fr: "Phrase"  label.it: "Frase" }
+  field link: link required { label: "Link"  label.en: "Link"  label.fr: "Lien"  label.it: "Link" }
+  field link_label: text translatable { help: "Beschriftung des Knopfs; leer = Titel der Zielseite"  label: "Beschriftung des Knopfs"  label.en: "Button label"  label.fr: "Libellé du bouton"  label.it: "Etichetta del pulsante" }
+  field more: link { label: "Zweiter Link"  label.en: "Second link"  label.fr: "Deuxième lien"  label.it: "Secondo link" }
+  field more_label: text translatable { label: "Beschriftung des zweiten Links"  label.en: "Second link label"  label.fr: "Libellé du deuxième lien"  label.it: "Etichetta del secondo link" }
+  field center: checkbox { label: "Mittig, als grosse Karte"  label.en: "Centred, as a large card"  label.fr: "Centré, en grande carte"  label.it: "Centrato, come scheda grande" }
+  markup ```
+    <section class="cta{% if center %} cta-center{% end %}"><div><h2>{{ title }}</h2>{% if text %}<p>{{ text }}</p>{% end %}</div><p class="actions">{% if link_label %}{% link link class: "button button-light" label: link_label %}{% else %}{% link link class: "button button-light" %}{% end %}{% if more %}{% if more_label %}{% link more class: "more" label: more_label %}{% else %}{% link more class: "more" %}{% end %}{% end %}</p></section>
+  ```
+}
+
+# Bühne mit Beispielkarte: links Hinweis, Titel, Text und zwei Knöpfe, rechts eine Karte mit Zeilen und Zustand — etwa
+# «Heute zu tun». Die Karte ist Schmuck mit Inhalt (kein Bild), darum mit Überschrift und als Liste lesbar.
+block spotlight {
+  label: "Bühne mit Karte"  label.en: "Hero with card"  label.fr: "Bandeau avec carte"  label.it: "Hero con scheda"
+  group: "Einstieg"  group.en: "Intro"  group.fr: "Ouverture"  group.it: "Apertura"
+  hint: "Wie die Bühne, dazu eine Karte mit einer Liste über dem Bild."
+  hint.en: "Like the hero, plus a card with a list over the image."
+  hint.fr: "Comme le bandeau, avec en plus une carte et sa liste sur l’image."
+  hint.it: "Come l’hero, con in più una scheda con elenco sopra l’immagine."
+  field badge: text translatable { help: "Kurzer Hinweis über dem Titel, z. B. «Jede Nacht frisch»"  label: "Marke"  label.en: "Badge"  label.fr: "Badge"  label.it: "Etichetta" }
+  field title: text required translatable { label: "Titel"  label.en: "Title"  label.fr: "Titre"  label.it: "Titolo" }
+  field lead: richtext translatable { label: "Einleitung"  label.en: "Lead"  label.fr: "Introduction"  label.it: "Introduzione" }
+  field cta: link { label: "Knopf (Link)"  label.en: "Button (link)"  label.fr: "Bouton (lien)"  label.it: "Pulsante (link)" }
+  field cta_label: text translatable { help: "Beschriftung des ersten Knopfs; leer = Titel der Zielseite"  label: "Beschriftung des Knopfs"  label.en: "Button label"  label.fr: "Libellé du bouton"  label.it: "Etichetta del pulsante" }
+  field more: link { label: "Zweiter Link"  label.en: "Second link"  label.fr: "Deuxième lien"  label.it: "Secondo link" }
+  field more_label: text translatable { label: "Beschriftung des zweiten Links"  label.en: "Second link label"  label.fr: "Libellé du deuxième lien"  label.it: "Etichetta del secondo link" }
+  field panel_title: text translatable { label: "Titel der Karte"  label.en: "Card title"  label.fr: "Titre de la carte"  label.it: "Titolo della scheda" }
+  field panel_meta: text translatable { label: "Zusatz der Karte"  label.en: "Card subtitle"  label.fr: "Complément de la carte"  label.it: "Complemento della scheda" }
+  field panel_items: repeater {
+    label: "Zeilen der Karte"  label.en: "Card rows"  label.fr: "Lignes de la carte"  label.it: "Righe della scheda"
+    field label: text required translatable { label: "Beschriftung"  label.en: "Label"  label.fr: "Libellé"  label.it: "Etichetta" }
+    field state: text translatable { label: "Stand"  label.en: "Status"  label.fr: "État"  label.it: "Stato" }
+    field tone: select { options: gut, bald, spaet  default: gut  label: "Ton"  label.en: "Tone"  label.fr: "Ton"  label.it: "Tono" }
+  }
+  field panel_note: text translatable { label: "Hinweis der Karte"  label.en: "Card note"  label.fr: "Remarque de la carte"  label.it: "Nota della scheda" }
+  field art: text { pick: image  help: "Bild aus der Mediathek oder Adresse eines Bildes rechts; die Karte liegt dann unten links darüber"  label: "Bild"  label.en: "Image"  label.fr: "Image"  label.it: "Immagine" }
+  field art_overlay: text { pick: image  help: "Durchsichtige Grafik aus der Mediathek oder ihre Adresse, deckungsgleich über dem Bild"  label: "Grafik darüber"  label.en: "Overlay graphic"  label.fr: "Graphique superposé"  label.it: "Grafica sovrapposta" }
+  field art_credit: text { help: "Bildnachweis klein auf dem Bild"  label: "Bildnachweis"  label.en: "Image credit"  label.fr: "Crédit photo"  label.it: "Credito fotografico" }
+  markup ```
+    <section class="spotlight">
+      <div class="spotlight-text">
+        {% if badge %}<p class="badge"><span class="badge-dot" aria-hidden="true"></span>{{ badge }}</p>{% end %}
+        <h1>{{ title }}</h1>
+        {% if lead %}<div class="lead">{{ raw lead }}</div>{% end %}
+        {% if cta or more %}<p class="actions">{% if cta %}{% if cta_label %}{% link cta class: "button" label: cta_label %}{% else %}{% link cta class: "button" %}{% end %}{% end %}{% if more %}{% if more_label %}{% link more class: "more" label: more_label %}{% else %}{% link more class: "more" %}{% end %}{% end %}</p>{% end %}
+      </div>
+      {% if art or panel_items %}<div class="spotlight-visual{% if art %} spotlight-visual-art{% end %}">
+        {% if art %}<figure class="spotlight-art"><img src="{{ art }}" alt="" width="560" height="420" fetchpriority="high">{% if art_overlay %}<img class="art-overlay" src="{{ art_overlay }}" alt="" width="560" height="420">{% end %}{% if art_credit %}<figcaption class="art-credit">{{ art_credit }}</figcaption>{% end %}</figure>{% end %}
+        {% if panel_items %}<div class="spotlight-panel">
+          <p class="panel-head"><strong>{{ panel_title }}</strong>{% if panel_meta %}<span>{{ panel_meta }}</span>{% end %}</p>
+          <ul class="panel-list">{% each panel_items as item %}<li><span>{{ item.label }}</span>{% if item.state %}<span class="pill pill-{{ item.tone | default("gut") }}">{{ item.state }}</span>{% end %}</li>{% end %}</ul>
+          {% if panel_note %}<p class="panel-note">{{ panel_note }}</p>{% end %}
+        </div>{% end %}
+      </div>{% end %}
+    </section>
+  ```
+}
+
+# Kennzahlen in einer Reihe: grosse Zahl, darunter kurz, was sie heisst.
+block stats {
+  label: "Kennzahlen"  label.en: "Key figures"  label.fr: "Chiffres clés"  label.it: "Cifre chiave"
+  group: "Listen und Raster"  group.en: "Lists and grids"  group.fr: "Listes et grilles"  group.it: "Elenchi e griglie"
+  hint: "Grosse Zahlen mit kurzer Beschriftung."
+  hint.en: "Large figures with a short label."
+  hint.fr: "Grands chiffres avec un libellé court."
+  hint.it: "Grandi cifre con una breve etichetta."
+  field items: repeater {
+    label: "Einträge"  label.en: "Items"  label.fr: "Éléments"  label.it: "Voci"
+    field value: text required translatable { label: "Wert"  label.en: "Value"  label.fr: "Valeur"  label.it: "Valore" }
+    field label: text required translatable { label: "Beschriftung"  label.en: "Label"  label.fr: "Libellé"  label.it: "Etichetta" }
+  }
+  markup ```
+    <section class="stats"><dl class="stats-grid">{% each items as item %}<div class="stat"><dt>{{ item.label }}</dt><dd>{{ item.value }}</dd></div>{% end %}</dl></section>
+  ```
+}
+
+# Schritte, nummeriert — «So geht es» in drei oder vier Zügen.
+block steps {
+  label: "Schritte"  label.en: "Steps"  label.fr: "Étapes"  label.it: "Passaggi"
+  group: "Listen und Raster"  group.en: "Lists and grids"  group.fr: "Listes et grilles"  group.it: "Elenchi e griglie"
+  hint: "Ein Ablauf in nummerierten Schritten."
+  hint.en: "A process in numbered steps."
+  hint.fr: "Un déroulement en étapes numérotées."
+  hint.it: "Un procedimento in passaggi numerati."
+  field eyebrow: text translatable { label: "Dachzeile"  label.en: "Eyebrow"  label.fr: "Surtitre"  label.it: "Occhiello" }
+  field title: text required translatable { label: "Titel"  label.en: "Title"  label.fr: "Titre"  label.it: "Titolo" }
+  field intro: text translatable { label: "Einleitung"  label.en: "Introduction"  label.fr: "Introduction"  label.it: "Introduzione" }
+  field items: repeater {
+    label: "Einträge"  label.en: "Items"  label.fr: "Éléments"  label.it: "Voci"
+    field title: text required translatable { label: "Titel"  label.en: "Title"  label.fr: "Titre"  label.it: "Titolo" }
+    field text: richtext translatable { label: "Text"  label.en: "Text"  label.fr: "Texte"  label.it: "Testo" }
+  }
+  markup ```
+    <section class="section-block steps" id="so-gehts">
+      {% if eyebrow %}<p class="eyebrow">{{ eyebrow }}</p>{% end %}
+      <h2>{{ title }}</h2>
+      {% if intro %}<p class="section-intro">{{ intro }}</p>{% end %}
+      <ol class="step-list">{% each items as item %}<li class="step"><span class="step-number" aria-hidden="true">{{ loop.index }}</span><h3>{{ item.title }}</h3>{% if item.text %}<div class="card-text">{{ raw item.text }}</div>{% end %}</li>{% end %}</ol>
+    </section>
+  ```
+}
+
+# Auswahl mit Knopf je Karte — etwa «Wer wollen Sie sein?» mit einem Weg je Rolle.
+block choices {
+  label: "Auswahl"  label.en: "Choices"  label.fr: "Choix"  label.it: "Scelta"
+  group: "Listen und Raster"  group.en: "Lists and grids"  group.fr: "Listes et grilles"  group.it: "Elenchi e griglie"
+  hint: "Mehrere Wege zur Wahl, zum Beispiel Pakete oder Zielgruppen."
+  hint.en: "Several options to choose from, for example packages or audiences."
+  hint.fr: "Plusieurs options au choix, par exemple des forfaits ou des publics cibles."
+  hint.it: "Più opzioni tra cui scegliere, per esempio pacchetti o destinatari."
+  field eyebrow: text translatable { label: "Dachzeile"  label.en: "Eyebrow"  label.fr: "Surtitre"  label.it: "Occhiello" }
+  field title: text required translatable { label: "Titel"  label.en: "Title"  label.fr: "Titre"  label.it: "Titolo" }
+  field intro: text translatable { label: "Einleitung"  label.en: "Introduction"  label.fr: "Introduction"  label.it: "Introduzione" }
+  field items: repeater {
+    label: "Einträge"  label.en: "Items"  label.fr: "Éléments"  label.it: "Voci"
+    field title: text required translatable { label: "Titel"  label.en: "Title"  label.fr: "Titre"  label.it: "Titolo" }
+    field meta: text translatable { label: "Zusatz"  label.en: "Meta"  label.fr: "Complément"  label.it: "Complemento" }
+    field text: richtext translatable { label: "Text"  label.en: "Text"  label.fr: "Texte"  label.it: "Testo" }
+    field link: link required { label: "Link"  label.en: "Link"  label.fr: "Lien"  label.it: "Link" }
+    field button: text translatable { label: "Knopf"  label.en: "Button"  label.fr: "Bouton"  label.it: "Pulsante" }
+    field art: text { pick: image  help: "Bild aus der Mediathek oder Adresse eines Bildes oben in der Karte"  label: "Bild"  label.en: "Image"  label.fr: "Image"  label.it: "Immagine" }
+    field art_overlay: text { pick: image  help: "Durchsichtige Grafik aus der Mediathek oder ihre Adresse, deckungsgleich über dem Bild"  label: "Grafik darüber"  label.en: "Overlay graphic"  label.fr: "Graphique superposé"  label.it: "Grafica sovrapposta" }
+    field art_credit: text { help: "Bildnachweis klein auf dem Bild"  label: "Bildnachweis"  label.en: "Image credit"  label.fr: "Crédit photo"  label.it: "Credito fotografico" }
+  }
+  markup ```
+    <section class="section-block choices" id="ausprobieren">
+      {% if eyebrow %}<p class="eyebrow">{{ eyebrow }}</p>{% end %}
+      <h2>{{ title }}</h2>
+      {% if intro %}<p class="section-intro">{{ intro }}</p>{% end %}
+      <ul class="choice-grid">{% each items as item %}<li class="choice">{% if item.art %}<figure class="choice-art"><img src="{{ item.art }}" alt="" width="360" height="200" loading="lazy">{% if item.art_overlay %}<img class="art-overlay" src="{{ item.art_overlay }}" alt="" width="360" height="200" loading="lazy">{% end %}{% if item.art_credit %}<figcaption class="art-credit">{{ item.art_credit }}</figcaption>{% end %}</figure>{% end %}<h3>{{ item.title }}</h3>{% if item.meta %}<p class="choice-meta">{{ item.meta }}</p>{% end %}{% if item.text %}<div class="card-text">{{ raw item.text }}</div>{% end %}<p class="choice-action">{% link item.link class: "button" label: item.button | default(item.title) %}</p></li>{% end %}</ul>
+    </section>
+  ```
+}
+
+# Funktionen mit Zeichen: ein Raster aus Karten, je Karte ein Zeichen aus dem Stylesheet (keine Bilddatei).
+block features {
+  label: "Funktionen"  label.en: "Features"  label.fr: "Fonctions"  label.it: "Funzioni"
+  group: "Listen und Raster"  group.en: "Lists and grids"  group.fr: "Listes et grilles"  group.it: "Elenchi e griglie"
+  hint: "Funktionen im Raster, je mit Titel und Text."
+  hint.en: "Features in a grid, each with title and text."
+  hint.fr: "Des fonctions en grille, chacune avec titre et texte."
+  hint.it: "Funzioni in una griglia, ognuna con titolo e testo."
+  field eyebrow: text translatable { label: "Dachzeile"  label.en: "Eyebrow"  label.fr: "Surtitre"  label.it: "Occhiello" }
+  field title: text required translatable { label: "Titel"  label.en: "Title"  label.fr: "Titre"  label.it: "Titolo" }
+  field intro: text translatable { label: "Einleitung"  label.en: "Introduction"  label.fr: "Introduction"  label.it: "Introduzione" }
+  field items: repeater {
+    label: "Einträge"  label.en: "Items"  label.fr: "Éléments"  label.it: "Voci"
+    field icon: select { options: seiten, editor, medien, sprachen, freigabe, formulare, suche, tempo, themes, rollen, einstellungen, daten  default: seiten  label: "Zeichen"  label.en: "Icon"  label.fr: "Icône"  label.it: "Icona" }
+    field title: text required translatable { label: "Titel"  label.en: "Title"  label.fr: "Titre"  label.it: "Titolo" }
+    field text: richtext translatable { label: "Text"  label.en: "Text"  label.fr: "Texte"  label.it: "Testo" }
+    field link: link { label: "Link"  label.en: "Link"  label.fr: "Lien"  label.it: "Link" }
+  }
+  markup ```
+    <section class="section-block features" id="entdecken">
+      {% if eyebrow %}<p class="eyebrow">{{ eyebrow }}</p>{% end %}
+      <h2>{{ title }}</h2>
+      {% if intro %}<p class="section-intro">{{ intro }}</p>{% end %}
+      <ul class="feature-grid">{% each items as item %}<li class="feature"><span class="feature-icon icon-{{ item.icon | default("seiten") }}" aria-hidden="true"></span><h3>{% if item.link %}{% link item.link label: item.title %}{% else %}{{ item.title }}{% end %}</h3>{% if item.text %}<div class="card-text">{{ raw item.text }}</div>{% end %}</li>{% end %}</ul>
+    </section>
+  ```
+}
+
+# Dunkles Band mit kurzen Hinweisen und Zeichen — etwa «Was die Demo nicht tut».
+block notes {
+  label: "Hinweise"  label.en: "Notes"  label.fr: "Remarques"  label.it: "Note"
+  group: "Listen und Raster"  group.en: "Lists and grids"  group.fr: "Listes et grilles"  group.it: "Elenchi e griglie"
+  hint: "Kurze Hinweise als Liste unter einem Titel."
+  hint.en: "Short notes as a list under a title."
+  hint.fr: "De courtes remarques en liste sous un titre."
+  hint.it: "Brevi note in elenco sotto un titolo."
+  field title: text required translatable { label: "Titel"  label.en: "Title"  label.fr: "Titre"  label.it: "Titolo" }
+  field items: repeater {
+    label: "Einträge"  label.en: "Items"  label.fr: "Éléments"  label.it: "Voci"
+    field icon: select { options: post, karte, person, nacht, schloss, info  default: info  label: "Zeichen"  label.en: "Icon"  label.fr: "Icône"  label.it: "Icona" }
+    field text: text required translatable { label: "Text"  label.en: "Text"  label.fr: "Texte"  label.it: "Testo" }
+  }
+  markup ```
+    <section class="notes"><h2>{{ title }}</h2><ul class="note-list">{% each items as item %}<li><span class="note-icon icon-{{ item.icon | default("info") }}" aria-hidden="true"></span><span>{{ item.text }}</span></li>{% end %}</ul></section>
+  ```
+}
+
+block quote {
+  label: "Zitat"  label.en: "Quote"  label.fr: "Citation"  label.it: "Citazione"
+  group: "Text"  group.en: "Text"  group.fr: "Texte"  group.it: "Testo"
+  hint: "Ein Zitat mit Quelle, gross gesetzt."
+  hint.en: "A quotation with its source, set large."
+  hint.fr: "Une citation avec sa source, en grand."
+  hint.it: "Una citazione con la sua fonte, in grande."
+  field text: richtext required translatable { label: "Zitat"  label.en: "Quote"  label.fr: "Citation"  label.it: "Citazione" }
+  field source: text translatable { label: "Quelle"  label.en: "Source"  label.fr: "Source"  label.it: "Fonte" }
+  markup ```
+    <figure class="quote"><blockquote>{{ raw text }}</blockquote>{% if source %}<figcaption>{{ source }}</figcaption>{% end %}</figure>
+  ```
+}
+
+# Häufige Fragen mit <details>: auf- und zuklappbar ohne Skript, mit Tastatur bedienbar.
+block faq {
+  label: "Fragen und Antworten"  label.en: "FAQ"  label.fr: "Questions fréquentes"  label.it: "Domande frequenti"
+  group: "Listen und Raster"  group.en: "Lists and grids"  group.fr: "Listes et grilles"  group.it: "Elenchi e griglie"
+  hint: "Fragen, deren Antworten sich aufklappen."
+  hint.en: "Questions whose answers fold open."
+  hint.fr: "Des questions dont les réponses se déplient."
+  hint.it: "Domande le cui risposte si aprono con un clic."
+  field title: text translatable { label: "Titel"  label.en: "Title"  label.fr: "Titre"  label.it: "Titolo" }
+  field items: repeater {
+    label: "Einträge"  label.en: "Items"  label.fr: "Éléments"  label.it: "Voci"
+    field question: text required translatable { label: "Frage"  label.en: "Question"  label.fr: "Question"  label.it: "Domanda" }
+    field answer: richtext required translatable { label: "Antwort"  label.en: "Answer"  label.fr: "Réponse"  label.it: "Risposta" }
+  }
+  markup ```
+    <section class="faq">
+      {% if title %}<h2>{{ title }}</h2>{% end %}
+      {% each items as item %}<details><summary>{{ item.question }}</summary><div class="prose">{{ raw item.answer }}</div></details>{% end %}
+    </section>
+  ```
+}
+
+block form {
+  label: "Formular"  label.en: "Form"  label.fr: "Formulaire"  label.it: "Modulo"
+  group: "Aktionen"  group.en: "Actions"  group.fr: "Actions"  group.it: "Azioni"
+  hint: "Ein Formular der Site, zum Beispiel «Kontakt»."
+  hint.en: "A form of the site, for example “Contact”."
+  hint.fr: "Un formulaire du site, par exemple « Contact »."
+  hint.it: "Un modulo del sito, per esempio «Contatto»."
+  field form: relation form { label: "Formular"  label.en: "Form"  label.fr: "Formulaire"  label.it: "Modulo" }
+  markup ```
+    <section class="form-block">{% form form %}</section>
+  ```
+}
+
+# Eine Liste von Beiträgen mit Seiten, Kategorien und Archiv — «entries» liefert sie aus der Datenbank.
+block posts {
+  label: "Beiträge"  label.en: "Posts"  label.fr: "Articles"  label.it: "Articoli"
+  group: "Aus Daten"  group.en: "From data"  group.fr: "À partir des données"  group.it: "Dai dati"
+  hint: "Die neusten Beiträge — die Liste füllt sich selbst."
+  hint.en: "The latest posts — the list fills itself."
+  hint.fr: "Les derniers articles — la liste se remplit d’elle-même."
+  hint.it: "Gli articoli più recenti — l’elenco si riempie da solo."
+  field per: number { default: 10, min: 1, max: 50  label: "Anzahl"  label.en: "Number"  label.fr: "Nombre"  label.it: "Numero" }
+  markup ```
+    <section class="posts">
+      <ul class="post-list">
+        {% each entries("post", per) as post %}
+          <li class="post-teaser">{% if post.art %}<a class="post-thumb" href="{{ post.url }}" tabindex="-1" aria-hidden="true"><img src="{{ post.art }}" alt="" width="800" height="300" loading="lazy">{% if post.art_overlay %}<img class="art-overlay" src="{{ post.art_overlay }}" alt="" width="800" height="300" loading="lazy">{% end %}</a>{% end %}<h2><a href="{{ post.url }}">{{ post.title }}</a></h2><p class="post-meta"><time datetime="{{ post.date }}">{{ post.date | date }}</time>{% if post.category %} · <a href="{{ post.category_url }}">{{ post.category }}</a>{% end %}{% if post.author %} · {{ post.author }}{% end %}</p>{% if post.intro %}<div class="post-intro">{{ raw post.intro }}</div>{% end %}</li>
+        {% else %}<li class="empty">{% if site.language == "en" %}No posts yet.{% elseif site.language == "fr" %}Aucun article pour l’instant.{% elseif site.language == "it" %}Ancora nessun articolo.{% else %}Noch keine Beiträge.{% end %}</li>{% end %}
+      </ul>
+      {% pagination %}
+    </section>
+    <aside class="posts-nav">{% categories "post" %}{% archive "post" %}</aside>
+  ```
+}
+
+block search {
+  label: "Suche"  label.en: "Search"  label.fr: "Recherche"  label.it: "Ricerca"
+  group: "Aus Daten"  group.en: "From data"  group.fr: "À partir des données"  group.it: "Dai dati"
+  hint: "Ein Suchfeld mit Treffern aus der ganzen Site."
+  hint.en: "A search field with results from the whole site."
+  hint.fr: "Un champ de recherche avec des résultats de tout le site."
+  hint.it: "Un campo di ricerca con risultati da tutto il sito."
+  markup ```
+    <section class="search-block">{% search %}</section>
+  ```
+}
+
+# Kommentare (Modul «Kommentare»): Liste, Antworten und Formular kommen aus dem Modul über den Tag «comments.list» —
+# Spam-Schutz ohne Rätsel, E-Mail nie öffentlich, IP nur als Prüfsumme, kein Bild von fremden Servern. Die Felder sind
+# die Einstellungen dieser Einbindung. Ist das Modul für die Site aus (Verwaltung › Module), gibt der Tag nichts aus.
+block comments {
+  label: "Kommentare"  label.en: "Comments"  label.fr: "Commentaires"  label.it: "Commenti"
+  group: "Aus Daten"  group.en: "From data"  group.fr: "À partir des données"  group.it: "Dai dati"
+  hint: "Kommentare zum Inhalt, mit Formular zum Schreiben."
+  hint.en: "Comments on the content, with a form for writing."
+  hint.fr: "Des commentaires sur le contenu, avec un formulaire pour écrire."
+  hint.it: "Commenti sul contenuto, con un modulo per scrivere."
+  field moderation: select { options: Freigabe, sofort  default: Freigabe  label: "Moderation"  label.en: "Moderation"  label.fr: "Modération"  label.it: "Moderazione"  help: "Freigabe: jeder Kommentar wartet in der Moderation. sofort: sichtbar, bis jemand ihn entfernt." }
+  field order: select { options: älteste-zuerst, neueste-zuerst  default: älteste-zuerst  label: "Sortierung"  label.en: "Order"  label.fr: "Tri"  label.it: "Ordinamento" }
+  field per: number { default: 20, min: 1, max: 100  label: "Anzahl je Seite"  label.en: "Number per page"  label.fr: "Nombre par page"  label.it: "Numero per pagina" }
+  field replies: select { options: eine-Ebene, keine  default: eine-Ebene  label: "Antworten"  label.en: "Replies"  label.fr: "Réponses"  label.it: "Risposte" }
+  field notify: select { options: Redaktion, Autor, aus  default: Redaktion  label: "Benachrichtigung"  label.en: "Notification"  label.fr: "Notification"  label.it: "Notifica" }
+  field closed: checkbox { label: "Kommentare schliessen (bestehende bleiben sichtbar)"  label.en: "Close comments (existing ones stay visible)"  label.fr: "Fermer les commentaires (les existants restent visibles)"  label.it: "Chiudi i commenti (quelli esistenti restano visibili)" }
+  markup ```
+    {% comments.list moderation: moderation order: order per: per replies: replies notify: notify closed: closed %}
+  ```
+}
+
+# ── G · template ─────────────────────────────────────────
+# Ein Template sagt, mit welchem Layout ein Typ erscheint und was in welche Region kommt. «content» sind die
+# Blöcke der Seite; «content.first»/«content.rest» teilen sie (Bühne oben, Rest darunter).
+template default {
+  for: page
+  layout: standard
+  region main: content
+  region footer: global footer, nav legal
+  markup ```
+    <article class="page">
+      <header class="page-header"><h1>{{ page.title }}</h1>{% if page.intro %}<div class="lead">{{ raw page.intro }}</div>{% end %}</header>
+      {{ raw content }}
+    </article>
+  ```
+}
+
+template landing {
+  for: page
+  layout: landing
+  region hero: content.first
+  region main: content.rest
+  region footer: global footer, nav legal
+}
+
+template post {
+  for: post
+  layout: standard
+  region main: content
+  region footer: global footer, nav legal
+  markup ```
+    <article class="post">
+      <header class="page-header"><h1>{{ page.title }}</h1><p class="post-meta"><time datetime="{{ page.date }}">{{ page.date | date }}</time>{% if page.category %} · {{ page.category }}{% end %}</p>{% if page.intro %}<div class="lead">{{ raw page.intro }}</div>{% end %}</header>
+      {% if page.art %}<figure class="figure visual post-visual"><div class="visual-frame"><img src="{{ page.art }}" alt="" width="800" height="300">{% if page.art_overlay %}<img class="art-overlay" src="{{ page.art_overlay }}" alt="" width="800" height="300">{% end %}{% if page.art_credit %}<span class="art-credit">{{ page.art_credit }}</span>{% end %}</div></figure>{% end %}
+      {{ raw content }}
+      {% share %}
+    </article>
+  ```
+}
+
+# Rechtsseiten: eigenes Template, damit sie nicht im Hauptmenü stehen (nav main: exclude: legal) und gesammelt im
+# Fuss erscheinen (nav legal: only: legal).
+template legal {
+  for: page
+  layout: standard
+  region main: content
+  region footer: global footer, nav legal
+  markup ```
+    <article class="page legal">
+      <header class="page-header"><h1>{{ page.title }}</h1></header>
+      {{ raw content }}
+    </article>
+  ```
+}
+
+# ── H · form ─────────────────────────────────────────────
+# Formulare: Felder, Aktionen und Spam-Schutz ohne Rätsel (Honeypot, Zeitprüfung). Dieses Formular speichert die
+# Eingänge im Backend (Formulare › Eingänge). Mit «to: name@ihre-firma.ch» geht zusätzlich eine Mail hinaus.
+form contact {
+  label: "Kontakt"  label.en: "Contact"  label.fr: "Contact"  label.it: "Contatto"
+  field name: text required { label: "Name"  label.en: "Name"  label.fr: "Nom"  label.it: "Nome"  max: 120 }
+  field email: email required { label: "E-Mail"  label.en: "Email"  label.fr: "E-mail"  label.it: "E-mail" }
+  field message: textarea required { label: "Nachricht"  label.en: "Message"  label.fr: "Message"  label.it: "Messaggio"  max: 4000 }
+  store: true
+  thanks: "Danke für Ihre Nachricht — wir melden uns bald."
+  thanks.en: "Thank you for your message — we will get back to you soon."
+  thanks.fr: "Merci pour votre message — nous vous répondrons bientôt."
+  thanks.it: "Grazie per il Suo messaggio — Le risponderemo presto."
+  submit: "Senden"  submit.en: "Send"  submit.fr: "Envoyer"  submit.it: "Invia"
+  consent: "Ich bin einverstanden, dass meine Angaben zur Beantwortung gespeichert werden."
+  consent.en: "I agree that my details are stored to answer my message."
+  consent.fr: "J’accepte que mes données soient enregistrées pour répondre à mon message."
+  consent.it: "Acconsento che i miei dati vengano salvati per rispondere al mio messaggio."
+  retain: 90
+  spam: honeypot, timing
+}
+
+# ── I · seed ─────────────────────────────────────────────
+# Startinhalte: `php artisan basalto:publish` spielt sie beim ersten Mal ein — idempotent, Geändertes bleibt.
+# «-> seite» verweist auf eine andere Seite des Seeds.
+seed {
+  page home {
+    title: "Willkommen"  title.en: "Welcome"  title.fr: "Bienvenue"  title.it: "Benvenuti"
+    slug: /
+    template: landing
+    intro: "Ein schnelles, barrierearmes Theme für Basalto — kommentiert von A bis Z."
+    intro.en: "A fast, accessible theme for Basalto — commented from A to Z."
+    intro.fr: "Un thème rapide et accessible pour Basalto — commenté de A à Z."
+    intro.it: "Un tema veloce e accessibile per Basalto — commentato dalla A alla Z."
+    content {
+      hero {
+        title: "Eine Site aus einem Guss."  title.en: "A site made in one piece."  title.fr: "Un site d’un seul tenant."  title.it: "Un sito tutto d’un pezzo."
+        lead: "<p>Starter zeigt jede Station von Lava an einem Beispiel: Design, Layout, Menüs, Typen, Blöcke, Formular und Blog.</p>"
+        lead.en: "<p>Starter shows every station of Lava by example: design, layout, menus, types, blocks, form and blog.</p>"
+        lead.fr: "<p>Starter montre chaque station de Lava par l’exemple : design, mise en page, menus, types, blocs, formulaire et blog.</p>"
+        lead.it: "<p>Starter mostra ogni stazione di Lava con un esempio: design, layout, menu, tipi, blocchi, modulo e blog.</p>"
+        cta: -> kontakt
+        more: -> ueber-uns
+      }
+      cards {
+        title: "Was Starter mitbringt"  title.en: "What Starter brings"  title.fr: "Ce que Starter apporte"  title.it: "Che cosa offre Starter"
+        items {
+          { title: "Barrierearm"  title.en: "Accessible"  title.fr: "Accessible"  title.it: "Accessibile"  text: "<p>WCAG 2.2 AA: gerechnete Kontraste, sichtbarer Fokus, Sprunglink, Tastatur.</p>"  text.en: "<p>WCAG 2.2 AA: computed contrasts, visible focus, skip link, keyboard.</p>"  text.fr: "<p>WCAG 2.2 AA : contrastes calculés, focus visible, lien d’évitement, clavier.</p>"  text.it: "<p>WCAG 2.2 AA: contrasti calcolati, focus visibile, link per saltare al contenuto, tastiera.</p>" }
+          { title: "Schnell"  title.en: "Fast"  title.fr: "Rapide"  title.it: "Veloce"  text: "<p>Systemschriften, kein Skript, ein kleines Stylesheet, Seiten aus dem Cache.</p>"  text.en: "<p>System fonts, no script, one small stylesheet, pages from the cache.</p>"  text.fr: "<p>Polices système, aucun script, une petite feuille de style, des pages servies depuis le cache.</p>"  text.it: "<p>Caratteri di sistema, nessuno script, un piccolo foglio di stile, pagine dalla cache.</p>" }
+          { title: "Anpassbar"  title.en: "Customisable"  title.fr: "Adaptable"  title.it: "Personalizzabile"  text: "<p>Farben, Schriften und Logo im Backend — ohne Build.</p>"  text.en: "<p>Colours, fonts and logo in the backend — without a build.</p>"  text.fr: "<p>Couleurs, polices et logo dans le backend — sans build.</p>"  text.it: "<p>Colori, caratteri e logo nel backend — senza build.</p>" }
+        }
+      }
+      cta { title: "Fragen oder Wünsche?"  title.en: "Questions or wishes?"  title.fr: "Des questions ou des souhaits ?"  title.it: "Domande o desideri?"  text: "Eine Nachricht genügt — wir melden uns innert zwei Arbeitstagen."  text.en: "One message is enough — we will get back to you within two working days."  text.fr: "Un message suffit — nous vous répondons dans les deux jours ouvrables."  text.it: "Basta un messaggio — Le rispondiamo entro due giorni lavorativi."  link: -> kontakt }
+    }
+  }
+  page ueber-uns {
+    title: "Über uns"  title.en: "About us"  title.fr: "À propos"  title.it: "Chi siamo"
+    intro: "Wer hinter dieser Site steht — ersetzen Sie diesen Text durch Ihren eigenen."
+    intro.en: "Who is behind this site — replace this text with your own."
+    intro.fr: "Qui se cache derrière ce site — remplacez ce texte par le vôtre."
+    intro.it: "Chi c’è dietro questo sito — sostituisca questo testo con il Suo."
+    content {
+      text { body: "<p>Hier stellen Sie sich vor: was Sie tun, für wen und warum.</p>"  body.en: "<p>Introduce yourself here: what you do, for whom and why.</p>"  body.fr: "<p>Présentez-vous ici : ce que vous faites, pour qui et pourquoi.</p>"  body.it: "<p>Qui si presenta: che cosa fa, per chi e perché.</p>" }
+      quote { text: "<p>Gute Websites sind einfach zu pflegen.</p>"  text.en: "<p>Good websites are easy to maintain.</p>"  text.fr: "<p>Les bons sites web sont simples à entretenir.</p>"  text.it: "<p>I buoni siti web sono facili da curare.</p>"  source: "Starter" }
+      faq {
+        title: "Häufige Fragen"  title.en: "Frequently asked questions"  title.fr: "Questions fréquentes"  title.it: "Domande frequenti"
+        items {
+          { question: "Wie ändere ich die Farben?"  question.en: "How do I change the colours?"  question.fr: "Comment modifier les couleurs ?"  question.it: "Come si cambiano i colori?"  answer: "<p>Im Backend unter Einrichtung › Design.</p>"  answer.en: "<p>In the backend under Setup › Design.</p>"  answer.fr: "<p>Dans le backend, sous Configuration › Design.</p>"  answer.it: "<p>Nel backend, in Configurazione › Design.</p>" }
+          { question: "Wo kommen neue Seiten hin?"  question.en: "Where do new pages go?"  question.fr: "Où placer les nouvelles pages ?"  question.it: "Dove vanno le nuove pagine?"  answer: "<p>Im Seitenbaum unter Seiten — das Menü folgt von selbst.</p>"  answer.en: "<p>In the page tree under Pages — the menu follows by itself.</p>"  answer.fr: "<p>Dans l’arborescence, sous Pages — le menu suit de lui-même.</p>"  answer.it: "<p>Nell’albero delle pagine, in Pagine — il menu si aggiorna da solo.</p>" }
+        }
+      }
+    }
+  }
+  page blog {
+    title: "Blog"
+    intro: "Neuigkeiten und Anleitungen."
+    intro.en: "News and guides."
+    intro.fr: "Actualités et guides."
+    intro.it: "Novità e guide."
+    content { posts { per: 10 } }
+  }
+  page blog-feed {
+    title: "Blog von Starter"  title.en: "Starter blog"  title.fr: "Blog de Starter"  title.it: "Blog di Starter"
+    type: feed  feed: post  format: atom  parent: blog  slug: feed.xml
+  }
+  page suche {
+    title: "Suche"  title.en: "Search"  title.fr: "Recherche"  title.it: "Ricerca"
+    intro: "Inhalte dieser Site durchsuchen."
+    intro.en: "Search the content of this site."
+    intro.fr: "Rechercher dans les contenus de ce site."
+    intro.it: "Cerchi nei contenuti di questo sito."
+    content { search { } }
+  }
+  page kontakt {
+    title: "Kontakt"  title.en: "Contact"  title.fr: "Contact"  title.it: "Contatto"
+    intro: "Schreiben Sie uns — wir antworten in der Regel innert zwei Arbeitstagen."
+    intro.en: "Write to us — we usually answer within two working days."
+    intro.fr: "Écrivez-nous — nous répondons en général dans les deux jours ouvrables."
+    intro.it: "Ci scriva — di norma rispondiamo entro due giorni lavorativi."
+    content { form { form: contact } }
+  }
+  page impressum { title: "Impressum"  title.en: "Legal notice"  title.fr: "Mentions légales"  title.it: "Note legali"  intro: "Angaben zum Betreiber dieser Site."  intro.en: "Details of the operator of this site."  intro.fr: "Informations sur l’exploitant de ce site."  intro.it: "Informazioni sul gestore di questo sito."  template: legal }
+  page datenschutz { title: "Datenschutz"  title.en: "Privacy"  title.fr: "Protection des données"  title.it: "Protezione dei dati"  intro: "Wie diese Site Personendaten bearbeitet."  intro.en: "How this site processes personal data."  intro.fr: "Comment ce site traite les données personnelles."  intro.it: "Come questo sito tratta i dati personali."  template: legal }
+  post willkommen {
+    title: "Willkommen bei Starter"  title.en: "Welcome to Starter"  title.fr: "Bienvenue sur Starter"  title.it: "Benvenuti su Starter"
+    date: "2026-10-16"
+    category: Neuigkeiten
+    tags: "Basalto", "Starter"
+    author: redaktion
+    intro: "Der erste Beitrag — er zeigt, wie Beiträge, Kategorien, das Archiv und Kommentare aussehen."
+    intro.en: "The first post — it shows what posts, categories, the archive and comments look like."
+    intro.fr: "Le premier article — il montre à quoi ressemblent les articles, les catégories, les archives et les commentaires."
+    intro.it: "Il primo articolo — mostra come appaiono articoli, categorie, archivio e commenti."
+    content {
+      text { body: "<p>Beiträge pflegen Sie im Backend unter Inhalte › Beitrag.</p>"  body.en: "<p>You manage posts in the backend under Content › Post.</p>"  body.fr: "<p>Vous gérez les articles dans le backend sous Contenus › Article.</p>"  body.it: "<p>Gestisce gli articoli nel backend in Contenuti › Articolo.</p>" }
+      comments { moderation: Freigabe  order: älteste-zuerst  per: 20  replies: eine-Ebene  notify: Redaktion }
+    }
+  }
+  post erste-schritte {
+    title: "Erste Schritte"  title.en: "First steps"  title.fr: "Premiers pas"  title.it: "Primi passi"
+    date: "2026-10-01"
+    category: Anleitungen
+    tags: "Starter"
+    author: redaktion
+    intro: "Theme kopieren, Farben wählen, Seiten anlegen, veröffentlichen."
+    intro.en: "Copy the theme, choose colours, create pages, publish."
+    intro.fr: "Copier le thème, choisir les couleurs, créer des pages, publier."
+    intro.it: "Copiare il tema, scegliere i colori, creare pagine, pubblicare."
+    content { text { body: "<p>Mit <code>php artisan basalto:check</code> sehen Sie jederzeit, was noch fehlt.</p>"  body.en: "<p>With <code>php artisan basalto:check</code> you can see at any time what is still missing.</p>"  body.fr: "<p>Avec <code>php artisan basalto:check</code>, vous voyez à tout moment ce qui manque encore.</p>"  body.it: "<p>Con <code>php artisan basalto:check</code> vede in ogni momento che cosa manca ancora.</p>" } }
+  }
+  global footer { claim: "Starter — das Beispiel-Theme von Basalto."  claim.en: "Starter — the example theme of Basalto."  claim.fr: "Starter — le thème d’exemple de Basalto."  claim.it: "Starter — il tema di esempio di Basalto."  address: "Beispielstrasse 1 · 8000 Zürich" }
+  person redaktion { name: "Redaktion"  role: "Redaktion"  role.en: "Editorial team"  role.fr: "Rédaction"  role.it: "Redazione" }
+}
+
+# ── Z · publish ──────────────────────────────────────────
+# Was `basalto:publish` prüft, bevor die Site live geht: Rechtsseiten, Links, Bilder, Alt-Texte, Sprachen,
+# Formulare. «cookie: essential-only» heisst: keine Cookies ausser den nötigen, also auch kein Hinweis.
+publish {
+  seo { title_suffix: " · {site}" }
+  sitemap: true
+  robots: allow
+  cookie: essential-only
+  legal { impressum: impressum  datenschutz: datenschutz }
+  check: links, images, alt-texts, translations, forms
+}

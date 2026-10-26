@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 330" width="820" height="330" role="img" aria-label="Image variants: from one original Basalto crops the theme’s sizes around the focal point">
+  <title>Image variants: from one original Basalto crops the theme’s sizes around the focal point</title>
+  <rect width="820" height="330" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">One original, many variants</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">The theme sets the sizes; the focal point decides what stays visible when cropping.</text>
+  <rect x="32" y="90" width="240" height="160" rx="8" fill="#dfe4e0" stroke="#e3e6ea" stroke-width="1.2"/>
+  <path d="M44 236L120 160L170 206L206 176L262 236Z" stroke="#9aa0a6" stroke-width="0" fill="#b9c2bc" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="187.8,135.5 187.8,144.5 180.0,149.0 172.2,144.5 172.2,135.5 180.0,131.0" fill="#e4572e" stroke="none"/>
+  <text x="196" y="136" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="600" fill="#b53f1d" text-anchor="start">Focal point</text>
+  <text x="32" y="268" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="500" fill="#62676e" text-anchor="start">Original (unchanged)</text>
+  <rect x="340" y="90" width="300" height="90" rx="8" fill="#dfe4e0" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="525.2,123.0 525.2,129.0 520.0,132.0 514.8,129.0 514.8,123.0 520.0,120.0" fill="#e4572e" stroke="none"/>
+  <text x="340" y="84" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11" font-weight="600" fill="#23262b" text-anchor="start">hero</text>
+  <rect x="340" y="196" width="150" height="100" rx="8" fill="#dfe4e0" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="435.2,233.0 435.2,239.0 430.0,242.0 424.8,239.0 424.8,233.0 430.0,230.0" fill="#e4572e" stroke="none"/>
+  <text x="340" y="190" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11" font-weight="600" fill="#23262b" text-anchor="start">card</text>
+  <rect x="510" y="196" width="70" height="70" rx="8" fill="#dfe4e0" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="557.2,221.0 557.2,227.0 552.0,230.0 546.8,227.0 546.8,221.0 552.0,218.0" fill="#e4572e" stroke="none"/>
+  <text x="510" y="190" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11" font-weight="600" fill="#23262b" text-anchor="start">thumb</text>
+  <path d="M274 140L336 130" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M329.4 134.6L336 130L328.3 127.7" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M274 200L336 230" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M328.0 230.0L336 230L331.0 223.7" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="668" y="140" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#62676e" text-anchor="start">Widths and densities</text>
+  <text x="668" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">(1×, 2×) per variant —</text>
+  <text x="668" y="172" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">the browser picks the</text>
+  <text x="668" y="188" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">right one.</text>
+</svg>

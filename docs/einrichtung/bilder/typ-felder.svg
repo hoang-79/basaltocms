@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 300" width="840" height="300" role="img" aria-label="Vom Feld im Inhaltstyp zur Maske im Editor und zur Seite">
+  <title>Vom Feld im Inhaltstyp zur Maske im Editor und zur Seite</title>
+  <rect width="840" height="300" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Ein Feld, drei Orte</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Was Sie im Inhaltstyp festlegen, wird zur Maske der Redaktion — und das Template zeigt es auf der Seite.</text>
+  <rect x="30" y="82" width="245" height="186" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="44" y="108" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">Inhaltstyp «Beitrag»</text>
+  <text x="44" y="142" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">title · Text · Pflicht</text>
+  <text x="44" y="174" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">date · Datum</text>
+  <text x="44" y="206" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">cover · Bild</text>
+  <text x="44" y="238" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">content · Blöcke</text>
+  <rect x="305" y="82" width="245" height="186" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="319" y="108" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#b53f1d" text-anchor="start">Editor eines Beitrags</text>
+  <text x="319" y="142" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">Titel  [ Willkommen … ]</text>
+  <text x="319" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">Datum  [ 21.10.2026 ]</text>
+  <text x="319" y="206" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">Bild   [ Bild wählen ]</text>
+  <text x="319" y="238" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">Blöcke  + Block einfügen</text>
+  <path d="M277 175L301 175" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M293.8 178.5L301 175L293.8 171.5" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="580" y="82" width="245" height="186" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="594" y="108" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">Seite /blog/willkommen</text>
+  <text x="594" y="142" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">Willkommen bei Starter</text>
+  <text x="594" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">21. Oktober 2026</text>
+  <text x="594" y="206" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">[ Titelbild ]</text>
+  <text x="594" y="238" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">Text, Bild, Zitat …</text>
+  <path d="M552 175L576 175" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M568.8 178.5L576 175L568.8 171.5" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

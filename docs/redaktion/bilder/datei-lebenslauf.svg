@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 250" width="820" height="250" role="img" aria-label="Der Weg einer Datei in der Mediathek: hochladen, verwenden, Papierkorb, endgültig gelöscht">
+  <title>Der Weg einer Datei in der Mediathek: hochladen, verwenden, Papierkorb, endgültig gelöscht</title>
+  <rect width="820" height="250" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Der Weg einer Datei</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Gelöschtes bleibt 30 Tage im Papierkorb (einstellbar) — «Ersetzen» tauscht das Original sofort.</text>
+  <rect x="32" y="100" width="170" height="52" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="117.0" y="123.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Hochladen</text>
+  <text x="117.0" y="139.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">prüft Typ und Grösse</text>
+  <path d="M204 126L228 126" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M220.8 129.5L228 126L220.8 122.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="228" y="100" width="170" height="52" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="313.0" y="123.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">In Verwendung</text>
+  <text x="313.0" y="139.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">Seiten zeigen es</text>
+  <path d="M400 126L424 126" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M416.8 129.5L424 126L416.8 122.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="424" y="100" width="170" height="52" rx="8" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="509.0" y="123.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Papierkorb</text>
+  <text x="509.0" y="139.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">wiederherstellbar</text>
+  <path d="M596 126L620 126" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M612.8 129.5L620 126L612.8 122.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="620" y="100" width="170" height="52" rx="8" fill="#f6e1e3" stroke="#f6e1e3" stroke-width="1.2"/>
+  <text x="705.0" y="123.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#b8232f" text-anchor="middle">Gelöscht</text>
+  <text x="705.0" y="139.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">nach 30 Tagen</text>
+  <path d="M508 152V188H312V154" stroke="#62676e" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 4"/>
+  <path d="M312 162L312 154" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M315.5 161.2L312 154L308.5 161.2" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="410" y="204" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="500" fill="#62676e" text-anchor="middle">wiederherstellen</text>
+  <text x="32" y="236" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Wird eine verwendete Datei gelöscht, nennt die Rückfrage die Seiten, die sie noch zeigen.</text>
+</svg>

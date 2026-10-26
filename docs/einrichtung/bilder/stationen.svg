@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 520" width="840" height="520" role="img" aria-label="Die zehn Prüfungen A bis Z und die neun Stationen des Fahrplans">
+  <title>Die zehn Prüfungen A bis Z und die neun Stationen des Fahrplans</title>
+  <rect width="840" height="520" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Zehn Prüfungen, neun Stationen</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Der Prüfbericht zählt A bis Z, der Fahrplan fasst sie zu Fragen zusammen. Die Station zeigt den schlechtesten Stand ihrer Prüfungen.</text>
+  <rect x="40" y="86" width="150" height="28" rx="6" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="56" y="105" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">A</text>
+  <text x="78" y="105" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="12" font-weight="400" fill="#62676e" text-anchor="start">site</text>
+  <rect x="40" y="120" width="150" height="28" rx="6" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="56" y="139" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">B</text>
+  <text x="78" y="139" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="12" font-weight="400" fill="#62676e" text-anchor="start">design</text>
+  <rect x="40" y="154" width="150" height="28" rx="6" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="56" y="173" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">C</text>
+  <text x="78" y="173" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="12" font-weight="400" fill="#62676e" text-anchor="start">layout</text>
+  <rect x="40" y="188" width="150" height="28" rx="6" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="56" y="207" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">G</text>
+  <text x="78" y="207" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="12" font-weight="400" fill="#62676e" text-anchor="start">template</text>
+  <rect x="40" y="222" width="150" height="28" rx="6" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="56" y="241" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">D</text>
+  <text x="78" y="241" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="12" font-weight="400" fill="#62676e" text-anchor="start">nav</text>
+  <rect x="40" y="256" width="150" height="28" rx="6" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="56" y="275" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">E</text>
+  <text x="78" y="275" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="12" font-weight="400" fill="#62676e" text-anchor="start">type</text>
+  <rect x="40" y="290" width="150" height="28" rx="6" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="56" y="309" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">F</text>
+  <text x="78" y="309" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="12" font-weight="400" fill="#62676e" text-anchor="start">block</text>
+  <rect x="40" y="324" width="150" height="28" rx="6" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="56" y="343" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">H</text>
+  <text x="78" y="343" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="12" font-weight="400" fill="#62676e" text-anchor="start">form</text>
+  <rect x="40" y="358" width="150" height="28" rx="6" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="56" y="377" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">I</text>
+  <text x="78" y="377" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="12" font-weight="400" fill="#62676e" text-anchor="start">seed</text>
+  <rect x="40" y="392" width="150" height="28" rx="6" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="56" y="411" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">Z</text>
+  <text x="78" y="411" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="12" font-weight="400" fill="#62676e" text-anchor="start">publish</text>
+  <rect x="430" y="86.0" width="370" height="30" rx="6" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="446" y="106.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="600" fill="#23262b" text-anchor="start">Was ist die Site?</text>
+  <text x="788" y="106.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="end">Site</text>
+  <rect x="430" y="123.8" width="370" height="30" rx="6" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="446" y="143.8" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="600" fill="#23262b" text-anchor="start">Wie sieht sie aus?</text>
+  <text x="788" y="143.8" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="end">Theme · Design</text>
+  <rect x="430" y="161.6" width="370" height="30" rx="6" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="446" y="181.6" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="600" fill="#b53f1d" text-anchor="start">Wie ist sie gebaut?</text>
+  <text x="788" y="181.6" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="end">Layouts · Templates</text>
+  <rect x="430" y="199.39999999999998" width="370" height="30" rx="6" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="446" y="219.39999999999998" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="600" fill="#23262b" text-anchor="start">Wie findet man sich zurecht?</text>
+  <text x="788" y="219.39999999999998" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="end">Menüs</text>
+  <rect x="430" y="237.2" width="370" height="30" rx="6" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="446" y="257.2" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="600" fill="#23262b" text-anchor="start">Was lässt sich pflegen?</text>
+  <text x="788" y="257.2" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="end">Inhaltstypen</text>
+  <rect x="430" y="275.0" width="370" height="30" rx="6" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="446" y="295.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="600" fill="#23262b" text-anchor="start">Woraus bestehen Seiten?</text>
+  <text x="788" y="295.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="end">Blöcke · Bausteine</text>
+  <rect x="430" y="312.79999999999995" width="370" height="30" rx="6" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="446" y="332.79999999999995" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="600" fill="#23262b" text-anchor="start">Was können Besucher senden?</text>
+  <text x="788" y="332.79999999999995" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="end">Formulare</text>
+  <rect x="430" y="350.59999999999997" width="370" height="30" rx="6" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="446" y="370.59999999999997" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="600" fill="#23262b" text-anchor="start">Womit startet sie?</text>
+  <text x="788" y="370.59999999999997" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="end">Startinhalte</text>
+  <rect x="430" y="388.4" width="370" height="30" rx="6" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="446" y="408.4" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="600" fill="#23262b" text-anchor="start">Bereit für live?</text>
+  <text x="788" y="408.4" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="end">Veröffentlichen</text>
+  <path d="M190 100L430 101.0" stroke="#9aa0a6" stroke-width="1.4" fill="none"/>
+  <path d="M190 134L430 138.8" stroke="#9aa0a6" stroke-width="1.4" fill="none"/>
+  <path d="M190 168L430 176.6" stroke="#e4572e" stroke-width="1.4" fill="none"/>
+  <path d="M190 202L430 176.6" stroke="#e4572e" stroke-width="1.4" fill="none"/>
+  <path d="M190 236L430 214.39999999999998" stroke="#9aa0a6" stroke-width="1.4" fill="none"/>
+  <path d="M190 270L430 252.2" stroke="#9aa0a6" stroke-width="1.4" fill="none"/>
+  <path d="M190 304L430 290.0" stroke="#9aa0a6" stroke-width="1.4" fill="none"/>
+  <path d="M190 338L430 327.79999999999995" stroke="#9aa0a6" stroke-width="1.4" fill="none"/>
+  <path d="M190 372L430 365.59999999999997" stroke="#9aa0a6" stroke-width="1.4" fill="none"/>
+  <path d="M190 406L430 403.4" stroke="#9aa0a6" stroke-width="1.4" fill="none"/>
+  <text x="40" y="446" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Wie ist sie gebaut? bündelt Layout (C) und Template (G). Startinhalte (I) haben keine eigene Seite — Station Z spielt sie ein.</text>
+  <circle cx="52" cy="476" r="9" fill="#ffffff" stroke="#23262b" stroke-width="3"/>
+  <text x="68" y="480" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="400" fill="#23262b" text-anchor="start">in Ordnung</text>
+  <circle cx="172" cy="476" r="9" fill="#ffffff" stroke="#9aa0a6" stroke-width="3" stroke-dasharray="3 2.5"/>
+  <text x="188" y="480" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="400" fill="#23262b" text-anchor="start">wartet (Linie grau)</text>
+  <circle cx="330" cy="476" r="9" fill="#ffffff" stroke="#23262b" stroke-width="3"/><circle cx="338" cy="468" r="6" fill="#b8232f" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="338" y="471" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="8" font-weight="700" fill="#ffffff" text-anchor="middle">✗</text>
+  <text x="352" y="480" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="400" fill="#23262b" text-anchor="start">Fehler</text>
+  <circle cx="430" cy="476" r="9" fill="#ffffff" stroke="#23262b" stroke-width="3"/><circle cx="438" cy="468" r="6" fill="#b7791f" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="438" y="471" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="8" font-weight="700" fill="#ffffff" text-anchor="middle">!</text>
+  <text x="452" y="480" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="400" fill="#23262b" text-anchor="start">Warnung</text>
+  <circle cx="548" cy="476" r="9" fill="#e4572e" stroke="#e4572e" stroke-width="3"/>
+  <text x="564" y="480" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="400" fill="#23262b" text-anchor="start">hier sind Sie</text>
+</svg>

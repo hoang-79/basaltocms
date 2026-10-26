@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 250" width="840" height="250" role="img" aria-label="Ce que fait l’installateur web">
+  <title>Ce que fait l’installateur web</title>
+  <rect width="840" height="250" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Ce que fait l’installateur web</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Il vérifie les prérequis dès l’ouverture. Après « Installer », quatre étapes s’enchaînent seules, chacune reçoit une coche.</text>
+  <path d="M90 112L750.0 112" stroke="#e4572e" stroke-width="2.4" fill="none"/>
+  <polygon points="107.3,102.0 107.3,122.0 90.0,132.0 72.7,122.0 72.7,102.0 90.0,92.0" fill="#e4572e" stroke="none"/>
+  <text x="90.0" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="90.0" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Prérequis</text>
+  <text x="90.0" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">PHP et</text>
+  <text x="90.0" y="189" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">extensions</text>
+  <polygon points="272.3,102.0 272.3,122.0 255.0,132.0 237.7,122.0 237.7,102.0 255.0,92.0" fill="#e4572e" stroke="none"/>
+  <text x="255.0" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="255.0" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Télécharger</text>
+  <text x="255.0" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">et vérifier</text>
+  <text x="255.0" y="189" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">la signature</text>
+  <polygon points="437.3,102.0 437.3,122.0 420.0,132.0 402.7,122.0 402.7,102.0 420.0,92.0" fill="#e4572e" stroke="none"/>
+  <text x="420.0" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="420.0" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Décompresser</text>
+  <text x="420.0" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">dans le dossier</text>
+  <polygon points="602.3,102.0 602.3,122.0 585.0,132.0 567.7,122.0 567.7,102.0 585.0,92.0" fill="#e4572e" stroke="none"/>
+  <text x="585.0" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="585.0" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Configurer</text>
+  <text x="585.0" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">base de données,</text>
+  <text x="585.0" y="189" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">site, compte</text>
+  <polygon points="767.3,102.0 767.3,122.0 750.0,132.0 732.7,122.0 732.7,102.0 750.0,92.0" fill="#e4572e" stroke="none"/>
+  <text x="750.0" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="750.0" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Terminer</text>
+  <text x="750.0" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">et se connecter</text>
+  <text x="750.0" y="189" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">au backend</text>
+  <text x="420" y="232" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#b53f1d" text-anchor="middle">Pour finir, l’installateur se supprime lui-même.</text>
+</svg>

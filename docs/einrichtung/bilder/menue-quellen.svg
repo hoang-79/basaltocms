@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 300" width="840" height="300" role="img" aria-label="Drei Quellen eines Menüs: Seitenbaum, frei gepflegt, Typ-Liste">
+  <title>Drei Quellen eines Menüs: Seitenbaum, frei gepflegt, Typ-Liste</title>
+  <rect width="840" height="300" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Woher ein Menü seine Einträge hat</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Das Theme legt die Quelle fest. Nur frei gepflegte Menüs sortieren Sie hier; sonst bestimmt die Quelle die Reihenfolge.</text>
+  <rect x="30" y="82" width="250" height="186" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="46" y="110" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">aus dem Seitenbaum</text>
+  <text x="46" y="130" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">from: pages</text>
+  <text x="46" y="168" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· folgt dem Seitenbaum</text>
+  <text x="46" y="198" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· Tiefe, Startebene, Ausschluss, Nur</text>
+  <text x="46" y="228" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· Reihenfolge in «Seiten»</text>
+  <rect x="300" y="82" width="250" height="186" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="316" y="110" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#b53f1d" text-anchor="start">frei (Backend)</text>
+  <text x="316" y="130" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">items: db</text>
+  <text x="316" y="168" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· Einträge aus Seitenbaum oder frei (URL)</text>
+  <text x="316" y="198" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· Beschriftung je Sprache, neues Fenster</text>
+  <text x="316" y="228" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· Ziehen, ← → für Unterebenen</text>
+  <rect x="570" y="82" width="250" height="186" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="586" y="110" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">aus einer Typ-Liste</text>
+  <text x="586" y="130" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">from: type</text>
+  <text x="586" y="168" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· zum Beispiel neueste Beiträge</text>
+  <text x="586" y="198" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· Reihenfolge nach Datum oder Titel</text>
+  <text x="586" y="228" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· keine Griffe</text>
+</svg>

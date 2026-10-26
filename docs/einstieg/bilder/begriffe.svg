@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 380" width="840" height="380" role="img" aria-label="Seite, Block, Fassung">
+  <title>Seite, Block, Fassung</title>
+  <rect width="840" height="380" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Seite, Block, Fassung</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Eine Seite hat einen Platz im Seitenbaum und besteht aus Blöcken. Jede Sprache hat ihre Fassungen.</text>
+  <rect x="24" y="80" width="480" height="276" rx="10" fill="#ffffff" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="42" y="106" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#b53f1d" text-anchor="start">Seite «Angebot»</text>
+  <text x="42" y="124" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">/angebot · im Seitenbaum · im Menü</text>
+  <rect x="42" y="140" width="444" height="54" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="54" y="164.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Block «Bühne»</text>
+  <text x="54" y="180.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Titel, Einleitung, Bild, Knopf</text>
+  <rect x="42" y="206" width="444" height="54" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="54" y="230.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Block «Text»</text>
+  <text x="54" y="246.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Fliesstext mit Zwischentiteln</text>
+  <rect x="42" y="272" width="444" height="54" rx="8" fill="#f6f4f0" stroke="#e3e6ea" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="54" y="296.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Baustein «Kontakt»</text>
+  <text x="54" y="312.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">auf vielen Seiten gleich</text>
+  <rect x="540" y="120" width="276" height="70" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="552" y="152.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Fassungen DE</text>
+  <text x="552" y="168.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Nr. 1 live · Nr. 2 Entwurf</text>
+  <rect x="540" y="210" width="276" height="70" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="552" y="242.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Fassungen EN</text>
+  <text x="552" y="258.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Nr. 1 live — übersetzt aus DE Nr. 1</text>
+  <path d="M504 155L540 155" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M532.8 158.5L540 155L532.8 151.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M678 190L678 210" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M674.5 202.8L678 210L681.5 202.8" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

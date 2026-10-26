@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" width="1000" height="380" role="img" aria-label="Die Stationen einer Fassung von Entwurf bis veröffentlicht, mit Rückwegen">
+  <title>Die Stationen einer Fassung von Entwurf bis veröffentlicht, mit Rückwegen</title>
+  <rect width="1000" height="380" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Der Weg einer Fassung</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Wer welchen Schritt geht, entscheidet die Rolle — mit Vier-Augen gibt nie frei, wer geschrieben hat.</text>
+  <rect x="32" y="130" width="136" height="52" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="100.0" y="153.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Entwurf</text>
+  <text x="100.0" y="169.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">speichert sich selbst</text>
+  <rect x="232" y="130" width="136" height="52" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="300.0" y="153.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">In Prüfung</text>
+  <text x="300.0" y="169.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">eingereicht</text>
+  <rect x="432" y="130" width="136" height="52" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="500.0" y="153.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Freigegeben</text>
+  <text x="500.0" y="169.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">wartet auf live</text>
+  <rect x="632" y="130" width="136" height="52" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="700.0" y="153.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Geplant</text>
+  <text x="700.0" y="169.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">mit Zeitpunkt</text>
+  <rect x="832" y="130" width="136" height="52" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="900.0" y="153.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="middle">Veröffentlicht</text>
+  <text x="900.0" y="169.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">live</text>
+  <path d="M172 156L228 156" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M220.8 159.5L228 156L220.8 152.5" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="200.0" y="146" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#b53f1d" text-anchor="middle">einreichen</text>
+  <path d="M372 156L428 156" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M420.8 159.5L428 156L420.8 152.5" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="400.0" y="146" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#b53f1d" text-anchor="middle">freigeben</text>
+  <path d="M572 156L628 156" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M620.8 159.5L628 156L620.8 152.5" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="600.0" y="146" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#b53f1d" text-anchor="middle">planen</text>
+  <path d="M772 156L828 156" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M820.8 159.5L828 156L820.8 152.5" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="800.0" y="146" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#b53f1d" text-anchor="middle">Zeitpunkt</text>
+  <path d="M300.0 130V96H100.0V124" stroke="#62676e" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 4"/>
+  <path d="M100.0 116L100.0 126" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M96.5 118.8L100.0 126L103.5 118.8" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="200.0" y="88" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="500" fill="#62676e" text-anchor="middle">zurückweisen (mit Kommentar) · zurückziehen</text>
+  <path d="M480.0 182V222H900.0V190" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M900.0 200L900.0 186" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M903.5 193.2L900.0 186L896.5 193.2" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="700.0" y="238" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#b53f1d" text-anchor="middle">sofort veröffentlichen</text>
+  <path d="M700.0 182V202H520.0V190" stroke="#62676e" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 4"/>
+  <path d="M520.0 196L520.0 186" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M523.5 193.2L520.0 186L516.5 193.2" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="622" y="197" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="500" fill="#62676e" text-anchor="middle">Planung aufheben</text>
+  <rect x="832" y="296" width="136" height="44" rx="8" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="900.0" y="315.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Archiviert</text>
+  <text x="900.0" y="331.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">offline genommen</text>
+  <path d="M954 182V294" stroke="#62676e" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 4"/>
+  <path d="M954 284L954 294" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M950.5 286.8L954 294L957.5 286.8" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="946" y="270" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="500" fill="#62676e" text-anchor="end">offline nehmen</text>
+  <text x="32" y="312" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Wird eine neue Fassung veröffentlicht, wandert die bisher live Fassung ins Archiv.</text>
+  <text x="32" y="330" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Geplantes veröffentlicht der Scheduler zum Zeitpunkt (Zeitzone der Site).</text>
+</svg>

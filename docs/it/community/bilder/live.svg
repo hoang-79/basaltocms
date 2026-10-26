@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 380" width="840" height="380" role="img" aria-label="Novità senza ricaricare">
+  <title>Novità senza ricaricare</title>
+  <rect width="840" height="380" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Novità senza ricaricare</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Il forum segnala da solo nuovi messaggi, risposte e conversazioni — un clic li porta nella pagina.</text>
+  <rect x="24" y="76" width="380" height="280" rx="12" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <rect x="24" y="76" width="380" height="30" rx="12" fill="#f6f4f0" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="44" y="96" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="start">Discussione</text>
+  <rect x="40" y="120" width="348" height="40" rx="6" fill="#f6f4f0" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="68.7,135.0 68.7,145.0 60.0,150.0 51.3,145.0 51.3,135.0 60.0,130.0" fill="#e4572e" stroke="none"/>
+  <path d="M80 135L280 135" stroke="#9aa0a6" stroke-width="6" fill="none"/>
+  <path d="M80 147L220 147" stroke="#e3e6ea" stroke-width="6" fill="none"/>
+  <rect x="40" y="170" width="348" height="40" rx="6" fill="#f6f4f0" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="68.7,185.0 68.7,195.0 60.0,200.0 51.3,195.0 51.3,185.0 60.0,180.0" fill="#23262b" stroke="none"/>
+  <path d="M80 185L240 185" stroke="#9aa0a6" stroke-width="6" fill="none"/>
+  <path d="M80 197L200 197" stroke="#e3e6ea" stroke-width="6" fill="none"/>
+  <rect x="40" y="220" width="348" height="40" rx="6" fill="#f6f4f0" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="68.7,235.0 68.7,245.0 60.0,250.0 51.3,245.0 51.3,235.0 60.0,230.0" fill="#23262b" stroke="none"/>
+  <path d="M80 235L200 235" stroke="#9aa0a6" stroke-width="6" fill="none"/>
+  <path d="M80 247L180 247" stroke="#e3e6ea" stroke-width="6" fill="none"/>
+  <rect x="40" y="274" width="348" height="34" rx="8" fill="#ffffff" stroke="#e4572e" stroke-width="1.6"/>
+  <text x="56" y="296" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="start">2 nuovi messaggi</text>
+  <rect x="304" y="280" width="72" height="22" rx="6" fill="#e4572e" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="340" y="295" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="700" fill="#ffffff" text-anchor="middle">Mostra</text>
+  <rect x="40" y="318" width="348" height="26" rx="6" fill="#f6f4f0" stroke="#e3e6ea" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="56" y="335" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Rispondi …</text>
+  <rect x="428" y="80" width="388" height="60" rx="10" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <polygon points="461.5,104.5 461.5,115.5 452.0,121.0 442.5,115.5 442.5,104.5 452.0,99.0" fill="#e4572e" stroke="none"/>
+  <text x="472" y="104" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#b53f1d" text-anchor="start">Nella discussione</text>
+  <text x="472" y="122" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">barra sopra il modulo di risposta,</text>
+  <text x="472" y="136" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">anche mentre scrive</text>
+  <rect x="428" y="150" width="388" height="60" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="461.5,174.5 461.5,185.5 452.0,191.0 442.5,185.5 442.5,174.5 452.0,169.0" fill="#23262b" stroke="none"/>
+  <text x="472" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">Forum e panoramica</text>
+  <text x="472" y="192" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">«Nuovi messaggi — Aggiorna»</text>
+  <rect x="428" y="220" width="388" height="60" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="461.5,244.5 461.5,255.5 452.0,261.0 442.5,255.5 442.5,244.5 452.0,239.0" fill="#23262b" stroke="none"/>
+  <text x="472" y="244" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">Nell’intestazione</text>
+  <text x="472" y="262" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">campanella e messaggi</text>
+  <text x="472" y="276" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">si aggiornano da soli</text>
+  <rect x="428" y="290" width="388" height="60" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="461.5,314.5 461.5,325.5 452.0,331.0 442.5,325.5 442.5,314.5 452.0,309.0" fill="#23262b" stroke="none"/>
+  <text x="472" y="314" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">Sul desktop</text>
+  <text x="472" y="332" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">se lo desidera, quando il forum</text>
+  <text x="472" y="346" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">è aperto in background</text>
+</svg>

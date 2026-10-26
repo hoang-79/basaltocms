@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 452" width="940" height="452" role="img" aria-label="Page levels: the tree becomes the address — folders add nothing">
+  <title>Page levels: the tree becomes the address — folders add nothing</title>
+  <rect width="940" height="452" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Page levels: the tree becomes the address</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Each level appends its slug — folders and error pages do not count.</text>
+  <text x="40" y="92" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="600" fill="#62676e" text-anchor="start">Level 1</text>
+  <text x="140" y="92" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="600" fill="#62676e" text-anchor="start">Level 2</text>
+  <text x="240" y="92" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="600" fill="#62676e" text-anchor="start">Level 3</text>
+  <text x="478" y="92" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="600" fill="#62676e" text-anchor="start">Address (German)</text>
+  <text x="712" y="92" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="600" fill="#62676e" text-anchor="start">English</text>
+  <rect x="32" y="108" width="170" height="34" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="44" y="123" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">⌂ Startseite</text>
+  <text x="44" y="136" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="10.5" font-weight="400" fill="#62676e" text-anchor="start">start</text>
+  <path d="M208 125L466 125" stroke="#9aa0a6" stroke-width="1.1" fill="none"/>
+  <path d="M458.8 128.5L466 125L458.8 121.5" stroke="#9aa0a6" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="478" y="129" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="start">/</text>
+  <text x="712" y="129" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="12" font-weight="400" fill="#62676e" text-anchor="start">/en</text>
+  <rect x="32" y="154" width="170" height="34" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="44" y="169" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Über uns</text>
+  <text x="44" y="182" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="10.5" font-weight="400" fill="#62676e" text-anchor="start">ueber-uns</text>
+  <path d="M208 171L466 171" stroke="#9aa0a6" stroke-width="1.1" fill="none"/>
+  <path d="M458.8 174.5L466 171L458.8 167.5" stroke="#9aa0a6" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="478" y="175" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="start">/ueber-uns</text>
+  <text x="712" y="175" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="12" font-weight="400" fill="#62676e" text-anchor="start">/en/about-us</text>
+  <path d="M68 184V217H126" stroke="#9aa0a6" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="132" y="200" width="170" height="34" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="144" y="215" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Team</text>
+  <text x="144" y="228" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="10.5" font-weight="400" fill="#62676e" text-anchor="start">team</text>
+  <path d="M308 217L466 217" stroke="#9aa0a6" stroke-width="1.1" fill="none"/>
+  <path d="M458.8 220.5L466 217L458.8 213.5" stroke="#9aa0a6" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="478" y="221" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="start">/ueber-uns/team</text>
+  <text x="712" y="221" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="12" font-weight="400" fill="#62676e" text-anchor="start">/en/about-us/team</text>
+  <path d="M168 230V263H226" stroke="#9aa0a6" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="232" y="246" width="170" height="34" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="244" y="261" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Lea Brunner</text>
+  <text x="244" y="274" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="10.5" font-weight="400" fill="#62676e" text-anchor="start">lea</text>
+  <path d="M408 263L466 263" stroke="#9aa0a6" stroke-width="1.1" fill="none"/>
+  <path d="M458.8 266.5L466 263L458.8 259.5" stroke="#9aa0a6" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="478" y="267" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="start">/ueber-uns/team/lea</text>
+  <text x="712" y="267" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="12" font-weight="400" fill="#62676e" text-anchor="start">/en/about-us/team/lea</text>
+  <rect x="32" y="292" width="170" height="34" rx="8" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="44" y="307" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#62676e" text-anchor="start">Rechtliches</text>
+  <text x="44" y="320" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="10.5" font-weight="400" fill="#62676e" text-anchor="start">(folder)</text>
+  <path d="M208 309L466 309" stroke="#9aa0a6" stroke-width="1.1" fill="none"/>
+  <path d="M458.8 312.5L466 309L458.8 305.5" stroke="#9aa0a6" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="478" y="313" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#62676e" text-anchor="start">no address</text>
+  <text x="712" y="313" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="400" fill="#62676e" text-anchor="start">—</text>
+  <path d="M68 322V355H126" stroke="#9aa0a6" stroke-width="1.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="132" y="338" width="170" height="34" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="144" y="353" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Impressum</text>
+  <text x="144" y="366" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="10.5" font-weight="400" fill="#62676e" text-anchor="start">impressum</text>
+  <path d="M308 355L466 355" stroke="#9aa0a6" stroke-width="1.1" fill="none"/>
+  <path d="M458.8 358.5L466 355L458.8 351.5" stroke="#9aa0a6" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="478" y="359" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="start">/impressum</text>
+  <text x="712" y="359" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="12" font-weight="400" fill="#62676e" text-anchor="start">/en/imprint</text>
+  <rect x="24" y="388" width="892" height="46" rx="6" fill="#fbe6df" stroke="#fbe6df" stroke-width="1.2"/>
+  <text x="38" y="406" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="500" fill="#b53f1d" text-anchor="start">The home page is at “/” · other languages start with their code (/en, /fr …).</text>
+  <text x="38" y="424" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="500" fill="#b53f1d" text-anchor="start">If a version is missing, the fallback language’s slug applies — with no version anywhere in the chain, the page has no address there.</text>
+</svg>

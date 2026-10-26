@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 470" width="840" height="470" role="img" aria-label="Comment Basalto est construit">
+  <title>Comment Basalto est construit</title>
+  <rect width="840" height="470" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Comment Basalto est construit</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Une installation, avec un ou plusieurs sites. Chaque site a son thème, ses langues et ses contenus.</text>
+  <rect x="24" y="80" width="792" height="366" rx="12" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="44" y="106" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">Installation</text>
+  <text x="150" y="106" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Utilisateurs · rôles · licence · paramètres · mises à jour</text>
+  <rect x="44" y="122" width="560" height="252" rx="10" fill="#ffffff" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="62" y="148" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13.5" font-weight="700" fill="#b53f1d" text-anchor="start">Site « Cabinet Muster »</text>
+  <text x="62" y="166" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Langues DE · EN · domaine praxis-muster.ch</text>
+  <rect x="62" y="182" width="250" height="50" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="74" y="204.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Thème</text>
+  <text x="74" y="220.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">aspect et plan, en Lava</text>
+  <rect x="62" y="246" width="250" height="50" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="74" y="268.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Pages</text>
+  <text x="74" y="284.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">dans l’arborescence, avec adresse</text>
+  <rect x="62" y="310" width="250" height="50" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="74" y="332.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Blocs</text>
+  <text x="74" y="348.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Bandeau · texte · image · cartes …</text>
+  <path d="M187 296L187 310" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M183.5 302.8L187 310L190.5 302.8" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="330" y="246" width="256" height="50" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="342" y="268.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Contenus</text>
+  <text x="342" y="284.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">articles, personnes …</text>
+  <rect x="330" y="310" width="256" height="50" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="342" y="332.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Médias</text>
+  <text x="342" y="348.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">images et fichiers</text>
+  <path d="M312 207L330 207" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M322.8 210.5L330 207L322.8 203.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="334" y="203" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="start">→ pages, blocs, menus</text>
+  <text x="334" y="219" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="start">→ types de contenu, formulaires</text>
+  <rect x="622" y="122" width="186" height="252" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="634" y="245.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">autre site</text>
+  <text x="634" y="261.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">son thème, ses contenus</text>
+  <rect x="44" y="388" width="754" height="44" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="56" y="407.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Modules</text>
+  <text x="56" y="423.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">formulaires, commentaires, membres, forum — activés ou non par site</text>
+</svg>

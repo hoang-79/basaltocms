@@ -1,0 +1,13 @@
+@import 'tailwindcss';
+
+/* Grundstylesheet des Frontends; die Marke Basalto (03-foundation/gestaltung.md) — Themes bringen ihre Tokens über Lava «design» mit. */
+@theme {
+    --color-basalt: #23262b;
+    --color-basalt-light: #3b3f46;
+    --color-lava: #e4572e;
+    --color-lava-dark: #b53f1d;
+    --color-ash: #9aa0a6;
+    --color-ash-light: #e3e6ea;
+    --color-paper: #f6f4f0;
+    --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+}

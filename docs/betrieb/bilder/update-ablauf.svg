@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 280" width="840" height="280" role="img" aria-label="Was bei einem Update geschieht">
+  <title>Was bei einem Update geschieht</title>
+  <rect width="840" height="280" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Was bei einem Update geschieht</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Basalto prüft das Release, sichert und tauscht im Wartungsmodus. Scheitert ein Schritt, kommen die alten Dateien zurück.</text>
+  <path d="M70 112L770.0 112" stroke="#e4572e" stroke-width="2.4" fill="none"/>
+  <polygon points="87.3,102.0 87.3,122.0 70.0,132.0 52.7,122.0 52.7,102.0 70.0,92.0" fill="#e4572e" stroke="none"/>
+  <text x="70.0" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="70.0" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Prüfen</text>
+  <text x="70.0" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">Grösse, SHA-256,</text>
+  <text x="70.0" y="189" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">Ed25519</text>
+  <polygon points="227.3,102.0 227.3,122.0 210.0,132.0 192.7,122.0 192.7,102.0 210.0,92.0" fill="#e4572e" stroke="none"/>
+  <text x="210.0" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="210.0" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Sichern</text>
+  <text x="210.0" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">storage/app/</text>
+  <text x="210.0" y="189" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">backups</text>
+  <polygon points="367.3,102.0 367.3,122.0 350.0,132.0 332.7,122.0 332.7,102.0 350.0,92.0" fill="#e4572e" stroke="none"/>
+  <text x="350.0" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="350.0" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Wartungsmodus</text>
+  <text x="350.0" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">mit Freipass</text>
+  <text x="350.0" y="189" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">für Sie</text>
+  <polygon points="507.3,102.0 507.3,122.0 490.0,132.0 472.7,122.0 472.7,102.0 490.0,92.0" fill="#e4572e" stroke="none"/>
+  <text x="490.0" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="490.0" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Tauschen</text>
+  <text x="490.0" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">vendor, packages,</text>
+  <text x="490.0" y="189" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">modules, Dateien</text>
+  <polygon points="647.3,102.0 647.3,122.0 630.0,132.0 612.7,122.0 612.7,102.0 630.0,92.0" fill="#e4572e" stroke="none"/>
+  <text x="630.0" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="630.0" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Folgeschritte</text>
+  <text x="630.0" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">migrieren,</text>
+  <text x="630.0" y="189" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">Assets, Caches</text>
+  <polygon points="787.3,102.0 787.3,122.0 770.0,132.0 752.7,122.0 752.7,102.0 770.0,92.0" fill="#e4572e" stroke="none"/>
+  <text x="770.0" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">6</text>
+  <text x="770.0" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Fertig</text>
+  <text x="770.0" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">Wartungsmodus</text>
+  <text x="770.0" y="189" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">aus</text>
+  <path d="M 560 196 C 560 250, 300 250, 300 196" stroke="#b8232f" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 4"/>
+  <text x="430" y="262" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#b8232f" text-anchor="middle">bei einem Fehler zurück</text>
+</svg>

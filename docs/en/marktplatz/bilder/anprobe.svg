@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 280" width="840" height="280" role="img" aria-label="Trying on a theme: from the catalogue to choosing it under Setup › Themes">
+  <title>Trying on a theme: from the catalogue to choosing it under Setup › Themes</title>
+  <rect width="840" height="280" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Try-on</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">The site stays unchanged until the theme is chosen under Setup › Themes.</text>
+  <rect x="24" y="92" width="184" height="64" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="116.0" y="121.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Catalogue</text>
+  <text x="116.0" y="137.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">“Try it on with my site”</text>
+  <rect x="226" y="92" width="184" height="64" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="318.0" y="121.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">own installation</text>
+  <text x="318.0" y="137.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">Modules › Marketplace</text>
+  <path d="M210 124L224 124" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M216.8 127.5L224 124L216.8 120.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="428" y="92" width="184" height="64" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="520.0" y="121.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Theme library</text>
+  <text x="520.0" y="137.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">signed package</text>
+  <path d="M412 124L426 124" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M418.8 127.5L426 124L418.8 120.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="630" y="92" width="184" height="64" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="722.0" y="121.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="middle">Preview</text>
+  <text x="722.0" y="137.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">only in your own session</text>
+  <path d="M614 124L628 124" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M620.8 127.5L628 124L620.8 120.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M722 160L722 196" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M718.5 188.8L722 196L725.5 188.8" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="538" y="200" width="278" height="52" rx="8" fill="#e2efe7" stroke="#2a744a" stroke-width="1.2"/>
+  <text x="550" y="223.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#2a744a" text-anchor="start">Setup › Themes</text>
+  <text x="550" y="239.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">choose — or end the preview</text>
+  <text x="24" y="216" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Also in the backend: tab “Marketplace” › “Try on” on every theme card.</text>
+  <text x="24" y="236" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Paid themes need a purchase first; the theme stays in the library.</text>
+  <text x="24" y="256" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Permission: “Edit site”.</text>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 420" width="840" height="420" role="img" aria-label="Das Fenster eines KI-Vorschlags mit bisher und Vorschlag, und wohin «Übernehmen» schreibt">
+  <title>Das Fenster eines KI-Vorschlags mit bisher und Vorschlag, und wohin «Übernehmen» schreibt</title>
+  <rect width="840" height="420" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Ein Vorschlag — und wohin er geht</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Nichts geschieht ohne Klick. «Übernehmen» setzt den Vorschlag ins Feld, «Verwerfen» lässt alles, wie es war.</text>
+  <rect x="24" y="76" width="520" height="254" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="42" y="102" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">Text verbessern · Einleitung</text>
+  <text x="42" y="120" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">KI-Vorschlag · OpenAI</text>
+  <path d="M24 134L544 134" stroke="#e3e6ea" stroke-width="1.4" fill="none"/>
+  <text x="42" y="158" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="10.5" font-weight="700" fill="#62676e" text-anchor="start">BISHER</text>
+  <text x="42" y="180" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" xml:space="preserve"><tspan fill="#23262b">Wir sind ein Team das </tspan><tspan fill="#b8232f" text-decoration="line-through">websiten</tspan><tspan fill="#23262b"> baut.</tspan></text>
+  <text x="42" y="214" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="10.5" font-weight="700" fill="#62676e" text-anchor="start">VORSCHLAG</text>
+  <text x="42" y="236" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" xml:space="preserve"><tspan fill="#23262b">Wir sind ein </tspan><tspan fill="#2a744a">kleines, erfahrenes </tspan><tspan fill="#23262b">Team, das </tspan><tspan fill="#2a744a">Websites</tspan><tspan fill="#23262b"> baut.</tspan></text>
+  <text x="42" y="266" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Gespeichert wird in den Entwurf — veröffentlicht erst nach der Freigabe.</text>
+  <path d="M24 280L544 280" stroke="#e3e6ea" stroke-width="1.4" fill="none"/>
+  <rect x="42" y="292" width="92" height="28" rx="6" fill="#ffffff" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="88" y="311" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="600" fill="#23262b" text-anchor="middle">Verwerfen</text>
+  <rect x="426" y="292" width="100" height="28" rx="6" fill="#e4572e" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="476" y="311" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">Übernehmen</text>
+  <path d="M528 306L588 150" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M588.7 158.0L588 150L582.2 155.5" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M528 306L588 280" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M582.8 286.1L588 280L580.0 279.7" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="590" y="112" width="226" height="76" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="602" y="147.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="start">Entwurf</text>
+  <text x="602" y="163.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Text, Übersetzung, SEO</text>
+  <text x="602" y="178" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#b53f1d" text-anchor="start">→ Einreichen → Freigabe</text>
+  <rect x="590" y="244" width="226" height="76" rx="8" fill="#ffffff" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="602" y="279.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">sofort gültig</text>
+  <text x="602" y="295.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Alt-Texte in der Mediathek</text>
+  <text x="602" y="310" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#62676e" text-anchor="start">auf allen Seiten mit dem Bild</text>
+  <text x="24" y="362" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Rot gestrichen: fällt weg. Grün: kommt dazu. Das Fenster nennt jedes Mal den Anbieter, an den der Inhalt geht.</text>
+  <text x="24" y="382" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Bei Alt-Texten gibt es «Alle übernehmen» und — wenn einige fehlen — «Nur leere füllen».</text>
+</svg>

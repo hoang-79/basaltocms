@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 230" width="840" height="230" role="img" aria-label="Ihr Weg zur ersten Site">
+  <title>Ihr Weg zur ersten Site</title>
+  <rect width="840" height="230" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Ihr Weg zur ersten Site</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Sechs Schritte, jeder mit einer eigenen Seite in diesem Einstieg — zusammen etwa eine Stunde.</text>
+  <path d="M70 112L770.0 112" stroke="#e4572e" stroke-width="2.4" fill="none"/>
+  <polygon points="87.3,102.0 87.3,122.0 70.0,132.0 52.7,122.0 52.7,102.0 70.0,92.0" fill="#e4572e" stroke="none"/>
+  <text x="70.0" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="70.0" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Installieren</text>
+  <text x="70.0" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">Web-Installer,</text>
+  <text x="70.0" y="189" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">drei Angaben</text>
+  <polygon points="227.3,102.0 227.3,122.0 210.0,132.0 192.7,122.0 192.7,102.0 210.0,92.0" fill="#e4572e" stroke="none"/>
+  <text x="210.0" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="210.0" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Rundgang</text>
+  <text x="210.0" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">drei Modi,</text>
+  <text x="210.0" y="189" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">Hilfe mit «?»</text>
+  <polygon points="367.3,102.0 367.3,122.0 350.0,132.0 332.7,122.0 332.7,102.0 350.0,92.0" fill="#e4572e" stroke="none"/>
+  <text x="350.0" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="350.0" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Erste Seite</text>
+  <text x="350.0" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">Blöcke, Bild,</text>
+  <text x="350.0" y="189" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">veröffentlichen</text>
+  <polygon points="507.3,102.0 507.3,122.0 490.0,132.0 472.7,122.0 472.7,102.0 490.0,92.0" fill="#e4572e" stroke="none"/>
+  <text x="490.0" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="490.0" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Menü und Sprachen</text>
+  <text x="490.0" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">Navigation,</text>
+  <text x="490.0" y="189" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">Übersetzung</text>
+  <polygon points="647.3,102.0 647.3,122.0 630.0,132.0 612.7,122.0 612.7,102.0 630.0,92.0" fill="#e4572e" stroke="none"/>
+  <text x="630.0" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="630.0" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Team</text>
+  <text x="630.0" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">einladen,</text>
+  <text x="630.0" y="189" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">Rollen vergeben</text>
+  <polygon points="787.3,102.0 787.3,122.0 770.0,132.0 752.7,122.0 752.7,102.0 770.0,92.0" fill="#e4572e" stroke="none"/>
+  <text x="770.0" y="116.68" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">6</text>
+  <text x="770.0" y="156" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="middle">Weiter</text>
+  <text x="770.0" y="174" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">je nach Rolle</text>
+  <text x="770.0" y="189" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="middle">vertiefen</text>
+</svg>

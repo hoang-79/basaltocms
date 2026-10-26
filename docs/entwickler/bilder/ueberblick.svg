@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 400" width="840" height="400" role="img" aria-label="Drei Wege, Basalto zu erweitern">
+  <title>Drei Wege, Basalto zu erweitern</title>
+  <rect width="840" height="400" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Drei Wege, Basalto zu erweitern</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Themes beschreiben, Module erweitern, die API verbindet — alle drei über öffentliche Verträge des Kerns.</text>
+  <rect x="24" y="84" width="252" height="112" rx="10" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <polygon points="57.5,102.5 57.5,113.5 48.0,119.0 38.5,113.5 38.5,102.5 48.0,97.0" fill="#e4572e" stroke="none"/>
+  <text x="68" y="113" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13.5" font-weight="700" fill="#b53f1d" text-anchor="start">Theme in Lava</text>
+  <text x="40" y="136" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="500" fill="#62676e" text-anchor="start">theme.lava · assets/</text>
+  <text x="40" y="160" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Design, Layouts, Menüs,</text>
+  <text x="40" y="176" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Blöcke, Inhaltstypen</text>
+  <path d="M150 196L150 238" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M146.5 230.8L150 238L153.5 230.8" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="294" y="84" width="252" height="112" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="327.5,102.5 327.5,113.5 318.0,119.0 308.5,113.5 308.5,102.5 318.0,97.0" fill="#23262b" stroke="none"/>
+  <text x="338" y="113" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13.5" font-weight="700" fill="#23262b" text-anchor="start">Modul oder Plugin</text>
+  <text x="310" y="136" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="500" fill="#62676e" text-anchor="start">Composer-Paket</text>
+  <text x="310" y="160" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Backend-Seiten, Lava-Tags,</text>
+  <text x="310" y="176" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Feldtypen, Ereignisse</text>
+  <path d="M420 196L420 238" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M416.5 230.8L420 238L423.5 230.8" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="564" y="84" width="252" height="112" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="597.5,102.5 597.5,113.5 588.0,119.0 578.5,113.5 578.5,102.5 588.0,97.0" fill="#23262b" stroke="none"/>
+  <text x="608" y="113" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13.5" font-weight="700" fill="#23262b" text-anchor="start">REST-API</text>
+  <text x="580" y="136" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="500" fill="#62676e" text-anchor="start">Token je Site</text>
+  <text x="580" y="160" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Inhalte, Medien, Menüs</text>
+  <text x="580" y="176" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">aus anderen Systemen</text>
+  <path d="M690 196L690 238" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M686.5 230.8L690 238L693.5 230.8" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="24" y="238" width="792" height="64" rx="10" fill="#23262b" stroke="#23262b" stroke-width="1.2"/>
+  <text x="44" y="266" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="start">Kern von Basalto</text>
+  <text x="44" y="286" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#e3e6ea" text-anchor="start">Prüfung A–Z · Registry · Backend · Rechte · Fassungen</text>
+  <path d="M420 302L420 334" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M416.5 326.8L420 334L423.5 326.8" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="300" y="334" width="240" height="44" rx="8" fill="#f6f4f0" stroke="#9aa0a6" stroke-width="1.2"/>
+  <text x="420" y="361" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="600" fill="#23262b" text-anchor="middle">Site — die Website</text>
+</svg>

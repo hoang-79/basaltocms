@@ -1,0 +1,944 @@
+# Funktionsschau der Demo (CR-004, P-07) — nur für die Demo-Site: basalto:demo-reset legt diese Datei als Lava der Site an,
+# basalto:publish spielt sie zusammen mit dem Seed des Starter-Themes ein. Jede Seite zeigt einen Bereich und führt über den
+# Schnellzugang direkt an die Stelle im Backend («/admin/login?ziel=…»). Welche Anforderung wo steht, hält
+# Basalto\Core\Demo\DemoTour fest; der Test prüft, dass jede gebaute Funktion eine Seite hat.
+
+# Rahmen der Demo — ersetzt «layout standard» des Starters: gleich bis auf den Fuss, der aussieht wie auf
+# basaltocms.com (Horizont aus Säulen, Basalt, Wortmarke, Spalten, Grundzeile). Stil und Bilder liegen bei der Demo im
+# Kern (packages/core/resources/demo/assets/, unter /vendor/basalto/core/demo/).
+layout standard {
+  region header: part main_nav
+  region main
+  region aside optional
+  region footer
+  markup ```
+    <!doctype html>
+    <html lang="{{ site.language }}">
+    <head>{% assets %}{% seo %}<link rel="stylesheet" href="/vendor/basalto/core/demo/demo.css"></head>
+    <body class="layout-standard{% if page.css_class %} {{ page.css_class }}{% end %}">
+      <a class="skip-link" href="#inhalt">{% if site.language == "en" %}Skip to content{% elseif site.language == "fr" %}Aller au contenu{% elseif site.language == "it" %}Vai al contenuto{% else %}Zum Inhalt springen{% end %}</a>
+      <header class="site-header">
+        <div class="wrap header-inner">
+          <a class="brand" href="{% if site.language == "de" %}/{% else %}/{{ site.language }}{% end %}">{% if site.logo %}<img src="{{ site.logo }}" alt="" width="28" height="28">{% end %}<span>{{ site.name }}</span></a>
+          <div class="header-wide">{% region "header" %}</div>
+          {% if count(page.alternates) > 1 %}<details class="lang-switch">
+            <summary><span class="sr-only">{% if site.language == "en" %}Language{% elseif site.language == "fr" %}Langue{% elseif site.language == "it" %}Lingua{% else %}Sprache{% end %}: </span><img class="flag" src="/vendor/basalto/core/demo/flags/{{ site.language }}.svg" alt="" width="20" height="14">{{ site.language | upper }}</summary>
+            <ul>{% each page.alternates as alt %}<li>{% if alt.locale == page.locale %}<span aria-current="true" lang="{{ alt.locale }}"><img class="flag" src="/vendor/basalto/core/demo/flags/{{ alt.locale }}.svg" alt="" width="20" height="14">{% if alt.locale == "en" %}English{% elseif alt.locale == "fr" %}Français{% elseif alt.locale == "it" %}Italiano{% else %}Deutsch{% end %}</span>{% else %}<a href="{{ alt.url }}" hreflang="{{ alt.locale }}" lang="{{ alt.locale }}"><img class="flag" src="/vendor/basalto/core/demo/flags/{{ alt.locale }}.svg" alt="" width="20" height="14">{% if alt.locale == "en" %}English{% elseif alt.locale == "fr" %}Français{% elseif alt.locale == "it" %}Italiano{% else %}Deutsch{% end %}</a>{% end %}</li>{% end %}</ul>
+          </details>{% end %}
+          {% appearance %}
+          {% if site.modules.members %}<div class="header-account">{% members.status %}</div>{% end %}
+          <details class="menu">
+            <summary>{% if site.language == "de" %}Menü{% else %}Menu{% end %}</summary>
+            <div class="menu-panel">{% region "header" %}</div>
+          </details>
+        </div>
+      </header>
+      <main id="inhalt" class="wrap" tabindex="-1">
+        {% breadcrumbs %}
+        {% region "main" %}
+      </main>
+      {% if regions.aside %}<aside class="wrap aside">{% region "aside" %}</aside>{% end %}
+      <div class="horizon" aria-hidden="true"><img src="/vendor/basalto/core/demo/horizont-foto.webp" alt="" width="1440" height="180" loading="lazy"><img class="art-overlay" src="/vendor/basalto/core/demo/horizont-schema.svg" alt="" width="1440" height="180" loading="lazy"></div>
+      <footer class="site-footer">
+        <div class="wrap footer-inner">
+          <div class="footer-brand"><img class="wordmark" src="/vendor/basalto/core/demo/wortmarke-hell.svg" alt="Basalto" width="98" height="28">{% part "demo_footer_info" %}</div>
+          <nav class="nav nav-footer" aria-label="Demo"><p class="footer-title">Demo</p><ul>
+            <li><a href="{% if site.language == "de" %}/{% else %}/{{ site.language }}{% end %}#so-gehts">{% if site.language == "en" %}How it works{% elseif site.language == "fr" %}Comment ça marche{% elseif site.language == "it" %}Come funziona{% else %}So funktioniert’s{% end %}</a></li>
+            <li><a href="{% if site.language == "de" %}/{% else %}/{{ site.language }}{% end %}#ausprobieren">{% if site.language == "en" %}Roles{% elseif site.language == "fr" %}Rôles{% elseif site.language == "it" %}Ruoli{% else %}Rollen{% end %}</a></li>
+            <li><a href="{% if site.language == "de" %}/{% else %}/{{ site.language }}{% end %}#funktionen">{% if site.language == "en" %}Features{% elseif site.language == "fr" %}Fonctions{% elseif site.language == "it" %}Funzioni{% else %}Funktionen{% end %}</a></li>
+            <li><a href="{% if site.language == "de" %}/{% else %}/{{ site.language }}{% end %}#gut-zu-wissen">{% if site.language == "en" %}Good to know{% elseif site.language == "fr" %}Bon à savoir{% elseif site.language == "it" %}Buono a sapersi{% else %}Gut zu wissen{% end %}</a></li>
+            <li><a class="demo-start" href="{% if site.language == "de" %}/{% else %}/{{ site.language }}{% end %}#ausprobieren">{% if site.language == "en" %}Start the demo{% elseif site.language == "fr" %}Lancer la démo{% elseif site.language == "it" %}Avvia la demo{% else %}Demo starten{% end %}</a></li>
+          </ul></nav>
+          {% part "demo_footer_pages" %}
+          <nav class="nav nav-footer" aria-label="Basalto"><p class="footer-title">Basalto</p><ul>
+            <li><a href="https://basaltocms.com{% if site.language != "de" %}/{{ site.language }}{% end %}">basaltocms.com</a></li>
+            <li><a href="https://basaltocms.com{% if site.language == "en" %}/en/features{% elseif site.language == "fr" %}/fr/funktionen{% elseif site.language == "it" %}/it/funktionen{% else %}/funktionen{% end %}">{% if site.language == "en" %}Features{% elseif site.language == "fr" %}Fonctions{% elseif site.language == "it" %}Funzioni{% else %}Funktionen{% end %}</a></li>
+            <li><a href="https://basaltocms.com{% if site.language == "en" %}/en/pricing{% elseif site.language == "fr" %}/fr/tarifs{% elseif site.language == "it" %}/it/prezzi{% else %}/preise{% end %}">{% if site.language == "en" %}Pricing{% elseif site.language == "fr" %}Tarifs{% elseif site.language == "it" %}Prezzi{% else %}Preise{% end %}</a></li>
+            <li><a href="https://basaltocms.com{% if site.language == "en" %}/en/docs{% elseif site.language == "fr" %}/fr/documentation{% elseif site.language == "it" %}/it/documentazione{% else %}/doku{% end %}">{% if site.language == "en" %}Docs{% elseif site.language == "fr" %}Documentation{% elseif site.language == "it" %}Documentazione{% else %}Doku{% end %}</a></li>
+          </ul></nav>
+          {% part "demo_footer_legal" %}
+        </div>
+        <div class="wrap footer-base"><p>{% if site.language == "en" %}Made with Basalto{% elseif site.language == "fr" %}Réalisé avec Basalto{% elseif site.language == "it" %}Realizzato con Basalto{% else %}Erstellt mit Basalto{% end %} · Nguyen Development</p></div>
+      </footer>
+      <script>
+        // «Demo starten» öffnet die Wahl der Rolle — dasselbe Fenster wie «Anmelden» im Kopf. Ohne Skript (oder ohne
+        // Popover) springt der Link zum Abschnitt «Wer wollen Sie sein?» mit denselben drei Rollen.
+        (function () {
+          var choice = document.getElementById('demo-zugang');
+          if (!choice || typeof choice.showPopover !== 'function') { return; }
+          document.addEventListener('click', function (event) {
+            var link = event.target.closest && event.target.closest('a.button[href$="#ausprobieren"], a.demo-start');
+            if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) { return; }
+            event.preventDefault();
+            choice.showPopover();
+          });
+        })();
+      </script>
+    </body>
+    </html>
+  ```
+}
+
+part demo_footer_info: global {
+  source: footer
+}
+
+part demo_footer_legal: nav {
+  source: legal
+}
+
+part demo_footer_pages: nav {
+  source: footer_pages
+}
+
+# Die Seiten der Demo im Fuss — wie «Demo-Seiten» im Menü, ohne Start und Rechtliches
+nav footer_pages {
+  from: pages
+  depth: 1
+  exclude: legal
+  label: "Demo-Seiten"  label.en: "Demo pages"  label.fr: "Pages de démo"  label.it: "Pagine demo"
+  markup ```
+    <nav class="nav nav-footer" aria-label="{{ nav.label }}"><p class="footer-title">{{ nav.label }}</p><ul>{% each nav.items as item %}{% if item.href == "/" %}{% elseif item.href == "/en" %}{% elseif item.href == "/fr" %}{% elseif item.href == "/it" %}{% else %}<li><a href="{{ item.href }}"{% if item.current %} aria-current="page"{% end %}>{{ item.label }}</a></li>{% end %}{% end %}</ul></nav>
+  ```
+}
+
+# Hauptmenü der Demo — ersetzt «nav main» des Starter-Themes (gleicher Name, die Lava der Site gewinnt). Wie auf
+# demo.fristo.ch: Anker zu den Abschnitten der Startseite (Rollen, Funktionen, Gut zu wissen — «So funktioniert’s» steht
+# direkt unter der Bühne und im Fuss; im Kopf hätte «Anmelden» sonst keinen Platz mehr), dazu ein einziger Punkt
+# «Demo-Seiten» mit allen übrigen Seiten (Website links, die Funktionsseiten daneben) — als <details>, ohne Skript. Die
+# Einträge kommen aus dem Seitenbaum.
+nav main {
+  from: pages
+  depth: 2
+  exclude: legal
+  label: "Hauptnavigation"  label.en: "Main navigation"  label.fr: "Navigation principale"  label.it: "Navigazione principale"
+  markup ```
+    <nav class="nav nav-main nav-demo" aria-label="{{ nav.label }}"><ul>
+      <li><a href="{% if site.language == "de" %}/{% else %}/{{ site.language }}{% end %}#ausprobieren">{% if site.language == "en" %}Roles{% elseif site.language == "fr" %}Rôles{% elseif site.language == "it" %}Ruoli{% else %}Rollen{% end %}</a></li>
+      <li><a href="{% if site.language == "de" %}/{% else %}/{{ site.language }}{% end %}#funktionen">{% if site.language == "en" %}Features{% elseif site.language == "fr" %}Fonctions{% elseif site.language == "it" %}Funzioni{% else %}Funktionen{% end %}</a></li>
+      <li><a href="{% if site.language == "de" %}/{% else %}/{{ site.language }}{% end %}#gut-zu-wissen">{% if site.language == "en" %}Good to know{% elseif site.language == "fr" %}Bon à savoir{% elseif site.language == "it" %}Buono a sapersi{% else %}Gut zu wissen{% end %}</a></li>
+      <li class="nav-dropdown"><details><summary>{% if site.language == "en" %}Demo pages{% elseif site.language == "fr" %}Pages de démo{% elseif site.language == "it" %}Pagine demo{% else %}Demo-Seiten{% end %}</summary><div class="nav-dropdown-panel">
+        <div class="nav-group"><p class="nav-group-title">Website</p><ul>{% each nav.items as item %}{% if item.children %}{% elseif item.href == "/" %}{% elseif item.href == "/en" %}{% elseif item.href == "/fr" %}{% elseif item.href == "/it" %}{% else %}<li><a href="{{ item.href }}"{% if item.current %} aria-current="page"{% end %}>{{ item.label }}</a></li>{% end %}{% end %}</ul></div>
+        {% each nav.items as item %}{% if item.children %}<div class="nav-group nav-group-wide"><p class="nav-group-title"><a href="{{ item.href }}"{% if item.current %} aria-current="page"{% end %}>{{ item.label }}</a></p><ul>{% each item.children as child %}<li><a href="{{ child.href }}"{% if child.current %} aria-current="page"{% end %}>{{ child.label }}</a></li>{% end %}</ul></div>{% end %}{% end %}
+      </div></details></li>
+    </ul></nav>
+  ```
+}
+
+# Funktionen der Startseite — ersetzt «block features» des Starter-Themes (gleicher Name, die Lava der Site gewinnt): oben
+# alle Bereiche als Kacheln mit Sprung, darunter je Bereich Grafik, Stichpunkte, der Weg zur Seite mit Anleitung und
+# direkt ins Backend. So bleibt die Übersicht, auch wenn die Seite lang wird. Grafiken: tools/demo-art.py.
+block features {
+  label: "Funktionen"  label.en: "Features"  label.fr: "Fonctions"  label.it: "Funzioni"
+  group: "Listen und Raster"  group.en: "Lists and grids"  group.fr: "Listes et grilles"  group.it: "Elenchi e griglie"
+  hint: "Alle Bereiche als Kacheln, darunter je Bereich Grafik, Stichpunkte und zwei Wege."
+  hint.en: "All areas as tiles, below each area with graphic, key points and two ways in."
+  hint.fr: "Tous les domaines en tuiles, puis chaque domaine avec graphique, points clés et deux accès."
+  hint.it: "Tutte le aree come riquadri, poi ogni area con grafica, punti chiave e due accessi."
+  field eyebrow: text translatable { label: "Dachzeile"  label.en: "Eyebrow"  label.fr: "Surtitre"  label.it: "Occhiello" }
+  field title: text required translatable { label: "Titel"  label.en: "Title"  label.fr: "Titre"  label.it: "Titolo" }
+  field intro: text translatable { label: "Einleitung"  label.en: "Introduction"  label.fr: "Introduction"  label.it: "Introduzione" }
+  field guide_label: text translatable { label: "Beschriftung «Seite mit Anleitung»"  label.en: "Label “page with guide”"  label.fr: "Libellé « page avec guide »"  label.it: "Etichetta «pagina con guida»" }
+  field backend_label: text translatable { label: "Beschriftung «ins Backend»"  label.en: "Label “into the backend”"  label.fr: "Libellé « dans le backend »"  label.it: "Etichetta «nel backend»" }
+  field back_label: text translatable { label: "Beschriftung «zur Übersicht»"  label.en: "Label “to the overview”"  label.fr: "Libellé « vers l’aperçu »"  label.it: "Etichetta «alla panoramica»" }
+  field items: repeater {
+    label: "Bereiche"  label.en: "Areas"  label.fr: "Domaines"  label.it: "Aree"
+    field icon: select { options: seiten, editor, medien, sprachen, freigabe, formulare, suche, tempo, themes, rollen, einstellungen, daten  default: seiten  label: "Zeichen"  label.en: "Icon"  label.fr: "Icône"  label.it: "Icona" }
+    field title: text required translatable { label: "Titel"  label.en: "Title"  label.fr: "Titre"  label.it: "Titolo" }
+    field art: text { pick: image  label: "Grafik"  label.en: "Graphic"  label.fr: "Graphique"  label.it: "Grafica" }
+    field text: richtext translatable { label: "Text"  label.en: "Text"  label.fr: "Texte"  label.it: "Testo" }
+    field link: link { label: "Seite mit Anleitung"  label.en: "Page with guide"  label.fr: "Page avec guide"  label.it: "Pagina con guida" }
+    field backend: link { label: "Ziel im Backend"  label.en: "Target in the backend"  label.fr: "Cible dans le backend"  label.it: "Destinazione nel backend" }
+  }
+  markup ```
+    <section class="section-block features showcase" id="funktionen">
+      {% if eyebrow %}<p class="eyebrow">{{ eyebrow }}</p>{% end %}
+      <h2>{{ title }}</h2>
+      {% if intro %}<p class="section-intro">{{ intro }}</p>{% end %}
+      <ol class="showcase-index">{% each items as item %}<li><a href="#bereich-{{ loop.index }}">{% if item.art %}<img src="{{ item.art }}" alt="" width="72" height="48" loading="lazy">{% end %}<span>{{ item.title }}</span></a></li>{% end %}</ol>
+      <ol class="showcase-list">{% each items as item %}<li class="showcase-item" id="bereich-{{ loop.index }}">{% if item.art %}<figure class="showcase-art"><img src="{{ item.art }}" alt="" width="480" height="320" loading="lazy"></figure>{% end %}<div class="showcase-text"><h3>{{ item.title }}</h3>{% if item.text %}<div class="prose">{{ raw item.text }}</div>{% end %}<p class="showcase-actions">{% if item.link %}{% link item.link class: "button" label: guide_label %}{% end %}{% if item.backend %}{% link item.backend class: "showcase-link" label: backend_label %}{% end %}</p>{% if back_label %}<p class="showcase-back"><a href="#funktionen">↑ {{ back_label }}</a></p>{% end %}</div></li>{% end %}</ol>
+    </section>
+  ```
+}
+
+# «Gut zu wissen» als Sprungziel des Menüs — ersetzt «block faq» des Starter-Themes, sonst unverändert
+block faq {
+  label: "Fragen und Antworten"  label.en: "FAQ"  label.fr: "Questions fréquentes"  label.it: "Domande frequenti"
+  group: "Listen und Raster"  group.en: "Lists and grids"  group.fr: "Listes et grilles"  group.it: "Elenchi e griglie"
+  hint: "Fragen, deren Antworten sich aufklappen."
+  hint.en: "Questions whose answers fold open."
+  hint.fr: "Des questions dont les réponses se déplient."
+  hint.it: "Domande le cui risposte si aprono con un clic."
+  field title: text translatable { label: "Titel"  label.en: "Title"  label.fr: "Titre"  label.it: "Titolo" }
+  field items: repeater {
+    label: "Einträge"  label.en: "Items"  label.fr: "Éléments"  label.it: "Voci"
+    field question: text required translatable { label: "Frage"  label.en: "Question"  label.fr: "Question"  label.it: "Domanda" }
+    field answer: richtext required translatable { label: "Antwort"  label.en: "Answer"  label.fr: "Réponse"  label.it: "Risposta" }
+  }
+  markup ```
+    <section class="faq" id="gut-zu-wissen">
+      {% if title %}<h2>{{ title }}</h2>{% end %}
+      {% each items as item %}<details><summary>{{ item.question }}</summary><div class="prose">{{ raw item.answer }}</div></details>{% end %}
+    </section>
+  ```
+}
+
+seed {
+  # Startseite der Demo — ersetzt «home» des Starter-Themes (gleicher Name, spätere Lava gewinnt). Aufbau nach dem
+  # Vorbild von demo.fristo.ch: Bühne mit Karte, Kennzahlen, drei Schritte, Schnellzugang je Rolle, Funktionen,
+  # was die Demo nicht tut, Aufruf.
+  page home {
+    title: "Basalto Demo"  title.en: "Basalto demo"  title.fr: "Démo Basalto"  title.it: "Demo di Basalto"
+    slug: /
+    template: landing
+    intro: "Basalto ausprobieren — eine fertige Website mit Backend, ohne Passwort, jede Nacht frisch."
+    intro.en: "Try Basalto — a finished website with its backend, without a password, fresh every night."
+    intro.fr: "Essayez Basalto — un site web terminé avec son backend, sans mot de passe, tout neuf chaque nuit."
+    intro.it: "Provi Basalto — un sito web completo con il suo backend, senza password, nuovo ogni notte."
+    content {
+      spotlight {
+        badge: "Wird jede Nacht zurückgesetzt · keine Anmeldung nötig"  badge.en: "Reset every night · no sign-up needed"  badge.fr: "Réinitialisée chaque nuit · aucune inscription nécessaire"  badge.it: "Ripristinata ogni notte · nessuna registrazione necessaria"
+        title: "Basalto ausprobieren — einfach hineinklicken."  title.en: "Try Basalto — just click your way in."  title.fr: "Essayez Basalto — entrez d’un simple clic."  title.it: "Provi Basalto — basta un clic per entrare."
+        lead: "<p>Eine fertige Website mit Seiten, Blog, Formular, Medien und vier Sprachen — und das Backend dazu. Kein Passwort, keine Kreditkarte, kein Verkaufsgespräch. Rolle wählen und loslegen.</p>"
+        lead.en: "<p>A finished website with pages, blog, form, media and four languages — and the backend behind it. No password, no credit card, no sales call. Pick a role and get started.</p>"
+        lead.fr: "<p>Un site web terminé avec pages, blog, formulaire, médias et quatre langues — et le backend qui va avec. Pas de mot de passe, pas de carte de crédit, pas d’appel commercial. Choisissez un rôle et lancez-vous.</p>"
+        lead.it: "<p>Un sito web completo con pagine, blog, modulo, media e quattro lingue — e il backend che lo gestisce. Nessuna password, nessuna carta di credito, nessuna telefonata commerciale. Scelga un ruolo e cominci.</p>"
+        cta: -> "#ausprobieren"  cta_label: "Demo starten"  cta_label.en: "Start the demo"  cta_label.fr: "Lancer la démo"  cta_label.it: "Avvia la demo"
+        more: -> "#funktionen"  more_label: "Alle Funktionen ↓"  more_label.en: "All features ↓"  more_label.fr: "Toutes les fonctions ↓"  more_label.it: "Tutte le funzioni ↓"
+        panel_title: "Heute zu tun"  panel_title.en: "To do today"  panel_title.fr: "À faire aujourd’hui"  panel_title.it: "Da fare oggi"
+        panel_meta: "Basalto Demo"
+        panel_items {
+          { label: "Seite «Über uns» prüfen"  label.en: "Review page “About us”"  label.fr: "Vérifier la page « À propos »"  label.it: "Verificare la pagina «Chi siamo»"  state: "in Prüfung"  state.en: "in review"  state.fr: "en vérification"  state.it: "in verifica"  tone: bald }
+          { label: "Beitrag «Erste Schritte» übersetzen"  label.en: "Translate post “First steps”"  label.fr: "Traduire l’article « Premiers pas »"  label.it: "Tradurre l’articolo «Primi passi»"  state: "EN fehlt"  state.en: "EN missing"  state.fr: "FR manquant"  state.it: "IT mancante"  tone: spaet }
+          { label: "Startseite veröffentlicht"  label.en: "Home page published"  label.fr: "Page d’accueil publiée"  label.it: "Pagina iniziale pubblicata"  state: "live"  tone: gut }
+        }
+        panel_note: "Beispiel · erfunden"  panel_note.en: "Example · made up"  panel_note.fr: "Exemple · fictif"  panel_note.it: "Esempio · inventato"
+        art: "/vendor/basalto/core/demo/buehne-foto.webp"  art_overlay: "/vendor/basalto/core/demo/buehne-schema.svg"  art_credit: "K. K. / Unsplash"
+      }
+      stats {
+        items {
+          { value: "1 Klick"  value.en: "1 click"  value.fr: "1 clic"  value.it: "1 clic"  label: "Anmeldung ohne Passwort"  label.en: "Sign-in without a password"  label.fr: "Connexion sans mot de passe"  label.it: "Accesso senza password" }
+          { value: "3 Rollen"  value.en: "3 roles"  value.fr: "3 rôles"  value.it: "3 ruoli"  label: "Betreiber, Redaktion, Übersetzung"  label.en: "Owner, editor, translator"  label.fr: "Exploitant, rédaction, traduction"  label.it: "Gestore, redazione, traduzione" }
+          { value: "0 CHF"  label: "kein Konto nötig"  label.en: "no account needed"  label.fr: "aucun compte nécessaire"  label.it: "nessun account necessario" }
+          { value: "jede Nacht"  value.en: "every night"  value.fr: "chaque nuit"  value.it: "ogni notte"  label: "alles zurückgesetzt"  label.en: "everything reset"  label.fr: "tout est réinitialisé"  label.it: "tutto ripristinato" }
+        }
+      }
+      steps {
+        eyebrow: "So funktioniert die Demo"  eyebrow.en: "How the demo works"  eyebrow.fr: "Comment fonctionne la démo"  eyebrow.it: "Come funziona la demo"
+        title: "In drei Schritten zum eigenen Eindruck"  title.en: "Your own impression in three steps"  title.fr: "Votre propre avis en trois étapes"  title.it: "La Sua impressione in tre passi"
+        intro: "Kein Einrichten, keine Registrierung — direkt hinein."  intro.en: "No setup, no sign-up — straight in."  intro.fr: "Ni configuration ni inscription — vous entrez directement."  intro.it: "Nessuna configurazione, nessuna registrazione — si entra subito."
+        items {
+          { title: "Rolle wählen"  title.en: "Choose a role"  title.fr: "Choisir un rôle"  title.it: "Scegliere un ruolo"  text: "<p>Betreiber sieht alles, Redaktion schreibt und pflegt Medien, Übersetzung arbeitet nur in den weiteren Sprachen.</p>"  text.en: "<p>The owner sees everything, the editor writes and manages media, the translator only works in the other languages.</p>"  text.fr: "<p>L’exploitant voit tout, la rédaction écrit et gère les médias, la traduction travaille seulement dans les autres langues.</p>"  text.it: "<p>Il gestore vede tutto, la redazione scrive e cura i media, la traduzione lavora solo nelle altre lingue.</p>" }
+          { title: "Frei durchklicken"  title.en: "Click around freely"  title.fr: "Cliquer librement"  title.it: "Esplorare liberamente"  text: "<p>Seiten bearbeiten, einen Beitrag einreichen, übersetzen, freigeben, ein Formular bauen — alles mit Beispielinhalten.</p>"  text.en: "<p>Edit pages, submit a post, translate, approve, build a form — all with sample content.</p>"  text.fr: "<p>Modifier des pages, soumettre un article, traduire, valider, créer un formulaire — le tout avec des contenus d’exemple.</p>"  text.it: "<p>Modificare pagine, inviare un articolo, tradurre, approvare, creare un modulo — tutto con contenuti di esempio.</p>" }
+          { title: "Nichts kaputt machen"  title.en: "Break nothing"  title.fr: "Ne rien casser"  title.it: "Non rompere nulla"  text: "<p>Jede Nacht setzt sich die Demo selbst zurück. Probieren Sie ruhig alles aus.</p>"  text.en: "<p>The demo resets itself every night. Feel free to try everything.</p>"  text.fr: "<p>Chaque nuit, la démo se réinitialise d’elle-même. Essayez tout, sans crainte.</p>"  text.it: "<p>Ogni notte la demo si ripristina da sola. Provi pure tutto.</p>" }
+        }
+      }
+      choices {
+        eyebrow: "Schnellzugang"  eyebrow.en: "Quick access"  eyebrow.fr: "Accès rapide"  eyebrow.it: "Accesso rapido"
+        title: "Wer wollen Sie sein?"  title.en: "Who do you want to be?"  title.fr: "Qui voulez-vous être ?"  title.it: "Chi vuole essere?"
+        intro: "Ein Klick, kein Code, keine Adresse — jede Rolle sieht nur, was sie darf."  intro.en: "One click, no code, no address — every role only sees what it may."  intro.fr: "Un clic, pas de code, pas d’adresse — chaque rôle ne voit que ce qu’il a le droit de voir."  intro.it: "Un clic, nessun codice, nessun indirizzo — ogni ruolo vede solo ciò che gli è consentito."
+        items {
+          { title: "Betreiber"  title.en: "Owner"  title.fr: "Exploitant"  title.it: "Gestore"  meta: "sieht alles"  meta.en: "sees everything"  meta.fr: "voit tout"  meta.it: "vede tutto"  text: "<p>Einrichtung mit Themes, Design und Lava-Editor, Benutzer und Rollen, Einstellungen, Protokoll und Betrieb.</p>"  text.en: "<p>Setup with themes, design and the Lava editor, users and roles, settings, activity log and operations.</p>"  text.fr: "<p>Configuration avec thèmes, design et éditeur Lava, utilisateurs et rôles, paramètres, journal et exploitation.</p>"  text.it: "<p>Configurazione con tema, design ed editor Lava, utenti e ruoli, impostazioni, registro ed esercizio.</p>"  art: "/vendor/basalto/core/demo/rolle-betreiber-foto.webp"  art_overlay: "/vendor/basalto/core/demo/rolle-betreiber-schema.svg"  art_credit: "Lance Anderson / Unsplash"  link: -> "/admin/login/demo/betreiber"  button: "Als Betreiber ansehen"  button.en: "View as owner"  button.fr: "Voir en tant qu’exploitant"  button.it: "Visualizza come gestore" }
+          { title: "Redaktion"  title.en: "Editor"  title.fr: "Rédaction"  title.it: "Redazione"  meta: "schreibt und pflegt"  meta.en: "writes and maintains"  meta.fr: "écrit et entretient"  meta.it: "scrive e cura"  text: "<p>Seiten, Blog und Medien bearbeiten, Formulare und Kommentare pflegen, Fassungen zur Freigabe einreichen.</p>"  text.en: "<p>Edit pages, blog and media, maintain forms and comments, submit versions for approval.</p>"  text.fr: "<p>Modifier pages, blog et médias, gérer formulaires et commentaires, soumettre des versions pour validation.</p>"  text.it: "<p>Modificare pagine, blog e media, curare moduli e commenti, inviare versioni per approvazione.</p>"  art: "/vendor/basalto/core/demo/rolle-redaktion-foto.webp"  art_overlay: "/vendor/basalto/core/demo/rolle-redaktion-schema.svg"  art_credit: "Mick Haupt / Unsplash"  link: -> "/admin/login/demo/redaktion"  button: "Als Redaktion ansehen"  button.en: "View as editor"  button.fr: "Voir en tant que rédacteur"  button.it: "Visualizza come redattore" }
+          { title: "Übersetzung"  title.en: "Translator"  title.fr: "Traduction"  title.it: "Traduzione"  meta: "nur die weiteren Sprachen"  meta.en: "only the other languages"  meta.fr: "seulement les autres langues"  meta.it: "solo le altre lingue"  text: "<p>Inhalte neben der Quellfassung übersetzen — die Quellsprache bleibt gesperrt, Einrichtung und Verwaltung fehlen.</p>"  text.en: "<p>Translate content next to the source version — the source language stays locked, setup and administration are hidden.</p>"  text.fr: "<p>Traduire les contenus à côté de la version source — la langue source reste verrouillée, configuration et administration sont masquées.</p>"  text.it: "<p>Tradurre i contenuti accanto alla versione di origine — la lingua di origine resta bloccata, configurazione e amministrazione sono nascoste.</p>"  art: "/vendor/basalto/core/demo/rolle-uebersetzung-foto.webp"  art_overlay: "/vendor/basalto/core/demo/rolle-uebersetzung-schema.svg"  art_credit: "Tetiana GRY / Unsplash"  link: -> "/admin/login/demo/uebersetzung"  button: "Als Übersetzung ansehen"  button.en: "View as translator"  button.fr: "Voir en tant que traducteur"  button.it: "Visualizza come traduttore" }
+        }
+      }
+      features {
+        eyebrow: "Alle Funktionen"  eyebrow.en: "All features"  eyebrow.fr: "Toutes les fonctions"  eyebrow.it: "Tutte le funzioni"
+        title: "Was Sie in der Demo ausprobieren können"  title.en: "What you can try in the demo"  title.fr: "Ce que vous pouvez essayer dans la démo"  title.it: "Cosa può provare nella demo"
+        intro: "Siebzehn Bereiche — wählen Sie einen aus. Jeder führt zur Seite mit Anleitung und direkt an die richtige Stelle im Backend."
+        intro.en: "Seventeen areas — pick one. Each leads to the page with a guide and straight to the right place in the backend."
+        intro.fr: "Dix-sept domaines — choisissez-en un. Chacun mène à la page avec guide et directement au bon endroit du backend."
+        intro.it: "Diciassette aree — ne scelga una. Ognuna porta alla pagina con la guida e direttamente al punto giusto del backend."
+        guide_label: "Ausprobieren mit Anleitung"  guide_label.en: "Try it with a guide"  guide_label.fr: "Essayer avec le guide"  guide_label.it: "Provare con la guida"
+        backend_label: "Im Backend öffnen"  backend_label.en: "Open in the backend"  backend_label.fr: "Ouvrir dans le backend"  backend_label.it: "Apri nel backend"
+        back_label: "Zur Übersicht"  back_label.en: "Back to the overview"  back_label.fr: "Retour à l’aperçu"  back_label.it: "Torna alla panoramica"
+        items {
+          { title: "Seiten und Inhaltstypen"  title.en: "Pages and content types"  title.fr: "Pages et types de contenu"  title.it: "Pagine e tipi di contenuto"  art: "/vendor/basalto/core/demo/funktionen/seiten.svg"  link: -> seiten  backend: -> "/admin/login?ziel=/admin/pages"
+            text: "<ul><li>Seiten, Ordner, Weiterleitungen, Feeds und Fehlerseiten in einem Baum, per Ziehen sortiert</li><li>Typen wie Beitrag oder Person mit eigenen Feldern — festgelegt im Theme, nicht in Code</li><li>Mehrere Sites in einer Installation, sauber getrennt</li></ul>"
+            text.en: "<ul><li>Pages, folders, redirects, feeds and error pages in one tree, sorted by dragging</li><li>Types such as post or person with their own fields — defined in the theme, not in code</li><li>Several sites in one installation, cleanly separated</li></ul>"
+            text.fr: "<ul><li>Pages, dossiers, redirections, flux et pages d’erreur dans une seule arborescence, triés par glisser-déposer</li><li>Des types comme l’article ou la personne avec leurs propres champs — définis dans le thème, pas dans le code</li><li>Plusieurs sites dans une installation, clairement séparés</li></ul>"
+            text.it: "<ul><li>Pagine, cartelle, reindirizzamenti, feed e pagine di errore in un unico albero, ordinati trascinando</li><li>Tipi come articolo o persona con campi propri — definiti nel tema, non nel codice</li><li>Più siti in un’unica installazione, ben separati</li></ul>" }
+          { title: "Block-Editor und Vorschau"  title.en: "Block editor and preview"  title.fr: "Éditeur de blocs et aperçu"  title.it: "Editor a blocchi e anteprima"  art: "/vendor/basalto/core/demo/funktionen/editor.svg"  link: -> editor  backend: -> "/admin/login?ziel=/admin/pages"
+            text: "<ul><li>Blöcke einfügen, verschachteln, verschieben; nur die, die das Theme erlaubt</li><li>Fliesstext mit voller Toolbar und Markdown-Kürzeln; Einfügen aus Word samt Bildern</li><li>Vorschau neben dem Editor, Link für Dritte mit Ablaufdatum</li><li>Auf der Website selbst bearbeiten (Frontend-Editor)</li><li>Zwischenspeichern ohne Klick</li></ul>"
+            text.en: "<ul><li>Insert, nest and move blocks; only those the theme allows</li><li>Rich text with a full toolbar and Markdown shortcuts; paste from Word including images</li><li>Preview next to the editor, a link for third parties with an expiry date</li><li>Edit on the website itself (frontend editor)</li><li>Autosave without a click</li></ul>"
+            text.fr: "<ul><li>Insérer, imbriquer et déplacer des blocs ; seulement ceux que le thème autorise</li><li>Texte enrichi avec barre d’outils complète et raccourcis Markdown ; collage depuis Word, images comprises</li><li>Aperçu à côté de l’éditeur, lien pour des tiers avec date d’expiration</li><li>Modifier directement sur le site (éditeur frontend)</li><li>Enregistrement automatique, sans clic</li></ul>"
+            text.it: "<ul><li>Inserire, annidare e spostare blocchi; solo quelli che il tema consente</li><li>Testo formattato con barra degli strumenti completa e scorciatoie Markdown; incolla da Word, immagini comprese</li><li>Anteprima accanto all’editor, link per terzi con data di scadenza</li><li>Modificare direttamente sul sito (editor frontend)</li><li>Salvataggio automatico, senza clic</li></ul>" }
+          { title: "Medien"  title.en: "Media"  title.fr: "Médias"  title.it: "Media"  art: "/vendor/basalto/core/demo/funktionen/medien.svg"  link: -> medien  backend: -> "/admin/login?ziel=/admin/media"
+            text: "<ul><li>Ordner, Hochladen per Ziehen, Ersetzen, Papierkorb</li><li>Bildvarianten nach den Vorgaben des Themes, mit Fokuspunkt</li><li>Alt-Text je Sprache als Pflicht, Verwendungsnachweis je Datei</li><li>Speicher lokal oder im Bucket, ohne Code-Änderung</li></ul>"
+            text.en: "<ul><li>Folders, upload by dragging, replace, trash</li><li>Image variants as defined by the theme, with a focal point</li><li>Alt text per language as a requirement, usage per file</li><li>Storage local or in a bucket, without a code change</li></ul>"
+            text.fr: "<ul><li>Dossiers, téléversement par glisser-déposer, remplacement, corbeille</li><li>Variantes d’image selon les règles du thème, avec point focal</li><li>Texte alternatif obligatoire par langue, utilisation indiquée pour chaque fichier</li><li>Stockage local ou dans un bucket, sans modifier le code</li></ul>"
+            text.it: "<ul><li>Cartelle, caricamento trascinando, sostituzione, cestino</li><li>Varianti delle immagini secondo le regole del tema, con punto focale</li><li>Testo alternativo obbligatorio per lingua, utilizzo indicato per ogni file</li><li>Archiviazione locale o in un bucket, senza modificare il codice</li></ul>" }
+          { title: "Mehrsprachigkeit"  title.en: "Multilingual"  title.fr: "Multilinguisme"  title.it: "Multilingua"  art: "/vendor/basalto/core/demo/funktionen/sprachen.svg"  link: -> sprachen  backend: -> "/admin/login?ziel=/admin/uebersetzung"
+            text: "<ul><li>Sprachen je Site, Pflicht- und Fallback-Sprache</li><li>Übersetzen nebeneinander, Feld für Feld</li><li>Markierung, wenn sich die Quelle nach der Übersetzung geändert hat</li><li>Oberfläche des Backends auf Deutsch, Englisch, Italienisch und Französisch</li></ul>"
+            text.en: "<ul><li>Languages per site, required and fallback language</li><li>Translate side by side, field by field</li><li>A mark when the source changed after the translation</li><li>Backend interface in German, English, Italian and French</li></ul>"
+            text.fr: "<ul><li>Langues par site, langue obligatoire et langue de repli</li><li>Traduire côte à côte, champ par champ</li><li>Un repère lorsque la source a changé après la traduction</li><li>Interface du backend en allemand, anglais, italien et français</li></ul>"
+            text.it: "<ul><li>Lingue per sito, lingua obbligatoria e lingua di ripiego</li><li>Tradurre fianco a fianco, campo per campo</li><li>Un segno quando la fonte è cambiata dopo la traduzione</li><li>Interfaccia del backend in tedesco, inglese, italiano e francese</li></ul>" }
+          { title: "Navigation"  title.en: "Navigation"  title.fr: "Navigation"  title.it: "Navigazione"  art: "/vendor/basalto/core/demo/funktionen/navigation.svg"  link: -> navigation  backend: -> "/admin/login?ziel=/admin/einrichtung/navigation"
+            text: "<ul><li>Hauptmenü aus dem Seitenbaum, mit Tiefe und Ausnahmen aus dem Theme</li><li>Freie Menüs mit eigenen Einträgen und Zielen</li><li>Seiten aus dem Menü nehmen, ohne sie zu löschen</li></ul>"
+            text.en: "<ul><li>Main menu from the page tree, with depth and exceptions from the theme</li><li>Free menus with their own entries and targets</li><li>Remove pages from the menu without deleting them</li></ul>"
+            text.fr: "<ul><li>Menu principal issu de l’arborescence, avec profondeur et exceptions définies dans le thème</li><li>Menus libres avec leurs propres entrées et destinations</li><li>Retirer des pages du menu sans les supprimer</li></ul>"
+            text.it: "<ul><li>Menu principale dall’albero delle pagine, con profondità ed eccezioni definite nel tema</li><li>Menu liberi con voci e destinazioni proprie</li><li>Togliere pagine dal menu senza eliminarle</li></ul>" }
+          { title: "Freigabe und Fassungen"  title.en: "Approval and versions"  title.fr: "Validation et versions"  title.it: "Approvazione e versioni"  art: "/vendor/basalto/core/demo/funktionen/freigabe.svg"  link: -> freigabe  backend: -> "/admin/login?ziel=/admin/freigabe"
+            text: "<ul><li>Redaktion reicht ein, Betreiberin gibt frei (vier Augen)</li><li>Veröffentlichen planen, Fassungen vergleichen und wiederherstellen</li><li>Übersicht, die nie leer bleibt: Aufgaben, Freigaben, Eingänge mit Zahl</li></ul>"
+            text.en: "<ul><li>Editors submit, the operator approves (four eyes)</li><li>Schedule publishing, compare and restore versions</li><li>An overview that is never empty: tasks, approvals, submissions with counts</li></ul>"
+            text.fr: "<ul><li>La rédaction soumet, l’exploitant valide (principe des quatre yeux)</li><li>Planifier la publication, comparer et restaurer des versions</li><li>Un aperçu général jamais vide : tâches, validations, envois avec leur nombre</li></ul>"
+            text.it: "<ul><li>La redazione invia, il gestore approva (principio dei quattro occhi)</li><li>Pianificare la pubblicazione, confrontare e ripristinare versioni</li><li>Una panoramica mai vuota: attività, approvazioni, invii con il loro numero</li></ul>" }
+          { title: "Formulare"  title.en: "Forms"  title.fr: "Formulaires"  title.it: "Moduli"  art: "/vendor/basalto/core/demo/funktionen/formulare.svg"  link: -> formulare  backend: -> "/admin/login?ziel=/admin/formulare"
+            text: "<ul><li>Felder aller Arten im Baukasten, als Block auf jeder Seite</li><li>Eingänge mit Export, Aufbewahrungsfrist und Löschung</li><li>Spam-Schutz ohne Rätsel, Antwort ohne Seitenwechsel</li></ul>"
+            text.en: "<ul><li>Fields of every kind in a builder, as a block on any page</li><li>Submissions with export, retention period and erasure</li><li>Spam protection without puzzles, answers without a page change</li></ul>"
+            text.fr: "<ul><li>Des champs de tout type dans le constructeur, comme bloc sur n’importe quelle page</li><li>Envois avec export, durée de conservation et suppression</li><li>Protection anti-spam sans casse-tête, réponse sans changer de page</li></ul>"
+            text.it: "<ul><li>Campi di ogni tipo nel costruttore, come blocco su qualsiasi pagina</li><li>Invii con esportazione, periodo di conservazione ed eliminazione</li><li>Protezione antispam senza rompicapi, risposta senza cambiare pagina</li></ul>" }
+          { title: "Suche und Blog"  title.en: "Search and blog"  title.fr: "Recherche et blog"  title.it: "Ricerca e blog"  art: "/vendor/basalto/core/demo/funktionen/suche-blog.svg"  link: -> suche-blog
+            text: "<ul><li>Suche je Sprache mit Ausschnitt, Treiber austauschbar</li><li>Blog mit Kategorien, Schlagwörtern, Archiv und RSS- oder Atom-Feed</li><li>Seiten von der Suche ausnehmen</li></ul>"
+            text.en: "<ul><li>Search per language with excerpts, exchangeable driver</li><li>Blog with categories, tags, archive and an RSS or Atom feed</li><li>Exclude pages from search</li></ul>"
+            text.fr: "<ul><li>Recherche par langue avec extraits, moteur interchangeable</li><li>Blog avec catégories, mots-clés, archives et flux RSS ou Atom</li><li>Exclure des pages de la recherche</li></ul>"
+            text.it: "<ul><li>Ricerca per lingua con estratti, motore sostituibile</li><li>Blog con categorie, tag, archivio e feed RSS o Atom</li><li>Escludere pagine dalla ricerca</li></ul>" }
+          { title: "SEO, Cache und Tempo"  title.en: "SEO, cache and speed"  title.fr: "SEO, cache et vitesse"  title.it: "SEO, cache e velocità"  art: "/vendor/basalto/core/demo/funktionen/seo.svg"  link: -> seo  backend: -> "/admin/login?ziel=/admin/pages"
+            text: "<ul><li>Titel, Beschreibung und Vorschaubild je Seite und Sprache</li><li>Sitemap, hreflang, Umleitungen beim Umbenennen</li><li>Seiten aus dem Cache, nach dem Veröffentlichen sofort aktuell; Lighthouse 100</li></ul>"
+            text.en: "<ul><li>Title, description and preview image per page and language</li><li>Sitemap, hreflang, redirects when renaming</li><li>Pages from the cache, current right after publishing; Lighthouse 100</li></ul>"
+            text.fr: "<ul><li>Titre, description et image d’aperçu par page et par langue</li><li>Plan du site, hreflang, redirections lors d’un renommage</li><li>Pages servies depuis le cache, à jour dès la publication ; Lighthouse 100</li></ul>"
+            text.it: "<ul><li>Titolo, descrizione e immagine di anteprima per pagina e lingua</li><li>Sitemap, hreflang, reindirizzamenti quando si rinomina</li><li>Pagine dalla cache, aggiornate subito dopo la pubblicazione; Lighthouse 100</li></ul>" }
+          { title: "Themes und Lava"  title.en: "Themes and Lava"  title.fr: "Thèmes et Lava"  title.it: "Temi e Lava"  art: "/vendor/basalto/core/demo/funktionen/themes.svg"  link: -> themes  backend: -> "/admin/login?ziel=/admin/einrichtung/themes"
+            text: "<ul><li>Lava: zehn Stationen von A bis Z, Fehlermeldungen mit Zeile und Vorschlag</li><li>Theme-Verwaltung und Lava-Editor im Backend, mit Prüfung, Vorschau und Fassungen</li><li>Design-Tokens: Farben, Schriften und Logo ohne Build ändern</li><li>Barrierefreiheit nach WCAG 2.2 AA, Kontraste gerechnet</li></ul>"
+            text.en: "<ul><li>Lava: ten stations from A to Z, error messages with line and suggestion</li><li>Theme management and Lava editor in the backend, with checks, preview and versions</li><li>Design tokens: change colours, fonts and logo without a build</li><li>Accessibility according to WCAG 2.2 AA, contrasts computed</li></ul>"
+            text.fr: "<ul><li>Lava : dix stations de A à Z, messages d’erreur avec ligne et suggestion</li><li>Gestion des thèmes et éditeur Lava dans le backend, avec vérification, aperçu et versions</li><li>Design tokens : modifier couleurs, polices et logo sans build</li><li>Accessibilité selon WCAG 2.2 AA, contrastes calculés</li></ul>"
+            text.it: "<ul><li>Lava: dieci stazioni dalla A alla Z, messaggi d’errore con riga e suggerimento</li><li>Gestione dei temi ed editor Lava nel backend, con verifica, anteprima e versioni</li><li>Design token: cambiare colori, caratteri e logo senza build</li><li>Accessibilità secondo WCAG 2.2 AA, contrasti calcolati</li></ul>" }
+          { title: "Benutzer, Rollen und Anmeldung"  title.en: "Users, roles and sign-in"  title.fr: "Utilisateurs, rôles et connexion"  title.it: "Utenti, ruoli e accesso"  art: "/vendor/basalto/core/demo/funktionen/benutzer.svg"  link: -> benutzer  backend: -> "/admin/login?ziel=/admin/users"
+            text: "<ul><li>Anmeldung mit Passkey oder Code per Mail, kein Passwort</li><li>Rollen je Site mit Rechten je Bereich: keine, ansehen, bearbeiten, löschen, alles — und je Sprache</li><li>Eigene Rollen anlegen, Vorlagen anpassen; was eine Rolle nicht darf, erscheint nicht im Menü</li><li>Einladungen per Mail</li><li>Anmeldung über Microsoft Entra oder Google (SSO) je Site</li><li>Ein Backend mit klarer Linie: Inhalte und Einrichtung getrennt</li></ul>"
+            text.en: "<ul><li>Sign-in with a passkey or a code by email, no password</li><li>Roles per site with rights per area: none, view, edit, delete, all — and per language</li><li>Create your own roles, adapt the templates; what a role may not do does not appear in the menu</li><li>Invitations by email</li><li>Sign-in via Microsoft Entra or Google (SSO) per site</li><li>One backend with a clear line: content and setup kept apart</li></ul>"
+            text.fr: "<ul><li>Connexion par passkey ou par code envoyé par e-mail, sans mot de passe</li><li>Rôles par site avec droits par section : aucun, voir, modifier, supprimer, tout — et par langue</li><li>Créer ses propres rôles, adapter les modèles ; ce qu’un rôle ne peut pas faire n’apparaît pas dans le menu</li><li>Invitations par e-mail</li><li>Connexion via Microsoft Entra ou Google (SSO) par site</li><li>Un backend avec une ligne claire : contenus et configuration séparés</li></ul>"
+            text.it: "<ul><li>Accesso con passkey o con un codice via e-mail, senza password</li><li>Ruoli per sito con diritti per sezione: nessuno, visualizzare, modificare, eliminare, tutto — e per lingua</li><li>Creare ruoli propri, adattare i modelli; ciò che un ruolo non può fare non compare nel menu</li><li>Inviti via e-mail</li><li>Accesso tramite Microsoft Entra o Google (SSO) per sito</li><li>Un backend con una linea chiara: contenuti e configurazione separati</li></ul>" }
+          { title: "Einstellungen, Protokoll und Betrieb"  title.en: "Settings, log and operations"  title.fr: "Paramètres, journal et exploitation"  title.it: "Impostazioni, registro ed esercizio"  art: "/vendor/basalto/core/demo/funktionen/verwaltung.svg"  link: -> verwaltung  backend: -> "/admin/login?ziel=/admin/settings"
+            text: "<ul><li>Einstellungen im Backend mit Verlauf</li><li>Protokoll aller Änderungen, filterbar und exportierbar</li><li>Betrieb: Herzschlag, Warteschlange, Fehler, Kennzahlen</li><li>Lizenz: alle Funktionen auch ohne Schlüssel (Free für eine Site)</li></ul>"
+            text.en: "<ul><li>Settings in the backend with history</li><li>Activity log of all changes, filterable and exportable</li><li>Operations: heartbeat, queue, errors, metrics</li><li>Licence: all features even without a key (Free for one site)</li></ul>"
+            text.fr: "<ul><li>Paramètres dans le backend, avec historique</li><li>Journal de toutes les modifications, filtrable et exportable</li><li>Exploitation : pulsation, file d’attente, erreurs, indicateurs</li><li>Licence : toutes les fonctions même sans clé (Free pour un site)</li></ul>"
+            text.it: "<ul><li>Impostazioni nel backend, con cronologia</li><li>Registro di tutte le modifiche, filtrabile ed esportabile</li><li>Esercizio: battito, coda, errori, indicatori</li><li>Licenza: tutte le funzioni anche senza chiave (Free per un sito)</li></ul>" }
+          { title: "Recht und Datenschutz"  title.en: "Legal and privacy"  title.fr: "Droit et protection des données"  title.it: "Diritto e privacy"  art: "/vendor/basalto/core/demo/funktionen/recht.svg"  link: -> recht  backend: -> "/admin/login?ziel=/admin/profil"
+            text: "<ul><li>Impressum und Datenschutzerklärung aus Vorlagen (Schweiz und EU)</li><li>Einbettungen erst nach Zustimmung, Cookies nur, wenn nötig</li><li>Auskunft und Löschung je Person, Fristen im Löschlauf</li></ul>"
+            text.en: "<ul><li>Legal notice and privacy policy from templates (Switzerland and EU)</li><li>Embeds only after consent, cookies only when needed</li><li>Access and erasure per person, retention periods in the deletion run</li></ul>"
+            text.fr: "<ul><li>Mentions légales et déclaration de protection des données à partir de modèles (Suisse et UE)</li><li>Contenus intégrés seulement après consentement, cookies seulement si nécessaire</li><li>Droit d’accès et effacement par personne, délais appliqués lors de la purge</li></ul>"
+            text.it: "<ul><li>Note legali e informativa sulla privacy da modelli (Svizzera e UE)</li><li>Contenuti incorporati solo dopo il consenso, cookie solo se necessari</li><li>Accesso ai dati e cancellazione per persona, termini applicati nel ciclo di eliminazione</li></ul>" }
+          { title: "Kommentare, Mitglieder und KI"  title.en: "Comments, members and AI"  title.fr: "Commentaires, membres et IA"  title.it: "Commenti, membri e IA"  art: "/vendor/basalto/core/demo/funktionen/module.svg"  link: -> module  backend: -> "/admin/login?ziel=/admin/module"
+            text: "<ul><li>Kommentare mit Freigabe und Spam-Schutz</li><li>Mitgliederbereich: geschützte Seiten nur nach Anmeldung</li><li>KI-Vorschläge mit eigenem Schlüssel — nur als Entwurf, nie automatisch veröffentlicht</li><li>Erweiterungen mit eigenem Namensraum in Lava</li></ul>"
+            text.en: "<ul><li>Comments with approval and spam protection</li><li>Members area: protected pages only after sign-in</li><li>AI suggestions with your own key — drafts only, never published automatically</li><li>Extensions with their own namespace in Lava</li></ul>"
+            text.fr: "<ul><li>Commentaires avec validation et protection anti-spam</li><li>Espace membres : pages protégées accessibles seulement après connexion</li><li>Suggestions IA avec votre propre clé — uniquement comme brouillon, jamais publiées automatiquement</li><li>Extensions avec leur propre espace de noms en Lava</li></ul>"
+            text.it: "<ul><li>Commenti con approvazione e protezione antispam</li><li>Area membri: pagine protette visibili solo dopo l’accesso</li><li>Suggerimenti IA con la Sua chiave — solo come bozza, mai pubblicati automaticamente</li><li>Estensioni con un proprio namespace in Lava</li></ul>" }
+          { title: "Community und Forum"  title.en: "Community and forum"  title.fr: "Communauté et forum"  title.it: "Community e forum"  art: "/vendor/basalto/core/demo/funktionen/community.svg"  link: -> community  backend: -> "/admin/login?ziel=/admin/community"
+            text: "<ul><li>Kategorien und Foren mit Unterforen, Präfixen und Themenfeldern; die Übersicht zeigt die letzten Themen je Forum</li><li>Schreiben mit vollem Editor, Zitaten, Erwähnungen, Bildern und Umfragen; ähnliche Themen schon beim Eröffnen</li><li>Reaktionen, hilfreichste Antwort, Abos, ungelesen und Benachrichtigungen</li><li>Moderation an Ort und Stelle und im Backend: Meldungen, Verschieben, Kopieren, Papierkorb, Verwarnungen</li><li>Profile mit Rang und Trophäen, Konversationen, Folgen und Blockieren</li></ul>"
+            text.en: "<ul><li>Categories and forums with sub-forums, prefixes and thread fields; the overview shows the latest threads per forum</li><li>Writing with a full editor, quotes, mentions, images and polls; similar threads already while starting one</li><li>Reactions, most helpful answer, subscriptions, unread and notifications</li><li>Moderation in place and in the backend: reports, moving, copying, trash, warnings</li><li>Profiles with rank and trophies, conversations, following and blocking</li></ul>"
+            text.fr: "<ul><li>Catégories et forums avec sous-forums, préfixes et champs de sujet ; l’aperçu montre les derniers sujets de chaque forum</li><li>Écrire avec un éditeur complet, des citations, des mentions, des images et des sondages ; des sujets similaires dès l’ouverture d’un sujet</li><li>Réactions, réponse la plus utile, abonnements, non lus et notifications</li><li>Modération sur place et dans le backend : signalements, déplacer, copier, corbeille, avertissements</li><li>Profils avec rang et trophées, conversations, suivre et bloquer</li></ul>"
+            text.it: "<ul><li>Categorie e forum con sottoforum, prefissi e campi della discussione; la panoramica mostra le ultime discussioni di ogni forum</li><li>Scrivere con un editor completo, citazioni, menzioni, immagini e sondaggi; discussioni simili già all’apertura di una nuova</li><li>Reazioni, risposta più utile, abbonamenti, non letti e notifiche</li><li>Moderazione sul posto e nel backend: segnalazioni, spostare, copiare, cestino, ammonimenti</li><li>Profili con grado e trofei, conversazioni, seguire e bloccare</li></ul>" }
+          { title: "Export, Import und API"  title.en: "Export, import and API"  title.fr: "Export, import et API"  title.it: "Esportazione, importazione e API"  art: "/vendor/basalto/core/demo/funktionen/daten.svg"  link: -> daten  backend: -> "/admin/login?ziel=/admin/profil"
+            text: "<ul><li>Export einer ganzen Site mit Inhalten, Medien und Theme; Import in eine andere Installation</li><li>REST-API mit persönlichen Tokens, Formulare ohne Seitenwechsel</li></ul>"
+            text.en: "<ul><li>Export of a whole site with content, media and theme; import into another installation</li><li>REST API with personal tokens, forms without a page change</li></ul>"
+            text.fr: "<ul><li>Export d’un site entier avec contenus, médias et thème ; import dans une autre installation</li><li>API REST avec jetons personnels, formulaires sans changer de page</li></ul>"
+            text.it: "<ul><li>Esportazione di un intero sito con contenuti, media e tema; importazione in un’altra installazione</li><li>API REST con token personali, moduli senza cambiare pagina</li></ul>" }
+          { title: "Hilfe und Tastenkürzel"  title.en: "Help and keyboard shortcuts"  title.fr: "Aide et raccourcis clavier"  title.it: "Guida e scorciatoie"  art: "/vendor/basalto/core/demo/funktionen/hilfe.svg"  link: -> hilfe  backend: -> "/admin/login?ziel=/admin"
+            text: "<ul><li>Das «?» im Seitenkopf, die Taste ? oder F1 öffnen am rechten Rand die Hilfe zur aktuellen Seite</li><li>Suche über Redaktion, Betrieb, Entwickler und Marktplatz, ein Treffer springt zum Abschnitt</li><li>Links folgen im Panel, / sucht, Esc schliesst; die Seite dahinter bleibt bedienbar</li></ul>"
+            text.en: "<ul><li>The “?” in the page header, the ? key or F1 open help for the current page on the right edge</li><li>Search across editorial, operations, developer and marketplace docs; a result jumps to the section</li><li>Links open in the panel, / searches, Esc closes; the page behind stays usable</li></ul>"
+            text.fr: "<ul><li>Le « ? » dans l’en-tête, la touche ? ou F1 ouvrent sur le bord droit l’aide de la page actuelle</li><li>Recherche dans la documentation rédaction, exploitation, développeurs et Marketplace ; un résultat mène directement à la section</li><li>Les liens s’ouvrent dans le panneau, / recherche, Échap ferme ; la page derrière reste utilisable</li></ul>"
+            text.it: "<ul><li>Il «?» nell’intestazione, il tasto ? o F1 aprono sul bordo destro la guida della pagina attuale</li><li>Ricerca nella documentazione per redazione, esercizio, sviluppatori e Marketplace; un risultato porta direttamente alla sezione</li><li>I link si aprono nel pannello, / cerca, Esc chiude; la pagina dietro resta utilizzabile</li></ul>" }
+        }
+      }
+      faq {
+        title: "Gut zu wissen"  title.en: "Good to know"  title.fr: "Bon à savoir"  title.it: "Buono a sapersi"
+        items {
+          { question: "Bleibt, was ich ändere?"  question.en: "Do my changes stay?"  question.fr: "Mes modifications sont-elles conservées ?"  question.it: "Le mie modifiche restano?"  answer: "<p>Nein. Die Demo setzt sich jede Nacht neu auf — Inhalte, Konten und Medien kehren in den Ausgangszustand zurück.</p>"  answer.en: "<p>No. The demo resets every night — content, accounts and media return to their initial state.</p>"  answer.fr: "<p>Non. La démo se réinitialise chaque nuit — contenus, comptes et médias reviennent à leur état initial.</p>"  answer.it: "<p>No. La demo si ripristina ogni notte — contenuti, account e media tornano allo stato iniziale.</p>" }
+          { question: "Werden Mails verschickt?"  question.en: "Are emails sent?"  question.fr: "Des e-mails sont-ils envoyés ?"  question.it: "Vengono inviate e-mail?"  answer: "<p>Nein. Die Demo fängt jede Mail ab; Codes und Einladungen erreichen niemanden.</p>"  answer.en: "<p>No. The demo intercepts every email; codes and invitations reach nobody.</p>"  answer.fr: "<p>Non. La démo intercepte chaque e-mail ; codes et invitations n’atteignent personne.</p>"  answer.it: "<p>No. La demo intercetta ogni e-mail; codici e inviti non raggiungono nessuno.</p>" }
+          { question: "Was zeigt die Demo nicht?"  question.en: "What does the demo not show?"  question.fr: "Que ne montre pas la démo ?"  question.it: "Cosa non mostra la demo?"  answer: "<p>Was nur beim Hersteller oder im Betrieb läuft: Lizenzverkauf, Marktplatz-Verwaltung, die SaaS mit eigenen Domains, Backups und Lasttests.</p>"  answer.en: "<p>What only runs at the vendor or in operations: licence sales, marketplace management, the SaaS with custom domains, backups and load tests.</p>"  answer.fr: "<p>Ce qui ne tourne que chez l’éditeur ou en exploitation : vente de licences, gestion du Marketplace, le SaaS avec domaines propres, sauvegardes et tests de charge.</p>"  answer.it: "<p>Ciò che funziona solo presso il produttore o in esercizio: vendita di licenze, gestione del Marketplace, il SaaS con domini propri, backup e test di carico.</p>" }
+        }
+      }
+      notes {
+        title: "Was die Demo nicht tut"  title.en: "What the demo does not do"  title.fr: "Ce que la démo ne fait pas"  title.it: "Cosa la demo non fa"
+        items {
+          { icon: post  text: "Keine Mail verlässt die Demo — Codes und Einladungen erreichen niemanden."  text.en: "No email leaves the demo — codes and invitations reach nobody."  text.fr: "Aucun e-mail ne quitte la démo — codes et invitations n’atteignent personne."  text.it: "Nessuna e-mail lascia la demo — codici e inviti non raggiungono nessuno." }
+          { icon: karte  text: "Kein Zahlungsanbieter — Lizenzkauf und Marktplatz-Verkauf gibt es nur bei basaltocms.com."  text.en: "No payment provider — licence purchase and marketplace sales only exist at basaltocms.com."  text.fr: "Aucun prestataire de paiement — l’achat de licences et les ventes du Marketplace n’existent que sur basaltocms.com."  text.it: "Nessun fornitore di pagamento — acquisto di licenze e vendite nel Marketplace esistono solo su basaltocms.com." }
+          { icon: nacht  text: "Jede Nacht kehrt alles in den Ausgangszustand zurück; alle Personen und Inhalte sind erfunden."  text.en: "Every night everything returns to its initial state; all people and content are made up."  text.fr: "Chaque nuit, tout revient à l’état initial ; toutes les personnes et tous les contenus sont fictifs."  text.it: "Ogni notte tutto torna allo stato iniziale; tutte le persone e i contenuti sono inventati." }
+        }
+      }
+      cta {
+        title: "Bereit? Klicken Sie sich hinein."  title.en: "Ready? Click your way in."  title.fr: "Prêt ? Entrez d’un clic."  title.it: "Pronto? Entri con un clic."
+        text: "Wählen Sie eine Rolle und erkunden Sie Basalto ohne Risiko — oder installieren Sie es gleich selbst."  text.en: "Choose a role and explore Basalto without risk — or install it yourself right away."  text.fr: "Choisissez un rôle et explorez Basalto sans risque — ou installez-le vous-même tout de suite."  text.it: "Scelga un ruolo ed esplori Basalto senza rischi — oppure lo installi subito."
+        link: -> "#ausprobieren"  link_label: "Demo starten"  link_label.en: "Start the demo"  link_label.fr: "Lancer la démo"  link_label.it: "Avvia la demo"
+        more: -> "https://basaltocms.com"  more_label: "Basalto installieren →"  more_label.en: "Install Basalto →"  more_label.fr: "Installer Basalto →"  more_label.it: "Installare Basalto →"
+        center: true
+      }
+    }
+  }
+
+  global footer { claim: "Basalto Demo — das CMS aus einem Guss, jede Nacht frisch."  claim.en: "Basalto demo — the CMS made in one piece, fresh every night."  claim.fr: "Démo Basalto — le CMS d’un seul tenant, tout neuf chaque nuit."  claim.it: "Demo di Basalto — il CMS in un solo getto, nuovo ogni notte."  address: "Nguyen Development · basaltocms.com" }
+
+  page funktionen {
+    title: "Funktionen"  title.en: "Features"  title.fr: "Fonctions"  title.it: "Funzioni"
+    slug: funktionen  slug.en: features  slug.fr: fonctions  slug.it: funzioni
+    intro: "Was Basalto kann — jede Seite zeigt einen Bereich und öffnet das Backend an der richtigen Stelle."
+    intro.en: "What Basalto can do — every page shows one area and opens the backend at the right place."
+    intro.fr: "Ce que Basalto sait faire — chaque page présente un domaine et ouvre le backend au bon endroit."
+    intro.it: "Cosa sa fare Basalto — ogni pagina mostra un ambito e apre il backend nel punto giusto."
+    content {
+      hero {
+        title: "Basalto ausprobieren"  title.en: "Try Basalto"  title.fr: "Essayer Basalto"  title.it: "Provare Basalto"
+        lead: "<p>Wählen Sie einen Bereich. Jede Seite erklärt, was er kann und was Sie probieren können, und öffnet das Backend direkt an der richtigen Stelle — als Betreiberin, Redaktion oder Übersetzung, ohne Passwort.</p>"
+        lead.en: "<p>Pick an area. Every page explains what it does and what you can try, and opens the backend right at the place — as operator, editor or translator, without a password.</p>"
+        lead.fr: "<p>Choisissez un domaine. Chaque page explique ce qu’il sait faire et ce que vous pouvez essayer, et ouvre le backend directement au bon endroit — en tant qu’exploitant, rédacteur ou traducteur, sans mot de passe.</p>"
+        lead.it: "<p>Scelga un ambito. Ogni pagina spiega cosa sa fare e cosa può provare, e apre il backend direttamente nel punto giusto — come gestore, redattore o traduttore, senza password.</p>"
+        cta: -> seiten
+      }
+      visual {
+        art: "/vendor/basalto/core/demo/funktion-funktionen-foto.webp"  art_overlay: "/vendor/basalto/core/demo/funktion-funktionen-schema.svg"
+        art_credit: "K. K. / Unsplash"
+      }
+      cards {
+        title: "Bereiche"  title.en: "Areas"  title.fr: "Domaines"  title.it: "Ambiti"
+        items {
+          { title: "Seiten und Inhaltstypen"  title.en: "Pages and content types"  title.fr: "Pages et types de contenu"  title.it: "Pagine e tipi di contenuto"  text: "<p>Seitenbaum, Typen aus dem Theme, mehrere Sites.</p>"  text.en: "<p>Page tree, types from the theme, several sites.</p>"  text.fr: "<p>Arborescence, types issus du thème, plusieurs sites.</p>"  text.it: "<p>Albero delle pagine, tipi dal tema, più siti.</p>"  link: -> seiten }
+          { title: "Block-Editor und Vorschau"  title.en: "Block editor and preview"  title.fr: "Éditeur de blocs et aperçu"  title.it: "Editor a blocchi e anteprima"  text: "<p>Blöcke, volle Toolbar, Vorschau daneben, Bearbeiten auf der Seite.</p>"  text.en: "<p>Blocks, full toolbar, preview alongside, editing on the page.</p>"  text.fr: "<p>Blocs, barre d’outils complète, aperçu à côté, modification sur la page.</p>"  text.it: "<p>Blocchi, barra degli strumenti completa, anteprima accanto, modifica sulla pagina.</p>"  link: -> editor }
+          { title: "Medien"  title.en: "Media"  title.fr: "Médias"  title.it: "Media"  text: "<p>Bibliothek, Varianten, Alt-Text je Sprache.</p>"  text.en: "<p>Library, variants, alt text per language.</p>"  text.fr: "<p>Médiathèque, variantes, texte alternatif par langue.</p>"  text.it: "<p>Mediateca, varianti, testo alternativo per lingua.</p>"  link: -> medien }
+          { title: "Mehrsprachigkeit"  title.en: "Multilingual"  title.fr: "Multilinguisme"  title.it: "Multilingua"  text: "<p>Übersetzen neben der Quellfassung.</p>"  text.en: "<p>Translate next to the source version.</p>"  text.fr: "<p>Traduire à côté de la version source.</p>"  text.it: "<p>Tradurre accanto alla versione di origine.</p>"  link: -> sprachen }
+          { title: "Navigation"  title.en: "Navigation"  title.fr: "Navigation"  title.it: "Navigazione"  text: "<p>Menüs aus dem Seitenbaum oder frei.</p>"  text.en: "<p>Menus from the page tree or free.</p>"  text.fr: "<p>Menus issus de l’arborescence ou libres.</p>"  text.it: "<p>Menu dall’albero delle pagine o liberi.</p>"  link: -> navigation }
+          { title: "Freigabe und Fassungen"  title.en: "Approval and versions"  title.fr: "Validation et versions"  title.it: "Approvazione e versioni"  text: "<p>Vier Augen, Planen, Vergleichen, Wiederherstellen.</p>"  text.en: "<p>Four eyes, scheduling, comparing, restoring.</p>"  text.fr: "<p>Quatre yeux, planification, comparaison, restauration.</p>"  text.it: "<p>Quattro occhi, pianificazione, confronto, ripristino.</p>"  link: -> freigabe }
+          { title: "Formulare"  title.en: "Forms"  title.fr: "Formulaires"  title.it: "Moduli"  text: "<p>Baukasten, Eingänge, Spam-Schutz ohne CAPTCHA.</p>"  text.en: "<p>Builder, submissions, spam protection without CAPTCHA.</p>"  text.fr: "<p>Constructeur, envois, protection anti-spam sans CAPTCHA.</p>"  text.it: "<p>Costruttore, invii, protezione antispam senza CAPTCHA.</p>"  link: -> formulare }
+          { title: "Suche und Blog"  title.en: "Search and blog"  title.fr: "Recherche et blog"  title.it: "Ricerca e blog"  text: "<p>Volltextsuche je Sprache, Blog mit Feed.</p>"  text.en: "<p>Full-text search per language, blog with feed.</p>"  text.fr: "<p>Recherche plein texte par langue, blog avec flux.</p>"  text.it: "<p>Ricerca full-text per lingua, blog con feed.</p>"  link: -> suche-blog }
+          { title: "SEO, Cache und Tempo"  title.en: "SEO, cache and speed"  title.fr: "SEO, cache et vitesse"  title.it: "SEO, cache e velocità"  text: "<p>Meta, Sitemap, hreflang, Seiten aus dem Cache.</p>"  text.en: "<p>Meta, sitemap, hreflang, pages from the cache.</p>"  text.fr: "<p>Métadonnées, plan du site, hreflang, pages depuis le cache.</p>"  text.it: "<p>Metadati, sitemap, hreflang, pagine dalla cache.</p>"  link: -> seo }
+          { title: "Themes und Lava"  title.en: "Themes and Lava"  title.fr: "Thèmes et Lava"  title.it: "Temi e Lava"  text: "<p>Ein Theme in einer Datei, Editor im Backend.</p>"  text.en: "<p>A theme in one file, editor in the backend.</p>"  text.fr: "<p>Un thème en un seul fichier, éditeur dans le backend.</p>"  text.it: "<p>Un tema in un solo file, editor nel backend.</p>"  link: -> themes }
+          { title: "Benutzer, Rollen und Anmeldung"  title.en: "Users, roles and sign-in"  title.fr: "Utilisateurs, rôles et connexion"  title.it: "Utenti, ruoli e accesso"  text: "<p>Passwortlos, Rollen je Site, SSO.</p>"  text.en: "<p>Passwordless, roles per site, SSO.</p>"  text.fr: "<p>Sans mot de passe, rôles par site, SSO.</p>"  text.it: "<p>Senza password, ruoli per sito, SSO.</p>"  link: -> benutzer }
+          { title: "Einstellungen, Protokoll und Betrieb"  title.en: "Settings, log and operations"  title.fr: "Paramètres, journal et exploitation"  title.it: "Impostazioni, registro ed esercizio"  text: "<p>Einstellungen mit Verlauf, Protokoll, Zustand.</p>"  text.en: "<p>Settings with history, activity log, health.</p>"  text.fr: "<p>Paramètres avec historique, journal, état.</p>"  text.it: "<p>Impostazioni con cronologia, registro, stato.</p>"  link: -> verwaltung }
+          { title: "Recht und Datenschutz"  title.en: "Legal and privacy"  title.fr: "Droit et protection des données"  title.it: "Diritto e privacy"  text: "<p>Rechtsseiten aus Vorlage, Auskunft und Löschung.</p>"  text.en: "<p>Legal pages from templates, access and erasure.</p>"  text.fr: "<p>Pages juridiques à partir de modèles, droit d’accès et effacement.</p>"  text.it: "<p>Pagine legali da modelli, accesso ai dati e cancellazione.</p>"  link: -> recht }
+          { title: "Kommentare, Mitglieder und KI"  title.en: "Comments, members and AI"  title.fr: "Commentaires, membres et IA"  title.it: "Commenti, membri e IA"  text: "<p>Module je Site einschalten.</p>"  text.en: "<p>Switch modules on per site.</p>"  text.fr: "<p>Activer les modules par site.</p>"  text.it: "<p>Attivare i moduli per sito.</p>"  link: -> module }
+          { title: "Community und Forum"  title.en: "Community and forum"  title.fr: "Communauté et forum"  title.it: "Community e forum"  text: "<p>Forum wie WoltLab mit Profil und Moderation.</p>"  text.en: "<p>A forum like WoltLab with profile and moderation.</p>"  text.fr: "<p>Un forum comme WoltLab, avec profil et modération.</p>"  text.it: "<p>Un forum come WoltLab, con profilo e moderazione.</p>"  link: -> community }
+          { title: "Export, Import und API"  title.en: "Export, import and API"  title.fr: "Export, import et API"  title.it: "Esportazione, importazione e API"  text: "<p>Ganze Site mitnehmen, REST-API mit Tokens.</p>"  text.en: "<p>Take a whole site with you, REST API with tokens.</p>"  text.fr: "<p>Emporter un site entier, API REST avec jetons.</p>"  text.it: "<p>Portare con sé un intero sito, API REST con token.</p>"  link: -> daten }
+          { title: "Hilfe und Tastenkürzel"  title.en: "Help and keyboard shortcuts"  title.fr: "Aide et raccourcis clavier"  title.it: "Guida e scorciatoie"  text: "<p>Hilfe zur Seite mit ? oder F1, Suche über die ganze Doku.</p>"  text.en: "<p>Help for the page with ? or F1, search across all docs.</p>"  text.fr: "<p>Aide sur la page avec ? ou F1, recherche dans toute la documentation.</p>"  text.it: "<p>Guida alla pagina con ? o F1, ricerca in tutta la documentazione.</p>"  link: -> hilfe }
+          { title: "Direkt ins Backend"  title.en: "Straight to the backend"  title.fr: "Directement dans le backend"  title.it: "Direttamente nel backend"  text: "<p>Rolle wählen und selbst entdecken.</p>"  text.en: "<p>Choose a role and explore on your own.</p>"  text.fr: "<p>Choisissez un rôle et découvrez par vous-même.</p>"  text.it: "<p>Scelga un ruolo e scopra in autonomia.</p>"  link: -> "/admin/login?ziel=/admin" }
+        }
+      }
+      faq {
+        title: "Gut zu wissen"  title.en: "Good to know"  title.fr: "Bon à savoir"  title.it: "Buono a sapersi"
+        items {
+          { question: "Bleibt, was ich ändere?"  question.en: "Do my changes stay?"  question.fr: "Mes modifications sont-elles conservées ?"  question.it: "Le mie modifiche restano?"  answer: "<p>Nein. Die Demo setzt sich jede Nacht neu auf — Inhalte, Konten und Medien kehren in den Ausgangszustand zurück.</p>"  answer.en: "<p>No. The demo resets every night — content, accounts and media return to their initial state.</p>"  answer.fr: "<p>Non. La démo se réinitialise chaque nuit — contenus, comptes et médias reviennent à leur état initial.</p>"  answer.it: "<p>No. La demo si ripristina ogni notte — contenuti, account e media tornano allo stato iniziale.</p>" }
+          { question: "Werden Mails verschickt?"  question.en: "Are emails sent?"  question.fr: "Des e-mails sont-ils envoyés ?"  question.it: "Vengono inviate e-mail?"  answer: "<p>Nein. Die Demo fängt jede Mail ab; Codes und Einladungen erreichen niemanden.</p>"  answer.en: "<p>No. The demo intercepts every email; codes and invitations reach nobody.</p>"  answer.fr: "<p>Non. La démo intercepte chaque e-mail ; codes et invitations n’atteignent personne.</p>"  answer.it: "<p>No. La demo intercetta ogni e-mail; codici e inviti non raggiungono nessuno.</p>" }
+          { question: "Was zeigt die Demo nicht?"  question.en: "What does the demo not show?"  question.fr: "Que ne montre pas la démo ?"  question.it: "Cosa non mostra la demo?"  answer: "<p>Was nur beim Hersteller oder im Betrieb läuft: Lizenzverkauf, Marktplatz-Verwaltung, die SaaS mit eigenen Domains, Backups und Lasttests.</p>"  answer.en: "<p>What only runs at the vendor or in operations: licence sales, marketplace management, the SaaS with custom domains, backups and load tests.</p>"  answer.fr: "<p>Ce qui ne tourne que chez l’éditeur ou en exploitation : vente de licences, gestion du Marketplace, le SaaS avec domaines propres, sauvegardes et tests de charge.</p>"  answer.it: "<p>Ciò che funziona solo presso il produttore o in esercizio: vendita di licenze, gestione del Marketplace, il SaaS con domini propri, backup e test di carico.</p>" }
+        }
+      }
+    }
+  }
+
+  page seiten {
+    parent: funktionen
+    title: "Seiten und Inhaltstypen"  title.en: "Pages and content types"  title.fr: "Pages et types de contenu"  title.it: "Pagine e tipi di contenuto"
+    slug: seiten  slug.en: pages  slug.fr: pages  slug.it: pagine
+    intro: "Ein Seitenbaum für alles, was eine Adresse hat — und Inhaltstypen, die das Theme festlegt."
+    intro.en: "One page tree for everything with an address — and content types defined by the theme."
+    intro.fr: "Une seule arborescence pour tout ce qui a une adresse — et des types de contenu définis par le thème."
+    intro.it: "Un solo albero delle pagine per tutto ciò che ha un indirizzo — e tipi di contenuto definiti dal tema."
+    content {
+      visual {
+        art: "/vendor/basalto/core/demo/funktion-seiten-foto.webp"  art_overlay: "/vendor/basalto/core/demo/funktion-seiten-schema.svg"
+        art_credit: "Lance Anderson / Unsplash"
+      }
+      text {
+        body: "<h3>Was es kann</h3><ul><li>Seiten, Ordner, Weiterleitungen, Feeds und Fehlerseiten in einem Baum, per Ziehen sortiert</li><li>Typen wie Beitrag oder Person mit eigenen Feldern — festgelegt im Theme, nicht in Code</li><li>Mehrere Sites in einer Installation, sauber getrennt</li></ul><h3>Probieren Sie</h3><ol><li>Seite «Über uns» öffnen und den Titel ändern</li><li>Eine neue Unterseite anlegen und verschieben</li><li>Unter «Inhalte» einen Blogbeitrag anlegen</li></ol>"
+        body.en: "<h3>What it does</h3><ul><li>Pages, folders, redirects, feeds and error pages in one tree, sorted by dragging</li><li>Types such as post or person with their own fields — defined in the theme, not in code</li><li>Several sites in one installation, cleanly separated</li></ul><h3>Try it</h3><ol><li>Open the page “About us” and change the title</li><li>Create a new subpage and move it</li><li>Create a blog post under “Content”</li></ol>"
+        body.fr: "<h3>Ce qu’il sait faire</h3><ul><li>Pages, dossiers, redirections, flux et pages d’erreur dans une seule arborescence, triés par glisser-déposer</li><li>Des types comme l’article ou la personne avec leurs propres champs — définis dans le thème, pas dans le code</li><li>Plusieurs sites dans une installation, clairement séparés</li></ul><h3>Essayez</h3><ol><li>Ouvrir la page « À propos » et modifier le titre</li><li>Créer une nouvelle sous-page et la déplacer</li><li>Sous « Contenus », créer un article de blog</li></ol>"
+        body.it: "<h3>Cosa sa fare</h3><ul><li>Pagine, cartelle, reindirizzamenti, feed e pagine di errore in un unico albero, ordinati trascinando</li><li>Tipi come articolo o persona con campi propri — definiti nel tema, non nel codice</li><li>Più siti in un’unica installazione, ben separati</li></ul><h3>Provi</h3><ol><li>Aprire la pagina «Chi siamo» e modificare il titolo</li><li>Creare una nuova sottopagina e spostarla</li><li>In «Contenuti» creare un articolo del blog</li></ol>"
+      }
+      cards {
+        title: "Ausprobieren"  title.en: "Try it out"  title.fr: "À essayer"  title.it: "Da provare"
+        items {
+          { title: "Seitenbaum öffnen"  title.en: "Open the page tree"  title.fr: "Ouvrir l’arborescence"  title.it: "Aprire l’albero delle pagine"  text: "<p>Schnellzugang als Redaktion wählen.</p>"  text.en: "<p>Choose quick access as editor.</p>"  text.fr: "<p>Choisir l’accès rapide en tant que rédacteur.</p>"  text.it: "<p>Scegliere l’accesso rapido come redattore.</p>"  link: -> "/admin/login?ziel=/admin/pages" }
+          { title: "Inhalte öffnen"  title.en: "Open the content"  title.fr: "Ouvrir les contenus"  title.it: "Aprire i contenuti"  text: "<p>Beiträge und Personen nach Typ.</p>"  text.en: "<p>Posts and people by type.</p>"  text.fr: "<p>Articles et personnes par type.</p>"  text.it: "<p>Articoli e persone per tipo.</p>"  link: -> "/admin/login?ziel=/admin/entries" }
+        }
+      }
+    }
+  }
+
+  page editor {
+    parent: funktionen
+    title: "Block-Editor und Vorschau"  title.en: "Block editor and preview"  title.fr: "Éditeur de blocs et aperçu"  title.it: "Editor a blocchi e anteprima"
+    slug: block-editor  slug.en: block-editor  slug.fr: editeur-de-blocs  slug.it: editor-a-blocchi
+    intro: "Inhalte aus Blöcken, die das Theme erlaubt — mit Vorschau daneben und direkt auf der Seite."
+    intro.en: "Content built from the blocks the theme allows — with a preview alongside and right on the page."
+    intro.fr: "Des contenus faits des blocs que le thème autorise — avec un aperçu à côté et directement sur la page."
+    intro.it: "Contenuti fatti dei blocchi che il tema consente — con anteprima accanto e direttamente sulla pagina."
+    content {
+      visual {
+        art: "/vendor/basalto/core/demo/funktion-editor-foto.webp"  art_overlay: "/vendor/basalto/core/demo/funktion-editor-schema.svg"
+        art_credit: "Mick Haupt / Unsplash"
+      }
+      text {
+        body: "<h3>Was es kann</h3><ul><li>Blöcke einfügen, verschachteln, verschieben; nur die, die das Theme erlaubt</li><li>Fliesstext mit voller Toolbar und Markdown-Kürzeln; Einfügen aus Word samt Bildern</li><li>Vorschau neben dem Editor, Link für Dritte mit Ablaufdatum</li><li>Auf der Website selbst bearbeiten (Frontend-Editor)</li><li>Zwischenspeichern ohne Klick</li></ul><h3>Probieren Sie</h3><ol><li>Startseite öffnen, einen Block «Zitat» einfügen</li><li>Text fett setzen, einen Link einfügen, Vorschau ansehen</li><li>Auf der Website «Auf der Seite bearbeiten» wählen</li></ol>"
+        body.en: "<h3>What it does</h3><ul><li>Insert, nest and move blocks; only those the theme allows</li><li>Rich text with a full toolbar and Markdown shortcuts; paste from Word including images</li><li>Preview next to the editor, a link for third parties with an expiry date</li><li>Edit on the website itself (frontend editor)</li><li>Autosave without a click</li></ul><h3>Try it</h3><ol><li>Open the home page and insert a “Quote” block</li><li>Make text bold, insert a link, look at the preview</li><li>On the website choose “Edit on the page”</li></ol>"
+        body.fr: "<h3>Ce qu’il sait faire</h3><ul><li>Insérer, imbriquer et déplacer des blocs ; seulement ceux que le thème autorise</li><li>Texte enrichi avec barre d’outils complète et raccourcis Markdown ; collage depuis Word, images comprises</li><li>Aperçu à côté de l’éditeur, lien pour des tiers avec date d’expiration</li><li>Modifier directement sur le site (éditeur frontend)</li><li>Enregistrement automatique, sans clic</li></ul><h3>Essayez</h3><ol><li>Ouvrir la page d’accueil et insérer un bloc « Citation »</li><li>Mettre du texte en gras, insérer un lien, regarder l’aperçu</li><li>Sur le site, choisir « Modifier sur la page »</li></ol>"
+        body.it: "<h3>Cosa sa fare</h3><ul><li>Inserire, annidare e spostare blocchi; solo quelli che il tema consente</li><li>Testo formattato con barra degli strumenti completa e scorciatoie Markdown; incolla da Word, immagini comprese</li><li>Anteprima accanto all’editor, link per terzi con data di scadenza</li><li>Modificare direttamente sul sito (editor frontend)</li><li>Salvataggio automatico, senza clic</li></ul><h3>Provi</h3><ol><li>Aprire la pagina iniziale e inserire un blocco «Citazione»</li><li>Mettere del testo in grassetto, inserire un link, guardare l’anteprima</li><li>Sul sito scegliere «Modifica sulla pagina»</li></ol>"
+      }
+      cards {
+        title: "Ausprobieren"  title.en: "Try it out"  title.fr: "À essayer"  title.it: "Da provare"
+        items {
+          { title: "Editor öffnen"  title.en: "Open the editor"  title.fr: "Ouvrir l’éditeur"  title.it: "Aprire l’editor"  text: "<p>Schnellzugang als Redaktion, dann eine Seite wählen.</p>"  text.en: "<p>Quick access as editor, then choose a page.</p>"  text.fr: "<p>Accès rapide en tant que rédacteur, puis choisir une page.</p>"  text.it: "<p>Accesso rapido come redattore, poi scegliere una pagina.</p>"  link: -> "/admin/login?ziel=/admin/pages" }
+        }
+      }
+    }
+  }
+
+  page medien {
+    parent: funktionen
+    title: "Medien"  title.en: "Media"  title.fr: "Médias"  title.it: "Media"
+    slug: medien  slug.en: media  slug.fr: medias  slug.it: media
+    intro: "Eine Bibliothek für Bilder und Dateien — Varianten entstehen von selbst."
+    intro.en: "One library for images and files — variants are created automatically."
+    intro.fr: "Une seule médiathèque pour les images et les fichiers — les variantes se créent d’elles-mêmes."
+    intro.it: "Un’unica mediateca per immagini e file — le varianti si creano da sole."
+    content {
+      visual {
+        art: "/vendor/basalto/core/demo/funktion-medien-foto.webp"  art_overlay: "/vendor/basalto/core/demo/funktion-medien-schema.svg"
+        art_credit: "K. K. / Unsplash"
+      }
+      text {
+        body: "<h3>Was es kann</h3><ul><li>Ordner, Hochladen per Ziehen, Ersetzen, Papierkorb</li><li>Bildvarianten nach den Vorgaben des Themes, mit Fokuspunkt</li><li>Alt-Text je Sprache als Pflicht, Verwendungsnachweis je Datei</li><li>Speicher lokal oder im Bucket, ohne Code-Änderung</li></ul><h3>Probieren Sie</h3><ol><li>Ein Bild hochladen und den Fokuspunkt setzen</li><li>Alt-Text auf Deutsch und Englisch eintragen</li><li>Sehen, wo das Bild verwendet wird</li></ol>"
+        body.en: "<h3>What it does</h3><ul><li>Folders, upload by dragging, replace, trash</li><li>Image variants as defined by the theme, with a focal point</li><li>Alt text per language as a requirement, usage per file</li><li>Storage local or in a bucket, without a code change</li></ul><h3>Try it</h3><ol><li>Upload an image and set the focal point</li><li>Enter the alt text in German and English</li><li>See where the image is used</li></ol>"
+        body.fr: "<h3>Ce qu’il sait faire</h3><ul><li>Dossiers, téléversement par glisser-déposer, remplacement, corbeille</li><li>Variantes d’image selon les règles du thème, avec point focal</li><li>Texte alternatif obligatoire par langue, utilisation indiquée pour chaque fichier</li><li>Stockage local ou dans un bucket, sans modifier le code</li></ul><h3>Essayez</h3><ol><li>Téléverser une image et placer le point focal</li><li>Saisir le texte alternatif en allemand et en français</li><li>Voir où l’image est utilisée</li></ol>"
+        body.it: "<h3>Cosa sa fare</h3><ul><li>Cartelle, caricamento trascinando, sostituzione, cestino</li><li>Varianti delle immagini secondo le regole del tema, con punto focale</li><li>Testo alternativo obbligatorio per lingua, utilizzo indicato per ogni file</li><li>Archiviazione locale o in un bucket, senza modificare il codice</li></ul><h3>Provi</h3><ol><li>Caricare un’immagine e impostare il punto focale</li><li>Inserire il testo alternativo in tedesco e in italiano</li><li>Vedere dove viene usata l’immagine</li></ol>"
+      }
+      cards {
+        title: "Ausprobieren"  title.en: "Try it out"  title.fr: "À essayer"  title.it: "Da provare"
+        items {
+          { title: "Mediathek öffnen"  title.en: "Open the media library"  title.fr: "Ouvrir la médiathèque"  title.it: "Aprire la mediateca"  text: "<p>Schnellzugang als Redaktion.</p>"  text.en: "<p>Quick access as editor.</p>"  text.fr: "<p>Accès rapide en tant que rédacteur.</p>"  text.it: "<p>Accesso rapido come redattore.</p>"  link: -> "/admin/login?ziel=/admin/media" }
+        }
+      }
+    }
+  }
+
+  page sprachen {
+    parent: funktionen
+    title: "Mehrsprachigkeit"  title.en: "Multilingual"  title.fr: "Multilinguisme"  title.it: "Multilingua"
+    slug: mehrsprachigkeit  slug.en: multilingual  slug.fr: multilinguisme  slug.it: multilingua
+    intro: "Übersetzen neben der Quellfassung — und sehen, was veraltet ist."
+    intro.en: "Translate next to the source version — and see what is out of date."
+    intro.fr: "Traduire à côté de la version source — et voir ce qui est obsolète."
+    intro.it: "Tradurre accanto alla versione di origine — e vedere cosa è obsoleto."
+    content {
+      visual {
+        art: "/vendor/basalto/core/demo/funktion-sprachen-foto.webp"  art_overlay: "/vendor/basalto/core/demo/funktion-sprachen-schema.svg"
+        art_credit: "Tetiana GRY / Unsplash"
+      }
+      text {
+        body: "<h3>Was es kann</h3><ul><li>Sprachen je Site, Pflicht- und Fallback-Sprache</li><li>Übersetzen nebeneinander, Feld für Feld</li><li>Markierung, wenn sich die Quelle nach der Übersetzung geändert hat</li><li>Oberfläche des Backends auf Deutsch, Englisch, Italienisch und Französisch</li></ul><h3>Probieren Sie</h3><ol><li>Als Übersetzung anmelden und die Liste der offenen Übersetzungen öffnen</li><li>«Über uns» ins Englische übertragen</li><li>Die Website auf Englisch umschalten</li></ol>"
+        body.en: "<h3>What it does</h3><ul><li>Languages per site, required and fallback language</li><li>Translate side by side, field by field</li><li>A mark when the source changed after the translation</li><li>Backend interface in German, English, Italian and French</li></ul><h3>Try it</h3><ol><li>Sign in as translator and open the list of open translations</li><li>Translate “About us” into English</li><li>Switch the website to English</li></ol>"
+        body.fr: "<h3>Ce qu’il sait faire</h3><ul><li>Langues par site, langue obligatoire et langue de repli</li><li>Traduire côte à côte, champ par champ</li><li>Un repère lorsque la source a changé après la traduction</li><li>Interface du backend en allemand, anglais, italien et français</li></ul><h3>Essayez</h3><ol><li>Se connecter en tant que traducteur et ouvrir la liste des traductions en attente</li><li>Traduire « À propos » en français</li><li>Passer le site en français</li></ol>"
+        body.it: "<h3>Cosa sa fare</h3><ul><li>Lingue per sito, lingua obbligatoria e lingua di ripiego</li><li>Tradurre fianco a fianco, campo per campo</li><li>Un segno quando la fonte è cambiata dopo la traduzione</li><li>Interfaccia del backend in tedesco, inglese, italiano e francese</li></ul><h3>Provi</h3><ol><li>Accedere come traduttore e aprire l’elenco delle traduzioni in sospeso</li><li>Tradurre «Chi siamo» in italiano</li><li>Passare il sito all’italiano</li></ol>"
+      }
+      cards {
+        title: "Ausprobieren"  title.en: "Try it out"  title.fr: "À essayer"  title.it: "Da provare"
+        items {
+          { title: "Übersetzungen öffnen"  title.en: "Open translations"  title.fr: "Ouvrir les traductions"  title.it: "Aprire le traduzioni"  text: "<p>Schnellzugang als Übersetzung.</p>"  text.en: "<p>Quick access as translator.</p>"  text.fr: "<p>Accès rapide en tant que traducteur.</p>"  text.it: "<p>Accesso rapido come traduttore.</p>"  link: -> "/admin/login?ziel=/admin/uebersetzung" }
+        }
+      }
+    }
+  }
+
+  page navigation {
+    parent: funktionen
+    title: "Navigation"  title.en: "Navigation"  title.fr: "Navigation"  title.it: "Navigazione"
+    slug: navigation  slug.en: navigation  slug.fr: navigation  slug.it: navigazione
+    intro: "Menüs folgen dem Seitenbaum — oder werden frei gepflegt."
+    intro.en: "Menus follow the page tree — or are maintained freely."
+    intro.fr: "Les menus suivent l’arborescence — ou sont gérés librement."
+    intro.it: "I menu seguono l’albero delle pagine — o vengono curati liberamente."
+    content {
+      visual {
+        art: "/vendor/basalto/core/demo/funktion-navigation-foto.webp"  art_overlay: "/vendor/basalto/core/demo/funktion-navigation-schema.svg"
+        art_credit: "K. K. / Unsplash"
+      }
+      text {
+        body: "<h3>Was es kann</h3><ul><li>Hauptmenü aus dem Seitenbaum, mit Tiefe und Ausnahmen aus dem Theme</li><li>Freie Menüs mit eigenen Einträgen und Zielen</li><li>Seiten aus dem Menü nehmen, ohne sie zu löschen</li></ul><h3>Probieren Sie</h3><ol><li>Als Betreiberin die Navigation öffnen</li><li>Einen Eintrag umbenennen und die Website neu laden</li></ol>"
+        body.en: "<h3>What it does</h3><ul><li>Main menu from the page tree, with depth and exceptions from the theme</li><li>Free menus with their own entries and targets</li><li>Remove pages from the menu without deleting them</li></ul><h3>Try it</h3><ol><li>Open navigation as operator</li><li>Rename an entry and reload the website</li></ol>"
+        body.fr: "<h3>Ce qu’il sait faire</h3><ul><li>Menu principal issu de l’arborescence, avec profondeur et exceptions définies dans le thème</li><li>Menus libres avec leurs propres entrées et destinations</li><li>Retirer des pages du menu sans les supprimer</li></ul><h3>Essayez</h3><ol><li>Ouvrir la navigation en tant qu’exploitant</li><li>Renommer une entrée et recharger le site</li></ol>"
+        body.it: "<h3>Cosa sa fare</h3><ul><li>Menu principale dall’albero delle pagine, con profondità ed eccezioni definite nel tema</li><li>Menu liberi con voci e destinazioni proprie</li><li>Togliere pagine dal menu senza eliminarle</li></ul><h3>Provi</h3><ol><li>Aprire la navigazione come gestore</li><li>Rinominare una voce e ricaricare il sito</li></ol>"
+      }
+      cards {
+        title: "Ausprobieren"  title.en: "Try it out"  title.fr: "À essayer"  title.it: "Da provare"
+        items {
+          { title: "Navigation öffnen"  title.en: "Open navigation"  title.fr: "Ouvrir la navigation"  title.it: "Aprire la navigazione"  text: "<p>Schnellzugang als Betreiberin.</p>"  text.en: "<p>Quick access as operator.</p>"  text.fr: "<p>Accès rapide en tant qu’exploitant.</p>"  text.it: "<p>Accesso rapido come gestore.</p>"  link: -> "/admin/login?ziel=/admin/einrichtung/navigation" }
+        }
+      }
+    }
+  }
+
+  page freigabe {
+    parent: funktionen
+    title: "Freigabe und Fassungen"  title.en: "Approval and versions"  title.fr: "Validation et versions"  title.it: "Approvazione e versioni"
+    slug: freigabe  slug.en: approval  slug.fr: validation  slug.it: approvazione
+    intro: "Nichts geht ungesehen live — jede Fassung bleibt erhalten."
+    intro.en: "Nothing goes live unseen — every version is kept."
+    intro.fr: "Rien n’est mis en ligne sans avoir été vu — chaque version est conservée."
+    intro.it: "Niente va online senza essere visto — ogni versione viene conservata."
+    content {
+      visual {
+        art: "/vendor/basalto/core/demo/funktion-freigabe-foto.webp"  art_overlay: "/vendor/basalto/core/demo/funktion-freigabe-schema.svg"
+        art_credit: "Mick Haupt / Unsplash"
+      }
+      text {
+        body: "<h3>Was es kann</h3><ul><li>Redaktion reicht ein, Betreiberin gibt frei (vier Augen)</li><li>Veröffentlichen planen, Fassungen vergleichen und wiederherstellen</li><li>Übersicht, die nie leer bleibt: Aufgaben, Freigaben, Eingänge mit Zahl</li></ul><h3>Probieren Sie</h3><ol><li>Als Redaktion eine Seite ändern und einreichen</li><li>Abmelden, als Betreiberin anmelden und freigeben</li><li>Zwei Fassungen vergleichen</li></ol>"
+        body.en: "<h3>What it does</h3><ul><li>Editors submit, the operator approves (four eyes)</li><li>Schedule publishing, compare and restore versions</li><li>An overview that is never empty: tasks, approvals, submissions with counts</li></ul><h3>Try it</h3><ol><li>Change a page as editor and submit it</li><li>Sign out, sign in as operator and approve it</li><li>Compare two versions</li></ol>"
+        body.fr: "<h3>Ce qu’il sait faire</h3><ul><li>La rédaction soumet, l’exploitant valide (principe des quatre yeux)</li><li>Planifier la publication, comparer et restaurer des versions</li><li>Un aperçu général jamais vide : tâches, validations, envois avec leur nombre</li></ul><h3>Essayez</h3><ol><li>En tant que rédacteur, modifier une page et la soumettre</li><li>Se déconnecter, se connecter en tant qu’exploitant et valider</li><li>Comparer deux versions</li></ol>"
+        body.it: "<h3>Cosa sa fare</h3><ul><li>La redazione invia, il gestore approva (principio dei quattro occhi)</li><li>Pianificare la pubblicazione, confrontare e ripristinare versioni</li><li>Una panoramica mai vuota: attività, approvazioni, invii con il loro numero</li></ul><h3>Provi</h3><ol><li>Come redattore modificare una pagina e inviarla per approvazione</li><li>Uscire, accedere come gestore e approvare</li><li>Confrontare due versioni</li></ol>"
+      }
+      cards {
+        title: "Ausprobieren"  title.en: "Try it out"  title.fr: "À essayer"  title.it: "Da provare"
+        items {
+          { title: "Freigaben öffnen"  title.en: "Open approvals"  title.fr: "Ouvrir les validations"  title.it: "Aprire le approvazioni"  text: "<p>Schnellzugang als Betreiberin.</p>"  text.en: "<p>Quick access as operator.</p>"  text.fr: "<p>Accès rapide en tant qu’exploitant.</p>"  text.it: "<p>Accesso rapido come gestore.</p>"  link: -> "/admin/login?ziel=/admin/freigabe" }
+        }
+      }
+    }
+  }
+
+  page formulare {
+    parent: funktionen
+    title: "Formulare"  title.en: "Forms"  title.fr: "Formulaires"  title.it: "Moduli"
+    slug: formulare  slug.en: forms  slug.fr: formulaires  slug.it: moduli
+    intro: "Formulare im Baukasten — Eingänge im Backend, Spam-Schutz ohne CAPTCHA."
+    intro.en: "Forms in a builder — submissions in the backend, spam protection without CAPTCHA."
+    intro.fr: "Des formulaires dans le constructeur — les envois dans le backend, protection anti-spam sans CAPTCHA."
+    intro.it: "Moduli nel costruttore — gli invii nel backend, protezione antispam senza CAPTCHA."
+    content {
+      visual {
+        art: "/vendor/basalto/core/demo/funktion-formulare-foto.webp"  art_overlay: "/vendor/basalto/core/demo/funktion-formulare-schema.svg"
+        art_credit: "Lance Anderson / Unsplash"
+      }
+      text {
+        body: "<h3>Was es kann</h3><ul><li>Felder aller Arten im Baukasten, als Block auf jeder Seite</li><li>Eingänge mit Export, Aufbewahrungsfrist und Löschung</li><li>Spam-Schutz ohne Rätsel, Antwort ohne Seitenwechsel</li></ul><h3>Probieren Sie</h3><ol><li>Auf der Kontaktseite eine Nachricht schicken</li><li>Im Backend den Eingang öffnen</li></ol>"
+        body.en: "<h3>What it does</h3><ul><li>Fields of every kind in a builder, as a block on any page</li><li>Submissions with export, retention period and erasure</li><li>Spam protection without puzzles, answers without a page change</li></ul><h3>Try it</h3><ol><li>Send a message on the contact page</li><li>Open the submission in the backend</li></ol>"
+        body.fr: "<h3>Ce qu’il sait faire</h3><ul><li>Des champs de tout type dans le constructeur, comme bloc sur n’importe quelle page</li><li>Envois avec export, durée de conservation et suppression</li><li>Protection anti-spam sans casse-tête, réponse sans changer de page</li></ul><h3>Essayez</h3><ol><li>Envoyer un message sur la page de contact</li><li>Ouvrir l’envoi dans le backend</li></ol>"
+        body.it: "<h3>Cosa sa fare</h3><ul><li>Campi di ogni tipo nel costruttore, come blocco su qualsiasi pagina</li><li>Invii con esportazione, periodo di conservazione ed eliminazione</li><li>Protezione antispam senza rompicapi, risposta senza cambiare pagina</li></ul><h3>Provi</h3><ol><li>Inviare un messaggio dalla pagina di contatto</li><li>Aprire l’invio nel backend</li></ol>"
+      }
+      cards {
+        title: "Ausprobieren"  title.en: "Try it out"  title.fr: "À essayer"  title.it: "Da provare"
+        items {
+          { title: "Kontaktformular"  title.en: "Contact form"  title.fr: "Formulaire de contact"  title.it: "Modulo di contatto"  text: "<p>Auf der Website, wie Besucher es sehen.</p>"  text.en: "<p>On the website, as visitors see it.</p>"  text.fr: "<p>Sur le site, tel que les visiteurs le voient.</p>"  text.it: "<p>Sul sito, come lo vedono i visitatori.</p>"  link: -> kontakt }
+          { title: "Eingänge öffnen"  title.en: "Open submissions"  title.fr: "Ouvrir les envois"  title.it: "Aprire gli invii"  text: "<p>Schnellzugang als Betreiberin.</p>"  text.en: "<p>Quick access as operator.</p>"  text.fr: "<p>Accès rapide en tant qu’exploitant.</p>"  text.it: "<p>Accesso rapido come gestore.</p>"  link: -> "/admin/login?ziel=/admin/formulare" }
+        }
+      }
+    }
+  }
+
+  page suche-blog {
+    parent: funktionen
+    title: "Suche und Blog"  title.en: "Search and blog"  title.fr: "Recherche et blog"  title.it: "Ricerca e blog"
+    slug: suche-und-blog  slug.en: search-and-blog  slug.fr: recherche-et-blog  slug.it: ricerca-e-blog
+    intro: "Volltextsuche in jeder Sprache — und ein Blog mit Kategorien und Feed."
+    intro.en: "Full-text search in every language — and a blog with categories and a feed."
+    intro.fr: "Recherche plein texte dans chaque langue — et un blog avec catégories et flux."
+    intro.it: "Ricerca full-text in ogni lingua — e un blog con categorie e feed."
+    content {
+      visual {
+        art: "/vendor/basalto/core/demo/funktion-suche-blog-foto.webp"  art_overlay: "/vendor/basalto/core/demo/funktion-suche-blog-schema.svg"
+        art_credit: "Tetiana GRY / Unsplash"
+      }
+      text {
+        body: "<h3>Was es kann</h3><ul><li>Suche je Sprache mit Ausschnitt, Treiber austauschbar</li><li>Blog mit Kategorien, Schlagwörtern, Archiv und RSS- oder Atom-Feed</li><li>Seiten von der Suche ausnehmen</li></ul><h3>Probieren Sie</h3><ol><li>Auf der Website nach «Starter» suchen</li><li>Den Blog und seinen Feed öffnen</li></ol>"
+        body.en: "<h3>What it does</h3><ul><li>Search per language with excerpts, exchangeable driver</li><li>Blog with categories, tags, archive and an RSS or Atom feed</li><li>Exclude pages from search</li></ul><h3>Try it</h3><ol><li>Search the website for “Starter”</li><li>Open the blog and its feed</li></ol>"
+        body.fr: "<h3>Ce qu’il sait faire</h3><ul><li>Recherche par langue avec extraits, moteur interchangeable</li><li>Blog avec catégories, mots-clés, archives et flux RSS ou Atom</li><li>Exclure des pages de la recherche</li></ul><h3>Essayez</h3><ol><li>Rechercher « Starter » sur le site</li><li>Ouvrir le blog et son flux</li></ol>"
+        body.it: "<h3>Cosa sa fare</h3><ul><li>Ricerca per lingua con estratti, motore sostituibile</li><li>Blog con categorie, tag, archivio e feed RSS o Atom</li><li>Escludere pagine dalla ricerca</li></ul><h3>Provi</h3><ol><li>Cercare «Starter» sul sito</li><li>Aprire il blog e il suo feed</li></ol>"
+      }
+      cards {
+        title: "Ausprobieren"  title.en: "Try it out"  title.fr: "À essayer"  title.it: "Da provare"
+        items {
+          { title: "Suche"  title.en: "Search"  title.fr: "Recherche"  title.it: "Ricerca"  text: "<p>Auf der Website.</p>"  text.en: "<p>On the website.</p>"  text.fr: "<p>Sur le site.</p>"  text.it: "<p>Sul sito.</p>"  link: -> suche }
+          { title: "Blog"  title.en: "Blog"  title.fr: "Blog"  title.it: "Blog"  text: "<p>Beiträge mit Feed.</p>"  text.en: "<p>Posts with a feed.</p>"  text.fr: "<p>Articles avec flux.</p>"  text.it: "<p>Articoli con feed.</p>"  link: -> blog }
+        }
+      }
+    }
+  }
+
+  page seo {
+    parent: funktionen
+    title: "SEO, Cache und Tempo"  title.en: "SEO, cache and speed"  title.fr: "SEO, cache et vitesse"  title.it: "SEO, cache e velocità"
+    slug: seo  slug.en: seo  slug.fr: seo  slug.it: seo
+    intro: "Gefunden werden und schnell laden — ohne Zusatzmodul."
+    intro.en: "Get found and load fast — without an add-on."
+    intro.fr: "Être trouvé et charger vite — sans module complémentaire."
+    intro.it: "Farsi trovare e caricare in fretta — senza componenti aggiuntivi."
+    content {
+      visual {
+        art: "/vendor/basalto/core/demo/funktion-seo-foto.webp"  art_overlay: "/vendor/basalto/core/demo/funktion-seo-schema.svg"
+        art_credit: "K. K. / Unsplash"
+      }
+      text {
+        body: "<h3>Was es kann</h3><ul><li>Titel, Beschreibung und Vorschaubild je Seite und Sprache</li><li>Sitemap, hreflang, Umleitungen beim Umbenennen</li><li>Seiten aus dem Cache, nach dem Veröffentlichen sofort aktuell; Lighthouse 100</li></ul><h3>Probieren Sie</h3><ol><li>Eine Seite öffnen und den Reiter «SEO» ansehen</li><li>Die Sitemap der Website aufrufen</li></ol>"
+        body.en: "<h3>What it does</h3><ul><li>Title, description and preview image per page and language</li><li>Sitemap, hreflang, redirects when renaming</li><li>Pages from the cache, current right after publishing; Lighthouse 100</li></ul><h3>Try it</h3><ol><li>Open a page and look at the “SEO” tab</li><li>Open the website’s sitemap</li></ol>"
+        body.fr: "<h3>Ce qu’il sait faire</h3><ul><li>Titre, description et image d’aperçu par page et par langue</li><li>Plan du site, hreflang, redirections lors d’un renommage</li><li>Pages servies depuis le cache, à jour dès la publication ; Lighthouse 100</li></ul><h3>Essayez</h3><ol><li>Ouvrir une page et regarder l’onglet « SEO »</li><li>Ouvrir le plan du site XML du site</li></ol>"
+        body.it: "<h3>Cosa sa fare</h3><ul><li>Titolo, descrizione e immagine di anteprima per pagina e lingua</li><li>Sitemap, hreflang, reindirizzamenti quando si rinomina</li><li>Pagine dalla cache, aggiornate subito dopo la pubblicazione; Lighthouse 100</li></ul><h3>Provi</h3><ol><li>Aprire una pagina e guardare la scheda «SEO»</li><li>Aprire la sitemap del sito</li></ol>"
+      }
+      cards {
+        title: "Ausprobieren"  title.en: "Try it out"  title.fr: "À essayer"  title.it: "Da provare"
+        items {
+          { title: "Seite mit SEO öffnen"  title.en: "Open a page with SEO"  title.fr: "Ouvrir une page avec SEO"  title.it: "Aprire una pagina con SEO"  text: "<p>Schnellzugang als Redaktion.</p>"  text.en: "<p>Quick access as editor.</p>"  text.fr: "<p>Accès rapide en tant que rédacteur.</p>"  text.it: "<p>Accesso rapido come redattore.</p>"  link: -> "/admin/login?ziel=/admin/pages" }
+          { title: "Sitemap"  title.en: "Sitemap"  title.fr: "Plan du site"  title.it: "Sitemap"  text: "<p>Wie Suchmaschinen sie sehen.</p>"  text.en: "<p>As search engines see it.</p>"  text.fr: "<p>Tel que les moteurs de recherche le voient.</p>"  text.it: "<p>Come la vedono i motori di ricerca.</p>"  link: -> "/sitemap.xml" }
+        }
+      }
+    }
+  }
+
+  page themes {
+    parent: funktionen
+    title: "Themes und Lava"  title.en: "Themes and Lava"  title.fr: "Thèmes et Lava"  title.it: "Temi e Lava"
+    slug: themes  slug.en: themes  slug.fr: themes  slug.it: theme
+    intro: "Ein Theme ist eine Datei in Lava — Design, Menüs, Typen, Blöcke und Startinhalte, ohne PHP."
+    intro.en: "A theme is one file in Lava — design, menus, types, blocks and starter content, without PHP."
+    intro.fr: "Un thème est un seul fichier en Lava — design, menus, types, blocs et contenus de départ, sans PHP."
+    intro.it: "Un tema è un unico file in Lava — design, menu, tipi, blocchi e contenuti iniziali, senza PHP."
+    content {
+      visual {
+        art: "/vendor/basalto/core/demo/funktion-themes-foto.webp"  art_overlay: "/vendor/basalto/core/demo/funktion-themes-schema.svg"
+        art_credit: "Mick Haupt / Unsplash"
+      }
+      text {
+        body: "<h3>Was es kann</h3><ul><li>Lava: zehn Stationen von A bis Z, Fehlermeldungen mit Zeile und Vorschlag</li><li>Theme-Verwaltung und Lava-Editor im Backend, mit Prüfung, Vorschau und Fassungen</li><li>Design-Tokens: Farben, Schriften und Logo ohne Build ändern</li><li>Barrierefreiheit nach WCAG 2.2 AA, Kontraste gerechnet</li></ul><h3>Probieren Sie</h3><ol><li>Als Betreiberin unter «Design» eine Farbe ändern</li><li>Im Theme-Editor die rote Linie A–Z ansehen</li></ol>"
+        body.en: "<h3>What it does</h3><ul><li>Lava: ten stations from A to Z, error messages with line and suggestion</li><li>Theme management and Lava editor in the backend, with checks, preview and versions</li><li>Design tokens: change colours, fonts and logo without a build</li><li>Accessibility according to WCAG 2.2 AA, contrasts computed</li></ul><h3>Try it</h3><ol><li>Change a colour under “Design” as operator</li><li>Look at the red line A–Z in the theme editor</li></ol>"
+        body.fr: "<h3>Ce qu’il sait faire</h3><ul><li>Lava : dix stations de A à Z, messages d’erreur avec ligne et suggestion</li><li>Gestion des thèmes et éditeur Lava dans le backend, avec vérification, aperçu et versions</li><li>Design tokens : modifier couleurs, polices et logo sans build</li><li>Accessibilité selon WCAG 2.2 AA, contrastes calculés</li></ul><h3>Essayez</h3><ol><li>En tant qu’exploitant, modifier une couleur sous « Design »</li><li>Dans l’éditeur de thème, regarder la ligne rouge A–Z</li></ol>"
+        body.it: "<h3>Cosa sa fare</h3><ul><li>Lava: dieci stazioni dalla A alla Z, messaggi d’errore con riga e suggerimento</li><li>Gestione dei temi ed editor Lava nel backend, con verifica, anteprima e versioni</li><li>Design token: cambiare colori, caratteri e logo senza build</li><li>Accessibilità secondo WCAG 2.2 AA, contrasti calcolati</li></ul><h3>Provi</h3><ol><li>Come gestore cambiare un colore in «Design»</li><li>Nell’editor del tema guardare la linea rossa A–Z</li></ol>"
+      }
+      cards {
+        title: "Ausprobieren"  title.en: "Try it out"  title.fr: "À essayer"  title.it: "Da provare"
+        items {
+          { title: "Themes öffnen"  title.en: "Open themes"  title.fr: "Ouvrir les thèmes"  title.it: "Aprire i temi"  text: "<p>Schnellzugang als Betreiberin.</p>"  text.en: "<p>Quick access as operator.</p>"  text.fr: "<p>Accès rapide en tant qu’exploitant.</p>"  text.it: "<p>Accesso rapido come gestore.</p>"  link: -> "/admin/login?ziel=/admin/einrichtung/themes" }
+        }
+      }
+    }
+  }
+
+  page benutzer {
+    parent: funktionen
+    title: "Benutzer, Rollen und Anmeldung"  title.en: "Users, roles and sign-in"  title.fr: "Utilisateurs, rôles et connexion"  title.it: "Utenti, ruoli e accesso"
+    slug: benutzer  slug.en: users  slug.fr: utilisateurs  slug.it: utenti
+    intro: "Anmelden ohne Passwort — und Rechte, die zur Rolle passen."
+    intro.en: "Sign in without a password — and rights that match the role."
+    intro.fr: "Se connecter sans mot de passe — et des droits adaptés au rôle."
+    intro.it: "Accedere senza password — e diritti adatti al ruolo."
+    content {
+      visual {
+        art: "/vendor/basalto/core/demo/funktion-benutzer-foto.webp"  art_overlay: "/vendor/basalto/core/demo/funktion-benutzer-schema.svg"
+        art_credit: "Lance Anderson / Unsplash"
+      }
+      text {
+        body: "<h3>Was es kann</h3><ul><li>Anmeldung mit Passkey oder Code per Mail, kein Passwort</li><li>Rollen je Site mit Rechten je Bereich: keine, ansehen, bearbeiten, löschen, alles — und je Sprache</li><li>Eigene Rollen anlegen, Vorlagen anpassen; was eine Rolle nicht darf, erscheint nicht im Menü</li><li>Einladungen per Mail</li><li>Anmeldung über Microsoft Entra oder Google (SSO) je Site</li><li>Ein Backend mit klarer Linie: Inhalte und Einrichtung getrennt</li></ul><h3>Probieren Sie</h3><ol><li>Als Betreiberin unter «Rollen» eine eigene Rolle anlegen, etwa «Lektorat» nur für Französisch</li><li>Als Übersetzung anmelden: nur «Inhalte», keine Einrichtung, die Quellsprache gesperrt</li></ol>"
+        body.en: "<h3>What it does</h3><ul><li>Sign-in with a passkey or a code by email, no password</li><li>Roles per site with rights per area: none, view, edit, delete, all — and per language</li><li>Create your own roles, adapt the templates; what a role may not do does not appear in the menu</li><li>Invitations by email</li><li>Sign-in via Microsoft Entra or Google (SSO) per site</li><li>One backend with a clear line: content and setup kept apart</li></ul><h3>Try it</h3><ol><li>As operator, create your own role under “Roles”, say “Proofreading” for French only</li><li>Sign in as translator: only “Content”, no setup, the source language locked</li></ol>"
+        body.fr: "<h3>Ce qu’il sait faire</h3><ul><li>Connexion par passkey ou par code envoyé par e-mail, sans mot de passe</li><li>Rôles par site avec droits par section : aucun, voir, modifier, supprimer, tout — et par langue</li><li>Créer ses propres rôles, adapter les modèles ; ce qu’un rôle ne peut pas faire n’apparaît pas dans le menu</li><li>Invitations par e-mail</li><li>Connexion via Microsoft Entra ou Google (SSO) par site</li><li>Un backend avec une ligne claire : contenus et configuration séparés</li></ul><h3>Essayez</h3><ol><li>En tant qu’exploitant, créer un rôle sous « Rôles », par exemple « Relecture » pour le français seulement</li><li>Se connecter en tant que traducteur : seulement « Contenus », pas de configuration, la langue source verrouillée</li></ol>"
+        body.it: "<h3>Cosa sa fare</h3><ul><li>Accesso con passkey o con un codice via e-mail, senza password</li><li>Ruoli per sito con diritti per sezione: nessuno, visualizzare, modificare, eliminare, tutto — e per lingua</li><li>Creare ruoli propri, adattare i modelli; ciò che un ruolo non può fare non compare nel menu</li><li>Inviti via e-mail</li><li>Accesso tramite Microsoft Entra o Google (SSO) per sito</li><li>Un backend con una linea chiara: contenuti e configurazione separati</li></ul><h3>Provi</h3><ol><li>Come gestore creare un ruolo proprio in «Ruoli», per esempio «Revisione» solo per il francese</li><li>Accedere come traduttore: solo «Contenuti», nessuna configurazione, la lingua di origine bloccata</li></ol>"
+      }
+      cards {
+        title: "Ausprobieren"  title.en: "Try it out"  title.fr: "À essayer"  title.it: "Da provare"
+        items {
+          { title: "Benutzer öffnen"  title.en: "Open users"  title.fr: "Ouvrir les utilisateurs"  title.it: "Aprire gli utenti"  text: "<p>Schnellzugang als Betreiberin.</p>"  text.en: "<p>Quick access as operator.</p>"  text.fr: "<p>Accès rapide en tant qu’exploitant.</p>"  text.it: "<p>Accesso rapido come gestore.</p>"  link: -> "/admin/login?ziel=/admin/users" }
+          { title: "Rollen öffnen"  title.en: "Open roles"  title.fr: "Ouvrir les rôles"  title.it: "Aprire i ruoli"  text: "<p>Rechte je Bereich und Sprache einstellen.</p>"  text.en: "<p>Set rights per area and language.</p>"  text.fr: "<p>Régler les droits par section et par langue.</p>"  text.it: "<p>Impostare i diritti per sezione e lingua.</p>"  link: -> "/admin/login?ziel=/admin/users/rollen" }
+        }
+      }
+    }
+  }
+
+  page verwaltung {
+    parent: funktionen
+    title: "Einstellungen, Protokoll und Betrieb"  title.en: "Settings, log and operations"  title.fr: "Paramètres, journal et exploitation"  title.it: "Impostazioni, registro ed esercizio"
+    slug: verwaltung  slug.en: administration  slug.fr: administration  slug.it: amministrazione
+    intro: "Alles nachvollziehbar: wer was wann geändert hat — und wie es der Installation geht."
+    intro.en: "Everything traceable: who changed what and when — and how the installation is doing."
+    intro.fr: "Tout est traçable : qui a modifié quoi et quand — et comment se porte l’installation."
+    intro.it: "Tutto tracciabile: chi ha cambiato cosa e quando — e come sta l’installazione."
+    content {
+      visual {
+        art: "/vendor/basalto/core/demo/funktion-verwaltung-foto.webp"  art_overlay: "/vendor/basalto/core/demo/funktion-verwaltung-schema.svg"
+        art_credit: "K. K. / Unsplash"
+      }
+      text {
+        body: "<h3>Was es kann</h3><ul><li>Einstellungen im Backend mit Verlauf</li><li>Protokoll aller Änderungen, filterbar und exportierbar</li><li>Betrieb: Herzschlag, Warteschlange, Fehler, Kennzahlen</li><li>Lizenz: alle Funktionen auch ohne Schlüssel (Free für eine Site)</li></ul><h3>Probieren Sie</h3><ol><li>Als Betreiberin eine Einstellung ändern und den Verlauf ansehen</li><li>Im Protokoll nachsehen, was die Redaktion getan hat</li></ol>"
+        body.en: "<h3>What it does</h3><ul><li>Settings in the backend with history</li><li>Activity log of all changes, filterable and exportable</li><li>Operations: heartbeat, queue, errors, metrics</li><li>Licence: all features even without a key (Free for one site)</li></ul><h3>Try it</h3><ol><li>Change a setting as operator and look at its history</li><li>Check in the log what the editor did</li></ol>"
+        body.fr: "<h3>Ce qu’il sait faire</h3><ul><li>Paramètres dans le backend, avec historique</li><li>Journal de toutes les modifications, filtrable et exportable</li><li>Exploitation : pulsation, file d’attente, erreurs, indicateurs</li><li>Licence : toutes les fonctions même sans clé (Free pour un site)</li></ul><h3>Essayez</h3><ol><li>En tant qu’exploitant, modifier un paramètre et consulter son historique</li><li>Voir dans le journal ce que la rédaction a fait</li></ol>"
+        body.it: "<h3>Cosa sa fare</h3><ul><li>Impostazioni nel backend, con cronologia</li><li>Registro di tutte le modifiche, filtrabile ed esportabile</li><li>Esercizio: battito, coda, errori, indicatori</li><li>Licenza: tutte le funzioni anche senza chiave (Free per un sito)</li></ul><h3>Provi</h3><ol><li>Come gestore modificare un’impostazione e guardarne la cronologia</li><li>Vedere nel registro che cosa ha fatto la redazione</li></ol>"
+      }
+      cards {
+        title: "Ausprobieren"  title.en: "Try it out"  title.fr: "À essayer"  title.it: "Da provare"
+        items {
+          { title: "Einstellungen öffnen"  title.en: "Open settings"  title.fr: "Ouvrir les paramètres"  title.it: "Aprire le impostazioni"  text: "<p>Schnellzugang als Betreiberin.</p>"  text.en: "<p>Quick access as operator.</p>"  text.fr: "<p>Accès rapide en tant qu’exploitant.</p>"  text.it: "<p>Accesso rapido come gestore.</p>"  link: -> "/admin/login?ziel=/admin/settings" }
+          { title: "Protokoll öffnen"  title.en: "Open the log"  title.fr: "Ouvrir le journal"  title.it: "Aprire il registro"  text: "<p>Schnellzugang als Betreiberin.</p>"  text.en: "<p>Quick access as operator.</p>"  text.fr: "<p>Accès rapide en tant qu’exploitant.</p>"  text.it: "<p>Accesso rapido come gestore.</p>"  link: -> "/admin/login?ziel=/admin/activity" }
+        }
+      }
+    }
+  }
+
+  page recht {
+    parent: funktionen
+    title: "Recht und Datenschutz"  title.en: "Legal and privacy"  title.fr: "Droit et protection des données"  title.it: "Diritto e privacy"
+    slug: recht  slug.en: legal  slug.fr: juridique  slug.it: legale
+    intro: "Rechtsseiten aus Vorlagen — und Auskunft oder Löschung auf Knopfdruck."
+    intro.en: "Legal pages from templates — and data access or erasure at the push of a button."
+    intro.fr: "Des pages juridiques à partir de modèles — et droit d’accès ou effacement d’un simple clic."
+    intro.it: "Pagine legali da modelli — e accesso ai dati o cancellazione con un clic."
+    content {
+      visual {
+        art: "/vendor/basalto/core/demo/funktion-recht-foto.webp"  art_overlay: "/vendor/basalto/core/demo/funktion-recht-schema.svg"
+        art_credit: "Mick Haupt / Unsplash"
+      }
+      text {
+        body: "<h3>Was es kann</h3><ul><li>Impressum und Datenschutzerklärung aus Vorlagen (Schweiz und EU)</li><li>Einbettungen erst nach Zustimmung, Cookies nur, wenn nötig</li><li>Auskunft und Löschung je Person, Fristen im Löschlauf</li></ul><h3>Probieren Sie</h3><ol><li>Die Datenschutzerklärung der Website lesen</li><li>Im eigenen Profil die Auskunft herunterladen</li></ol>"
+        body.en: "<h3>What it does</h3><ul><li>Legal notice and privacy policy from templates (Switzerland and EU)</li><li>Embeds only after consent, cookies only when needed</li><li>Access and erasure per person, retention periods in the deletion run</li></ul><h3>Try it</h3><ol><li>Read the website’s privacy policy</li><li>Download your own data in the profile</li></ol>"
+        body.fr: "<h3>Ce qu’il sait faire</h3><ul><li>Mentions légales et déclaration de protection des données à partir de modèles (Suisse et UE)</li><li>Contenus intégrés seulement après consentement, cookies seulement si nécessaire</li><li>Droit d’accès et effacement par personne, délais appliqués lors de la purge</li></ul><h3>Essayez</h3><ol><li>Lire la déclaration de protection des données du site</li><li>Télécharger ses propres données dans le profil</li></ol>"
+        body.it: "<h3>Cosa sa fare</h3><ul><li>Note legali e informativa sulla privacy da modelli (Svizzera e UE)</li><li>Contenuti incorporati solo dopo il consenso, cookie solo se necessari</li><li>Accesso ai dati e cancellazione per persona, termini applicati nel ciclo di eliminazione</li></ul><h3>Provi</h3><ol><li>Leggere l’informativa sulla privacy del sito</li><li>Scaricare i propri dati nel profilo</li></ol>"
+      }
+      cards {
+        title: "Ausprobieren"  title.en: "Try it out"  title.fr: "À essayer"  title.it: "Da provare"
+        items {
+          { title: "Datenschutzerklärung"  title.en: "Privacy policy"  title.fr: "Protection des données"  title.it: "Informativa sulla privacy"  text: "<p>Auf der Website.</p>"  text.en: "<p>On the website.</p>"  text.fr: "<p>Sur le site.</p>"  text.it: "<p>Sul sito.</p>"  link: -> datenschutz }
+          { title: "Profil öffnen"  title.en: "Open the profile"  title.fr: "Ouvrir le profil"  title.it: "Aprire il profilo"  text: "<p>Schnellzugang als Redaktion.</p>"  text.en: "<p>Quick access as editor.</p>"  text.fr: "<p>Accès rapide en tant que rédacteur.</p>"  text.it: "<p>Accesso rapido come redattore.</p>"  link: -> "/admin/login?ziel=/admin/profil" }
+        }
+      }
+    }
+  }
+
+  page module {
+    parent: funktionen
+    title: "Kommentare, Mitglieder und KI"  title.en: "Comments, members and AI"  title.fr: "Commentaires, membres et IA"  title.it: "Commenti, membri e IA"
+    slug: module  slug.en: modules  slug.fr: modules  slug.it: moduli-aggiuntivi
+    intro: "Module erweitern Basalto — je Site eingeschaltet, ohne Plugin-Puzzle."
+    intro.en: "Modules extend Basalto — switched on per site, without a plugin puzzle."
+    intro.fr: "Les modules étendent Basalto — activés par site, sans puzzle de plugins."
+    intro.it: "I moduli estendono Basalto — attivati per sito, senza un puzzle di plugin."
+    content {
+      visual {
+        art: "/vendor/basalto/core/demo/funktion-module-foto.webp"  art_overlay: "/vendor/basalto/core/demo/funktion-module-schema.svg"
+        art_credit: "Tetiana GRY / Unsplash"
+      }
+      text {
+        body: "<h3>Was es kann</h3><ul><li>Kommentare mit Freigabe und Spam-Schutz</li><li>Mitgliederbereich: geschützte Seiten nur nach Anmeldung</li><li>KI-Vorschläge mit eigenem Schlüssel — nur als Entwurf, nie automatisch veröffentlicht</li><li>Erweiterungen mit eigenem Namensraum in Lava</li></ul><h3>Probieren Sie</h3><ol><li>Als Betreiberin unter «Module» ein Modul einschalten</li><li>Einen Kommentar auf einem Blogbeitrag freigeben</li></ol>"
+        body.en: "<h3>What it does</h3><ul><li>Comments with approval and spam protection</li><li>Members area: protected pages only after sign-in</li><li>AI suggestions with your own key — drafts only, never published automatically</li><li>Extensions with their own namespace in Lava</li></ul><h3>Try it</h3><ol><li>Switch a module on under “Modules” as operator</li><li>Approve a comment on a blog post</li></ol>"
+        body.fr: "<h3>Ce qu’il sait faire</h3><ul><li>Commentaires avec validation et protection anti-spam</li><li>Espace membres : pages protégées accessibles seulement après connexion</li><li>Suggestions IA avec votre propre clé — uniquement comme brouillon, jamais publiées automatiquement</li><li>Extensions avec leur propre espace de noms en Lava</li></ul><h3>Essayez</h3><ol><li>En tant qu’exploitant, activer un module sous « Modules »</li><li>Valider un commentaire sur un article du blog</li></ol>"
+        body.it: "<h3>Cosa sa fare</h3><ul><li>Commenti con approvazione e protezione antispam</li><li>Area membri: pagine protette visibili solo dopo l’accesso</li><li>Suggerimenti IA con la Sua chiave — solo come bozza, mai pubblicati automaticamente</li><li>Estensioni con un proprio namespace in Lava</li></ul><h3>Provi</h3><ol><li>Come gestore attivare un modulo in «Moduli»</li><li>Approvare un commento su un articolo del blog</li></ol>"
+      }
+      cards {
+        title: "Ausprobieren"  title.en: "Try it out"  title.fr: "À essayer"  title.it: "Da provare"
+        items {
+          { title: "Module öffnen"  title.en: "Open modules"  title.fr: "Ouvrir les modules"  title.it: "Aprire i moduli"  text: "<p>Schnellzugang als Betreiberin.</p>"  text.en: "<p>Quick access as operator.</p>"  text.fr: "<p>Accès rapide en tant qu’exploitant.</p>"  text.it: "<p>Accesso rapido come gestore.</p>"  link: -> "/admin/login?ziel=/admin/module" }
+        }
+      }
+    }
+  }
+
+  page community {
+    parent: funktionen
+    title: "Community und Forum"  title.en: "Community and forum"  title.fr: "Communauté et forum"  title.it: "Community e forum"
+    slug: forum  slug.en: forum  slug.fr: forum  slug.it: forum
+    intro: "Ein Forum wie WoltLab — als Modul, mit Profil, Moderation und Benachrichtigungen aus dem Kern."
+    intro.en: "A forum like WoltLab — as a module, with profile, moderation and notifications from the core."
+    intro.fr: "Un forum comme WoltLab — en tant que module, avec profil, modération et notifications issus du noyau."
+    intro.it: "Un forum come WoltLab — come modulo, con profilo, moderazione e notifiche dal nucleo."
+    content {
+      visual {
+        art: "/vendor/basalto/core/demo/funktion-community-foto.webp"  art_overlay: "/vendor/basalto/core/demo/funktion-community-schema.svg"
+        art_credit: "Lance Anderson / Unsplash"
+      }
+      text {
+        body: "<h3>Was es kann</h3><ul><li>Kategorien und Foren mit Unterforen, Präfixen und Themenfeldern; die Übersicht zeigt die letzten Themen je Forum</li><li>Schreiben mit vollem Editor, Zitaten, Erwähnungen, Bildern und Umfragen; ähnliche Themen schon beim Eröffnen</li><li>Reaktionen, hilfreichste Antwort, Abos, ungelesen und Benachrichtigungen</li><li>Moderation an Ort und Stelle und im Backend: Meldungen, Verschieben, Kopieren, Papierkorb, Verwarnungen</li><li>Profile mit Rang und Trophäen, Konversationen, Folgen und Blockieren</li></ul><h3>Probieren Sie</h3><ol><li>Im Menü der Website «Community» öffnen und ein Thema mit Umfrage lesen</li><li>Unter «Mitglieder» ein Profil ansehen</li><li>Als Betreiberin im Backend unter Verwaltung › Community die Foren ordnen</li></ol>"
+        body.en: "<h3>What it does</h3><ul><li>Categories and forums with sub-forums, prefixes and thread fields; the overview shows the latest threads per forum</li><li>Writing with a full editor, quotes, mentions, images and polls; similar threads already while starting one</li><li>Reactions, most helpful answer, subscriptions, unread and notifications</li><li>Moderation in place and in the backend: reports, moving, copying, trash, warnings</li><li>Profiles with rank and trophies, conversations, following and blocking</li></ul><h3>Try it</h3><ol><li>Open “Community” in the website menu and read a thread with a poll</li><li>Look at a profile under “Members”</li><li>As operator, arrange the forums in the backend under Administration › Community</li></ol>"
+        body.fr: "<h3>Ce qu’il sait faire</h3><ul><li>Catégories et forums avec sous-forums, préfixes et champs de sujet ; l’aperçu montre les derniers sujets de chaque forum</li><li>Écrire avec un éditeur complet, des citations, des mentions, des images et des sondages ; des sujets similaires dès l’ouverture d’un sujet</li><li>Réactions, réponse la plus utile, abonnements, non lus et notifications</li><li>Modération sur place et dans le backend : signalements, déplacer, copier, corbeille, avertissements</li><li>Profils avec rang et trophées, conversations, suivre et bloquer</li></ul><h3>Essayez</h3><ol><li>Dans le menu du site, ouvrir « Communauté » et lire un sujet avec sondage</li><li>Consulter un profil sous « Membres »</li><li>En tant qu’exploitant, ordonner les forums dans le backend sous Administration › Communauté</li></ol>"
+        body.it: "<h3>Cosa sa fare</h3><ul><li>Categorie e forum con sottoforum, prefissi e campi della discussione; la panoramica mostra le ultime discussioni di ogni forum</li><li>Scrivere con un editor completo, citazioni, menzioni, immagini e sondaggi; discussioni simili già all’apertura di una nuova</li><li>Reazioni, risposta più utile, abbonamenti, non letti e notifiche</li><li>Moderazione sul posto e nel backend: segnalazioni, spostare, copiare, cestino, ammonimenti</li><li>Profili con grado e trofei, conversazioni, seguire e bloccare</li></ul><h3>Provi</h3><ol><li>Nel menu del sito aprire «Community» e leggere una discussione con sondaggio</li><li>Guardare un profilo in «Membri»</li><li>Come gestore ordinare i forum nel backend in Amministrazione › Community</li></ol>"
+      }
+      cards {
+        title: "Ausprobieren"  title.en: "Try it out"  title.fr: "À essayer"  title.it: "Da provare"
+        items {
+          { title: "Community im Backend"  title.en: "Community in the backend"  title.fr: "La communauté dans le backend"  title.it: "Community nel backend"  text: "<p>Übersicht mit Zahlen und dem Weg zur Seite «Community» — sie steht auch im Menü der Website.</p>"  text.en: "<p>Overview with figures and the way to the “Community” page — it is also in the website menu.</p>"  text.fr: "<p>Aperçu avec chiffres et accès à la page « Communauté » — elle figure aussi dans le menu du site.</p>"  text.it: "<p>Panoramica con cifre e accesso alla pagina «Community» — si trova anche nel menu del sito.</p>"  link: -> "/admin/login?ziel=/admin/community" }
+          { title: "Foren verwalten"  title.en: "Manage the forums"  title.fr: "Gérer les forums"  title.it: "Gestire i forum"  text: "<p>Schnellzugang als Betreiberin.</p>"  text.en: "<p>Quick access as operator.</p>"  text.fr: "<p>Accès rapide en tant qu’exploitant.</p>"  text.it: "<p>Accesso rapido come gestore.</p>"  link: -> "/admin/login?ziel=/admin/community/foren" }
+        }
+      }
+    }
+  }
+
+  page daten {
+    parent: funktionen
+    title: "Export, Import und API"  title.en: "Export, import and API"  title.fr: "Export, import et API"  title.it: "Esportazione, importazione e API"
+    slug: export-und-api  slug.en: export-and-api  slug.fr: export-et-api  slug.it: esportazione-e-api
+    intro: "Ihre Daten gehören Ihnen — die ganze Site lässt sich mitnehmen."
+    intro.en: "Your data belongs to you — the whole site can be taken along."
+    intro.fr: "Vos données vous appartiennent — le site entier peut être emporté."
+    intro.it: "I Suoi dati appartengono a Lei — l’intero sito si può portare con sé."
+    content {
+      visual {
+        art: "/vendor/basalto/core/demo/funktion-daten-foto.webp"  art_overlay: "/vendor/basalto/core/demo/funktion-daten-schema.svg"
+        art_credit: "K. K. / Unsplash"
+      }
+      text {
+        body: "<h3>Was es kann</h3><ul><li>Export einer ganzen Site mit Inhalten, Medien und Theme; Import in eine andere Installation</li><li>REST-API mit persönlichen Tokens, Formulare ohne Seitenwechsel</li></ul><h3>Probieren Sie</h3><ol><li>Im Profil ein API-Token anlegen</li><li>Unter «Sites» den Export der Site herunterladen</li></ol>"
+        body.en: "<h3>What it does</h3><ul><li>Export of a whole site with content, media and theme; import into another installation</li><li>REST API with personal tokens, forms without a page change</li></ul><h3>Try it</h3><ol><li>Create an API token in the profile</li><li>Download the site export under “Sites”</li></ol>"
+        body.fr: "<h3>Ce qu’il sait faire</h3><ul><li>Export d’un site entier avec contenus, médias et thème ; import dans une autre installation</li><li>API REST avec jetons personnels, formulaires sans changer de page</li></ul><h3>Essayez</h3><ol><li>Créer un jeton API dans le profil</li><li>Sous « Sites », télécharger l’export du site</li></ol>"
+        body.it: "<h3>Cosa sa fare</h3><ul><li>Esportazione di un intero sito con contenuti, media e tema; importazione in un’altra installazione</li><li>API REST con token personali, moduli senza cambiare pagina</li></ul><h3>Provi</h3><ol><li>Creare un token API nel profilo</li><li>In «Siti» scaricare l’esportazione del sito</li></ol>"
+      }
+      cards {
+        title: "Ausprobieren"  title.en: "Try it out"  title.fr: "À essayer"  title.it: "Da provare"
+        items {
+          { title: "API-Tokens im Profil"  title.en: "API tokens in the profile"  title.fr: "Jetons API dans le profil"  title.it: "Token API nel profilo"  text: "<p>Schnellzugang als Betreiberin.</p>"  text.en: "<p>Quick access as operator.</p>"  text.fr: "<p>Accès rapide en tant qu’exploitant.</p>"  text.it: "<p>Accesso rapido come gestore.</p>"  link: -> "/admin/login?ziel=/admin/profil" }
+          { title: "Sites öffnen"  title.en: "Open sites"  title.fr: "Ouvrir les sites"  title.it: "Aprire i siti"  text: "<p>Schnellzugang als Betreiberin.</p>"  text.en: "<p>Quick access as operator.</p>"  text.fr: "<p>Accès rapide en tant qu’exploitant.</p>"  text.it: "<p>Accesso rapido come gestore.</p>"  link: -> "/admin/login?ziel=/admin/sites" }
+        }
+      }
+    }
+  }
+
+  page hilfe {
+    parent: funktionen
+    title: "Hilfe und Tastenkürzel"  title.en: "Help and keyboard shortcuts"  title.fr: "Aide et raccourcis clavier"  title.it: "Guida e scorciatoie"
+    slug: hilfe  slug.en: help  slug.fr: aide  slug.it: guida
+    intro: "Hilfe, ohne die Arbeit zu verlassen — die Seite zur Ansicht, Suche über die ganze Doku."
+    intro.en: "Help without leaving your work — the page for the current view, search across all docs."
+    intro.fr: "De l’aide sans quitter votre travail — la page pour la vue actuelle, recherche dans toute la documentation."
+    intro.it: "Aiuto senza lasciare il lavoro — la pagina per la vista attuale, ricerca in tutta la documentazione."
+    content {
+      visual {
+        art: "/vendor/basalto/core/demo/funktion-hilfe-foto.webp"  art_overlay: "/vendor/basalto/core/demo/funktion-hilfe-schema.svg"
+        art_credit: "Lance Anderson / Unsplash"
+      }
+      text {
+        body: "<h3>Was es kann</h3><ul><li>Das «?» im Seitenkopf, die Taste ? oder F1 öffnen am rechten Rand die Hilfe zur aktuellen Seite</li><li>Suche über Redaktion, Betrieb, Entwickler und Marktplatz, ein Treffer springt zum Abschnitt</li><li>Links folgen im Panel, / sucht, Esc schliesst; die Seite dahinter bleibt bedienbar</li></ul><h3>Probieren Sie</h3><ol><li>Im Backend F1 drücken</li><li>«alt text» suchen und den Treffer mit Enter öffnen</li></ol>"
+        body.en: "<h3>What it does</h3><ul><li>The “?” in the page header, the ? key or F1 open help for the current page on the right edge</li><li>Search across editorial, operations, developer and marketplace docs; a result jumps to the section</li><li>Links open in the panel, / searches, Esc closes; the page behind stays usable</li></ul><h3>Try it</h3><ol><li>Press F1 in the backend</li><li>Search for “alt text” and open the result with Enter</li></ol>"
+        body.fr: "<h3>Ce qu’il sait faire</h3><ul><li>Le « ? » dans l’en-tête, la touche ? ou F1 ouvrent sur le bord droit l’aide de la page actuelle</li><li>Recherche dans la documentation rédaction, exploitation, développeurs et Marketplace ; un résultat mène directement à la section</li><li>Les liens s’ouvrent dans le panneau, / recherche, Échap ferme ; la page derrière reste utilisable</li></ul><h3>Essayez</h3><ol><li>Appuyer sur F1 dans le backend</li><li>Rechercher « texte alternatif » et ouvrir le résultat avec Entrée</li></ol>"
+        body.it: "<h3>Cosa sa fare</h3><ul><li>Il «?» nell’intestazione, il tasto ? o F1 aprono sul bordo destro la guida della pagina attuale</li><li>Ricerca nella documentazione per redazione, esercizio, sviluppatori e Marketplace; un risultato porta direttamente alla sezione</li><li>I link si aprono nel pannello, / cerca, Esc chiude; la pagina dietro resta utilizzabile</li></ul><h3>Provi</h3><ol><li>Premere F1 nel backend</li><li>Cercare «testo alternativo» e aprire il risultato con Invio</li></ol>"
+      }
+      cards {
+        title: "Ausprobieren"  title.en: "Try it out"  title.fr: "À essayer"  title.it: "Da provare"
+        items {
+          { title: "Backend mit Hilfe"  title.en: "Backend with help"  title.fr: "Backend avec aide"  title.it: "Backend con guida"  text: "<p>Schnellzugang als Betreiberin, dann F1.</p>"  text.en: "<p>Quick access as operator, then F1.</p>"  text.fr: "<p>Accès rapide en tant qu’exploitant, puis F1.</p>"  text.it: "<p>Accesso rapido come gestore, poi F1.</p>"  link: -> "/admin/login?ziel=/admin" }
+          { title: "Alle Hilfeseiten"  title.en: "All help pages"  title.fr: "Toutes les pages d’aide"  title.it: "Tutte le pagine della guida"  text: "<p>Die Hilfe als Seite, nach Bereichen.</p>"  text.en: "<p>Help as a page, by area.</p>"  text.fr: "<p>L’aide sous forme de page, par domaine.</p>"  text.it: "<p>La guida come pagina, per ambito.</p>"  link: -> "/admin/login?ziel=/admin/hilfe" }
+        }
+      }
+    }
+  }
+
+  # Die zwei Beiträge des Starters, hier mit Foto und Schema (gleicher Name: dieser Eintrag ersetzt den des Themes)
+  post willkommen {
+    title: "Willkommen bei Starter"  title.en: "Welcome to Starter"  title.fr: "Bienvenue sur Starter"  title.it: "Benvenuti su Starter"
+    date: "2026-10-16"
+    category: Neuigkeiten
+    tags: "Basalto", "Starter"
+    author: redaktion
+    intro: "Der erste Beitrag — er zeigt, wie Beiträge, Kategorien, das Archiv und Kommentare aussehen."
+    intro.en: "The first post — it shows what posts, categories, the archive and comments look like."
+    intro.fr: "Le premier article — il montre à quoi ressemblent les articles, les catégories, les archives et les commentaires."
+    intro.it: "Il primo articolo — mostra come appaiono articoli, categorie, archivio e commenti."
+    art: "/vendor/basalto/core/demo/beitrag-willkommen-foto.webp"  art_overlay: "/vendor/basalto/core/demo/beitrag-willkommen-schema.svg"
+    art_credit: "Tetiana GRY / Unsplash"
+    content {
+      text { body: "<p>Beiträge pflegen Sie im Backend unter Inhalte › Beitrag.</p>"  body.en: "<p>You manage posts in the backend under Content › Post.</p>"  body.fr: "<p>Vous gérez les articles dans le backend sous Contenus › Article.</p>"  body.it: "<p>Gestisce gli articoli nel backend in Contenuti › Articolo.</p>" }
+      comments { moderation: Freigabe  order: älteste-zuerst  per: 20  replies: eine-Ebene  notify: Redaktion }
+    }
+  }
+  post erste-schritte {
+    title: "Erste Schritte"  title.en: "First steps"  title.fr: "Premiers pas"  title.it: "Primi passi"
+    date: "2026-10-01"
+    category: Anleitungen
+    tags: "Starter"
+    author: redaktion
+    intro: "Theme kopieren, Farben wählen, Seiten anlegen, veröffentlichen."
+    intro.en: "Copy the theme, choose colours, create pages, publish."
+    intro.fr: "Copier le thème, choisir les couleurs, créer des pages, publier."
+    intro.it: "Copiare il tema, scegliere i colori, creare pagine, pubblicare."
+    art: "/vendor/basalto/core/demo/beitrag-erste-schritte-foto.webp"  art_overlay: "/vendor/basalto/core/demo/beitrag-erste-schritte-schema.svg"
+    art_credit: "Lance Anderson / Unsplash"
+    content { text { body: "<p>Mit <code>php artisan basalto:check</code> sehen Sie jederzeit, was noch fehlt.</p>"  body.en: "<p>With <code>php artisan basalto:check</code> you can see at any time what is still missing.</p>"  body.fr: "<p>Avec <code>php artisan basalto:check</code>, vous voyez à tout moment ce qui manque encore.</p>"  body.it: "<p>Con <code>php artisan basalto:check</code> vede in ogni momento che cosa manca ancora.</p>" } }
+  }
+}

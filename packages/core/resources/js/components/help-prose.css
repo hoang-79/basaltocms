@@ -1,0 +1,93 @@
+/* Webhilfe (TB 20): Text einer Hilfeseite — auf der Seite /admin/hilfe und im Hilfe-Panel gleich */
+.hilfe {
+    font-size: 14px;
+    line-height: 1.65;
+}
+.hilfe h2 {
+    margin: 1.4em 0 0.4em;
+    font-size: 17px;
+    font-weight: 700;
+}
+.hilfe h2:first-child {
+    margin-top: 0;
+}
+.hilfe h3 {
+    margin: 1.2em 0 0.3em;
+    font-size: 14.5px;
+    font-weight: 700;
+}
+.hilfe p,
+.hilfe ul,
+.hilfe ol,
+.hilfe table {
+    margin: 0 0 0.8em;
+}
+.hilfe ul {
+    padding-left: 1.2em;
+    list-style: disc;
+}
+.hilfe ol {
+    padding-left: 1.4em;
+    list-style: decimal;
+}
+.hilfe li {
+    margin: 0.2em 0;
+}
+.hilfe a {
+    text-decoration: underline;
+}
+.hilfe code {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+}
+.hilfe pre {
+    margin: 0 0 0.8em;
+    padding: 10px 12px;
+    border-radius: 6px;
+    background: var(--color-basalt);
+    color: var(--color-paper);
+    white-space: pre-wrap;
+}
+.hilfe blockquote {
+    margin: 0 0 0.8em;
+    padding: 6px 12px;
+    border-left: 3px solid var(--color-lava);
+    background: color-mix(in srgb, var(--color-lava) 8%, transparent);
+}
+.hilfe table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+.hilfe th,
+.hilfe td {
+    padding: 4px 8px 4px 0;
+    border-bottom: 1px solid var(--color-ash-light);
+    text-align: left;
+    vertical-align: top;
+}
+.hilfe :is(h2, h3) {
+    scroll-margin-top: 0.75rem;
+}
+
+/* TB 29: Screenshots und Schemas — ein Klick öffnet das Bild gross */
+.hilfe .hilfe-bild {
+    margin: 0.4em 0 1em;
+}
+.hilfe .hilfe-bild a {
+    display: block;
+    cursor: zoom-in;
+}
+.hilfe .hilfe-bild img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--color-ash-light);
+    border-radius: 8px;
+    background: #fff;
+}
+.hilfe .hilfe-bild figcaption {
+    margin-top: 0.35em;
+    font-size: 12.5px;
+    color: var(--color-ash-dark);
+}

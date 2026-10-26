@@ -1,0 +1,4 @@
+{
+    "about": "Gesperrte Lizenzschlüssel (K-18) — Schlüssel-IDs; kommt mit jedem Update des Kerns, geprüft offline. Pflege mit php artisan basalto:license --revoke=<id>.",
+    "keys": []
+}

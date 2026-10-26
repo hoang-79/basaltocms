@@ -1,0 +1,141 @@
+(*
+  Lava 1 — Grammatik der Theme-Sprache von Basalto (EBNF, ISO/IEC 14977-nah)
+  Version:  lava 1
+  Datum:    16.10.2026
+  Quelle:   packages/lava/src/Structure/Lexer.php, Structure/Parser.php, Markup/Parser.php, Expression/Parser.php
+  Regel:    Änderungen nur additiv innerhalb «lava 1» (ADR-013): neue Schlüsselwörter, Eigenschaften, Tags, Filter
+            und Feldtypen kommen dazu; bestehende Formen bleiben gültig. Ein Bruch wäre «lava 2».
+  Prüfung:  tests/Feature/Lava/GrammarTest.php kompiliert tests/Fixtures/lava/gueltig und themes/nguyen-development;
+            DiagnosticsTest prüft zehn absichtliche Fehler mit Datei, Zeile, Spalte, Schritt und Vorschlag.
+
+  Notation: "…" Terminal · [ ] optional · { } Wiederholung · ( ) Gruppe · | Alternative · ? … ? Prosa · (* *) Kommentar
+*)
+
+(* ───────────────────────────── 1 · Struktur-Teil (Datei .lava) ───────────────────────────── *)
+
+document        = { newline } , [ version ] , { newline | include | definition } ;
+version         = "lava" , number ;                         (* nur ganz am Anfang; fehlt sie, warnt der Prüfer *)
+include         = "include" , string ;                       (* nur auf oberster Ebene; Datei relativ zur Quelle, nie «..» *)
+
+definition      = element ;                                  (* oberste Ebene: site, design, layout, nav, type, global,
+                                                                block, template, form, seed, publish — fremde Wörter sind
+                                                                ein Befund mit Vorschlag; eine Eigenschaft hier ist ein Syntaxfehler *)
+
+item            = row | redirect | property | markup | element ;
+row             = "{" , body , "}" ;                         (* anonyme Zeile, z. B. items { { title: "…" } { title: "…" } } *)
+redirect        = path , { value } ;                         (* Pfad-Kopf: /alt/leistungen -> / *)
+property        = key , ":" , values , [ "{" , body , "}" ] ;
+key             = ident , [ "." , lang ] ;                   (* label.en: … — Sprachsuffix aus genau zwei Kleinbuchstaben *)
+markup          = "markup" , [ ident ] , fence ;             (* markup ```…``` oder markup aside ```…``` *)
+element         = ident , [ name ] , [ ":" , values ] , values , [ "{" , body , "}" ] ;
+                  (* hinter ":" stehen Typ und Flags («field title: text required translatable»),
+                     sonst Modifikatoren: «extends standard», «optional», «before main», «after main», «-> ziel» *)
+name            = ( ident - ( "extends" | "before" | "after" ) ) | string | path ;
+body            = { newline | item } ;
+
+values          = { value | "," } ;                          (* Kommas sind freiwillig; Ende bei Zeilenende, "{", "}", Zaun
+                                                                oder einem Bezeichner, der ein neues Element beginnt:
+                                                                «wort:» immer; in Eigenschaften «wort {» nach einem Wert;
+                                                                in Typangaben «wort wort:» — darum: ein Element je Zeile
+                                                                bei blossen Werten *)
+value           = string | number | boolean | color | path | reference | arrow ;
+boolean         = "true" | "false" ;
+reference       = ident ;                                    (* Verweis auf eine Definition oder blosses Wort:
+                                                                layout: standard · to: hoang@nguyen-development.ch
+                                                                · timezone: Europe/Zurich · image: media/og.jpg *)
+arrow           = "->" | "→" ;
+
+(* ───────────────────────────── 2 · Lexik des Struktur-Teils ───────────────────────────── *)
+
+newline         = "\n" ;                                     (* bedeutsam: beendet Eigenschaften; "\r", " " und Tab sind Füllung *)
+comment         = "#" , { ? Zeichen ausser "\n" ? } ;        (* bis Zeilenende — ausser «#» beginnt eine Farbe *)
+ident           = ident-start , { ident-char } ;
+ident-start     = letter | "_" | nonascii ;
+ident-char      = letter | digit | "_" | "-" | "." | "@" | "/" | nonascii ;
+string          = '"' , { ? Zeichen ausser '"' und "\n" ? | "\" , ? Zeichen ? } , '"'
+                | "'" , { ? Zeichen ausser "'" und "\n" ? | "\" , ? Zeichen ? } , "'" ;
+number          = [ "-" ] , digit , { digit | "." | "-" } ;  (* 16 · 1.5 · -4; mit "." eine Gleitkommazahl *)
+color           = "#" , hexdigit , hexdigit , hexdigit , [ hexdigit ] , [ hexdigit ] , [ hexdigit ] , [ hexdigit ] , [ hexdigit ] ;
+                  (* 3 bis 8 Hexziffern, danach kein Buchstabe oder keine Ziffer — sonst ist «#» ein Kommentar *)
+path            = "/" , { ? Zeichen ausser Leerraum, "," und "}" ? | "{" , { ? Zeichen ausser "}" ? } , "}" } ;
+                  (* /projekte/{slug} — Platzhalter in geschweiften Klammern gehören zum Pfad *)
+fence           = "```" , { ? Zeichen ? } , "```" ;           (* roh übernommen; gemeinsame Einrückung und Rand-Zeilenumbrüche entfernt *)
+lang            = lowercase , lowercase ;
+letter          = ? A–Z a–z ? ;  lowercase = ? a–z ? ;  digit = ? 0–9 ? ;  hexdigit = ? 0–9 a–f A–F ? ;  nonascii = ? Byte ≥ 0x80 ? ;
+
+(* ───────────────────────────── 3 · Markup-Teil (im Zaun oder in <ordner>/<name>.lava.html) ───────────────────────────── *)
+
+template        = { text | output | note | statement } ;
+text            = ? Zeichen bis zum nächsten "{{", "{%" oder "{#" ? ;
+output          = "{{" , [ "raw" ] , expression , "}}" ;    (* immer escaped, «raw» nur für Felder aus dem Editor *)
+note            = "{#" , { ? Zeichen ? } , "#}" ;
+statement       = each | if | macro | set | tag ;
+each            = "{%" , "each" , expression , "as" , ename , [ "," , ename ] , "%}" , template ,
+                  [ "{%" , "else" , "%}" , template ] , "{%" , "end" , "%}" ;
+if              = "{%" , "if" , expression , "%}" , template ,
+                  { "{%" , "elseif" , expression , "%}" , template } ,
+                  [ "{%" , "else" , "%}" , template ] , "{%" , "end" , "%}" ;
+macro           = "{%" , "macro" , ename , "(" , [ ename , { "," , ename } ] , ")" , "%}" , template , "{%" , "end" , "%}" ;
+set             = "{%" , "set" , ename , "=" , expression , "%}" ;
+tag             = "{%" , tag-name , tag-arguments , [ "with" , expression ] , "%}" ;
+tag-name        = ename , { "." , ename } ;                  (* Kern: region nav image link t form seo assets pagination include call;
+                                                                Module: «example.cart» — unbekannte Tags scheitern beim Rendern *)
+tag-arguments   = { ( ename , ":" , expression ) | expression , [ "," ] } ;
+                  (* Leerzeichen oder Kommas trennen: {% image bild size: "hero" %} · {% call "card", item %} *)
+
+(* ───────────────────────────── 4 · Ausdrücke ───────────────────────────── *)
+
+expression      = or-expr , [ "if" , or-expr , [ "else" , or-expr ] ] ;      (* a if x else b *)
+or-expr         = and-expr , { ( "or" | "||" ) , and-expr } ;
+and-expr        = not-expr , { ( "and" | "&&" ) , not-expr } ;
+not-expr        = ( "not" | "!" ) , not-expr | comparison ;
+comparison      = concat , { ( "==" | "!=" | "<=" | ">=" | "<" | ">" | "in" | "not" , "in" ) , concat } ;
+concat          = additive , { "~" , additive } ;
+additive        = multiplicative , { ( "+" | "-" ) , multiplicative } ;
+multiplicative  = unary , { ( "*" | "/" | "%" ) , unary } ;
+unary           = "-" , unary | postfix ;
+postfix         = primary , { member | index | call | filter } ;
+member          = "." , ename ;                               (* nur Arrays und öffentliche Eigenschaften, nie Methoden *)
+index           = "[" , expression , "]" ;
+call            = "(" , [ argument , { "," , argument } ] , ")" ;
+                  (* nur hinter einem Namen («count(items)») oder einer registrierten Punkt-Funktion
+                     («example.money(price)»); «a.b(…)» ohne Registrierung ist ein Syntaxfehler *)
+argument        = expression | ename , ":" , expression ;
+filter          = "|" , filter-name , [ call ] ;              (* {{ text | truncate(60) }} · {{ price | example.money }} *)
+filter-name     = ename , { "." , ename } ;                  (* Punkt nur, wenn der Name so registriert ist *)
+primary         = enumber | estring | "true" | "false" | "null" | ename | "(" , expression , ")" | list | map ;
+list            = "[" , [ expression , { "," , expression } ] , "]" ;
+map             = "{" , [ ( ename | estring ) , ":" , expression , { "," , ( ename | estring ) , ":" , expression } ] , "}" ;
+
+ename           = ( letter | "_" ) , { letter | digit | "_" } ;
+                  (* reserviert: and or not in if else true false null as with *)
+enumber         = digit , { digit } , [ "." , digit , { digit } ] ;
+estring         = '"' , { ? Zeichen ausser '"' ? | "\" , ? Zeichen ? } , '"' | "'" , { ? Zeichen ausser "'" ? | "\" , ? Zeichen ? } , "'" ;
+
+(* ───────────────────────────── 5 · Die rote Linie (Prüfer, kein Teil der Syntax) ───────────────────────────── *)
+
+(* A site · B design · C layout (und part) · D nav · E type (und global) · F block · G template · H form · I seed · Z publish.
+   Eigenschaften je Schlüsselwort (fremde warnen, brechen nicht — L-02):
+     site      name languages default domain redirects timezone
+     design    space radius images css logo · Unterelemente color font images (images: Unterelement variant mit width height mode sizes densities lazy;
+               color: Wert #rgb/#rrggbb/#rrggbbaa; font: Familie, danach «weight N», «src assets/…woff2», «fallback sans|serif|mono»;
+               css und logo: Dateien unter assets/; Kontrastpaare aus den Namen: text/muted/link auf background, X-text oder on-X auf X)
+     layout    Unterelement region (mit Vorgabe-Füllung «region header: part main_nav, part lang_switch»; «off» hinter einem Eintrag schaltet ihn aus;
+               Platz und «optional» auch hinter der Füllung: «region banner: part promo after header») · markup
+     part      Art aus der Registry (nav breadcrumbs languages global form sitemap search list html, Module «comments.list», «shop.cart») · Einstellungen
+               der Art (nav/sitemap: source depth start only exclude label; list: source per label; html: Markup-Zaun) — auch als Block «@part» einer Seite
+     nav       from (pages oder Typname) items (db) depth start exclude only label · Unterelement item · markup
+     type      label route template · Unterelement field
+     global    label · Unterelement field
+     block     label group hint (TB 28: Gruppe und ein Satz für die Palette im Editor) · Unterelement field · markup
+     template  for layout noindex · Unterelement region · markup
+     form      label to subject thanks spam submit store redirect webhook retain consent · Unterelement field
+               (Formularfelder: text email number tel url date textarea select radio checkbox file range hidden explanation group;
+                Feld-Eigenschaften label placeholder help default min max step options types size; group mit eigenen field;
+                das Zustimmungsfeld fügt die Anwendung immer an — «consent» ist nur sein Text)
+     seed      Unterelemente page global <typ>
+     publish   seo sitemap robots cookie legal redirects check
+   Feldtypen: text textarea richtext blocks markdown number checkbox bool date datetime select tags image gallery file
+   link relation repeater slug email url color code seo json — plus die der Module («example.price»).
+   Grenzen beim Rendern: 10 000 Schleifendurchläufe, 2 Sekunden, Verschachtelung bis Tiefe 8;
+   der Prüfer warnt ab 7 Ebenen each/if und bei «{{» oder «{%» in Struktur-Werten (R-99). *)

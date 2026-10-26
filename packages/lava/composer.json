@@ -1,0 +1,33 @@
+{
+    "name": "basalto/lava",
+    "description": "Lava — die Theme-Sprache von Basalto: Struktur und Markup in einer Datei, volle Logik ohne PHP.",
+    "type": "library",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.4",
+        "illuminate/support": "^13.0",
+        "illuminate/database": "^13.0",
+        "illuminate/console": "^13.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Basalto\\Lava\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Basalto\\Lava\\LavaServiceProvider"
+            ]
+        },
+        "basalto": {
+            "module": "lava",
+            "name": "Lava",
+            "api": 1,
+            "lava": "lava",
+            "switchable": false
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

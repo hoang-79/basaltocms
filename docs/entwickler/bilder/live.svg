@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 360" width="840" height="360" role="img" aria-label="Ein Signal, kein Inhalt">
+  <title>Ein Signal, kein Inhalt</title>
+  <rect width="840" height="360" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Ein Signal, kein Inhalt</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Ein Modul meldet, dass sich etwas geändert hat; die Seite beobachtet den Schlüssel und holt den Inhalt selbst.</text>
+  <rect x="24" y="84" width="248" height="96" rx="10" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <polygon points="57.5,104.5 57.5,115.5 48.0,121.0 38.5,115.5 38.5,104.5 48.0,99.0" fill="#e4572e" stroke="none"/>
+  <text x="68" y="115" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#b53f1d" text-anchor="start">Modul</text>
+  <text x="40" y="146" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="10.5" font-weight="500" fill="#62676e" text-anchor="start">Live::signal($site, &#x27;shop.bestellung.7&#x27;)</text>
+  <path d="M272 132L296 132" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M288.8 135.5L296 132L288.8 128.5" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="296" y="84" width="248" height="96" rx="10" fill="#23262b" stroke="#23262b" stroke-width="1.2"/>
+  <polygon points="329.5,104.5 329.5,115.5 320.0,121.0 310.5,115.5 310.5,104.5 320.0,99.0" fill="#e4572e" stroke="none"/>
+  <text x="340" y="115" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="start">Kern</text>
+  <text x="312" y="146" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="10.5" font-weight="500" fill="#e3e6ea" text-anchor="start">neue Version · Push, wenn eingerichtet</text>
+  <path d="M544 132L568 132" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M560.8 135.5L568 132L560.8 128.5" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="568" y="84" width="248" height="96" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <polygon points="601.5,104.5 601.5,115.5 592.0,121.0 582.5,115.5 582.5,104.5 592.0,99.0" fill="#e4572e" stroke="none"/>
+  <text x="612" y="115" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="14" font-weight="700" fill="#23262b" text-anchor="start">Seite</text>
+  <text x="584" y="146" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="10.5" font-weight="500" fill="#62676e" text-anchor="start">data-live · hinweis · zaehler · nachladen</text>
+  <rect x="296" y="214" width="248" height="60" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="312" y="240" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="600" fill="#23262b" text-anchor="start">LiveSources::register(…)</text>
+  <text x="312" y="260" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#62676e" text-anchor="start">kleine Nutzdaten je Präfix</text>
+  <path d="M420 214L420 180" stroke="#62676e" stroke-width="1.6" fill="none" stroke-dasharray="4 4"/>
+  <path d="M423.5 187.2L420 180L416.5 187.2" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="568" y="214" width="248" height="60" rx="10" fill="#e2efe7" stroke="#2a744a" stroke-width="1.2"/>
+  <text x="584" y="240" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#2a744a" text-anchor="start">Inhalt</text>
+  <text x="584" y="260" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11" font-weight="400" fill="#23262b" text-anchor="start">eigene Adresse, Rechte wie immer</text>
+  <path d="M692 180L692 214" stroke="#2a744a" stroke-width="1.6" fill="none"/>
+  <path d="M688.5 206.8L692 214L695.5 206.8" stroke="#2a744a" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 420" width="840" height="420" role="img" aria-label="Layout, Region, Teil und Template am Beispiel des Starter-Themes">
+  <title>Layout, Region, Teil und Template am Beispiel des Starter-Themes</title>
+  <rect width="840" height="420" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Layout, Region, Teil, Template</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Das Layout teilt die Seite in Regionen. Teile stehen fest im Layout; was der Inhalt füllt, sagt das Template des Typs.</text>
+  <text x="40" y="92" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#23262b" text-anchor="start">Layout «standard»</text>
+  <rect x="40" y="102" width="400" height="290" rx="8" fill="#ffffff" stroke="#9aa0a6" stroke-width="1.2"/>
+  <rect x="56" y="116" width="368" height="56" rx="6" fill="#e3e6ea" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="70" y="139" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="start">Region header</text>
+  <text x="70" y="158" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Teile: main_nav · lang_switch</text>
+  <text x="412" y="139" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="10.5" font-weight="600" fill="#62676e" text-anchor="end">im Layout</text>
+  <rect x="56" y="184" width="368" height="56" rx="6" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="70" y="207" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#b53f1d" text-anchor="start">Region main</text>
+  <text x="70" y="226" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Inhalt der Seite (Blöcke)</text>
+  <text x="412" y="207" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="10.5" font-weight="600" fill="#62676e" text-anchor="end">vom Template</text>
+  <rect x="56" y="252" width="368" height="56" rx="6" fill="#f6f4f0" stroke="#e3e6ea" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="70" y="275" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#23262b" text-anchor="start">Region aside</text>
+  <text x="70" y="294" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">freiwillig — leer bleibt weg</text>
+  <text x="412" y="275" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="10.5" font-weight="600" fill="#62676e" text-anchor="end">leer</text>
+  <rect x="56" y="320" width="368" height="56" rx="6" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="70" y="343" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="700" fill="#b53f1d" text-anchor="start">Region footer</text>
+  <text x="70" y="362" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">global footer · nav legal</text>
+  <text x="412" y="343" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="10.5" font-weight="600" fill="#62676e" text-anchor="end">vom Template</text>
+  <rect x="520" y="112" width="280" height="58" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="532" y="138.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">Seite «Über uns»</text>
+  <text x="532" y="154.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Typ page</text>
+  <rect x="520" y="204" width="280" height="58" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="532" y="230.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="start">Template «default»</text>
+  <text x="532" y="246.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">für page · Layout standard</text>
+  <path d="M660 172L660 202" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M656.5 194.8L660 202L663.5 194.8" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="520" y="296" width="280" height="58" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="532" y="322.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="start">füllt main und footer</text>
+  <text x="532" y="338.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">region main: content</text>
+  <path d="M660 264L660 294" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M656.5 286.8L660 294L663.5 286.8" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M518 336L426 200" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-dasharray="4 4"/>
+  <path d="M432.9 204.0L426 200L427.2 207.9" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="520" y="380" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="600" fill="#23262b" text-anchor="start">«landing» erweitert «standard» (extends)</text>
+  <text x="520" y="398" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">und fügt die Region hero vor main ein.</text>
+</svg>

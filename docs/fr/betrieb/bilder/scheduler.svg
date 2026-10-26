@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 330" width="840" height="330" role="img" aria-label="Le scheduler — une entrée cron, de nombreuses tâches">
+  <title>Le scheduler — une entrée cron, de nombreuses tâches</title>
+  <rect width="840" height="330" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Le scheduler — une entrée cron, de nombreuses tâches</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Chaque minute, le cron lance « schedule:run » ; le scheduler décide de ce qui est à faire.</text>
+  <rect x="24" y="82" width="180" height="222" rx="10" fill="#23262b" stroke="#23262b" stroke-width="1.2"/>
+  <text x="40" y="110" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="13" font-weight="700" fill="#ffffff" text-anchor="start">cron</text>
+  <text x="40" y="132" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="12" font-weight="500" fill="#e3e6ea" text-anchor="start">* * * * *</text>
+  <text x="40" y="160" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="400" fill="#e3e6ea" text-anchor="start">php artisan</text>
+  <text x="40" y="178" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="400" fill="#e3e6ea" text-anchor="start">schedule:run</text>
+  <path d="M204 193L226 193" stroke="#e4572e" stroke-width="1.6" fill="none"/>
+  <path d="M218.8 196.5L226 193L218.8 189.5" stroke="#e4572e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="230" y="82" width="180" height="222" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="244" y="106" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#b53f1d" text-anchor="start">chaque minute</text>
+  <text x="244" y="132" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· pulsation</text>
+  <text x="244" y="154" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· publications planifiées</text>
+  <text x="244" y="176" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· traiter la file d’attente</text>
+  <rect x="422" y="82" width="180" height="222" rx="10" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="436" y="106" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#b53f1d" text-anchor="start">plus souvent</text>
+  <text x="436" y="132" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· toutes les 10 min :</text>
+  <text x="444" y="148" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">domaines (SaaS)</text>
+  <text x="436" y="170" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· toutes les heures :</text>
+  <text x="444" y="186" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">vérifier la licence</text>
+  <rect x="614" y="82" width="216" height="222" rx="10" fill="#ffffff" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="628" y="106" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="700" fill="#b53f1d" text-anchor="start">chaque nuit</text>
+  <text x="628" y="132" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· 02:30 réinitialiser la démo</text>
+  <text x="636" y="148" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">(démo seulement)</text>
+  <text x="628" y="170" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· 03:00 nettoyage (délais)</text>
+  <text x="628" y="192" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· 03:15 sauvegarde</text>
+  <text x="628" y="214" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· 03:30 médias de la corbeille</text>
+  <text x="628" y="236" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#23262b" text-anchor="start">· 04:10 chercher les mises à jour</text>
+</svg>

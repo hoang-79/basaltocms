@@ -1,0 +1,31 @@
+{
+    "name": "basalto/module-members",
+    "description": "Mitglieder (M-23): Frontend-Konten mit Mitgliedschaft je Site, Anmeldung und Registrierung ohne Passwort (Mail-Code), Registrierung offen, nur auf Einladung oder mit Freigabe durch die Redaktion, geschützte Seiten nur für Mitglieder, Lava-Tags für Themes, Liste im Backend mit Freigabe, Sperre, Löschung und Export — je Site schaltbar, ab Werk aus.",
+    "type": "library",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.4",
+        "basalto/core": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Basalto\\Modules\\Members\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Basalto\\Modules\\Members\\MembersServiceProvider"
+            ]
+        },
+        "basalto": {
+            "module": "members",
+            "name": "Mitglieder",
+            "api": 1,
+            "lava": "members",
+            "switchable": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

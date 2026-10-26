@@ -1,0 +1,23 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/nesbot/carbon/extension.neon
+
+parameters:
+    paths:
+        - app/
+        - bootstrap/app.php
+        - config/
+        - database/
+        - routes/
+        - packages/
+        - modules/
+
+    excludePaths:
+        - packages/*/config/*
+        - modules/*/config/*
+
+    level: 7
+
+    # TB 13 Scheibe 2: alte Namen des Kundenkontos als Alias auf das Frontend-Konto im Kern (class_alias)
+    bootstrapFiles:
+        - modules/licensing/aliases.php

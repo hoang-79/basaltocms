@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 300" width="840" height="300" role="img" aria-label="Una misurazione con basalto:load-test">
+  <title>Una misurazione con basalto:load-test</title>
+  <rect width="840" height="300" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Una misurazione con basalto:load-test</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Molte richieste simultanee, poi la distribuzione dei tempi di risposta: p95 = 95 richieste su 100 più veloci.</text>
+  <rect x="44" y="228.4" width="30" height="21.6" rx="3" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <rect x="84" y="199.6" width="30" height="50.4" rx="3" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <rect x="124" y="149.2" width="30" height="100.8" rx="3" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <rect x="164" y="98.79999999999998" width="30" height="151.20000000000002" rx="3" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <rect x="204" y="120.4" width="30" height="129.6" rx="3" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <rect x="244" y="163.6" width="30" height="86.4" rx="3" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <rect x="284" y="199.6" width="30" height="50.4" rx="3" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <rect x="324" y="221.2" width="30" height="28.8" rx="3" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <rect x="364" y="232.0" width="30" height="18.0" rx="3" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <rect x="404" y="239.2" width="30" height="10.8" rx="3" fill="#f6e1e3" stroke="#b8232f" stroke-width="1.2"/>
+  <rect x="444" y="242.8" width="30" height="7.2" rx="3" fill="#f6e1e3" stroke="#b8232f" stroke-width="1.2"/>
+  <rect x="484" y="246.4" width="30" height="3.6" rx="3" fill="#f6e1e3" stroke="#b8232f" stroke-width="1.2"/>
+  <path d="M44 250L524 250" stroke="#62676e" stroke-width="1.2" fill="none"/>
+  <path d="M184 92L184 250" stroke="#62676e" stroke-width="1.2" fill="none" stroke-dasharray="4 4"/>
+  <text x="184" y="86" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="700" fill="#23262b" text-anchor="middle">p50</text>
+  <path d="M404 92L404 250" stroke="#62676e" stroke-width="1.2" fill="none" stroke-dasharray="4 4"/>
+  <text x="404" y="86" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="700" fill="#23262b" text-anchor="middle">p95</text>
+  <path d="M484 92L484 250" stroke="#62676e" stroke-width="1.2" fill="none" stroke-dasharray="4 4"/>
+  <text x="484" y="86" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="11.5" font-weight="700" fill="#23262b" text-anchor="middle">p99</text>
+  <rect x="572" y="96" width="244" height="44" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="588" y="123" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="500" fill="#62676e" text-anchor="start">richieste al secondo</text>
+  <text x="800" y="124" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="15" font-weight="700" fill="#23262b" text-anchor="end">149</text>
+  <rect x="572" y="150" width="244" height="44" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="588" y="177" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="500" fill="#62676e" text-anchor="start">errori</text>
+  <text x="800" y="178" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="15" font-weight="700" fill="#2a744a" text-anchor="end">0 %</text>
+  <rect x="572" y="204" width="244" height="44" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="588" y="231" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12" font-weight="500" fill="#62676e" text-anchor="start">cache hit</text>
+  <text x="800" y="232" font-family="ui-monospace, 'SF Mono', 'IBM Plex Mono', Menlo, monospace" font-size="15" font-weight="700" fill="#2a744a" text-anchor="end">98 %</text>
+</svg>

@@ -1,0 +1,321 @@
+/*
+ * Ergänzungen der Demo zum Starter-Theme: der Kopf bleibt beim Scrollen oben, der Fuss wie auf basaltocms.com — Horizont aus Säulen (Foto mit Schema),
+ * darunter Basalt mit Wortmarke, Spalten und Grundzeile. Eingebunden vom Rahmen «standard», den die Lava der Demo
+ * ersetzt (packages/core/resources/demo/tour.lava). Farben aus dem Design des Starters (dark, dark-text, dark-muted).
+ */
+.horizon {
+    position: relative;
+    margin-top: var(--space-8);
+    line-height: 0;
+}
+
+.horizon img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.horizon .art-overlay {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+}
+
+.horizon + .site-footer {
+    margin-top: 0;
+}
+
+.site-footer {
+    border-top: 0;
+    background: var(--color-dark);
+    color: var(--color-dark-muted);
+}
+
+.site-footer .footer-inner {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    padding-block: var(--space-7) var(--space-6);
+}
+
+.footer-brand {
+    color: var(--color-dark-text);
+}
+
+.footer-brand .wordmark {
+    display: block;
+    width: 98px;
+    height: 28px;
+    margin-bottom: var(--space-2);
+}
+
+.site-footer .global-footer p {
+    color: var(--color-dark-muted);
+}
+
+.site-footer .global-footer .claim,
+.site-footer .footer-title {
+    color: var(--color-dark-text);
+}
+
+.site-footer .nav a,
+.site-footer .footer-languages a {
+    color: var(--color-dark-muted);
+    text-decoration-color: rgb(246 244 240 / 25%);
+}
+
+.site-footer .nav a:hover,
+.site-footer .footer-languages a:hover {
+    background: none;
+    color: var(--color-dark-text);
+    text-decoration-color: currentColor;
+}
+
+.site-footer .nav a[aria-current='page'],
+.site-footer .footer-languages [aria-current] {
+    color: var(--color-dark-text);
+    text-decoration-color: var(--color-marker);
+}
+
+.site-footer :focus-visible {
+    outline-color: var(--color-marker);
+}
+
+.footer-base {
+    padding-block: var(--space-4) var(--space-5);
+    border-top: 1px solid rgb(246 244 240 / 15%);
+    font-size: 0.875rem;
+}
+
+.footer-base p {
+    margin: 0;
+}
+
+/* Kopf bleibt oben (sticky), leicht durchscheinend; Sprünge zu den Abschnitten halten Abstand zum Kopf */
+html {
+    scroll-padding-top: 6rem;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: color-mix(in srgb, var(--color-background) 94%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Das Menü auf schmalen Bildschirmen hängt am festen Kopf: höchstens so hoch wie das Fenster, darin scrollen */
+.site-header .menu-panel {
+    max-height: calc(100dvh - 5rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+/* Das Menü der Demo ist breiter als das des Starters: ausgeklappt erst, wenn es in eine Zeile passt — sonst bricht der
+   feste Kopf in mehrere Zeilen um und verdeckt die Abschnitte. Darunter der Knopf «Menü» wie auf dem Telefon. */
+@media (max-width: 65.99rem) {
+    .header-wide {
+        display: none;
+    }
+
+    .header-inner {
+        column-gap: var(--space-3);
+    }
+
+    .menu {
+        display: block;
+    }
+}
+
+/* Sprachwahl wie auf basaltocms.com: «DE ▾» mit Flagge, aufgeklappt Flagge und Name der Sprache (ohne Skript) */
+.lang-switch {
+    position: relative;
+    margin: 0;
+}
+
+.lang-switch summary {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 44px;
+    padding-inline: var(--space-2);
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text);
+    list-style: none;
+    cursor: pointer;
+}
+
+.lang-switch summary::-webkit-details-marker {
+    display: none;
+}
+
+.lang-switch summary::after {
+    content: '▾' / '';
+    color: var(--color-marker);
+    font-size: 0.8em;
+}
+
+.lang-switch summary:hover {
+    background: var(--color-surface);
+}
+
+.lang-switch ul {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 25;
+    min-width: 10rem;
+    margin: var(--space-1) 0 0;
+    padding: var(--space-1);
+    list-style: none;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    box-shadow: 0 12px 24px rgb(35 38 43 / 12%);
+}
+
+.lang-switch a,
+.lang-switch span:not(.sr-only) {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 40px;
+    padding-inline: var(--space-3);
+    border-radius: var(--radius);
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.lang-switch a:hover {
+    background: var(--color-background);
+}
+
+.lang-switch [aria-current] {
+    font-weight: 600;
+}
+
+.lang-switch .flag {
+    width: 20px;
+    height: 14px;
+    flex: none;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgb(35 38 43 / 15%);
+}
+
+/* Nur für Screenreader (das Starter-Theme kennt die Klasse nicht) */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Funktionen der Startseite: oben alle Bereiche als Kacheln (Sprungmarken), darunter je Bereich Grafik und Text im
+   Wechsel. Die Kacheln halten die Übersicht, wenn die Seite lang wird. */
+.showcase-index {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 11.5rem), 1fr));
+    gap: var(--space-3);
+    margin: var(--space-5) 0 var(--space-8);
+    padding: 0;
+    list-style: none;
+}
+
+.showcase-index a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    height: 100%;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.3;
+    text-decoration: none;
+}
+
+.showcase-index a:hover,
+.showcase-index a:focus-visible {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+.showcase-index img {
+    flex: none;
+    width: 3rem;
+    height: auto;
+    border-radius: 4px;
+}
+
+.showcase-list {
+    display: grid;
+    gap: var(--space-8);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.showcase-item {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: var(--space-6);
+    align-items: center;
+}
+
+/* Grafik und Text im Wechsel — nur, wenn nebeneinander Platz ist */
+@media (min-width: 48rem) {
+    .showcase-item:nth-child(even) .showcase-art {
+        order: 2;
+    }
+}
+
+.showcase-art {
+    margin: 0;
+}
+
+.showcase-art img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+.showcase-text h3 {
+    margin-top: 0;
+    font-size: 1.35rem;
+}
+
+.showcase-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-5);
+    margin-top: var(--space-4);
+}
+
+.showcase-link {
+    color: var(--color-link, var(--color-accent));
+    font-weight: 600;
+}
+
+.showcase-link::after {
+    content: ' →';
+}
+
+.showcase-back {
+    margin: var(--space-3) 0 0;
+    font-size: 0.9rem;
+}
+
+.showcase-back a {
+    color: var(--color-muted);
+}
