@@ -77,7 +77,7 @@ final class ProfileController
                 'per_page' => $prefs['per_page'], 'list_sort' => $prefs['list_sort'], 'help_shortcuts' => $prefs['help_shortcuts'], 'theme' => $prefs['theme'],
                 'avatar_url' => Avatars::url($user),
             ],
-            'countries' => array_map(static fn (array $c): array => ['code' => $c['code'], 'name' => $c['name'], 'dial' => $c['dial'], 'min' => $c['min'], 'max' => $c['max'],
+            'countries' => array_map(static fn (array $c): array => ['code' => $c['code'], 'name' => $c['name'], 'dial' => $c['dial'], 'dial_main' => $c['dial_main'], 'min' => $c['min'], 'max' => $c['max'],
                 'groups' => $c['groups'], 'keep_zero' => $c['keep_zero'], 'postal_example' => $c['postal_example'], 'postal_numeric' => $c['postal_numeric'], 'postal_max' => $c['postal_max']], Countries::ordered()),
             'locales' => array_map(static fn (string $value, string $label): array => ['value' => $value, 'label' => $label], array_keys(self::LOCALES), array_values(self::LOCALES)),
             'timezones' => DateTimeZone::listIdentifiers(),

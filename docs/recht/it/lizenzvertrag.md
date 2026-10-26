@@ -1,6 +1,6 @@
 # Contratto di licenza
 
-> **Bozza — verifica legale in sospeso.** Versione 0.5 · Stato 25.10.2026 · non ancora in vigore.
+> **Versione 1.0** · Stato 26.10.2026 · in vigore dal 26.10.2026.
 > Fa fede la versione tedesca; le traduzioni servono alla comprensione.
 
 Il presente contratto disciplina il modo in cui potete utilizzare il software Basalto. Per l’acquisto di una licenza e il conto cliente su basaltocms.com si applicano inoltre le [Condizioni generali](agb.md), per i dati l’[Informativa sulla protezione dei dati](datenschutz.md). Nel repository lo stesso contratto si trova come `LICENSE.md`, con l’indicazione del campo di applicazione per ciascuna parte del repository.

@@ -1,6 +1,6 @@
 # Licence Agreement
 
-> **Draft — legal review pending.** Version 0.5 · As of 25.10.2026 · not yet in force.
+> **Version 1.0** · As of 26.10.2026 · in force since 26.10.2026.
 > The German version prevails; translations are for information only.
 
 This agreement governs how you may use the Basalto software. The purchase of a licence and the customer account on

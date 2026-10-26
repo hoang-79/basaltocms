@@ -27,7 +27,7 @@ I riquadri esistono anche come parti Lava per ogni regione di un layout (`forum.
   - **Annulla** e **Ripeti**, **Grassetto**, **Corsivo**, **Emoji** e **Link** (indirizzo e testo in un piccolo modulo);
   - **«…»** per il formato del paragrafo (paragrafo, titolo da 1 a 3), sottolineato, barrato, pedice e apice, rimuovi formattazione e l’**evidenziatore** in cinque colori;
   - **Elenchi** (puntato, numerato, riduci e aumenta rientro) e **Allineamento** (sinistra, centrato, destra, giustificato);
-  - **Blocco di codice:** un clic lo inserisce; la freccia accanto sceglie il linguaggio (o il rilevamento automatico), il numero della prima riga e un nome di file. Alla lettura il codice è evidenziato a colori, con i numeri di riga e il pulsante **«Copia»**;
+  - **Blocco di codice:** un clic lo inserisce; la freccia accanto sceglie il linguaggio (o il rilevamento automatico), il numero della prima riga e un nome di file. Alla lettura il codice è evidenziato a colori, con i numeri di riga e il pulsante **«Copia»**; se delle righe sono tagliate, **«Altro»** le manda a capo finché tutto il codice è visibile;
   - **Codice nel testo**, **Tabella** (scegliere la dimensione nella griglia; con il cursore in una tabella il menu inserisce o rimuove righe e colonne), **Citazione** (con le citazioni memorizzate), **Spoiler** (se desidera con titolo), **Video** e **File**.
 
   Menziona qualcuno con `@` e le prime lettere. Il team e la moderazione (o chi riceve dall’amministrazione il diritto «Menzionare gruppi») menzionano anche gruppi interi, ad esempio `@Moderation` — tutti i loro membri ricevono una notifica. La barra funziona anche con la tastiera: Tab vi entra, le frecce si spostano, Esc chiude un menu. Senza script resta un semplice campo di testo.
@@ -54,6 +54,11 @@ I riquadri esistono anche come parti Lava per ogni regione di un layout (`forum.
 ## Trovare
 
 - **Cerca nel forum** sotto `/community/suche`; le discussioni compaiono anche nella ricerca dell’intero sito, con il filtro «Forum».
+  La ricerca segue la digitazione: nella pagina di ricerca i risultati si aggiornano, nel campo di ricerca della barra del
+  forum compaiono fino a cinque discussioni come suggerimento e «Mostra tutti i … risultati» (frecce, Invio, Esc).
+  La ricerca procede per parole: ognuna deve comparire, in qualsiasi ordine, senza distinzione tra maiuscole, minuscole e
+  accenti («ubersetzung» trova «Übersetzung»). Un risultato mostra il messaggio corrispondente con nome, numero e data e porta
+  direttamente lì.
 - **Tag:** `#Theme` porta a tutte le discussioni con questo tag.
 - **RSS:** `/community/feed` per l’intero forum, `/community/<forum>/feed` per ogni forum.
 

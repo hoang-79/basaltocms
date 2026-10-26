@@ -27,7 +27,7 @@ Les encadrés existent aussi sous forme de parties Lava pour chaque région d’
   - **Annuler** et **Rétablir**, **Gras**, **Italique**, **Émoji** et **Lien** (adresse et texte dans un petit formulaire) ;
   - **« … »** pour le format de paragraphe (paragraphe, titre 1 à 3), souligné, barré, indice et exposant, effacer la mise en forme et le **surligneur** en cinq couleurs ;
   - **Listes** (à puces, numérotée, diminuer et augmenter le retrait) et **Alignement** (gauche, centré, droite, justifié) ;
-  - **Bloc de code :** un clic l’insère ; la flèche à côté choisit le langage (ou la détection automatique), le numéro de la première ligne et un nom de fichier. À la lecture, le code est coloré, avec les numéros de ligne et le bouton **« Copier »** ;
+  - **Bloc de code :** un clic l’insère ; la flèche à côté choisit le langage (ou la détection automatique), le numéro de la première ligne et un nom de fichier. À la lecture, le code est coloré, avec les numéros de ligne et le bouton **« Copier »** ; si des lignes sont coupées, **« Plus »** les renvoie à la ligne jusqu’à ce que tout le code soit visible ;
   - **Code en ligne**, **Tableau** (choisir la taille dans la grille ; si le curseur se trouve dans un tableau, le menu insère ou supprime des lignes et des colonnes), **Citation** (avec les citations retenues), **Spoiler** (avec un titre si vous le souhaitez), **Vidéo** et **Fichier**.
 
   Vous mentionnez quelqu’un avec `@` et les premières lettres. L’équipe et la modération (ou les personnes à qui l’administration donne le droit « Mentionner des groupes ») mentionnent aussi des groupes entiers, par exemple `@Moderation` — tous leurs membres reçoivent une notification. La barre fonctionne aussi au clavier : Tab y entre, les flèches s’y déplacent, Échap ferme un menu. Sans script, il reste un simple champ de texte.
@@ -54,6 +54,11 @@ Les encadrés existent aussi sous forme de parties Lava pour chaque région d’
 ## Trouver
 
 - **Recherche dans le forum** sous `/community/suche` ; les sujets figurent aussi dans la recherche du site entier, avec le filtre « Forum ».
+  La recherche suit la saisie : sur la page de recherche, les résultats se mettent à jour, et dans le champ de recherche de la
+  barre du forum, jusqu’à cinq sujets apparaissent en suggestion avec « Afficher les … résultats » (flèches, Entrée, Échap).
+  La recherche porte sur les mots : chacun doit figurer, dans n’importe quel ordre, sans distinction de majuscules, de
+  minuscules ni d’accents (« ubersetzung » trouve « Übersetzung »). Un résultat montre le message correspondant avec le nom,
+  le numéro et la date et y mène directement.
 - **Mots-clés :** `#Theme` mène à tous les sujets portant ce mot-clé.
 - **RSS :** `/community/feed` pour le forum entier, `/community/<forum>/feed` par forum.
 

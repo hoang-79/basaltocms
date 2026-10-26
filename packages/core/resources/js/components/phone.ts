@@ -12,6 +12,8 @@ export type PhoneCountry = {
     code: string;
     name: string;
     dial: string;
+    /** Hauptland einer geteilten Vorwahl («1» → USA); fehlt es, gilt das erste Land der Liste. */
+    dial_main?: boolean;
     min: number;
     max: number;
     groups: number[];
@@ -44,7 +46,7 @@ function internationalPrefix(text: string): number {
 
 /**
  * Das Land zu den Ziffern nach «+»: die längste passende Vorwahl; teilen sich Länder eine Vorwahl, gewinnt das
- * gewählte Land, sonst das erste der Liste.
+ * gewählte Land, sonst das Hauptland (`dial_main`, «1» → USA), sonst das erste der Liste.
  */
 function byDial(
     digits: string,
@@ -56,7 +58,9 @@ function byDial(
         if (
             c.dial !== '' &&
             digits.startsWith(c.dial) &&
-            (!best || c.dial.length > best.dial.length)
+            (!best ||
+                c.dial.length > best.dial.length ||
+                (c.dial === best.dial && c.dial_main && !best.dial_main))
         ) {
             best = c;
         }

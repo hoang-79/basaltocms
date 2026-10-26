@@ -53,17 +53,26 @@ final class Profiles
         return $taken ? (string) __('«:name» ist vergeben — wie wäre «:suggestion»?', ['name' => $name, 'suggestion' => $this->suggestion($site, $name)], $locale) : null;
     }
 
-    /** Ein freier Name nahe am Wunsch: «Anna» → «Anna 2», «Anna 3» … */
+    /**
+     * Ein freier, gültiger Name nahe am Wunsch: «Anna» → «Anna 2», «Anna 3» … Zeichen, die `nameError()` nicht erlaubt,
+     * werden zu Leerzeichen («<script>alert()</script>» → «script alert script», «O’Connor» → «O Connor»), am Anfang steht
+     * ein Buchstabe oder eine Ziffer; bleibt zu wenig übrig, heisst der Vorschlag «Mitglied». Der bereinigte Name selbst
+     * kommt zuerst, wenn er frei ist.
+     */
     public function suggestion(Site $site, string $name): string
     {
-        $base = Str::limit(trim((string) preg_replace('/\s+/u', ' ', $name)), self::MAX - 4, '');
+        $clean = (string) preg_replace(['/[^\p{L}\p{N} ._-]+/u', '/\s+/u'], ' ', $name);
+        $base = trim(Str::limit(trim((string) preg_replace('/^[^\p{L}\p{N}]+/u', '', trim($clean))), self::MAX - 4, ''));
         if (mb_strlen($base) < self::MIN) {
             $base = 'Mitglied';
         }
+        $free = static fn (string $candidate): bool => ! CommunityProfile::query()->withoutGlobalScopes()->where('site_id', $site->id)->where('name_key', self::key($candidate))->exists();
+        if (! in_array(self::key($base), self::RESERVED, true) && $free($base)) {
+            return $base;
+        }
         for ($i = 2; $i < 1000; $i++) {
-            $candidate = $base.' '.$i;
-            if (! CommunityProfile::query()->withoutGlobalScopes()->where('site_id', $site->id)->where('name_key', self::key($candidate))->exists()) {
-                return $candidate;
+            if ($free($base.' '.$i)) {
+                return $base.' '.$i;
             }
         }
 

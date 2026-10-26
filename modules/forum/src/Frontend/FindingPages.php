@@ -31,14 +31,17 @@ trait FindingPages
         $lang = $this->lang();
         $q = trim(mb_substr((string) $this->r->query('q'), 0, 100));
         $title = $this->t('Suche im Forum');
-        $form = sprintf('<form class="forum-suche" role="search" method="get" action="%s"><label for="forum-suche-q" class="visually-hidden">%s</label><input id="forum-suche-q" type="search" name="q" value="%s" minlength="2" maxlength="100" placeholder="%2$s"><button type="submit" class="forum-button">%s %s</button></form>',
+        // TB 71: Mit Skript aktualisieren sich die Treffer beim Tippen (Insel search.ts tauscht #forum-suche-ergebnis aus)
+        $form = sprintf('<form class="forum-suche" role="search" method="get" action="%s" data-suche="seite"><label for="forum-suche-q" class="visually-hidden">%s</label><input id="forum-suche-q" type="search" name="q" value="%s" minlength="2" maxlength="100" placeholder="%2$s"><button type="submit" class="forum-button">%s %s</button></form>',
             $this->e($this->r->url('suche')), $this->e($this->t('Suchbegriff')), $this->e($q), Markup::mini('search'), $this->e($this->t('Suchen')));
-        $html = $this->bar().$form;
+        $html = $this->bar().$form.'<div class="forum-suche-ergebnis" id="forum-suche-ergebnis">';
         if (mb_strlen($q) >= 2) {
             $result = app(SiteSearch::class)->search($this->r->site, $lang, $q, $this->r->pageNumber(), ForumSearch::SOURCE);
             $items = '';
             foreach ($result['items'] as $item) {
-                $items .= sprintf('<li class="forum-fall"><span class="forum-sechseck forum-sechseck--forum" aria-hidden="true">%s</span><p class="forum-fall__kopf"><a href="%s"><b>%s</b></a></p><p>%s</p></li>', Markup::icon('chat'), $this->e($item['path']), $this->e($item['title']), $item['excerpt']);
+                // TB 71: der passende Beitrag — wer, welche Nummer, wann
+                $items .= sprintf('<li class="forum-fall"><span class="forum-sechseck forum-sechseck--forum" aria-hidden="true">%s</span><p class="forum-fall__kopf"><a href="%s"><b>%s</b></a>%s</p><p>%s</p></li>', Markup::icon('chat'), $this->e($item['path']), $this->e($item['title']),
+                    $item['meta'] === '' ? '' : ' · '.$this->e($item['meta']), $item['excerpt']);
             }
             $html .= sprintf('<p class="forum-note" role="status">%s</p>', $this->e(trans_choice(':count Thema gefunden|:count Themen gefunden', $result['total'], ['count' => $result['total']], $lang)));
             if ($items !== '') {
@@ -46,6 +49,7 @@ trait FindingPages
                     .Markup::pagination($result['page'], $result['pages'], fn (int $p): string => $this->r->url('suche', ['q' => $q, 'seite' => $p > 1 ? $p : null]), $lang);
             }
         }
+        $html .= '</div>';
         $tags = Tags::popular($this->r->site);
         if ($tags !== []) {
             $html .= sprintf('<section class="forum-kasten"><h2>%s%s</h2><p class="forum-schlagwoerter">%s</p></section>', Markup::icon('hash'), $this->e($this->t('Häufige Schlagwörter')), $this->tagLinks($tags));

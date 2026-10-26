@@ -1,6 +1,6 @@
 # Contrat de licence
 
-> **Projet — examen juridique en attente.** Version 0.5 · État au 25.10.2026 · pas encore en vigueur.
+> **Version 1.0** · État au 26.10.2026 · en vigueur depuis le 26.10.2026.
 > Seule la version allemande fait foi ; les traductions servent à la compréhension.
 
 Le présent contrat régit la manière dont vous pouvez utiliser le logiciel Basalto. L'achat d'une licence et le compte

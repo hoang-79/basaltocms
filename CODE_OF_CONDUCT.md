@@ -1,8 +1,8 @@
 # Verhaltenskodex
 
 Basalto lebt von einer Gemeinschaft, in der alle gerne mitarbeiten. Dieser Kodex gilt für alle Räume des Projekts:
-Issues, Pull Requests, Discussions, Code-Reviews und alle weiteren Kanäle, in denen jemand im Namen von Basalto
-auftritt.
+das Forum auf basaltocms.com, Issues, Pull Requests, Code-Reviews und alle weiteren Kanäle, in denen jemand im Namen
+von Basalto auftritt.
 
 ## Unser Versprechen
 
@@ -34,8 +34,8 @@ Nicht geduldet wird:
 Das Team von Basalto achtet auf diesen Kodex. Es darf Kommentare, Commits, Code, Issues und andere Beiträge
 entfernen, bearbeiten oder ablehnen, die ihm widersprechen, und begründet solche Entscheide, wo es angemessen ist.
 
-Verstösse meldest du an [[Offen: Kontaktadresse für Meldungen zum Verhaltenskodex]]. Jede Meldung wird geprüft und
-vertraulich behandelt; wer meldet, wird geschützt.
+Verstösse melden Sie an [email@basaltocms.com](mailto:email@basaltocms.com), Betreff «Verhaltenskodex». Jede Meldung
+wird geprüft und vertraulich behandelt; wer meldet, wird geschützt.
 
 Je nach Schwere folgt:
 

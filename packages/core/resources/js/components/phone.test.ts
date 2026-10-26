@@ -61,6 +61,7 @@ const US: PhoneCountry = {
     code: 'US',
     name: 'Vereinigte Staaten',
     dial: '1',
+    dial_main: true,
     min: 10,
     max: 10,
     groups: [3, 3, 4],
@@ -70,6 +71,7 @@ const CA: PhoneCountry = {
     code: 'CA',
     name: 'Kanada',
     dial: '1',
+    dial_main: false,
     min: 10,
     max: 10,
     groups: [3, 3, 4],
@@ -121,13 +123,21 @@ describe('Telefonnummer lesen', () => {
         expect(parsePhone('+41 79', undefined, countries)?.country).toBe(CH);
     });
 
-    it('bevorzugt bei geteilter Vorwahl das gewählte Land, sonst das erste der Liste', () => {
+    it('bevorzugt bei geteilter Vorwahl das gewählte Land, sonst das Hauptland, sonst das erste der Liste', () => {
         expect(parsePhone('+1 613 555 0100', CA, countries)?.country).toBe(CA);
         expect(parsePhone('+1 212 555 0100', US, countries)?.country).toBe(US);
         expect(parsePhone('+1 212 555 0100', CH, countries)?.country).toBe(US);
         expect(parsePhone('+1 212 555 0100', CH, [CH, CA, US])?.country).toBe(
-            CA,
+            US,
         );
+        const ohneHauptland = [
+            CH,
+            { ...CA, dial_main: undefined },
+            { ...US, dial_main: undefined },
+        ];
+        expect(
+            parsePhone('+1 212 555 0100', CH, ohneHauptland)?.country.code,
+        ).toBe('CA');
     });
 
     it('prüft die Länge nicht', () => {

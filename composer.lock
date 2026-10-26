@@ -218,7 +218,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/core",
-                "reference": "ffac2ea0bd73129a4ebf5e10c36e704d563832f9"
+                "reference": "3089b762189c8c36300ad35719fdf8180ffc44d9"
             },
             "require": {
                 "basalto/lava": "*",
@@ -258,7 +258,7 @@
                 }
             },
             "license": [
-                "proprietary"
+                "LicenseRef-Basalto"
             ],
             "description": "Basalto-Kern: Backend (Inertia/Vue, fertig gebaut im Paket), Sites, Erweiterungs-System.",
             "transport-options": {
@@ -272,7 +272,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/lava",
-                "reference": "a18a8ea0728ecd6024cc448aef29c6c8c85395bf"
+                "reference": "fe2e957dc840f3bf54758df3402e823d15830975"
             },
             "require": {
                 "illuminate/console": "^13.0",
@@ -301,7 +301,7 @@
                 }
             },
             "license": [
-                "proprietary"
+                "LicenseRef-Basalto"
             ],
             "description": "Lava — die Theme-Sprache von Basalto: Struktur und Markup in einer Datei, volle Logik ohne PHP.",
             "transport-options": {
@@ -315,7 +315,7 @@
             "dist": {
                 "type": "path",
                 "url": "modules/ai",
-                "reference": "abac38ed323614fc33bec63a57ef4ed2e93b6fa2"
+                "reference": "9ff8ff116d191232f68543d54df8578ca53e202c"
             },
             "require": {
                 "basalto/core": "*",
@@ -342,7 +342,7 @@
                 }
             },
             "license": [
-                "proprietary"
+                "LicenseRef-Basalto"
             ],
             "description": "KI-Vorschläge (M-24): Text verbessern, Alt-Texte, Übersetzung und SEO-Angaben über das Laravel AI SDK mit dem Schlüssel des Kunden — nur auf Klick, immer als Vorschlag in den Entwurf, jede Nutzung protokolliert. Je Site schaltbar, ab Werk aus.",
             "transport-options": {
@@ -356,7 +356,7 @@
             "dist": {
                 "type": "path",
                 "url": "modules/comments",
-                "reference": "0c5bf453671208cd567b2adbe3e3b51d235e11db"
+                "reference": "b5ff5b6c98124b7df0b3c070e4c08b04aa65df55"
             },
             "require": {
                 "basalto/core": "*",
@@ -383,7 +383,7 @@
                 }
             },
             "license": [
-                "proprietary"
+                "LicenseRef-Basalto"
             ],
             "description": "Kommentare (M-27): Block «Kommentare» an Seiten und Beiträgen mit Einstellungen je Einbindung, zentrale Moderation mit Spam-Zähler, Datenschutz (IP als Prüfsumme, Aufbewahrung, Auskunft und Löschung) — je Site schaltbar.",
             "transport-options": {
@@ -397,7 +397,7 @@
             "dist": {
                 "type": "path",
                 "url": "modules/forum",
-                "reference": "e964dc7277faadbca834b7dc0f79c143c16c2c97"
+                "reference": "3c07ae91cb60e9fbda80a53c0e7c8762a32718ce"
             },
             "require": {
                 "basalto/core": "*",
@@ -424,7 +424,7 @@
                 }
             },
             "license": [
-                "proprietary"
+                "LicenseRef-Basalto"
             ],
             "description": "Forum (CR-006): Kategorien, Foren und Themen nach dem Vorbild der WoltLab Suite, eingehängt unter einer Seite der Site (z. B. /community), mit Community-Profil, Besuchergruppen und Rechten je Forum aus dem Kern; Verwaltung im Hersteller-Extranet — je Site schaltbar, ab Werk aus.",
             "transport-options": {
@@ -438,7 +438,7 @@
             "dist": {
                 "type": "path",
                 "url": "modules/members",
-                "reference": "e92ecea2cd811c297d18ef69c3e0274e537e62dd"
+                "reference": "20eb301805047a71bf9f396ddd25ffb505bc6395"
             },
             "require": {
                 "basalto/core": "*",
@@ -465,7 +465,7 @@
                 }
             },
             "license": [
-                "proprietary"
+                "LicenseRef-Basalto"
             ],
             "description": "Mitglieder (M-23): Frontend-Konten mit Mitgliedschaft je Site, Anmeldung und Registrierung ohne Passwort (Mail-Code), Registrierung offen, nur auf Einladung oder mit Freigabe durch die Redaktion, geschützte Seiten nur für Mitglieder, Lava-Tags für Themes, Liste im Backend mit Freigabe, Sperre, Löschung und Export — je Site schaltbar, ab Werk aus.",
             "transport-options": {

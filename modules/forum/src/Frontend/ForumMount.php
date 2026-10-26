@@ -194,8 +194,10 @@ final class ForumMount implements MountHandler
             $list .= sprintf('<li><a class="forum-nav__weg" href="%s"%s>%s<span>%s</span>%s</a></li>', $this->e($this->r->url($path)), $current === $path ? ' aria-current="page"' : '',
                 Markup::icon($icon), $this->e($this->t($label)), $count > 0 ? ' <b class="forum-glocke__zahl forum-nav__zahl">'.$count.'</b>' : '');
         }
-        $tools = sprintf('<form class="forum-nav__suche" role="search" method="get" action="%s"><label for="forum-nav-suche" class="visually-hidden">%s</label>%s<input id="forum-nav-suche" type="search" name="q" minlength="2" maxlength="100" placeholder="%2$s"></form>',
-            $this->e($this->r->url('suche')), $this->e($this->t('Im Forum suchen')), Markup::icon('search'));
+        // TB 71: Live-Suche — beim Tippen schlägt die Insel search.ts Themen vor; ohne Skript ein gewöhnliches Suchfeld
+        $tools = sprintf('<form class="forum-nav__suche" role="search" method="get" action="%s"><label for="forum-nav-suche" class="visually-hidden">%s</label>%s<input id="forum-nav-suche" type="search" name="q" minlength="2" maxlength="100" placeholder="%2$s" data-suche="vorschlag" data-suche-url="%s" data-suche-titel="%s" data-suche-alle="%s" data-suche-leer="%s"></form>',
+            $this->e($this->r->url('suche')), $this->e($this->t('Im Forum suchen')), Markup::icon('search'), $this->e(route('basalto.forum.live-search', [], false)),
+            $this->e($this->t('Vorschläge aus dem Forum')), $this->e($this->t('Alle :count Treffer anzeigen')), $this->e($this->t('Keine Treffer — zur ausführlichen Suche')));
         if ($this->customer === null) {
             // Steht oben schon «Zum Schreiben anmelden», braucht es den Verweis nicht ein zweites Mal
             $tools .= $actions !== '' || $head !== '' ? '' : sprintf('<a class="forum-button forum-nav__anmelden" href="%s">%s %s</a>', $this->e($this->r->url('konto')),

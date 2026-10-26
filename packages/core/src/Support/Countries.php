@@ -8,12 +8,15 @@ namespace Basalto\Core\Support;
  * Länder für Anschrift und Telefon (Profil, K-03): Name, Landesvorwahl, Länge der nationalen Rufnummer, Gruppierung
  * und das Muster der Postleitzahl — eine Quelle für Server und Oberfläche (das Frontend bekommt die Regeln als Daten).
  *
- * @phpstan-type Country array{code: string, name: string, dial: string, min: int, max: int, groups: list<int>, keep_zero: bool, postal: string|null, postal_example: string|null, postal_numeric: bool, postal_max: int}
+ * @phpstan-type Country array{code: string, name: string, dial: string, dial_main: bool, min: int, max: int, groups: list<int>, keep_zero: bool, postal: string|null, postal_example: string|null, postal_numeric: bool, postal_max: int}
  */
 final class Countries
 {
     /** Länder, die zuerst stehen (DACH und Nachbarn). */
     public const TOP = ['CH', 'LI', 'DE', 'AT', 'FR', 'IT'];
+
+    /** Teilen sich Länder eine Vorwahl, gilt ohne gewähltes Land dieses — «+1» ist die USA, nicht Kanada. */
+    public const DIAL_MAIN = ['1' => 'US'];
 
     /** EU und EWR — dort gilt das Widerrufsrecht für Verbraucher der Richtlinie 2011/83/EU (CR-011). */
     public const EU_EEA = ['AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GR', 'HR', 'HU', 'IE', 'IT', 'LT', 'LU', 'LV', 'MT', 'NL', 'PL', 'PT', 'RO',
@@ -62,7 +65,7 @@ final class Countries
         foreach ($rows as [$code, $name, $dial, $min, $max, $groups, $keepZero, $postal, $example]) {
             // PLZ nur aus Ziffern, wo das Muster keine Buchstaben kennt (CH, DE, AT …); Länge aus dem Beispiel
             $numeric = $postal === null || preg_match('/[A-Za-z]/', str_replace(['\\d'], '', $postal)) !== 1;
-            $out[$code] = ['code' => $code, 'name' => self::localName($code, $name), 'dial' => $dial, 'min' => $min, 'max' => $max, 'groups' => $groups, 'keep_zero' => $keepZero, 'postal' => $postal, 'postal_example' => $example,
+            $out[$code] = ['code' => $code, 'name' => self::localName($code, $name), 'dial' => $dial, 'dial_main' => (self::DIAL_MAIN[$dial] ?? $code) === $code, 'min' => $min, 'max' => $max, 'groups' => $groups, 'keep_zero' => $keepZero, 'postal' => $postal, 'postal_example' => $example,
                 'postal_numeric' => $postal !== null && $numeric, 'postal_max' => $example !== null ? strlen($example) : 10];
         }
 
@@ -180,7 +183,7 @@ final class Countries
      * Eine Eingabe lesen, ohne die Länge zu prüfen — dieselben Regeln wie `parsePhone` in `phone.ts`: Trennzeichen
      * (Leerzeichen, «-», «.», «/», «(», «)») fallen weg, sonst nur Ziffern und ein «+» vorne. «+» oder «00» vorne heisst
      * international, das Land kommt aus der längsten passenden Vorwahl (bei geteilter Vorwahl das gewählte Land, sonst
-     * das erste in der Reihenfolge der Oberfläche); sonst gilt das gewählte Land. Eine führende 0 fällt weg, auch nach
+     * das Hauptland aus `DIAL_MAIN`); sonst gilt das gewählte Land. Eine führende 0 fällt weg, auch nach
      * der Vorwahl («+41 (0)79 …»), ausser wo sie zur Nummer gehört (`keep_zero`).
      *
      * @param  Country|null  $chosen
@@ -213,7 +216,7 @@ final class Countries
 
     /**
      * Das Land zu den Ziffern nach «+»: die längste passende Vorwahl. Teilen sich Länder eine Vorwahl («1»), gewinnt das
-     * gewählte, sonst das erste in `ordered()` — dieselbe Liste, die das Profil der Oberfläche schickt.
+     * gewählte, sonst das Hauptland aus `DIAL_MAIN` (USA), sonst das erste in `ordered()`.
      *
      * @param  Country|null  $chosen
      * @return Country|null
@@ -227,7 +230,15 @@ final class Countries
             }
         }
 
-        return $best !== null && $chosen !== null && $chosen['dial'] === $best['dial'] ? $chosen : $best;
+        if ($best === null) {
+            return null;
+        }
+        if ($chosen !== null && $chosen['dial'] === $best['dial']) {
+            return $chosen;
+        }
+        $main = self::DIAL_MAIN[$best['dial']] ?? null;
+
+        return $main !== null ? (self::find($main) ?? $best) : $best;
     }
 
     /** Passt die Postleitzahl zum Land? Ohne bekanntes Muster: höchstens zehn Zeichen aus Ziffern, Buchstaben, Leerzeichen, Bindestrich. */

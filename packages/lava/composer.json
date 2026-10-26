@@ -2,7 +2,7 @@
     "name": "basalto/lava",
     "description": "Lava — die Theme-Sprache von Basalto: Struktur und Markup in einer Datei, volle Logik ohne PHP.",
     "type": "library",
-    "license": "proprietary",
+    "license": "LicenseRef-Basalto",
     "require": {
         "php": "^8.4",
         "illuminate/support": "^13.0",

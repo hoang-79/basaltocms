@@ -25,6 +25,8 @@ export default defineConfig({
                 'resources/js/live.ts',
                 // TB 53: Passkeys im Kundenkonto (Anmelden, Hinzufügen) — eigenes kleines Bündel
                 'resources/js/konto.ts',
+                // TB 71: Live-Suche im Forum (Vorschläge in der Leiste, Treffer beim Tippen) — eigenes kleines Bündel
+                'resources/js/search.ts',
             ],
             publicDirectory: 'resources/dist',
             buildDirectory: 'build',

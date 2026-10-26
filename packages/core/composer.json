@@ -2,7 +2,7 @@
     "name": "basalto/core",
     "description": "Basalto-Kern: Backend (Inertia/Vue, fertig gebaut im Paket), Sites, Erweiterungs-System.",
     "type": "library",
-    "license": "proprietary",
+    "license": "LicenseRef-Basalto",
     "require": {
         "php": "^8.4",
         "illuminate/support": "^13.0",

@@ -1,30 +1,20 @@
 # Basalto-Lizenz
 
-> **Entwurf v0.5 vom 25.10.2026 — juristische Prüfung ausstehend (R-45).**
-> Dieser Text ist noch nicht in Kraft und nicht massgeblich. Der Vertrag (ab «In Kürze») ist derselbe wie
+> **Fassung 1.0 vom 26.10.2026, in Kraft seit 26.10.2026.** Der Vertrag (ab «In Kürze») ist derselbe wie
 > [docs/recht/de/lizenzvertrag.md](docs/recht/de/lizenzvertrag.md) — dort auch auf Englisch, Italienisch und
-> Französisch, im Produkt unter `/_recht/<sprache>/lizenzvertrag` — und geht mit dem
-> [Prüfauftrag TB 11](dokumentationen/02-feasibility/recht-pruefauftrag-tb11.md) an eine Anwältin oder einen Anwalt;
-> ein Test hält beide gleich. Stellen in `[[Offen: …]]` sind bewusst nicht entschieden, die offenen Fragen zum
-> Vertrag stehen im Prüfauftrag. Eine englische Übersetzung liegt in [LICENSE.en.md](LICENSE.en.md); massgeblich ist
-> die deutsche Fassung.
+> Französisch, im Produkt unter `/_recht/<sprache>/lizenzvertrag`. Eine englische Übersetzung liegt in
+> [LICENSE.en.md](LICENSE.en.md); massgeblich ist die deutsche Fassung.
 
 ## Geltungsbereich in diesem Repository
 
-Das Repository enthält Teile unter verschiedenen Lizenzen (ADR-002):
+Das Repository enthält Teile unter verschiedenen Lizenzen:
 
 | Teil                                                                                                  | Lizenz                                                                                                  |
 | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
 | Kern `packages/core` (`basalto/core`), Lava `packages/lava` (`basalto/lava`), Module unter `modules/` | **diese Basalto-Lizenz** (SPDX `LicenseRef-Basalto`)                                                    |
-| Anwendungsgerüst (Skeleton) im Wurzelordner, künftig `basalto/basalto`                                | MIT, damit `composer create-project` ohne Lizenzfrage startet                                           |
+| Anwendungsgerüst (Skeleton) im Wurzelordner, `basalto/basalto`                                        | MIT, damit `composer create-project` ohne Lizenzfrage startet                                           |
 | Themes und Werkzeuge mit eigener Lizenzangabe                                                         | die Lizenz in ihrer `theme.json` bzw. `package.json` (z. B. `themes/starter`, `tools/vscode-lava`: MIT) |
 | Pakete Dritter (`vendor/`, `node_modules/`)                                                           | ihre eigenen Lizenzen                                                                                   |
-
-[[Offen: Die `composer.json` der Pakete stehen noch auf `proprietary`, die Wurzel noch auf dem Namen des Starter-Kits — Umstellung auf `LicenseRef-Basalto` bzw. `basalto/basalto` vor der Beta (Recht § 2). Jedes Paket bekommt eine Kopie dieser Datei.]]
-
-[[Offen: Lizenz des Themes `themes/nguyen-development` (Website von Nguyen Development, ohne `theme.json`) — eigene Rechte vorbehalten oder diese Lizenz?]]
-
-[[Offen: § 1 zählt «mitgelieferte Themes» zur Software, das Starter-Theme trägt in `theme.json` aber MIT — eine der beiden Angaben anpassen.]]
 
 ## In Kürze (nicht Teil des Vertrags)
 

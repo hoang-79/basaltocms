@@ -1,6 +1,6 @@
 # Lizenzvertrag
 
-> **Entwurf — anwaltliche Prüfung ausstehend.** Fassung 0.5 · Stand 25.10.2026 · noch nicht in Kraft.
+> **Fassung 1.0** · Stand 26.10.2026 · in Kraft seit 26.10.2026.
 > Massgeblich ist die deutsche Fassung; Übersetzungen dienen dem Verständnis.
 
 Dieser Vertrag regelt, wie Sie die Software Basalto nutzen dürfen. Für den Kauf einer Lizenz und das Kundenkonto auf

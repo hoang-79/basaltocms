@@ -6,38 +6,89 @@ namespace Basalto\Core\Search;
 
 use Basalto\Core\Models\SearchDocument;
 use Basalto\Core\Models\Site;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Laravel\Scout\Builder as ScoutBuilder;
 
 /**
  * Die Suche im Frontend (M-12): `{% search %}` setzt ein Suchformular mit Treffern dieser Site und Sprache — Titel,
  * Ausschnitt mit markiertem Begriff, Seiten. Die Ergebnisseite trägt eine Abfrage (`?q=`) und geht darum nie in den
  * Seiten-Cache. Der Treiber (Datenbank, später Meilisearch) kommt aus `config/scout.php`. Seit TB 41 mischt sie die
- * Quellen der Module (Forum) dazu und filtert mit `?bereich=`.
+ * Quellen der Module (Forum) dazu und filtert mit `?bereich=`. Seit TB 71 sucht sie mit dem Datenbank-Treiber nach
+ * Wörtern statt nach der ganzen Eingabe ({@see SearchText}).
  */
 final class SiteSearch
 {
     public const PER_PAGE = 10;
 
-    /** @return array{items: list<array{title: string, path: string, excerpt: string}>, total: int, page: int, pages: int} */
+    /** Treiber, bei denen die Suche selbst in der Datenbank sucht (nach Wörtern, gefaltet) statt über Scout. */
+    private const OWN_DRIVERS = ['database', 'collection'];
+
+    /** @return array{items: list<array{title: string, path: string, excerpt: string, meta: string}>, total: int, page: int, pages: int} */
     public function search(Site $site, string $locale, string $query, int $page = 1, ?string $source = null): array
     {
         $query = trim(mb_substr($query, 0, 100));
-        if (mb_strlen($query) < 2) {
+        $words = SearchText::words($query);
+        if (mb_strlen($query) < 2 || $words === []) {
             return ['items' => [], 'total' => 0, 'page' => 1, 'pages' => 0];
         }
-        $search = SearchDocument::search($query)->where('site_id', $site->id)->where('locale', $locale);
+        $results = in_array(config('scout.driver'), self::OWN_DRIVERS, true)
+            ? $this->byWords($site, $locale, $words, $source)->paginate(self::PER_PAGE, ['id', 'source', 'source_id', 'title', 'body', 'path'], 'seite', max(1, $page))
+            : $this->byScout($site, $locale, $query, $source)->paginate(self::PER_PAGE, 'seite', max(1, $page));
+        /** @var list<SearchDocument> $docs */
+        $docs = $results->items();
+        // TB 71: Quellen verfeinern ihre Treffer (das Forum zeigt den passenden Beitrag)
+        $hits = [];
+        foreach (collect($docs)->whereNotNull('source_id')->groupBy('source') as $from => $group) {
+            $hits[$from] = app(SearchSources::class)->hits($site, (string) $from, array_values(array_map('intval', $group->pluck('source_id')->all())), $query, $locale);
+        }
+        $items = [];
+        foreach ($docs as $doc) {
+            $hit = $hits[$doc->source][(int) $doc->source_id] ?? [];
+            $items[] = ['title' => $doc->title, 'path' => $hit['path'] ?? $doc->path, 'excerpt' => $hit['excerpt'] ?? self::excerpt($doc->body, $query), 'meta' => $hit['meta'] ?? ''];
+        }
+
+        return ['items' => $items, 'total' => $results->total(), 'page' => $results->currentPage(), 'pages' => $results->lastPage()];
+    }
+
+    /**
+     * TB 71: Jedes Wort muss in Titel oder Text stehen, in beliebiger Reihenfolge, ohne Unterschied von Grösse und
+     * Akzent. Vorne steht, was die ganze Wortfolge im Titel, dann im Text trägt, dann je mehr Wörter im Titel, sonst
+     * das Neuste. Die Wörter bestehen nur aus Buchstaben und Ziffern — `%` und `_` kommen in `LIKE` darum nie vor.
+     *
+     * @param  list<string>  $words
+     * @return Builder<SearchDocument>
+     */
+    private function byWords(Site $site, string $locale, array $words, ?string $source): Builder
+    {
+        $search = SearchDocument::query()->where('site_id', $site->id)->where('locale', $locale);
         // TB 41 (FO-K12): nur eine Quelle (Seiten, Forum …)
         if ($source !== null) {
             $search->where('source', $source);
         }
-        $results = $search->paginate(self::PER_PAGE, 'seite', max(1, $page));
-        $items = [];
-        foreach ($results->items() as $doc) {
-            /** @var SearchDocument $doc */
-            $items[] = ['title' => $doc->title, 'path' => $doc->path, 'excerpt' => self::excerpt($doc->body, $query)];
+        foreach ($words as $word) {
+            $search->where(fn (Builder $q) => $q->where('search_title', 'like', '%'.$word.'%')->orWhere('search_body', 'like', '%'.$word.'%'));
+        }
+        $phrase = '%'.implode(' ', $words).'%';
+        $score = 'CASE WHEN search_title LIKE ? THEN 4 ELSE 0 END + CASE WHEN search_body LIKE ? THEN 2 ELSE 0 END'
+            .str_repeat(' + CASE WHEN search_title LIKE ? THEN 1 ELSE 0 END', count($words));
+
+        return $search->orderByRaw('('.$score.') DESC', [$phrase, $phrase, ...array_map(static fn (string $w): string => '%'.$w.'%', $words)])->orderByDesc('id');
+    }
+
+    /**
+     * Externe Treiber (Meilisearch) suchen selbst nach Wörtern und falten selbst.
+     *
+     * @return ScoutBuilder<SearchDocument>
+     */
+    private function byScout(Site $site, string $locale, string $query, ?string $source): ScoutBuilder
+    {
+        $search = SearchDocument::search($query)->where('site_id', $site->id)->where('locale', $locale);
+        if ($source !== null) {
+            $search->where('source', $source);
         }
 
-        return ['items' => $items, 'total' => $results->total(), 'page' => $results->currentPage(), 'pages' => $results->lastPage()];
+        return $search;
     }
 
     public function render(Site $site, string $locale, Request $request): string
@@ -70,7 +121,7 @@ final class SiteSearch
         if ($result['items'] !== []) {
             $html .= '<ol class="search-results">';
             foreach ($result['items'] as $item) {
-                $html .= sprintf('<li><a href="%s">%s</a><p>%s</p></li>', $e($item['path']), $e($item['title']), $item['excerpt']);
+                $html .= sprintf('<li><a href="%s">%s</a>%s<p>%s</p></li>', $e($item['path']), $e($item['title']), $item['meta'] === '' ? '' : '<p class="search-meta">'.$e($item['meta']).'</p>', $item['excerpt']);
             }
             $html .= '</ol>';
         }
@@ -85,15 +136,15 @@ final class SiteSearch
         return $html.'</div>';
     }
 
-    /** Ausschnitt um den ersten Treffer, escaped, der Begriff mit `<mark>`. */
+    /** Ausschnitt um den ersten Treffer, maskiert, jedes gesuchte Wort mit `<mark>` (TB 71: auch «Übersetzung» für «ubersetzung»). */
     public static function excerpt(string $body, string $query): string
     {
-        $pos = mb_stripos($body, $query);
-        $start = $pos === false ? 0 : max(0, $pos - 70);
-        $text = ($start > 0 ? '…' : '').mb_substr($body, $start, 200).(mb_strlen($body) > $start + 200 ? '…' : '');
-        $safe = htmlspecialchars($text, ENT_QUOTES);
+        $words = SearchText::words($query);
+        $pos = SearchText::anchor($body, $words);
+        $start = $pos === null ? 0 : max(0, $pos - 40);
+        $text = mb_substr($body, $start, 200);
 
-        return (string) preg_replace('/('.preg_quote(htmlspecialchars($query, ENT_QUOTES), '/').')/iu', '<mark>$1</mark>', $safe);
+        return ($start > 0 ? '…' : '').SearchText::mark($text, $words).(mb_strlen($body) > $start + 200 ? '…' : '');
     }
 
     /** @return array{label: string, one: string, many: string, pages: string, short: string, all: string, filter: string} */

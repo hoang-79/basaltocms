@@ -1,24 +1,19 @@
 # Basalto License (English translation)
 
-> **Draft v0.5 of 25 October 2026 — legal review pending (R-45).**
-> This text is not yet in force and not binding. The agreement (from «In short») is the same as
-> [docs/recht/en/lizenzvertrag.md](docs/recht/en/lizenzvertrag.md); it translates the German draft in
-> [LICENSE.md](LICENSE.md), which prevails in case of doubt (§ 13). Passages marked `[[Offen: …]]` («open») are
-> deliberately undecided and follow the German draft.
-> [[Offen: Have the English version proofread once the German text has been approved (review brief TB 11).]]
+> **Version 1.0 of 26 October 2026, in force since 26 October 2026.** The agreement (from «In short») is the same
+> as [docs/recht/en/lizenzvertrag.md](docs/recht/en/lizenzvertrag.md); it translates [LICENSE.md](LICENSE.md), which
+> prevails in case of doubt (§ 13).
 
 ## Scope within this repository
 
-The repository contains parts under different licences (ADR-002):
+The repository contains parts under different licences:
 
 | Part                                                                                                   | Licence                                                                                               |
 | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
 | Core `packages/core` (`basalto/core`), Lava `packages/lava` (`basalto/lava`), modules under `modules/` | **this Basalto License** (SPDX `LicenseRef-Basalto`)                                                  |
-| Application skeleton in the root folder, later `basalto/basalto`                                       | MIT, so that `composer create-project` starts without a licence question                              |
+| Application skeleton in the root folder, `basalto/basalto`                                             | MIT, so that `composer create-project` starts without a licence question                              |
 | Themes and tools with their own licence statement                                                      | the licence in their `theme.json` or `package.json` (e.g. `themes/starter`, `tools/vscode-lava`: MIT) |
 | Third-party packages (`vendor/`, `node_modules/`)                                                      | their own licences                                                                                    |
-
-[[Offen: see the open points on scope in the German version.]]
 
 ## In short (not part of the agreement)
 

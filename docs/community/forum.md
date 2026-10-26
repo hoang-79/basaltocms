@@ -27,7 +27,7 @@ Die Kästen gibt es auch als Lava-Teile für jede Region eines Layouts (`forum.l
   - **Rückgängig** und **Wiederholen**, **Fett**, **Kursiv**, **Emoji** und **Link** (Adresse und Text in einem kleinen Formular);
   - **«…»** für das Absatzformat (Absatz, Überschrift 1 bis 3), Unterstrichen, Durchgestrichen, Tief- und Hochgestellt, Format entfernen und den **Markierstift** in fünf Farben;
   - **Listen** (Aufzählung, nummeriert, Einzug verkleinern und vergrössern) und **Ausrichtung** (links, zentriert, rechts, Blocksatz);
-  - **Codeblock:** ein Klick fügt ihn ein, der Pfeil daneben wählt die Sprache (oder die automatische Erkennung), die erste Zeilennummer und einen Dateinamen. Beim Lesen ist der Code farbig hervorgehoben, mit Zeilennummern und dem Knopf **«Kopieren»**;
+  - **Codeblock:** ein Klick fügt ihn ein, der Pfeil daneben wählt die Sprache (oder die automatische Erkennung), die erste Zeilennummer und einen Dateinamen. Beim Lesen ist der Code farbig hervorgehoben, mit Zeilennummern und dem Knopf **«Kopieren»**; sind Zeilen abgeschnitten, bricht **«Mehr»** sie um, bis der ganze Code zu sehen ist;
   - **Code im Text**, **Tabelle** (Grösse im Raster wählen; steht die Schreibmarke in einer Tabelle, fügt das Menü Zeilen und Spalten ein oder entfernt sie), **Zitat** (mit den gemerkten Zitaten), **Spoiler** (auf Wunsch mit Titel), **Video** und **Datei**.
 
   Erwähnungen schreiben Sie mit `@` und den ersten Buchstaben. Team und Moderation (oder wem die Verwaltung das Recht «Gruppen erwähnen» gibt) erwähnen auch ganze Gruppen, etwa `@Moderation` — alle ihre Mitglieder bekommen eine Benachrichtigung. Die Leiste geht auch mit der Tastatur: Tab springt hinein, die Pfeiltasten wandern, Escape schliesst ein Menü. Ohne Skript bleibt ein einfaches Textfeld.
@@ -54,6 +54,11 @@ Die Kästen gibt es auch als Lava-Teile für jede Region eines Layouts (`forum.l
 ## Finden
 
 - **Suche im Forum** unter `/community/suche`; die Themen stehen auch in der Suche der ganzen Site, mit dem Filter «Forum».
+  Die Suche läuft beim Tippen mit: Auf der Suchseite erneuern sich die Treffer, im Suchfeld der Forumsleiste erscheinen
+  bis zu fünf Themen als Vorschlag und «Alle … Treffer anzeigen» (Pfeiltasten, Enter, Escape).
+  Gesucht wird nach Wörtern: Jedes muss vorkommen, die Reihenfolge ist frei, Gross- und Kleinschreibung und Akzente
+  zählen nicht («ubersetzung» findet «Übersetzung»). Ein Treffer zeigt den passenden Beitrag mit Name, Nummer und Datum
+  und führt direkt dorthin.
 - **Schlagwörter:** `#Theme` führt zu allen Themen mit diesem Schlagwort.
 - **RSS:** `/community/feed` für das ganze Forum, `/community/<forum>/feed` je Forum.
 

@@ -92,6 +92,11 @@ Vale quando il sistema operativo dei visitatori è impostato su scuro o quando s
 scegliendo «Chiaro» resta chiaro. I colori senza valore scuro valgono in entrambe le rappresentazioni. `basalto:check` calcola
 i contrasti anche per la palette scura.
 
+**Logo nelle e-mail:** l’intestazione di ogni e-mail mostra il logo del sito. Gmail e Outlook non mostrano l’SVG — metta
+quindi accanto al logo lo stesso file in PNG (`logo: assets/logo.svg` → `assets/logo.png`, circa tre volte più alto di come
+appare). Un logo largo (logotipo) sta da solo, un simbolo con accanto il nome del sito; senza PNG compare il nome. Un logo della
+mediateca appare se è un PNG, JPEG o GIF.
+
 **Blocchi nella palette:** `group` assegna un blocco a un gruppo della palette nell’editor, `hint` è una
 frase sotto di esso — entrambi con varianti linguistiche come `label`:
 
@@ -264,7 +269,7 @@ Un tag è `{% name argumente name: wert %}`; gli argomenti sono separati da spaz
 | `{% breadcrumbs %}` · `{% languages %}` | breadcrumb e cambio lingua con il markup standard (markup proprio tramite `page.breadcrumbs` e `page.alternates`) |
 | `{% share %}` · `{% share title: "…" url: "…" %}` | condividere: e-mail e reti come semplici link (nulla esce prima del clic), «Copia link» e la condivisione del dispositivo; indirizzo e titolo della pagina se non indicati |
 | `{% pagination %}` · `{% categories "post" %}` · `{% archive "post" %}` | paginazione, categorie e archivio per `entries()` |
-| `{% search %}` | modulo di ricerca e risultati del sito |
+| `{% search %}` | modulo di ricerca e risultati del sito — per parole, senza distinzione di maiuscole e accenti |
 | `{% blocks feld %}` | blocchi annidati di un campo `blocks` (già renderizzati) |
 | `{% include "pfad" with … %}` · `{% call "makro", … %}` | vedere sopra |
 | `{% comments.list … %}` | commenti (modulo `comments`); i moduli portano tag propri con prefisso |

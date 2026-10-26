@@ -7,10 +7,15 @@ namespace Basalto\Modules\Forum;
 use Basalto\Core\Content\RichText;
 use Basalto\Core\Models\Site;
 use Basalto\Core\Search\SearchSources;
+use Basalto\Core\Search\SearchText;
+use Basalto\Core\Search\SiteSearch;
 use Basalto\Core\Sites\SiteScope;
+use Basalto\Modules\Forum\Frontend\Markup;
+use Basalto\Modules\Forum\Frontend\People;
 use Basalto\Modules\Forum\Models\Node;
 use Basalto\Modules\Forum\Models\Post;
 use Basalto\Modules\Forum\Models\Thread;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -23,6 +28,9 @@ final class ForumSearch
     public const SOURCE = 'forum';
 
     public const TYPE = 'forum_thread';
+
+    /** So viele Beiträge je Thema stehen im Suchdokument — und werden für den passenden Beitrag gelesen. */
+    public const POSTS = 50;
 
     public function __construct(private readonly Forum $forum, private readonly SearchSources $sources) {}
 
@@ -43,10 +51,57 @@ final class ForumSearch
 
             return;
         }
-        $texts = Post::query()->withoutGlobalScope(SiteScope::class)->where('thread_id', $thread->id)->where('is_disabled', false)->orderBy('id')->limit(50)->get()
+        $texts = Post::query()->withoutGlobalScope(SiteScope::class)->where('thread_id', $thread->id)->where('is_disabled', false)->orderBy('id')->limit(self::POSTS)->get()
             ->map(static fn (Post $p): string => RichText::toText($p->body))->implode("\n");
         $tags = implode(' ', array_column(Tags::of([$thread->id])[$thread->id] ?? [], 'name'));
         $this->sources->put($site, self::SOURCE, $thread->id, $locale, self::TYPE, $thread->title, trim($tags."\n".$texts), $base.'/thema/'.$thread->pathSegment(), $thread->last_posted_at);
+    }
+
+    /**
+     * TB 71: Für jedes gefundene Thema der Beitrag, in dem die Suche steht — mit der ganzen Wortfolge zuerst, sonst der
+     * mit den meisten Wörtern, bei Gleichstand der frühere. Der Treffer führt direkt zum Beitrag und nennt, wer ihn wann
+     * geschrieben hat. Steht die Suche nur im Titel oder in den Schlagwörtern, bleibt der Treffer beim Thema.
+     *
+     * @param  list<int>  $threadIds
+     * @return array<int, array{path?: string, excerpt: string, meta: string}>
+     */
+    public function hits(Site $site, array $threadIds, string $query, string $locale): array
+    {
+        $words = SearchText::words($query);
+        $base = $this->forum->basePath($site, $locale);
+        if ($words === [] || $base === null) {
+            return [];
+        }
+        $phrase = implode(' ', $words);
+        $best = [];
+        foreach ($threadIds as $threadId) {
+            $posts = Post::query()->withoutGlobalScope(SiteScope::class)->where('site_id', $site->id)->where('thread_id', $threadId)->where('is_disabled', false)
+                ->orderBy('id')->limit(self::POSTS)->get(['id', 'customer_id', 'body', 'created_at']);
+            foreach ($posts->values() as $index => $post) {
+                $text = RichText::toText($post->body);
+                $folded = SearchText::fold($text);
+                $score = str_contains($folded, $phrase) ? count($words) + 1 : count(array_filter($words, static fn (string $w): bool => str_contains($folded, $w)));
+                if ($score > ($best[$threadId]['score'] ?? 0)) {
+                    $best[$threadId] = ['score' => $score, 'post' => $post, 'number' => $index + 1, 'text' => $text];
+                }
+            }
+        }
+        $people = new People($site, array_values(array_map(static fn (array $b): ?int => $b['post']->customer_id, $best)));
+        $hits = [];
+        foreach ($best as $threadId => $b) {
+            $post = $b['post'];
+            $when = '';
+            if ($post->created_at !== null) {
+                $day = Carbon::instance($post->created_at)->copy();
+                $day->locale($locale);
+                $when = ' · '.$day->isoFormat(Markup::dayFormat($locale, false));
+            }
+            $hits[$threadId] = ['excerpt' => SiteSearch::excerpt($b['text'], $query),
+                'meta' => $people->name($post->customer_id, $locale).' · '.__('Beitrag :number', ['number' => $b['number']], $locale).$when]
+                + ($b['number'] > 1 ? ['path' => $base.'/beitrag/'.$post->id] : []);
+        }
+
+        return $hits;
     }
 
     public function rebuild(Site $site): void

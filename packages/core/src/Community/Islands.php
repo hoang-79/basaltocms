@@ -11,7 +11,8 @@ use Basalto\Core\Sites\CurrentSite;
 
 /**
  * Inseln der Community (CR-006 FO-K4): Markup mit `data-insel` bekommt das kleine Bündel `community.ts` dazu. Gäste
- * ohne Formular bekommen kein Skript; die Seite funktioniert in jedem Fall ohne.
+ * ohne Formular bekommen davon nichts — nur das Suchfeld der Forumsleiste das kleine Bündel `search.ts` (TB 71, rund
+ * 4 KB); die Seite funktioniert in jedem Fall ohne.
  */
 final class Islands
 {
@@ -19,6 +20,12 @@ final class Islands
     public static function tags(): string
     {
         return app(Backend::class)->vite()->withEntryPoints(['resources/js/community.ts'])->toHtml();
+    }
+
+    /** TB 71: das kleine Bündel der Live-Suche — für Suchfelder mit `data-suche` (Vorschläge, Treffer beim Tippen). */
+    public static function searchTags(): string
+    {
+        return app(Backend::class)->vite()->withEntryPoints(['resources/js/search.ts'])->toHtml();
     }
 
     /** CR-008: das kleine Bündel der Live-Aktualisierung (ohne Editor) — für Stellen mit `data-live`. */
@@ -38,7 +45,8 @@ final class Islands
     /** Hängt die Skript-Tags an, wenn das Markup eine Insel oder eine Stelle der Live-Aktualisierung enthält. */
     public static function attach(string $html): string
     {
-        return $html.(str_contains($html, 'data-insel=') ? self::tags() : '').(str_contains($html, ' data-live="') ? self::liveTags() : '');
+        return $html.(str_contains($html, 'data-insel=') ? self::tags() : '').(str_contains($html, ' data-live="') ? self::liveTags() : '')
+            .(str_contains($html, ' data-suche="') ? self::searchTags() : '');
     }
 
     /**

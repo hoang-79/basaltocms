@@ -92,6 +92,11 @@ Elle s’applique lorsque le système d’exploitation des visiteurs est réglé
 le choix « Clair » reste clair. Les couleurs sans valeur sombre valent dans les deux présentations. `basalto:check` calcule les
 contrastes également pour la palette sombre.
 
+**Logo dans les e-mails :** l’en-tête de chaque e-mail montre le logo du site. Gmail et Outlook n’affichent pas le SVG —
+placez donc à côté du logo le même fichier en PNG (`logo: assets/logo.svg` → `assets/logo.png`, environ trois fois plus haut
+qu’affiché). Un logo large (logotype) est seul, un symbole avec le nom du site à côté ; sans PNG, le nom s’affiche. Un logo de
+la médiathèque apparaît s’il est en PNG, JPEG ou GIF.
+
 **Blocs dans la palette :** `group` attribue un bloc à un groupe de la palette dans l’éditeur, `hint` est une
 phrase en dessous — les deux avec des variantes linguistiques comme `label` :
 
@@ -263,7 +268,7 @@ Une balise s’écrit `{% name argumente name: wert %}` ; les arguments sont sé
 | `{% breadcrumbs %}` · `{% languages %}` | fil d’Ariane et changement de langue avec le balisage standard (balisage propre via `page.breadcrumbs` et `page.alternates`) |
 | `{% share %}` · `{% share title: "…" url: "…" %}` | partager : e-mail et réseaux sous forme de simples liens (rien ne part avant le clic), « Copier le lien » et le partage de l’appareil ; adresse et titre de la page s’ils ne sont pas indiqués |
 | `{% pagination %}` · `{% categories "post" %}` · `{% archive "post" %}` | pagination, catégories et archives pour `entries()` |
-| `{% search %}` | formulaire de recherche et résultats du site |
+| `{% search %}` | formulaire de recherche et résultats du site — par mots, sans distinction de casse ni d’accents |
 | `{% blocks feld %}` | blocs imbriqués d’un champ `blocks` (déjà rendus) |
 | `{% include "pfad" with … %}` · `{% call "makro", … %}` | voir ci-dessus |
 | `{% comments.list … %}` | commentaires (module `comments`) ; les modules apportent leurs propres balises avec préfixe |

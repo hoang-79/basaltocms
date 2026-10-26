@@ -92,6 +92,11 @@ applies when the visitor’s operating system is set to dark or they choose “d
 stays light. Colours without a dark value apply in both. `basalto:check` also calculates the contrasts of the dark
 palette.
 
+**Logo in emails:** the header of every email shows the logo of the site. Gmail and Outlook do not show SVG — so put
+the same file as PNG next to the logo (`logo: assets/logo.svg` → `assets/logo.png`, about three times as high as
+shown). A wide logo (wordmark) stands alone, a sign with the name of the site next to it; without a PNG the name is shown.
+A logo from the media library appears if it is a PNG, JPEG or GIF.
+
 **Blocks in the palette:** `group` assigns a block to a group of the palette in the editor, `hint` is a sentence
 below it — both with language variants like `label`:
 
@@ -263,7 +268,7 @@ A tag is `{% name argumente name: wert %}`; arguments are separated by spaces or
 | `{% breadcrumbs %}` · `{% languages %}` | breadcrumbs and language switcher with the standard markup (custom markup via `page.breadcrumbs` and `page.alternates`) |
 | `{% share %}` · `{% share title: "…" url: "…" %}` | sharing: email and networks as ordinary links (nothing goes out before the click), “Copy link” and the device’s sharing; address and title of the page unless given |
 | `{% pagination %}` · `{% categories "post" %}` · `{% archive "post" %}` | pagination, categories and archive for `entries()` |
-| `{% search %}` | search form and results of the site |
+| `{% search %}` | search form and results of the site — by words, regardless of case and accents |
 | `{% blocks feld %}` | nested blocks of a `blocks` field (already rendered) |
 | `{% include "pfad" with … %}` · `{% call "makro", … %}` | see above |
 | `{% comments.list … %}` | comments (module `comments`); modules bring their own tags with a prefix |

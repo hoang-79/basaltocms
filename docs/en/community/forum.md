@@ -27,7 +27,7 @@ The boxes are also available as Lava parts for every region of a layout (`forum.
   - **Undo** and **Redo**, **Bold**, **Italic**, **Emoji** and **Link** (address and text in a small form);
   - **“…”** for the block format (paragraph, heading 1 to 3), underline, strikethrough, subscript and superscript, clear formatting and the **highlighter** in five colours;
   - **Lists** (bulleted, numbered, decrease and increase indent) and **Alignment** (left, centre, right, justify);
-  - **Code block:** one click inserts it; the arrow next to it chooses the language (or automatic detection), the first line number and a file name. When reading, the code is highlighted in colour, with line numbers and a **“Copy”** button;
+  - **Code block:** one click inserts it; the arrow next to it chooses the language (or automatic detection), the first line number and a file name. When reading, the code is highlighted in colour, with line numbers and a **“Copy”** button; if lines are cut off, **“More”** wraps them until the whole code is visible;
   - **Inline code**, **Table** (choose the size in the grid; with the cursor inside a table, the menu inserts or removes rows and columns), **Quote** (with your remembered quotes), **Spoiler** (with a title if you like), **Video** and **File**.
 
   You mention someone with `@` and the first letters. The team and moderators (or whoever the administration gives the “Mention groups” permission) can also mention whole groups, such as `@Moderation` — all their members get a notification. The toolbar also works with the keyboard: Tab jumps in, the arrow keys move along, Escape closes a menu. Without JavaScript you get a plain text field.
@@ -54,6 +54,11 @@ The boxes are also available as Lava parts for every region of a layout (`forum.
 ## Finding
 
 - **Forum search** at `/community/suche`; threads also appear in the search of the whole site, with the filter “Forum”.
+  The search follows as you type: on the search page the results refresh, and in the search field of the forum bar up to
+  five threads appear as suggestions plus “Show all … results” (arrow keys, Enter, Escape).
+  The search works by words: each one has to appear, in any order, regardless of upper and lower case and accents
+  (“ubersetzung” finds “Übersetzung”). A result shows the matching post with name, number and date and takes you straight
+  to it.
 - **Tags:** `#Theme` leads to all threads with that tag.
 - **RSS:** `/community/feed` for the whole forum, `/community/<forum>/feed` per forum.
 

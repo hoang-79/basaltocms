@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Basalto\Core\Models;
 
+use Basalto\Core\Search\SearchText;
+use Basalto\Core\Search\SiteSearch;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
@@ -23,6 +25,8 @@ use Laravel\Scout\Searchable;
  * @property string $title
  * @property string $body
  * @property string $path
+ * @property string|null $search_title
+ * @property string|null $search_body
  * @property Carbon|null $published_at
  */
 final class SearchDocument extends Model
@@ -33,6 +37,19 @@ final class SearchDocument extends Model
     public const INDEX_SETTINGS = ['filterableAttributes' => ['site_id', 'locale', 'source'], 'searchableAttributes' => ['title', 'body'], 'sortableAttributes' => ['published_at']];
 
     protected $fillable = ['site_id', 'entry_id', 'source', 'source_id', 'locale', 'type', 'title', 'body', 'path', 'published_at'];
+
+    /** TB 71: Titel und Text gefaltet mitschreiben — danach sucht {@see SiteSearch}. */
+    protected static function booted(): void
+    {
+        self::saving(static function (self $doc): void {
+            if ($doc->isDirty('title') || $doc->search_title === null) {
+                $doc->search_title = SearchText::fold($doc->title);
+            }
+            if ($doc->isDirty('body') || $doc->search_body === null) {
+                $doc->search_body = SearchText::fold($doc->body);
+            }
+        });
+    }
 
     protected function casts(): array
     {

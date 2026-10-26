@@ -2,7 +2,7 @@
     "name": "basalto/module-members",
     "description": "Mitglieder (M-23): Frontend-Konten mit Mitgliedschaft je Site, Anmeldung und Registrierung ohne Passwort (Mail-Code), Registrierung offen, nur auf Einladung oder mit Freigabe durch die Redaktion, geschützte Seiten nur für Mitglieder, Lava-Tags für Themes, Liste im Backend mit Freigabe, Sperre, Löschung und Export — je Site schaltbar, ab Werk aus.",
     "type": "library",
-    "license": "proprietary",
+    "license": "LicenseRef-Basalto",
     "require": {
         "php": "^8.4",
         "basalto/core": "*"

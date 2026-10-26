@@ -2,7 +2,7 @@
     "name": "basalto/module-comments",
     "description": "Kommentare (M-27): Block «Kommentare» an Seiten und Beiträgen mit Einstellungen je Einbindung, zentrale Moderation mit Spam-Zähler, Datenschutz (IP als Prüfsumme, Aufbewahrung, Auskunft und Löschung) — je Site schaltbar.",
     "type": "library",
-    "license": "proprietary",
+    "license": "LicenseRef-Basalto",
     "require": {
         "php": "^8.4",
         "basalto/core": "*"

@@ -2,7 +2,7 @@
     "name": "basalto/module-ai",
     "description": "KI-Vorschläge (M-24): Text verbessern, Alt-Texte, Übersetzung und SEO-Angaben über das Laravel AI SDK mit dem Schlüssel des Kunden — nur auf Klick, immer als Vorschlag in den Entwurf, jede Nutzung protokolliert. Je Site schaltbar, ab Werk aus.",
     "type": "library",
-    "license": "proprietary",
+    "license": "LicenseRef-Basalto",
     "require": {
         "php": "^8.4",
         "basalto/core": "*",

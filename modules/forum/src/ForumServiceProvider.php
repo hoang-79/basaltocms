@@ -55,6 +55,7 @@ use Basalto\Modules\Forum\Http\Controllers\Extranet\NodeController;
 use Basalto\Modules\Forum\Http\Controllers\Extranet\NoticeController;
 use Basalto\Modules\Forum\Http\Controllers\Extranet\PrefixController;
 use Basalto\Modules\Forum\Http\Controllers\Extranet\RecognitionController;
+use Basalto\Modules\Forum\Http\Controllers\LiveSearchController;
 use Basalto\Modules\Forum\Http\Controllers\ModerationController;
 use Basalto\Modules\Forum\Http\Controllers\PostingController;
 use Basalto\Modules\Forum\Http\Controllers\SimilarController;
@@ -124,7 +125,8 @@ final class ForumServiceProvider extends ServiceProvider
             ->type(Notifier::FOLLOWED, 'Neues Thema einer Person, der Sie folgen', 'Forum', scope: NotificationType::FRONTEND, icon: 'comments');
         $this->recognition();
         // TB 41 (FO-21, FO-22): Themen in der Suche der Site und in der Sitemap
-        app(SearchSources::class)->register(ForumSearch::SOURCE, 'Forum', static fn (Site $site) => app(ForumSearch::class)->rebuild($site));
+        app(SearchSources::class)->register(ForumSearch::SOURCE, 'Forum', static fn (Site $site) => app(ForumSearch::class)->rebuild($site),
+            static fn (Site $site, array $ids, string $query, string $locale): array => app(ForumSearch::class)->hits($site, $ids, $query, $locale));
         $this->app->instance('basalto.sitemap.forum', static fn (Site $site, string $locale, string $base): array => app(Backend::class)->moduleEnabled('forum', $site)
             ? app(ForumSearch::class)->sitemap($site, $locale, $base) : []);
         $this->app->tag(['basalto.sitemap.forum'], Sitemap::TAG);
@@ -200,6 +202,8 @@ final class ForumServiceProvider extends ServiceProvider
         });
         // «Ähnliche Themen» beim Eröffnen — für die Insel am Titel
         Route::middleware(['web', 'basalto.site', 'throttle:60,1'])->get('forum/aehnlich', SimilarController::class)->name('basalto.forum.similar');
+        // TB 71: Live-Suche im Suchfeld der Forumsleiste — beim Tippen bis zu fünf Themen
+        Route::middleware(['web', 'basalto.site', 'throttle:120,1'])->get('forum/suche-live', LiveSearchController::class)->name('basalto.forum.live-search');
         // TB 37 (FO-06): Zitat eines Beitrags für die Editor-Insel — nur, was die Person lesen darf
         Route::middleware(['web', 'basalto.site'])->get('forum/posts/{post}/zitat', [PostingController::class, 'quote'])->whereNumber('post')->name('basalto.forum.posts.quote');
         // Anhänge an Beiträgen liest, wer das Thema lesen darf

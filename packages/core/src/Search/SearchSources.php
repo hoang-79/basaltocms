@@ -13,21 +13,40 @@ use Illuminate\Support\Str;
 /**
  * Suche über Module (CR-006 FO-K12): Neben den Seiten (`entry`) liefern Module eigene Dokumente in denselben Index —
  * das Forum seine Themen. Jede Quelle hat eine Bezeichnung für den Filter der Suche und einen Neuaufbau für
- * `basalto:search-index`. Beim Booten gefüllt (Singleton), danach nur gelesen.
+ * `basalto:search-index`. Beim Booten gefüllt (Singleton), danach nur gelesen. Seit TB 71 kann eine Quelle ihre
+ * Treffer verfeinern: Das Forum zeigt statt des Themas den passenden Beitrag (Link, Ausschnitt, wer und wann).
+ *
+ * @phpstan-type Hit array{path?: string, excerpt?: string, meta?: string}
  */
 final class SearchSources
 {
     public const ENTRY = 'entry';
 
-    /** @var array<string, array{label: string, rebuild: Closure(Site): void}> */
+    /** @var array<string, array{label: string, rebuild: Closure(Site): void, hits: (Closure(Site, list<int>, string, string): array<int, Hit>)|null}> */
     private array $sources = [];
 
-    /** @param  Closure(Site): void  $rebuild */
-    public function register(string $source, string $label, Closure $rebuild): self
+    /**
+     * @param  Closure(Site): void  $rebuild
+     * @param  (Closure(Site, list<int>, string, string): array<int, Hit>)|null  $hits  Kennungen der Quelle, Abfrage, Sprache → verfeinerte Treffer
+     */
+    public function register(string $source, string $label, Closure $rebuild, ?Closure $hits = null): self
     {
-        $this->sources[$source] = ['label' => $label, 'rebuild' => $rebuild];
+        $this->sources[$source] = ['label' => $label, 'rebuild' => $rebuild, 'hits' => $hits];
 
         return $this;
+    }
+
+    /**
+     * Treffer einer Quelle verfeinern — leer, wenn die Quelle das nicht kann.
+     *
+     * @param  list<int>  $ids
+     * @return array<int, Hit>
+     */
+    public function hits(Site $site, string $source, array $ids, string $query, string $locale): array
+    {
+        $hits = $this->sources[$source]['hits'] ?? null;
+
+        return $hits === null || $ids === [] ? [] : $hits($site, $ids, $query, $locale);
     }
 
     /** @return array<string, string> Quelle → Bezeichnung (Seiten zuerst) */

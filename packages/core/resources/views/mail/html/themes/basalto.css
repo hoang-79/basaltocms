@@ -118,6 +118,18 @@ img {
 
 /* Logo */
 
+.brand-logo {
+    border: 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.brand-name {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
 .logo {
     height: 75px;
     margin-top: 15px;
