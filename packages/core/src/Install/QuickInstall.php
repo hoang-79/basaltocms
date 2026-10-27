@@ -55,8 +55,10 @@ final class QuickInstall
 
         $notes = [];
         $this->installer->migrate();
-        // Assets des Backends (wie vendor:publish --tag=basalto-assets, aber zur Laufzeit nach public_path())
+        // Assets wie vendor:publish --tag=basalto-assets, aber zur Laufzeit nach public_path(): das Backend und — TB 66, fehlte
+        // jeder Demo aus dem Web-Installer — Bilder, Flaggen und CSS der Demo
         (new Filesystem)->copyDirectory(dirname(__DIR__, 2).'/resources/dist', public_path('vendor/basalto/core'));
+        (new Filesystem)->copyDirectory(dirname(__DIR__, 2).'/resources/demo/assets', public_path('vendor/basalto/core/demo'));
         // Wie storage:link, aber zur Laufzeit nach public_path(); manche Hoster verbieten Symlinks
         $link = public_path('storage');
         if (! file_exists($link) && ! self::linkStorage(storage_path('app/public'), $link)) {
