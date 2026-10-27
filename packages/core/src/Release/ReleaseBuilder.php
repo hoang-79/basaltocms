@@ -23,7 +23,7 @@ use ZipArchive;
 final class ReleaseBuilder
 {
     /** Ordner, die eine Installation nie braucht. */
-    public const EXCLUDE_DIRS = ['dokumentationen/', 'tests/', '.github/', 'tools/', '.ai/', '.claude/', '.agents/', 'node_modules/'];
+    public const EXCLUDE_DIRS = ['dokumentationen/', 'tests/', '.github/', 'tools/', '.ai/', '.claude/', '.agents/', 'node_modules/', '.cyon/'];
 
     /** Dateien der Entwicklung (Build, Prüfung, Editor). */
     public const EXCLUDE_FILES = ['phpunit.xml', 'phpstan.neon', 'pint.json', 'package.json', 'package-lock.json', 'pnpm-lock.yaml', 'pnpm-workspace.yaml',
@@ -122,6 +122,10 @@ final class ReleaseBuilder
             return false;
         }
         if (preg_match('#^modules/([^/]+)/#', $path, $module) === 1 && in_array($module[1], self::VENDOR_MODULES, true)) {
+            return false;
+        }
+        // Hilfe für den Hersteller: nur im Extranet, das es ohne den Lizenzverkauf nicht gibt (wie im Produkt-Repository)
+        if (preg_match('#^docs/([a-z]{2}/)?hersteller/#', $path) === 1) {
             return false;
         }
 

@@ -59,7 +59,7 @@ final class QuickInstall
         (new Filesystem)->copyDirectory(dirname(__DIR__, 2).'/resources/dist', public_path('vendor/basalto/core'));
         // Wie storage:link, aber zur Laufzeit nach public_path(); manche Hoster verbieten Symlinks
         $link = public_path('storage');
-        if (! file_exists($link) && ! @symlink(storage_path('app/public'), $link)) {
+        if (! file_exists($link) && ! self::linkStorage(storage_path('app/public'), $link)) {
             $notes[] = 'Der Link public/storage liess sich nicht anlegen — öffentliche Dateien brauchen ihn.';
         }
 
@@ -105,5 +105,27 @@ final class QuickInstall
         $this->settings->set(LicenseStatus::SETTING, $raw);
 
         return $key->id;
+    }
+
+    /**
+     * Den Verweis public/storage relativ anlegen (TB 66): Der Web-Installer richtet Basalto in einem Zwischenordner ein
+     * und schiebt es danach an seinen Platz — ein absoluter Verweis zeigte dann ins Leere (demo.basaltocms.com).
+     */
+    public static function linkStorage(string $target, string $link): bool
+    {
+        if (DIRECTORY_SEPARATOR !== '/') {
+            return @symlink($target, $link);
+        }
+        $from = array_values(array_filter(explode('/', dirname($link)), static fn (string $part): bool => $part !== ''));
+        $to = array_values(array_filter(explode('/', $target), static fn (string $part): bool => $part !== ''));
+        while ($from !== [] && $to !== [] && $from[0] === $to[0]) {
+            array_shift($from);
+            array_shift($to);
+        }
+        if (is_link($link)) {
+            @unlink($link);
+        }
+
+        return @symlink(str_repeat('../', count($from)).implode('/', $to), $link);
     }
 }

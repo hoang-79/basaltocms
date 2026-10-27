@@ -65,7 +65,7 @@ final class DemoReset
         }
         // Nicht «migrate:fresh»: Das ist in Produktion gesperrt (prohibitDestructiveCommands), die Demo läuft aber dort.
         // Die Sicherung dafür liegt im Demo-Schalter und in der Bestätigung des Befehls.
-        Schema::dropAllTables();
+        self::dropAllTables();
         if (Artisan::call('migrate', ['--force' => true]) !== 0) {
             throw new RuntimeException('Migrationen fehlgeschlagen: '.trim(Artisan::output()));
         }
@@ -124,6 +124,27 @@ final class DemoReset
         $this->pages->forget();
 
         return ['site' => $handle, 'counts' => self::counts(), 'fingerprint' => self::fingerprint()];
+    }
+
+    /**
+     * Alle Tabellen löschen. SQLite Tabelle für Tabelle: Laravels `dropAllTables()` kürzt dort die Datei auf 0 Bytes,
+     * während Scheduler und Webprozesse sie im WAL-Modus offen halten — was danach geschrieben wird, sehen neue
+     * Verbindungen nicht, oder die Datei ist beschädigt («database disk image is malformed», demo.basaltocms.com, TB 66).
+     * DROP TABLE geht dagegen durch die Sperren von SQLite; wer gerade liest, wartet (busy_timeout).
+     */
+    public static function dropAllTables(?string $connection = null): void
+    {
+        $schema = Schema::connection($connection);
+        if ($schema->getConnection()->getDriverName() !== 'sqlite') {
+            $schema->dropAllTables();
+
+            return;
+        }
+        $schema->withoutForeignKeyConstraints(static function () use ($schema): void {
+            foreach ($schema->getTables() as $table) {
+                $schema->dropIfExists($table['name']);
+            }
+        });
     }
 
     /** @return array<string, int> */
