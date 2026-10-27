@@ -116,9 +116,12 @@ final class LoginForm
         }
         $request->attributes->set('basalto.code.assets', true);
 
-        return '<style>.basalto-code{display:flex;gap:.5rem;margin:.25rem 0}.form .basalto-code input,.basalto-code input{width:2.75rem;min-width:0;height:3.25rem;'
-            .'padding:0;text-align:center;font-size:1.4rem;font-weight:600;font-variant-numeric:tabular-nums}@media (max-width:380px){.form .basalto-code input,'
-            .'.basalto-code input{width:2.4rem;height:3rem;font-size:1.25rem}}.account-erneut{margin:.75rem 0 0}.account-erneut .account-erneut__knopf{all:unset;'
+        // Breite über die Rasterspalten: Auch wenn ein Theme Eingabefelder auf «width:100%» setzt, bleibt jedes Feld eine
+        // Ziffer breit und schrumpft in schmalen Spalten mit
+        return '<style>.basalto-code{display:grid;grid-template-columns:repeat(6,minmax(0,2.75rem));gap:.5rem;margin:.25rem 0}'
+            .'.form .basalto-code input,.basalto-code input{width:100%;min-width:0;height:3.25rem;padding:0;text-align:center;font-size:1.4rem;font-weight:600;'
+            .'font-variant-numeric:tabular-nums}@media (max-width:380px){.basalto-code{gap:.375rem}.form .basalto-code input,'
+            .'.basalto-code input{height:3rem;font-size:1.25rem}}.account-erneut{margin:.75rem 0 0}.account-erneut .account-erneut__knopf{all:unset;'
             .'cursor:pointer;text-decoration:underline;font-size:.9em}.account-erneut .account-erneut__knopf:disabled{cursor:default;text-decoration:none;opacity:.7}'
             .'.account-erneut .account-erneut__knopf:focus-visible{outline:2px solid currentColor;outline-offset:2px}.account-erneut__fehler{display:block;font-size:.9em;margin-top:.25rem}'
             .'.form .basalto-code input[aria-invalid=true]{border-color:var(--error,#b42318)}</style>'

@@ -269,6 +269,7 @@ final class AccountStyles
 .konto-anmeldung .account-intro{color:var(--konto-muted)}
 .konto-anmeldung .account-form button[type=submit]{width:100%;justify-self:stretch}
 .konto-anmeldung .account-alt{font-size:.88rem}
+.konto .form .basalto-code input:not([type=hidden]):not([type=checkbox]):not([type=radio]){width:100%;min-height:0;padding:0}
 @media (prefers-reduced-motion:reduce){.konto *,.konto *::before,.konto *::after{animation:none!important;transition:none!important}}
 @media (max-width:39.99rem){.konto-schluessel .konto-knopf [data-label]{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}}
 @media (min-width:64rem){
@@ -279,6 +280,8 @@ final class AccountStyles
 .konto-nav__punkt{border-color:transparent;background:transparent}
 .konto-nav__punkt:hover{background:var(--konto-hover)}
 .konto-nav__punkt.ist-aktiv{border-color:var(--konto-text);background:var(--konto-text)}
+}
+@media (min-width:48rem){
 .konto--gast{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
 .konto--gast.konto--schmal{grid-template-columns:minmax(0,32rem)}
 }

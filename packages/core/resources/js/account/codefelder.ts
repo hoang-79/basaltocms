@@ -30,6 +30,7 @@ export function enhanceCodeForm(form: HTMLFormElement, length = 6): void {
     }
     const boxes = Array.from({ length }, (_, i) => {
         const box = document.createElement('input');
+        box.className = 'basalto-code__ziffer';
         box.type = 'text';
         box.inputMode = 'numeric';
         box.autocomplete = i === 0 ? 'one-time-code' : 'off';
