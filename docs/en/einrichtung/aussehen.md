@@ -97,7 +97,7 @@ Tab **Image variants** next to “Tokens”. An **image variant** is a size in w
 2. **The variants** — per row name, dimensions (width × height, “—” means free), mode, densities, `sizes`, “lazy” or “eager”, how often the variant is used, and “View” or “Edit”. **“+ Variant”** creates a new one.
 3. **The selected variant** in three tabs: **Dimensions** (name, width, height, mode), **Densities and sizes**, **Loading**. Below it the variant’s code.
 4. **Mode** — how the image gets to the size (see the diagram).
-5. **Save** — as a draft; **“To approval in the theme editor”** submits the change.
+5. **Saving** — happens by itself, into the draft (the name when you leave the field); **“To approval in the theme editor”** submits the change.
 
 ![Proportional, frame and exact](bilder/variante-modus.svg)
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Basalto\Core\FrontendAccounts;
 
+use Basalto\Core\Backend\Backend;
 use Illuminate\Contracts\Support\MessageBag;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag as Messages;
@@ -21,6 +22,58 @@ class Html
     public static function e(mixed $value): string
     {
         return htmlspecialchars(is_scalar($value) ? (string) $value : '', ENT_QUOTES);
+    }
+
+    /**
+     * Attribute für ein Formular mit Autosave (CR-013): Mit Skript speichert es selbst, der Knopf mit
+     * `data-autosave-knopf` verschwindet; ohne Skript bleibt alles wie bisher. `gruppe` verbindet Formulare derselben
+     * Seite, die dieselben Daten zeigen.
+     */
+    public static function autosave(string $lang, ?string $group = null): string
+    {
+        $t = static fn (string $text): string => self::e(__($text, [], $lang));
+
+        return sprintf(' data-autosave%s data-text-speichert="%s" data-text-gespeichert="%s" data-text-fehler="%s" data-text-wartet="%s" data-text-neu-laden="%s"',
+            $group !== null ? ' data-autosave-gruppe="'.self::e($group).'"' : '', $t('Speichert …'), $t('Gespeichert'), $t('Nicht gespeichert'),
+            $t('Enter oder Feld verlassen speichert'), $t('Nicht gespeichert — bitte laden Sie die Seite neu.')).self::markAutosave();
+    }
+
+    /**
+     * Entwurf im Browser für ein Textfeld mit Knopf (CR-013): Attribut fürs Feld; das Skript kommt mit
+     * `autosaveScript()`.
+     */
+    public static function draft(string $key): string
+    {
+        return ' data-entwurf="'.self::e($key).'"'.self::markAutosave();
+    }
+
+    /** Merken, dass die Seite das Skript braucht (`autosaveScript()`). */
+    private static function markAutosave(): string
+    {
+        $request = request();
+        if ($request->attributes->get('basalto.autosave.done') !== true) {
+            $request->attributes->set('basalto.autosave.pending', true);
+        }
+
+        return '';
+    }
+
+    /**
+     * Stil und Skript des Autosave, wenn auf der Seite ein Formular `autosave()` nutzt — hinter dem Formular
+     * auszugeben (der Aufrufer hängt es an sein Markup).
+     */
+    public static function autosaveScript(): string
+    {
+        $request = request();
+        if ($request->attributes->get('basalto.autosave.pending') !== true) {
+            return '';
+        }
+        $request->attributes->set('basalto.autosave.pending', false);
+        $request->attributes->set('basalto.autosave.done', true);
+
+        return '<style>.autosave-status{margin:.5rem 0 0;font-size:.85em;opacity:.85}.autosave-status:empty{display:none}'
+            .'.autosave-status[data-art=fehler]{color:var(--error,#b42318);opacity:1}</style>'
+            .app(Backend::class)->vite()->withEntryPoints(['resources/js/speichern.ts'])->toHtml();
     }
 
     /** Der Stern für Pflichtfelder — nur fürs Auge, den Screenreadern sagt es «required». */

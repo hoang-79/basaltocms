@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Basalto\Core\FrontendAccounts\Http;
 
 use Basalto\Core\Activity\Recorder;
+use Basalto\Core\FrontendAccounts\AutosaveResponse;
 use Basalto\Core\FrontendAccounts\Customer;
 use Basalto\Core\FrontendAccounts\CustomerAuth;
 use Basalto\Core\FrontendAccounts\CustomerLogin;
@@ -18,6 +19,7 @@ use Basalto\Core\Notifications\Notify;
 use Basalto\Core\Privacy\PersonData;
 use Basalto\Core\Sites\CurrentSite;
 use Carbon\CarbonImmutable;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
@@ -47,7 +49,7 @@ final class PrivacyController
     }
 
     /** Art. 16 DSGVO: Name, Firma und Adresse selbst berichtigen. */
-    public function update(Request $request): RedirectResponse
+    public function update(Request $request): RedirectResponse|JsonResponse
     {
         [$site, $customer, $lang, $back] = $this->context($request);
         $validator = Validator::make($request->all(), [
@@ -56,7 +58,8 @@ final class PrivacyController
         ], [], ['first_name' => __('Vorname', [], $lang), 'last_name' => __('Nachname', [], $lang), 'company' => __('Firma', [], $lang), 'street' => __('Strasse und Nummer', [], $lang), 'postal_code' => __('PLZ', [], $lang),
             'city' => __('Ort', [], $lang), 'country' => __('Land', [], $lang)]);
         if ($validator->fails()) {
-            return redirect(Html::url($back, [], 'datenschutz-angaben'))->withErrors($validator, self::BAG)->withInput();
+            return AutosaveResponse::wanted($request) ? AutosaveResponse::invalid($validator->errors())
+                : redirect(Html::url($back, [], 'datenschutz-angaben'))->withErrors($validator, self::BAG)->withInput();
         }
         $values = array_map(static fn (mixed $v): ?string => is_string($v) && trim($v) !== '' ? trim($v) : null, $validator->validated());
         if (is_string($values['country'] ?? null)) {
@@ -65,6 +68,10 @@ final class PrivacyController
         $before = $customer->only(array_keys($values));
         $customer->forceFill($values)->save();
         $this->recorder->record('privacy.self_rectified', $customer, $before, $values, $site);
+        if (AutosaveResponse::wanted($request)) {
+            // Die Rechnungsadresse auf derselben Seite zeigt dieselben Daten — sie zieht nach
+            return AutosaveResponse::saved(__('Gespeichert', [], $lang), $values);
+        }
 
         return redirect(Html::url($back, [], 'datenschutz-angaben'))->with('account.status', __('Ihre Angaben sind gespeichert.', [], $lang));
     }

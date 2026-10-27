@@ -75,11 +75,13 @@ final class PrivacyArea implements AccountArea
 
         // Berichtigung
         $html .= sprintf('<h3 class="konto-kleintitel" id="datenschutz-angaben">%s</h3>', $t('Angaben berichtigen'));
+        // CR-013: Das Land (zwei Buchstaben) speichert erst beim Verlassen — «C» allein wäre ein Fehler
         $field = static fn (string $name, string $label, string $value, string $autocomplete, int $max): string => Html::field('datenschutz-'.$name, $name, Html::e($label),
-            sprintf('<input type="text" id="datenschutz-%s" name="%s" value="%s" maxlength="%d" autocomplete="%s"{aria}>', $name, $name, Html::e($value), $max, $autocomplete), null, $errors);
+            sprintf('<input type="text" id="datenschutz-%s" name="%s" value="%s" maxlength="%d" autocomplete="%s"%s{aria}>', $name, $name, Html::e($value), $max, $autocomplete,
+                $name === 'country' ? ' data-autosave="verlassen"' : ''), null, $errors);
         $value = static fn (string $name, ?string $current): string => is_string($old[$name] ?? null) ? $old[$name] : (string) $current;
-        $html .= sprintf('<form method="post" action="/account/datenschutz/angaben" class="form konto-datenschutz__angaben">%s%s<div class="konto-datenschutz__felder">%s%s%s%s%s%s</div><div class="konto-knoepfe"><button type="submit" class="konto-knopf">%s %s</button></div></form>',
-            $hidden, Html::errorSummary($errors, $lang),
+        $html .= sprintf('<form method="post" action="/account/datenschutz/angaben" class="form konto-datenschutz__angaben"%s>%s%s<div class="konto-datenschutz__felder">%s%s%s%s%s%s</div><div class="konto-knoepfe"><button type="submit" class="konto-knopf" data-autosave-knopf>%s %s</button></div></form>',
+            Html::autosave($lang, 'kunde'), $hidden, Html::errorSummary($errors, $lang),
             $field('first_name', $page->t('Vorname'), $value('first_name', $customer->first_name), 'given-name', 80).$field('last_name', $page->t('Nachname'), $value('last_name', $customer->last_name), 'family-name', 80), $field('company', $page->t('Firma'), $value('company', $customer->company), 'organization', 160),
             $field('street', $page->t('Strasse und Nummer'), $value('street', $customer->street), 'street-address', 160),
             $field('postal_code', $page->t('PLZ'), $value('postal_code', $customer->postal_code), 'postal-code', 20),

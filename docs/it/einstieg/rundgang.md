@@ -57,6 +57,19 @@ Qui gestisce l’installazione: **Siti** con lingue e domini, **Moduli**, **Uten
 **Aggiornamenti**, **Licenza**, **Esercizio** e il **Registro** di tutte le modifiche. Maggiori dettagli in
 [Amministrazione](../verwaltung/README.md).
 
+## Salvare
+
+Ciò che modifica si salva da sé — non c’è un pulsante «Salva». In basso a destra compare per un attimo «… salvato», con
+una spunta al campo; un errore resta visibile finché non viene corretto. Un campo rifiutato non blocca gli altri.
+
+- **Subito:** interruttori, selezioni, opzioni e date.
+- **Dopo una breve pausa:** testo e numeri, al più tardi uscendo dal campo.
+- **Uscendo dal campo o con Invio:** identificativi, indirizzi, chiavi e prezzi — un valore a metà avrebbe subito
+  effetto. Finché attende, il campo indica «Invio o uscire dal campo salva»; **Esc** annulla la modifica.
+
+Un pulsante resta dove nasce qualcosa di nuovo (**«Crea»**) o un passo è voluto: inviare per approvazione, approvare,
+inviare, pagare, eliminare. Il testo di questi moduli resta come bozza nel browser finché non viene inviato.
+
 ## La guida
 
 ![La guida come barra sul margine destro, accanto all’albero delle pagine](bilder/rundgang-hilfe.webp)

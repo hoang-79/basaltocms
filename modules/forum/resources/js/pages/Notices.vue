@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { Head, router, useForm } from '@inertiajs/vue3';
+import AutosaveState from '@core/components/AutosaveState.vue';
+import { useAutosave } from '@core/components/autosave';
 import { computed, ref } from 'vue';
 import { t } from '@core/i18n';
 import Button from '@core/components/Button.vue';
@@ -61,7 +63,24 @@ function edit(notice: NoticeRow): void {
     form.defaults(values);
     form.reset();
     form.clearErrors();
+    noticeSave.rebase();
     open.value = true;
+}
+/**
+ * CR-013: Ein bestehender Hinweis speichert selbst (ein aktiver wirkt sofort — Text darum nach der Pause); neu angelegt
+ * wird mit «Anlegen». «Schliessen» wartet, bis gespeichert ist.
+ */
+const noticeSave = useAutosave(form, {
+    url: () => editing.value?.update_url ?? '',
+    keepRejected: true,
+    delay: 1200,
+    enabled: () => open.value && editing.value !== null,
+});
+async function close(): Promise<void> {
+    if (editing.value) {
+        await noticeSave.flush();
+    }
+    open.value = false;
 }
 function save(): void {
     const done = {
@@ -171,9 +190,12 @@ const preview = computed(() => form.text[props.locales[0] ?? 'de'] ?? '');
     <Modal
         :open="open"
         :title="editing ? $t('Hinweis bearbeiten') : $t('Neuer Hinweis')"
-        @close="open = false"
+        @close="close"
     >
-        <form class="grid gap-3 md:grid-cols-2" @submit.prevent="save">
+        <form
+            class="grid gap-3 md:grid-cols-2"
+            @submit.prevent="editing ? close() : save()"
+        >
             <label
                 v-for="locale in locales"
                 :key="locale"
@@ -290,9 +312,18 @@ const preview = computed(() => form.text[props.locales[0] ?? 'de'] ?? '');
                     {{ preview || $t('Ihr Text erscheint hier.') }}
                 </div>
             </div>
-            <div class="flex flex-wrap gap-2 md:col-span-2">
+            <div
+                v-if="editing"
+                class="flex flex-wrap items-center gap-2 md:col-span-2"
+            >
+                <Button type="submit" variant="secondary">{{
+                    $t('Schliessen')
+                }}</Button>
+                <AutosaveState :status="noticeSave.status.value" />
+            </div>
+            <div v-else class="flex flex-wrap gap-2 md:col-span-2">
                 <Button type="submit" :disabled="form.processing">{{
-                    $t('Speichern')
+                    $t('Anlegen')
                 }}</Button>
                 <Button variant="secondary" @click="open = false">{{
                     $t('Abbrechen')

@@ -50,8 +50,8 @@ exploitant.
 **Nouveau rôle** crée un rôle vide (qui ne peut rien) ou une copie d’un rôle existant (« À partir de » ou **Copier**).
 Dans la matrice, vous choisissez le niveau de chaque domaine ; « tout sur » règle un groupe entier d’un coup. En bas,
 l’aperçu montre ce que voit le rôle (« Contenus · Configuration · Administration ») et combien de personnes l’ont.
-L’enregistrement se fait avec **Enregistrer** — les droits ne changent pas en passant. La modification s’applique à
-partir de la requête suivante.
+Chaque modification s’enregistre d’elle-même (une série de modifications forme une seule ligne dans le journal) et
+s’applique à partir de la requête suivante.
 
 Un rôle s’attribue comme auparavant sous **Utilisateurs** (sélection dans la liste ou lors de l’invitation). Un rôle
 propre peut être **supprimé** tant que personne ne l’a et qu’aucune invitation ouverte ne le désigne.

@@ -35,10 +35,12 @@ final class ProfileForm
         $html = sprintf('<section class="community-profile-form" aria-labelledby="community-profil-titel"><%1$s id="community-profil-titel">%2$s</%1$s>', $heading, $e(__('Ihr Profil', [], $lang)));
         $html .= is_string($status) ? Html::status($status, 'community-status') : '';
         $html .= $profile === null ? sprintf('<p class="community-hint">%s</p>', $e(__('Wählen Sie einen Anzeigenamen — unter ihm erscheinen Ihre Beiträge. Die E-Mail-Adresse bleibt privat.', [], $lang))) : '';
-        $html .= sprintf('<form class="form community-form" method="post" action="%s" enctype="multipart/form-data" novalidate>', $e(route('basalto.community.profile', absolute: false)));
+        // CR-013: speichert selbst — der Anzeigename erst beim Verlassen (er muss einmalig sein), Bilder sofort
+        $html .= sprintf('<form class="form community-form" method="post" action="%s" enctype="multipart/form-data" novalidate%s>', $e(route('basalto.community.profile', absolute: false)),
+            Html::autosave($lang));
         $html .= Html::hidden($pagePath, $lang, true).Html::errorSummary($errors, $lang);
         $html .= Html::field('community-name', 'name', $e(__('Anzeigename', [], $lang)).Html::required(),
-            sprintf('<input id="community-name" name="name" type="text" value="%s" required minlength="%d" maxlength="%d" autocomplete="nickname"{aria}>', $e($name), Profiles::MIN, Profiles::MAX),
+            sprintf('<input id="community-name" name="name" type="text" value="%s" required minlength="%d" maxlength="%d" autocomplete="nickname" data-autosave="verlassen"{aria}>', $e($name), Profiles::MIN, Profiles::MAX),
             __('3 bis 30 Zeichen, einmalig in dieser Community.', [], $lang), $errors);
         $html .= sprintf('<div class="community-avatar-field">%s', $picture);
         $html .= Html::field('community-avatar', 'avatar', $e(__('Profilbild', [], $lang)),
@@ -99,8 +101,8 @@ final class ProfileForm
         $watch = (bool) data_get($customer->preferences, 'community.auto_watch', true);
         $html .= sprintf('<input type="hidden" name="auto_watch" value="0"><label class="community-check"><input type="checkbox" name="auto_watch" value="1"%s> %s</label>', $watch ? ' checked' : '',
             $e(__('Themen automatisch abonnieren, in denen ich schreibe', [], $lang)));
-        $html .= sprintf('<p class="form-actions"><button type="submit" class="button">%s</button></p></form></section>', $e(__('Profil speichern', [], $lang)));
+        $html .= sprintf('<p class="form-actions"><button type="submit" class="button" data-autosave-knopf>%s</button></p></form></section>', $e(__('Profil speichern', [], $lang)));
 
-        return $html;
+        return $html.Html::autosaveScript();
     }
 }

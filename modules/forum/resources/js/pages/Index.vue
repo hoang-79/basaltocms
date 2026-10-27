@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Head, Link, router, useForm } from '@inertiajs/vue3';
 import { controlClasses, labelClasses } from '@core/components/control';
+import AutosaveState from '@core/components/AutosaveState.vue';
+import { useAutosave } from '@core/components/autosave';
 import Button from '@core/components/Button.vue';
 import Notice from '@core/components/Notice.vue';
 import PageHeader from '@core/components/PageHeader.vue';
@@ -20,9 +22,15 @@ function unlink(): void {
     router.delete(props.urls.unlink, { preserveScroll: true });
 }
 const settingsForm = useForm({ ...props.settings });
-function saveSettings(): void {
-    settingsForm.post(props.urls.settings, { preserveScroll: true });
-}
+/**
+ * CR-013: Die Einstellungen speichern selbst; ein leeres oder ungültiges Feld blockiert die übrigen nicht. Die Fassung
+ * der Nutzungsbedingungen erst beim Verlassen — eine neue Fassung fragt alle Mitglieder noch einmal.
+ */
+const settingsSave = useAutosave(settingsForm, {
+    url: props.urls.settings,
+    method: 'post',
+    onLeave: ['terms_version'],
+});
 const settingError = (key: string): string =>
     (settingsForm.errors as Record<string, string | undefined>)[key] ?? '';
 function createPage(): void {
@@ -207,7 +215,7 @@ function createPage(): void {
             </h2>
             <form
                 class="mt-3 grid gap-3 md:grid-cols-2"
-                @submit.prevent="saveSettings"
+                @submit.prevent="settingsSave.flush()"
             >
                 <label class="block">
                     <span :class="labelClasses">{{
@@ -504,6 +512,7 @@ function createPage(): void {
                             v-model="settingsForm.terms_version"
                             type="text"
                             maxlength="40"
+                            v-bind="settingsSave.leave('terms_version')"
                             :class="
                                 controlClasses({
                                     error: !!settingError('terms_version'),
@@ -538,9 +547,7 @@ function createPage(): void {
                     }}</span>
                 </label>
                 <div class="md:col-span-2">
-                    <Button type="submit" :disabled="settingsForm.processing">{{
-                        $t('Speichern')
-                    }}</Button>
+                    <AutosaveState :status="settingsSave.status.value" />
                 </div>
             </form>
         </section>

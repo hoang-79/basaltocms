@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head, Link, router, useForm, usePage } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
+import { useAutosave } from '../../components/autosave';
 import Button from '../../components/Button.vue';
 import Card from '../../components/Card.vue';
 import { controlClasses } from '../../components/control';
@@ -69,6 +70,43 @@ const forms = Object.fromEntries(
     ]),
 ) as Record<ProviderKey, ReturnType<typeof useForm<SocialForm>>>;
 
+/** Der aktuelle Stand eines Anbieters (nach jedem Speichern neu geladen). */
+const current = (key: ProviderKey): Provider =>
+    props.providers.find((p) => p.key === key) as Provider;
+
+/**
+ * CR-013: Jeder Anbieter speichert selbst — Schalter und Konten sofort, Client-ID und Secret beim Verlassen (Enter).
+ * Neu eingerichtet wird erst, wenn beide stehen; das Secret leert sich nach dem Speichern und bleibt verschlüsselt.
+ */
+const saves = Object.fromEntries(
+    props.providers.map((provider) => {
+        const form = forms[provider.key];
+        const save = useAutosave(form, {
+            url: provider.update_url,
+            onLeave: ['client_id', 'client_secret'],
+            only: ['errors', 'providers'],
+            labels: {
+                enabled: provider.label,
+                client_id: t('Client-ID'),
+                client_secret: t('Client-Secret'),
+                tenant: t('Konten'),
+            },
+            enabled: () =>
+                current(provider.key).configured ||
+                (form.client_id.trim() !== '' &&
+                    form.client_secret.trim() !== ''),
+            onSaved: () => {
+                if (form.client_secret !== '') {
+                    form.client_secret = '';
+                    save.rebase();
+                }
+            },
+        });
+
+        return [provider.key, save];
+    }),
+) as Record<ProviderKey, ReturnType<typeof useAutosave<SocialForm>>>;
+
 const copied = ref('');
 
 const placeholders: Record<ProviderKey, string> = {
@@ -86,14 +124,6 @@ const where: Record<ProviderKey, string> = {
     linkedin:
         'LinkedIn Developers › App › Products › «Sign In with LinkedIn using OpenID Connect» › Auth › Authorized redirect URLs.',
 };
-
-function save(provider: Provider): void {
-    const form = forms[provider.key];
-    form.put(provider.update_url, {
-        preserveScroll: true,
-        onSuccess: () => form.reset('client_secret'),
-    });
-}
 
 function remove(provider: Provider): void {
     if (
@@ -225,7 +255,7 @@ const probeLabel = computed(
                     : $t('nicht eingerichtet')
             "
         >
-            <form novalidate @submit.prevent="save(provider)">
+            <form novalidate @submit.prevent="saves[provider.key].flush()">
                 <div class="mb-2.5 flex items-center gap-2.5">
                     <!-- eslint-disable-next-line vue/no-v-html -- Zeichen des Anbieters aus dem Kern -->
                     <span class="inline-flex" v-html="provider.icon" />
@@ -251,10 +281,16 @@ const probeLabel = computed(
                     autocomplete="off"
                     :placeholder="placeholders[provider.key]"
                     :error="forms[provider.key].errors.client_id"
+                    :saved="saves[provider.key].saved('client_id')"
+                    :waiting="saves[provider.key].waiting('client_id')"
+                    v-bind="saves[provider.key].leave('client_id')"
                 />
                 <Field
                     :label="$t('Client-Secret')"
                     :error="forms[provider.key].errors.client_secret"
+                    :saved="saves[provider.key].saved('client_secret')"
+                    :waiting="saves[provider.key].waiting('client_secret')"
+                    v-bind="saves[provider.key].leave('client_secret')"
                     :help="
                         provider.has_secret
                             ? $t(
@@ -337,12 +373,20 @@ const probeLabel = computed(
                     </li>
                 </ul>
 
+                <p
+                    v-if="
+                        !current(provider.key).configured &&
+                        saves[provider.key].status.value === 'pending'
+                    "
+                    class="mt-3 text-[12px] text-basalt-light"
+                >
+                    {{
+                        $t(
+                            'Noch nicht gespeichert — es speichert sich, sobald Client-ID und Client-Secret stehen.',
+                        )
+                    }}
+                </p>
                 <div class="mt-3.5 flex flex-wrap items-center gap-2">
-                    <Button
-                        type="submit"
-                        :disabled="forms[provider.key].processing"
-                        >{{ $t('Speichern') }}</Button
-                    >
                     <Button
                         v-if="provider.configured && available"
                         variant="secondary"

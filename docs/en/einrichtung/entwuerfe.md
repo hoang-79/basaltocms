@@ -16,7 +16,7 @@ A bundled theme lies in the installation’s `themes/` folder. Basalto never cha
 
 ## Drafts
 
-Every **“Save as draft”** — in the layouts, the image variants or the theme editor — creates a draft. Basalto checks the whole theme: if it has an error, **nothing is saved** (“a theme with an error never goes live”), and the code shows the spot.
+Every change — in the layouts, the image variants or the theme editor — saves itself to a draft after a short pause. Basalto checks the whole theme: if it has an error, **nothing is saved** (“a theme with an error never goes live”), and the code shows the spot.
 
 What the drafts do is shown by the **preview with drafts** — in the layouts and the theme editor, for a path of your choice. **“Review the whole site with the drafts”** switches the preview to the whole website for your session; visitors keep seeing the live version.
 

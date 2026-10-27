@@ -16,7 +16,7 @@ Un tema fornito si trova nella cartella `themes/` dell’installazione. Basalto 
 
 ## Bozze
 
-Ogni **«Salva come bozza»** — nei layout, nelle varianti d’immagine o nell’editor del tema — crea una bozza. Basalto verifica così l’intero tema: se contiene un errore, **non viene salvato nulla** («un tema con errori non va mai online»), e il codice mostra il punto.
+Ogni modifica — nei layout, nelle varianti d’immagine o nell’editor del tema — si salva da sola in una bozza dopo una breve pausa. Basalto verifica così l’intero tema: se contiene un errore, **non viene salvato nulla** («un tema con errori non va mai online»), e il codice mostra il punto.
 
 Che effetto hanno le bozze lo mostra l’**anteprima con bozze** — nei layout e nell’editor del tema, per un percorso a scelta. **«Sfoglia l’intero sito con le bozze»** estende l’anteprima, per la Sua sessione, all’intero sito web; i visitatori continuano a vedere la versione online.
 

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { Head, router, useForm, usePage } from '@inertiajs/vue3';
+import AutosaveState from '@core/components/AutosaveState.vue';
+import { useAutosave } from '@core/components/autosave';
 import { computed, ref } from 'vue';
 import { t } from '@core/i18n';
 import Button from '@core/components/Button.vue';
@@ -107,7 +109,24 @@ function edit(row: NodeRow): void {
     form.defaults(value);
     form.reset();
     form.clearErrors();
+    nodeSave.rebase();
     open.value = true;
+}
+
+/**
+ * CR-013: Ein bestehendes Element speichert selbst — Slug und Link beim Verlassen (der Slug ist Teil der Adresse);
+ * neu angelegt wird weiter mit «Anlegen». «Schliessen» wartet, bis gespeichert ist.
+ */
+const nodeSave = useAutosave(form, {
+    url: () => editing.value?.update_url ?? '',
+    onLeave: ['slug', 'link_url'],
+    enabled: () => open.value && editing.value !== null,
+});
+async function close(): Promise<void> {
+    if (editing.value) {
+        await nodeSave.flush();
+    }
+    open.value = false;
 }
 
 function save(): void {
@@ -242,28 +261,41 @@ function prefixLabel(prefix: PrefixRow): string {
         ''
     );
 }
+// CR-013: Ein bestehendes Präfix speichert selbst; «Fertig» wartet aufs Speichern und leert das Formular
+const prefixSave = useAutosave(prefixForm, {
+    url: () => editingPrefix.value?.update_url ?? '',
+    keepRejected: true,
+    enabled: () => editingPrefix.value !== null,
+});
 function editPrefix(prefix: PrefixRow): void {
     editingPrefix.value = prefix;
     prefixForm.label = { ...prefix.label };
     prefixForm.color = prefix.color;
     prefixForm.clearErrors();
+    prefixSave.rebase();
+}
+async function finishPrefix(): Promise<void> {
+    await prefixSave.flush();
+    newPrefix();
 }
 function newPrefix(): void {
     editingPrefix.value = null;
     prefixForm.label = { [defaultLocale.value]: '' };
     prefixForm.color = 'grey';
     prefixForm.clearErrors();
+    prefixSave.rebase();
 }
 function savePrefix(): void {
+    if (editingPrefix.value) {
+        void finishPrefix();
+
+        return;
+    }
     const options = {
         preserveScroll: true,
         onSuccess: () => newPrefix(),
     };
-    if (editingPrefix.value) {
-        prefixForm.put(editingPrefix.value.update_url, options);
-    } else {
-        prefixForm.post(props.urls.prefix_store, options);
-    }
+    prefixForm.post(props.urls.prefix_store, options);
 }
 function removePrefix(prefix: PrefixRow): void {
     if (
@@ -409,15 +441,19 @@ function siblingsOf(row: NodeRow): NodeRow[] {
                     </option>
                 </select>
             </label>
-            <Button type="submit" size="sm" :disabled="prefixForm.processing">{{
-                editingPrefix ? $t('Speichern') : $t('Anlegen')
-            }}</Button>
             <Button
                 v-if="editingPrefix"
                 size="sm"
                 variant="secondary"
-                @click="newPrefix"
-                >{{ $t('Abbrechen') }}</Button
+                @click="finishPrefix"
+                >{{ $t('Fertig') }}</Button
+            >
+            <Button
+                v-else
+                type="submit"
+                size="sm"
+                :disabled="prefixForm.processing"
+                >{{ $t('Anlegen') }}</Button
             >
             <p
                 v-if="prefixError(`label.${defaultLocale}`)"
@@ -542,9 +578,12 @@ function siblingsOf(row: NodeRow): NodeRow[] {
     <Modal
         :open="open"
         :title="editing ? $t('Element bearbeiten') : $t('Neues Element')"
-        @close="open = false"
+        @close="close"
     >
-        <form class="flex flex-col gap-4" @submit.prevent="save">
+        <form
+            class="flex flex-col gap-4"
+            @submit.prevent="editing ? close() : save()"
+        >
             <fieldset>
                 <legend :class="labelClasses">{{ $t('Art') }}</legend>
                 <div class="grid gap-2 md:grid-cols-3">
@@ -684,6 +723,7 @@ function siblingsOf(row: NodeRow): NodeRow[] {
                 <span :class="labelClasses">{{ $t('Ziel des Links') }}</span>
                 <input
                     v-model="form.link_url"
+                    v-bind="editing ? nodeSave.leave('link_url') : {}"
                     type="text"
                     placeholder="https://"
                     :class="
@@ -704,6 +744,7 @@ function siblingsOf(row: NodeRow): NodeRow[] {
                 <span :class="labelClasses">{{ $t('Adresse') }}</span>
                 <input
                     v-model="form.slug"
+                    v-bind="editing ? nodeSave.leave('slug') : {}"
                     type="text"
                     maxlength="80"
                     :placeholder="slugify(form.title[defaultLocale] ?? '')"
@@ -903,13 +944,24 @@ function siblingsOf(row: NodeRow): NodeRow[] {
                 </div>
             </fieldset>
 
-            <div class="flex justify-end gap-2">
-                <Button variant="secondary" @click="open = false">{{
-                    $t('Abbrechen')
-                }}</Button>
-                <Button type="submit" :disabled="form.processing">{{
-                    editing ? $t('Speichern') : $t('Anlegen')
-                }}</Button>
+            <div class="flex flex-wrap items-center justify-end gap-2">
+                <template v-if="editing">
+                    <AutosaveState
+                        class="mr-auto"
+                        :status="nodeSave.status.value"
+                    />
+                    <Button type="submit" variant="secondary">{{
+                        $t('Schliessen')
+                    }}</Button>
+                </template>
+                <template v-else>
+                    <Button variant="secondary" @click="open = false">{{
+                        $t('Abbrechen')
+                    }}</Button>
+                    <Button type="submit" :disabled="form.processing">{{
+                        $t('Anlegen')
+                    }}</Button>
+                </template>
             </div>
         </form>
     </Modal>

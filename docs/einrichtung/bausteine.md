@@ -29,9 +29,9 @@ Modus «Einrichtung» › «Woraus bestehen Seiten?» › **«Bausteine verwalte
 1. **«+ Baustein»**, dann **Name** (zum Beispiel «Kontaktleiste»). Die **Kennung** entsteht daraus; sie lässt sich anpassen (Kleinbuchstaben, Ziffern, Bindestrich). Lassen Sie den Namen leer, übernimmt er den ersten Titel, den Sie im ersten Block schreiben.
 2. Blöcke hinzufügen — mit der Block-Palette wie im Editor einer Seite, mit denselben Feldern, ↑ ↓, Duplizieren und Entfernen. Das Formular zeigt das Wichtigste zuerst, Hilfe an jedem Feld und unter «Weitere Möglichkeiten» die Feineinstellungen ([Die Felder eines Blocks](../redaktion/bloecke.md#die-felder-eines-blocks)).
 3. Rechts unten zeigt das Fenster **«Live-Vorschau»** den Baustein mit dem Theme Ihrer Site, bei jeder Eingabe neu — das Feld, in dem Sie schreiben, leuchtet darin auf, und ein Klick in die Vorschau springt zum Feld ([Live-Vorschau](../redaktion/bloecke.md#live-vorschau-im-fenster)).
-4. **«Speichern»**. Der Baustein erscheint im Editor jeder Seite unter **«+ Baustein»**.
+4. **«Anlegen»**. Der Baustein erscheint im Editor jeder Seite unter **«+ Baustein»**. Danach speichern sich Änderungen selbst; die Kennung ändert sich erst mit Enter oder beim Verlassen des Felds — Seiten verweisen darauf.
 
-**Achtung:** Ein Baustein hat keine Fassungen. Eine Änderung gilt nach dem Speichern **sofort auf allen Seiten**, die ihn tragen — ohne Einreichen und Freigabe. Die Änderung steht im Protokoll.
+**Achtung:** Ein Baustein hat keine Fassungen. Eine Änderung gilt nach dem Speichern (eine kurze Pause nach dem Tippen) **sofort auf allen Seiten**, die ihn tragen — ohne Einreichen und Freigabe. Die Änderung steht im Protokoll.
 
 Ein Baustein enthält keine Bausteine — in der Palette fehlt dort die Gruppe «Wiederverwendbar» für Bausteine.
 

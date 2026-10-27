@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import { computed, ref, watch } from 'vue';
+import AutosaveState from '../../components/AutosaveState.vue';
+import { useAutosaveValue } from '../../components/autosave';
 import Button from '../../components/Button.vue';
 import Card from '../../components/Card.vue';
 import CodeBlock from '../../components/CodeBlock.vue';
@@ -14,6 +16,7 @@ import {
     modeLabel,
 } from '../../components/layoutEditor';
 import type { VariantForm } from '../../components/layoutEditor';
+import { t } from '../../i18n';
 import type { BackendProps } from '../../types';
 
 /**
@@ -80,10 +83,47 @@ const dirty = computed(
         JSON.stringify(row.value?.form ?? blank()),
 );
 
-watch([row, () => props.variants], () => {
+function load(): void {
     form.value = row.value
         ? { ...row.value.form, densities: [...row.value.form.densities] }
         : blank();
+    nameDraft.value = form.value.name;
+}
+// Andere Variante gewählt: neu aufsetzen; nach dem Speichern neu geladen: nur, wenn nichts mehr wartet
+watch(() => row.value?.form.name, load);
+watch(
+    () => props.variants,
+    () => {
+        if (!variantSave.busy()) {
+            load();
+        }
+    },
+);
+
+/** Der Name einer bestehenden Variante ändert sich erst mit Enter oder beim Verlassen (Themes verweisen darauf). */
+const nameDraft = ref(form.value.name);
+function commitName(): void {
+    if (form.value.name !== nameDraft.value) {
+        form.value = { ...form.value, name: nameDraft.value };
+    }
+}
+
+// CR-013: Eine bestehende Variante speichert selbst in den Theme-Entwurf; neu angelegt wird mit «Anlegen»
+const variantSave = useAutosaveValue(() => (row.value ? form.value : null), {
+    target: () =>
+        row.value && editable.value
+            ? {
+                  method: 'put',
+                  url: `${props.urls.store}/${row.value.form.name}`,
+              }
+            : null,
+    only: ['variants'],
+    dirty: () => row.value !== null && dirty.value,
+    enabled: () => form.value.name.trim() !== '',
+    label: () => t('Bildvariante «:name»', { name: form.value.name }),
+    onSaved: () => {
+        selected.value = form.value.name;
+    },
 });
 
 function startNew(): void {
@@ -315,6 +355,15 @@ const lab =
                     <label :class="lab"
                         >{{ $t('Name')
                         }}<input
+                            v-if="row"
+                            v-model="nameDraft"
+                            :disabled="!editable"
+                            :class="[input, 'font-mono']"
+                            @blur="commitName"
+                            @keydown.enter.prevent="commitName"
+                            @keydown.esc="nameDraft = form.name"
+                        /><input
+                            v-else
                             v-model="form.name"
                             :disabled="!editable"
                             :class="[input, 'font-mono']"
@@ -477,11 +526,17 @@ const lab =
                     @click="remove"
                     >{{ $t('Entfernen') }}</Button
                 >
+                <AutosaveState
+                    v-if="row"
+                    :status="variantSave.status.value"
+                    draft
+                />
                 <Button
+                    v-else
                     size="sm"
                     :disabled="!dirty || !form.name"
                     @click="save"
-                    >{{ $t('Als Entwurf speichern') }}</Button
+                    >{{ $t('Anlegen (Entwurf)') }}</Button
                 >
             </div>
             <CodeBlock

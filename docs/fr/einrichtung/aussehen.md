@@ -97,7 +97,7 @@ Onglet **Variantes d’image** à côté de « Tokens ». Une **variante d’ima
 2. **Les variantes** — par ligne : nom, dimensions (largeur × hauteur, « — » signifie libre), mode, densités, `sizes`, « lazy » ou « eager », le nombre d’utilisations de la variante, et « Voir » ou « Modifier ». **« + Variante »** en crée une nouvelle.
 3. **La variante choisie** en trois onglets : **Dimensions** (nom, largeur, hauteur, mode), **Densités et sizes**, **Chargement**. En dessous, le code de la variante.
 4. **Mode** — comment l’image est ramenée aux dimensions (voir le schéma).
-5. **Enregistrer** — comme brouillon ; **« Vers la validation dans l’éditeur de thème »** soumet la modification.
+5. **Enregistrement** — de lui-même dans le brouillon (le nom en quittant le champ) ; **« Vers la validation dans l’éditeur de thème »** soumet la modification.
 
 ![Proportionnel, cadre et exact](bilder/variante-modus.svg)
 

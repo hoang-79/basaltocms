@@ -13,7 +13,7 @@ Links stehen die Rollen — je Rolle, wie viele Personen sie haben, welche Modi 
 1. **Name** und **Beschreibung** (freiwillig) — die Beschreibung erscheint beim Einladen unter der Rolle.
 2. **Sprachen**: **alle**, **alle ausser der Quellsprache** oder eine **Auswahl**. Darunter steht, in welchen Sprachen die Rolle Inhalte bearbeiten darf. Seiten anlegen, löschen, verschieben und ihre Einstellungen ändern verlangt die Quellsprache.
 3. **Die Matrix** — je Bereich eine Stufe, nach den Gruppen Inhalte, Einrichtung und Verwaltung. **«alle auf»** setzt eine ganze Gruppe auf «keine», «ansehen» oder «bearbeiten». Bereiche aus Modulen tragen «Modul».
-4. **Vorschau** unten — was die Rolle sieht und wie viele Personen sie haben. **«Speichern»** übernimmt die Änderung; sie gilt ab der nächsten Anfrage. Rechte ändern sich nie nebenbei.
+4. **Vorschau** unten — was die Rolle sieht und wie viele Personen sie haben. Jede Änderung speichert sich selbst und gilt ab der nächsten Anfrage; sie steht im [Protokoll](protokoll.md).
 
 | Stufe | Bedeutet |
 | --- | --- |

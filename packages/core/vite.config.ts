@@ -28,6 +28,7 @@ export default defineConfig({
                 // TB 71: Live-Suche im Forum (Vorschläge in der Leiste, Treffer beim Tippen) — eigenes kleines Bündel
                 'resources/js/search.ts',
                 'resources/js/codefelder.ts',
+                'resources/js/speichern.ts',
             ],
             publicDirectory: 'resources/dist',
             buildDirectory: 'build',

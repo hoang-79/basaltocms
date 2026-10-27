@@ -35,7 +35,7 @@ Les passkeys ne demandent aucune configuration. Une fois connecté, on en crée 
 
 1. Ouvrez **Administration › Sites ›** votre site **› Connexion des comptes clients**.
 2. Créez une application chez le fournisseur (instructions ci-dessous) et saisissez-y l’**URL de redirection** de Basalto — **Copier** la reprend exactement.
-3. Dans Basalto, saisissez l’**ID client** et le **Secret client**, activez **Bouton sur le frontend** et cliquez sur **Enregistrer**.
+3. Dans Basalto, saisissez l’**ID client** et le **Secret client** et activez **Bouton sur le frontend** — l’enregistrement se fait de lui-même dès que les deux champs sont remplis (chacun avec Entrée ou en quittant le champ).
 4. **Essayer :** vous vous connectez une fois réellement chez le fournisseur. Le résultat s’affiche ensuite en haut, par exemple « Google a confirmé le compte … ». Aucun compte client n’est créé.
 
 Peuvent configurer : l’exploitant du site ainsi que le propriétaire et l’administration du compte. Les boutons n’apparaissent que si un module du site utilise le compte client (forum, membres, vente de licences ou place de marché).

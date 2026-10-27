@@ -48,8 +48,8 @@ The owner and administrators of a SaaS account may do everything on all sites of
 
 **New role** creates an empty role (may do nothing) or a copy of an existing one (“Based on” or **Copy**). In the
 matrix you choose the level for each area; “set all to” sets a whole group at once. Below, the preview shows what the
-role sees (“Content · Setup · Administration”) and how many people have it. Changes are saved with **Save** — rights
-do not change in passing. They apply from the next request.
+role sees (“Content · Setup · Administration”) and how many people have it. Every change saves itself (a series of them is one
+line in the log) and applies from the next request.
 
 A role is assigned as before under **Users** (selection in the list or when inviting). A custom role can be
 **deleted** as long as nobody has it and no open invitation refers to it.

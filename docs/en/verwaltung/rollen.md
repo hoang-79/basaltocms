@@ -13,7 +13,7 @@ On the left are the roles — for each, how many people have it, which modes it 
 1. **Name** and **description** (optional) — the description appears below the role when inviting.
 2. **Languages**: **all**, **all except the source language** or a **selection**. Below it says in which languages the role may edit content. Creating, deleting and moving pages and changing their settings requires the source language.
 3. **The matrix** — a level per area, grouped into Content, Setup and Administration. **“all to”** sets a whole group to “none”, “view” or “edit”. Areas from modules carry “Module”.
-4. **Preview** at the bottom — what the role sees and how many people have it. **“Save”** applies the change; it takes effect from the next request. Rights never change on the side.
+4. **Preview** at the bottom — what the role sees and how many people have it. Every change saves itself and takes effect from the next request; it is recorded in the [log](protokoll.md).
 
 | Level | Means |
 | --- | --- |

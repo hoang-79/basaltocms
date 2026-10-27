@@ -3,6 +3,8 @@ import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import { computed, onMounted, ref, watch } from 'vue';
 import BlockList from '../../components/BlockList.vue';
 import BlockPreview from '../../components/BlockPreview.vue';
+import AutosaveState from '../../components/AutosaveState.vue';
+import { useAutosaveValue } from '../../components/autosave';
 import Button from '../../components/Button.vue';
 import Card from '../../components/Card.vue';
 import EmptyState from '../../components/EmptyState.vue';
@@ -11,7 +13,7 @@ import Notice from '../../components/Notice.vue';
 import PageHeader from '../../components/PageHeader.vue';
 import { inputOf, markOf, usePreviewOpen } from '../../components/guidedFields';
 import { handleFrom, snippetSummary } from '../../components/layoutEditor';
-import { locale, tc } from '../../i18n';
+import { locale, t, tc } from '../../i18n';
 import type {
     BackendProps,
     BlockValue,
@@ -110,15 +112,40 @@ watch(
     },
 );
 
-watch([snippet, () => props.snippets], () => {
-    if (!creating.value) {
-        form.value = {
-            name: snippet.value?.name ?? '',
-            handle: snippet.value?.handle ?? '',
-            blocks: clone(snippet.value?.blocks ?? []),
-        };
+function load(): void {
+    form.value = {
+        name: snippet.value?.name ?? '',
+        handle: snippet.value?.handle ?? '',
+        blocks: clone(snippet.value?.blocks ?? []),
+    };
+    handleDraft.value = form.value.handle;
+}
+
+// Anderer Baustein gewählt: neu aufsetzen; nach dem Speichern neu geladen: nur, wenn nichts mehr wartet
+watch(
+    () => snippet.value?.id,
+    () => {
+        if (!creating.value) {
+            load();
+        }
+    },
+);
+watch(
+    () => props.snippets,
+    () => {
+        if (!creating.value && !snippetSave.busy()) {
+            load();
+        }
+    },
+);
+
+/** Die Kennung eines bestehenden Bausteins ändert sich erst mit Enter oder beim Verlassen — Seiten verweisen darauf. */
+const handleDraft = ref(form.value.handle);
+function commitHandle(): void {
+    if (form.value.handle !== handleDraft.value) {
+        form.value = { ...form.value, handle: handleDraft.value };
     }
-});
+}
 
 const dirty = computed(
     () =>
@@ -155,6 +182,28 @@ function setName(name: string): void {
                 : form.value.handle,
     };
 }
+
+// CR-013: Ein bestehender Baustein speichert selbst — er wirkt sofort auf seinen Seiten, darum nach einer längeren Pause
+const snippetSave = useAutosaveValue(
+    () => (snippet.value && !creating.value ? form.value : null),
+    {
+        target: () =>
+            snippet.value && !creating.value && props.can_edit
+                ? {
+                      method: 'put',
+                      url: `${props.urls.store}/${snippet.value.id}`,
+                  }
+                : null,
+        only: ['snippets'],
+        dirty: () => !creating.value && dirty.value,
+        enabled: () =>
+            form.value.name.trim() !== '' && form.value.handle.trim() !== '',
+        label: () => t('Baustein «:name»', { name: form.value.name }),
+        onSaved: () => {
+            current.value = form.value.handle;
+        },
+    },
+);
 
 function save(): void {
     const options = {
@@ -385,6 +434,16 @@ function date(value: string): string {
                     >
                         {{ $t('Kennung') }}
                         <input
+                            v-if="snippet && !creating"
+                            v-model="handleDraft"
+                            :disabled="!can_edit"
+                            class="mt-1 block w-full rounded-md border border-ash px-2 py-1 font-mono text-[13px] normal-case"
+                            @blur="commitHandle"
+                            @keydown.enter.prevent="commitHandle"
+                            @keydown.esc="handleDraft = form.handle"
+                        />
+                        <input
+                            v-else
                             v-model="form.handle"
                             :disabled="!can_edit"
                             class="mt-1 block w-full rounded-md border border-ash px-2 py-1 font-mono text-[13px] normal-case"
@@ -456,11 +515,23 @@ function date(value: string): string {
                         @click="previewOpen = true"
                         >{{ $t('Live-Vorschau') }}</Button
                     >
+                    <AutosaveState
+                        v-if="snippet && !creating"
+                        :status="snippetSave.status.value"
+                        :blocked="
+                            !form.name || !form.handle
+                                ? $t(
+                                      'Nicht gespeichert — Name und Kennung fehlen.',
+                                  )
+                                : ''
+                        "
+                    />
                     <Button
+                        v-else
                         size="sm"
                         :disabled="!dirty || !form.name || !form.handle"
                         @click="save"
-                        >{{ $t('Speichern') }}</Button
+                        >{{ $t('Anlegen') }}</Button
                     >
                 </div>
                 <div

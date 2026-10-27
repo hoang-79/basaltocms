@@ -16,7 +16,7 @@ Ein mitgeliefertes Theme liegt im Ordner `themes/` der Installation. Diesen Ordn
 
 ## Entwürfe
 
-Jedes **«Als Entwurf speichern»** — in den Layouts, bei den Bildvarianten oder im Theme-Editor — legt einen Entwurf an. Basalto prüft dabei das ganze Theme: Hat es einen Fehler, wird **nichts gespeichert** («ein Theme mit Fehler geht nie live»), und der Code zeigt die Stelle.
+Jede Änderung — in den Layouts, bei den Bildvarianten oder im Theme-Editor — speichert sich nach einer kurzen Pause selbst in einen Entwurf. Basalto prüft dabei das ganze Theme: Hat es einen Fehler, wird **nichts gespeichert** («ein Theme mit Fehler geht nie live»), und der Code zeigt die Stelle.
 
 Was die Entwürfe bewirken, zeigt die **Vorschau mit Entwürfen** — in den Layouts und im Theme-Editor, für einen Pfad Ihrer Wahl. **«Ganze Site mit den Entwürfen durchsehen»** schaltet die Vorschau für Ihre Sitzung auf die ganze Website; Besucher sehen weiter die live Fassung.
 

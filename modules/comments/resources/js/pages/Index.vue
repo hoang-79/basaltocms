@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Head, router, useForm, usePage } from '@inertiajs/vue3';
+import { useDraft } from '@core/components/autosave';
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
 import { t, tc } from '@core/i18n';
 import Button from '@core/components/Button.vue';
@@ -166,11 +167,18 @@ function remove(row: CommentRow): void {
 
 const replying = ref<number | null>(null);
 const reply = useForm({ body: '', approve: false });
+// CR-013: Die Antwort erscheint mit dem Knopf; bis dahin bleibt sie je Kommentar als Entwurf im Browser
+const replyDraft = useDraft(
+    reply,
+    () => `kommentar.antwort.${replying.value ?? 0}`,
+    ['body'],
+);
 
 function openReply(row: CommentRow): void {
     replying.value = row.id;
     reply.reset();
     reply.clearErrors();
+    replyDraft.reload();
 }
 
 function sendReply(row: CommentRow, approve: boolean): void {
@@ -180,6 +188,7 @@ function sendReply(row: CommentRow, approve: boolean): void {
         onSuccess: () => {
             replying.value = null;
             reply.reset();
+            replyDraft.clear();
         },
     });
 }

@@ -2,6 +2,7 @@
 import { Head, router, useForm, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import AccountFrame from '../../../components/AccountFrame.vue';
+import { useAutosave } from '../../../components/autosave';
 import Button from '../../../components/Button.vue';
 import Card from '../../../components/Card.vue';
 import CountrySelect from '../../../components/CountrySelect.vue';
@@ -146,9 +147,36 @@ function openPortal(): void {
     router.post(props.urls.portal);
 }
 
-function saveAddress(): void {
-    addressForm.post(props.urls.address, { preserveScroll: true });
-}
+/**
+ * CR-013: Die Rechnungsadresse speichert selbst — nur im laufenden Abo (vorher gehört sie zur Wahl des Plans) und
+ * erst, wenn Strasse, PLZ, Ort, Land und Name oder Firma stehen; E-Mail und UID beim Verlassen.
+ */
+const addressSave = useAutosave(addressForm, {
+    url: props.urls.address,
+    method: 'post',
+    onLeave: ['email', 'vat_id'],
+    labels: {
+        company: t('Firma'),
+        name: t('Name'),
+        street: t('Strasse und Nr.'),
+        postal_code: t('PLZ'),
+        city: t('Ort'),
+        country: t('Land'),
+        email: t('E-Mail für Rechnungen'),
+        vat_id: t('UID / MwSt.-Nummer'),
+    },
+    enabled: () =>
+        props.subscription.active &&
+        props.account.can_bill &&
+        [
+            addressForm.street,
+            addressForm.postal_code,
+            addressForm.city,
+            addressForm.country,
+        ].every((v) => (v ?? '').trim() !== '') &&
+        ((addressForm.name ?? '').trim() !== '' ||
+            (addressForm.company ?? '').trim() !== ''),
+});
 
 function saveExtras(): void {
     extrasForm
@@ -800,7 +828,7 @@ function statusLabel(row: AccountInvoiceRow): string {
                     </form>
                 </Card>
                 <Card :title="$t('Rechnungsadresse')">
-                    <form novalidate @submit.prevent="saveAddress">
+                    <form novalidate @submit.prevent="addressSave.flush()">
                         <div class="grid gap-x-4 sm:grid-cols-2">
                             <Field
                                 v-model="addressForm.company"
@@ -808,12 +836,14 @@ function statusLabel(row: AccountInvoiceRow): string {
                                 optional
                                 autocomplete="organization"
                                 :error="addressForm.errors.company"
+                                :saved="addressSave.saved('company')"
                             />
                             <Field
                                 v-model="addressForm.name"
                                 :label="$t('Name')"
                                 autocomplete="name"
                                 :error="addressForm.errors.name"
+                                :saved="addressSave.saved('name')"
                                 class="sm:mt-0!"
                             />
                             <Field
@@ -822,6 +852,7 @@ function statusLabel(row: AccountInvoiceRow): string {
                                 required
                                 autocomplete="street-address"
                                 :error="addressForm.errors.street"
+                                :saved="addressSave.saved('street')"
                             />
                             <div class="grid grid-cols-[110px_1fr] gap-x-3">
                                 <Field
@@ -830,6 +861,7 @@ function statusLabel(row: AccountInvoiceRow): string {
                                     required
                                     autocomplete="postal-code"
                                     :error="addressForm.errors.postal_code"
+                                    :saved="addressSave.saved('postal_code')"
                                     class="mt-2.5!"
                                 />
                                 <Field
@@ -838,6 +870,7 @@ function statusLabel(row: AccountInvoiceRow): string {
                                     required
                                     autocomplete="address-level2"
                                     :error="addressForm.errors.city"
+                                    :saved="addressSave.saved('city')"
                                     class="mt-2.5!"
                                 />
                             </div>
@@ -861,23 +894,30 @@ function statusLabel(row: AccountInvoiceRow): string {
                                 optional
                                 autocomplete="email"
                                 :error="addressForm.errors.email"
+                                :saved="addressSave.saved('email')"
+                                :waiting="addressSave.waiting('email')"
+                                v-bind="addressSave.leave('email')"
                             />
                             <Field
                                 v-model="addressForm.vat_id"
                                 :label="$t('UID / MwSt.-Nummer')"
                                 optional
                                 :error="addressForm.errors.vat_id"
+                                :saved="addressSave.saved('vat_id')"
+                                :waiting="addressSave.waiting('vat_id')"
+                                v-bind="addressSave.leave('vat_id')"
                             />
                         </div>
-                        <div class="mt-3">
-                            <Button
-                                type="submit"
-                                size="sm"
-                                variant="secondary"
-                                :disabled="addressForm.processing"
-                                >{{ $t('Adresse speichern') }}</Button
-                            >
-                        </div>
+                        <p
+                            v-if="addressSave.status.value === 'pending'"
+                            class="mt-3 text-[12px] text-basalt-light"
+                        >
+                            {{
+                                $t(
+                                    'Noch nicht gespeichert — es fehlen Strasse, PLZ, Ort, Land oder Name.',
+                                )
+                            }}
+                        </p>
                     </form>
                 </Card>
             </div>

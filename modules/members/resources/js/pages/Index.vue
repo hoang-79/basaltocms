@@ -2,6 +2,8 @@
 import { Head, router, useForm, usePage } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, ref, watch } from 'vue';
 import { t, tc } from '@core/i18n';
+import AutosaveState from '@core/components/AutosaveState.vue';
+import { useAutosave } from '@core/components/autosave';
 import Button from '@core/components/Button.vue';
 import Card from '@core/components/Card.vue';
 import { controlClasses, labelClasses } from '@core/components/control';
@@ -181,9 +183,16 @@ const settings = useForm({
     registration: props.settings.registration,
     login_path: props.settings.login_path,
 });
-function saveSettings(): void {
-    settings.post(props.urls.settings, { preserveScroll: true });
-}
+// CR-013: speichert selbst — die Art sofort, die Anmeldeseite beim Verlassen (ein halber Pfad wäre gleich aktiv)
+const settingsSave = useAutosave(settings, {
+    url: props.urls.settings,
+    method: 'post',
+    onLeave: ['login_path'],
+    labels: {
+        registration: t('Wie man Mitglied wird'),
+        login_path: t('Anmeldeseite'),
+    },
+});
 
 const registrationHelp: Record<string, string> = {
     open: t(
@@ -647,7 +656,7 @@ const checkbox = 'h-4 w-4 accent-lava-dark';
         </Card>
 
         <Card v-if="can.manage" :title="$t('Einstellungen')">
-            <form class="mt-2" @submit.prevent="saveSettings">
+            <form class="mt-2" @submit.prevent="settingsSave.flush()">
                 <fieldset>
                     <legend :class="labelClasses">
                         {{ $t('Wie man Mitglied wird') }}
@@ -687,6 +696,9 @@ const checkbox = 'h-4 w-4 accent-lava-dark';
                     optional
                     :placeholder="props.settings.login_default"
                     :error="settings.errors.login_path"
+                    :saved="settingsSave.saved('login_path')"
+                    :waiting="settingsSave.waiting('login_path')"
+                    v-bind="settingsSave.leave('login_path')"
                     :help="
                         $t(
                             'Pfad für «Anmelden» im Seitenkopf und in den Mails · leer = :path (die Anmeldeseite im Layout des Themes)',
@@ -694,13 +706,10 @@ const checkbox = 'h-4 w-4 accent-lava-dark';
                         )
                     "
                 />
-                <Button
-                    type="submit"
-                    size="sm"
+                <AutosaveState
                     class="mt-2"
-                    :disabled="settings.processing"
-                    >{{ $t('Speichern') }}</Button
-                >
+                    :status="settingsSave.status.value"
+                />
             </form>
         </Card>
 

@@ -59,6 +59,22 @@ Ici, vous gérez l’installation : **Sites** avec leurs langues et domaines, **
 **Paramètres**, **Mises à jour**, **Licence**, **Exploitation** et le **Journal** de toutes les modifications. Plus
 d’informations sous [Administration](../verwaltung/README.md).
 
+## Enregistrer
+
+Ce que vous modifiez s’enregistre de lui-même — il n’y a pas de bouton « Enregistrer ». En bas à droite s’affiche
+brièvement « … enregistré », avec une coche au champ ; une erreur reste affichée jusqu’à ce qu’elle soit corrigée. Un
+champ refusé ne retient pas les autres.
+
+- **Immédiatement :** interrupteurs, sélections, options et dates.
+- **Après une courte pause :** texte et nombres, au plus tard en quittant le champ.
+- **En quittant le champ ou avec Entrée :** identifiants, adresses, clés et prix — une valeur à moitié saisie
+  s’appliquerait aussitôt. Tant qu’il attend, le champ indique « Entrée ou quitter le champ enregistre » ; **Échap**
+  annule la modification.
+
+Un bouton reste là où quelque chose de nouveau est créé (**« Créer »**) ou une étape est délibérée : soumettre,
+valider, envoyer, payer, supprimer. Le texte de ces formulaires est conservé comme brouillon dans le navigateur
+jusqu’à son envoi.
+
 ## L’aide
 
 ![L’aide sous forme de barre sur le bord droit, à côté de l’arborescence](bilder/rundgang-hilfe.webp)

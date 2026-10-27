@@ -812,5 +812,6 @@
     "Zustimmen": "Agree",
     "Vorschläge aus dem Forum": "Suggestions from the forum",
     "Alle :count Treffer anzeigen": "Show all :count results",
-    "Keine Treffer — zur ausführlichen Suche": "No results — go to the full search"
+    "Keine Treffer — zur ausführlichen Suche": "No results — go to the full search",
+    "Noch nicht gespeichert — jede Zeile braucht Schlüssel und Beschriftung.": "Not saved yet — every row needs a key and a label."
 }

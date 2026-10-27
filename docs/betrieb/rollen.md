@@ -48,7 +48,7 @@ Besitzer und Verwaltung eines SaaS-Kontos dürfen auf allen Sites des Kontos all
 **Neue Rolle** legt eine leere Rolle an (darf nichts) oder eine Kopie einer bestehenden («Ausgehend von» bzw.
 **Kopieren**). In der Matrix wählen Sie je Bereich die Stufe; «alle auf» setzt eine ganze Gruppe auf einmal. Unten
 zeigt die Vorschau, was die Rolle sieht («Inhalte · Einrichtung · Verwaltung»), und wie viele Personen sie haben.
-Gespeichert wird mit **Speichern** — Rechte ändern sich nicht nebenbei. Die Änderung gilt ab der nächsten Anfrage.
+Jede Änderung speichert sich selbst (eine Folge davon ist eine Zeile im Protokoll) und gilt ab der nächsten Anfrage.
 
 Vergeben wird eine Rolle wie bisher unter **Benutzer** (Auswahl in der Liste oder beim Einladen). Eine eigene Rolle
 lässt sich **löschen**, solange niemand sie hat und keine offene Einladung auf sie lautet.

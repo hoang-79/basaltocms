@@ -542,6 +542,12 @@ export function enhanceEditor(area: HTMLTextAreaElement): Editor | null {
     }
 
     // ── Entwurf ─────────────────────────────────────────────
+    // CR-013: Beim Bearbeiten (Text oder Dokument schon da) gilt ein Entwurf nur für dieselbe Ausgangsfassung — ändert
+    // sich der Beitrag inzwischen, bleibt der alte Entwurf liegen statt die neue Fassung zu überschreiben
+    const draftBase =
+        initial !== '' || startDoc !== null
+            ? hashText(JSON.stringify(startDoc) + initial)
+            : null;
     let draftTimer: number | undefined;
     function saveDraft(current: Editor): void {
         if (draftKey === null) {
@@ -558,6 +564,7 @@ export function enhanceEditor(area: HTMLTextAreaElement): Editor | null {
                         JSON.stringify({
                             at: Date.now(),
                             doc: current.getJSON(),
+                            base: draftBase,
                         }),
                     );
                 }
@@ -566,15 +573,17 @@ export function enhanceEditor(area: HTMLTextAreaElement): Editor | null {
             }
         }, 800);
     }
-    if (draftKey !== null && initial === '' && startDoc === null) {
-        const stored = readJson<{ at?: number; doc?: JSONContent } | null>(
-            localStorage.getItem(draftKey) ?? '',
-            null,
-        );
+    if (draftKey !== null) {
+        const stored = readJson<{
+            at?: number;
+            doc?: JSONContent;
+            base?: string | null;
+        } | null>(localStorage.getItem(draftKey) ?? '', null);
         if (
             stored?.doc &&
             typeof stored.at === 'number' &&
-            Date.now() - stored.at < DRAFT_DAYS * 86400000
+            Date.now() - stored.at < DRAFT_DAYS * 86400000 &&
+            (stored.base ?? null) === draftBase
         ) {
             editor.commands.setContent(stored.doc);
             sync(editor);
@@ -709,4 +718,14 @@ function quotes(
     update();
 
     return { count: () => remembered().length, insert: () => void insertAll() };
+}
+
+/** Kurzer Fingerabdruck eines Texts (djb2) — für die Ausgangsfassung eines Entwurfs, nicht für Sicherheit. */
+function hashText(text: string): string {
+    let hash = 5381;
+    for (let i = 0; i < text.length; i++) {
+        hash = ((hash << 5) + hash + text.charCodeAt(i)) | 0;
+    }
+
+    return (hash >>> 0).toString(36);
 }

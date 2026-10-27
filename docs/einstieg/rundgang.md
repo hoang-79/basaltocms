@@ -57,6 +57,20 @@ Hier betreuen Sie die Installation: **Sites** mit Sprachen und Domains, **Module
 **Einstellungen**, **Updates**, **Lizenz**, **Betrieb** und das **Protokoll** aller Änderungen. Mehr unter
 [Verwaltung](../verwaltung/README.md).
 
+## Speichern
+
+Was Sie ändern, speichert sich selbst — einen Knopf «Speichern» gibt es nicht. Unten rechts erscheint kurz «… gespeichert»,
+am Feld ein Häkchen; ein Fehler bleibt stehen, bis er behoben ist. Ein abgelehntes Feld hält die übrigen nicht auf.
+
+- **Sofort:** Schalter, Auswahlen, Optionen und Daten.
+- **Nach einer kurzen Pause:** Text und Zahlen, spätestens beim Verlassen des Felds.
+- **Beim Verlassen des Felds oder mit Enter:** Kennungen, Adressen, Schlüssel und Preise — ein halber Wert würde
+  sofort wirken. Solange es wartet, steht am Feld «Enter oder Feld verlassen speichert»; **Esc** nimmt die Änderung
+  zurück.
+
+Einen Knopf gibt es weiter, wo etwas Neues entsteht (**«Anlegen»**) oder ein Schritt bewusst ist: Einreichen, Freigeben,
+Senden, Bezahlen, Löschen. Text in solchen Formularen hält Basalto als Entwurf im Browser, bis er gesendet ist.
+
 ## Die Hilfe
 
 ![Die Hilfe als Leiste am rechten Rand, neben dem Seitenbaum](bilder/rundgang-hilfe.webp)

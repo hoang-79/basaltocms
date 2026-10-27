@@ -102,7 +102,11 @@ final class NodeController
         $model->fill($data)->save();
         $this->changed($site, 'forum.node_updated', $model, $before);
 
-        app(ForumSearch::class)->rebuild($site);
+        // CR-013: Der Suchindex trägt Ort und Namen des Forums — neu bauen nur, wenn sich davon etwas geändert hat
+        // (der Dialog speichert selbst, und eine Beschreibung oder ein Präfix brauchen keinen neuen Index)
+        if ($model->wasChanged(['parent_id', 'slug', 'title', 'type'])) {
+            app(ForumSearch::class)->rebuild($site);
+        }
 
         return back()->with('status', __('Gespeichert.'));
     }

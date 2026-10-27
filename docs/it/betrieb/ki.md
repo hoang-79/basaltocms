@@ -33,7 +33,7 @@ Ciò vale allo stesso modo per le installazioni proprie e per la SaaS.
      disattivata.
    - **Modello** — vuoto significa: il valore predefinito dell’SDK per questo fornitore (compare come segnaposto nel
      campo). Un modello proprio (ad esempio uno più economico) lo inserisca con il nome che ha presso il fornitore.
-   - Incollare e salvare la **Chiave** (API key). Lasciare vuoto mantiene quella attuale; «Rimuovi chiave» disattiva tutti
+   - Incollare la **Chiave** (API key) — si salva con Invio o uscendo dal campo. Lasciare vuoto mantiene quella attuale; «Rimuovi chiave» disattiva tutti
      i pulsanti IA del sito.
    - **Limite giornaliero** (suggerimenti al giorno per l’intero sito, predefinito 100) e **Tetto di spesa** (token al
      mese, vuoto = nessuno). Vale inoltre in modo fisso: al massimo dieci suggerimenti per persona al minuto.

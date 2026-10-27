@@ -29,9 +29,9 @@ Modalità «Configurazione» › «Di che cosa sono fatte le pagine?» › **«G
 1. **«+ Blocco riutilizzabile»**, poi **Nome** (per esempio «Barra di contatto»). L’**ID** ne deriva; si può adattare (lettere minuscole, cifre, trattino). Se lascia vuoto il nome, prende il primo titolo che scrive nel primo blocco.
 2. Aggiungere blocchi — con la tavolozza dei blocchi come nell’editor di una pagina, con gli stessi campi, ↑ ↓, duplicare e rimuovere. Il modulo mostra prima l’essenziale, un aiuto a ogni campo e sotto «Altre possibilità» le impostazioni di dettaglio ([I campi di un blocco](../redaktion/bloecke.md#i-campi-di-un-blocco)).
 3. In basso a destra la finestra **«Anteprima dal vivo»** mostra il blocco riutilizzabile con il tema del Suo sito, aggiornato a ogni inserimento — il campo in cui scrive vi si illumina, e un clic nell’anteprima salta al campo ([Anteprima dal vivo](../redaktion/bloecke.md#anteprima-dal-vivo-in-una-finestra)).
-4. **«Salva»**. Il blocco riutilizzabile compare nell’editor di ogni pagina sotto **«+ Blocco riutilizzabile»**.
+4. **«Crea»**. Il blocco riutilizzabile compare nell’editor di ogni pagina sotto **«+ Blocco riutilizzabile»**. In seguito le modifiche si salvano da sole; l’identificativo cambia solo con Invio o uscendo dal campo — le pagine vi rimandano.
 
-**Attenzione:** un blocco riutilizzabile non ha versioni. Una modifica vale dopo il salvataggio **subito su tutte le pagine** che lo contengono — senza invio per approvazione né approvazione. La modifica compare nel registro.
+**Attenzione:** un blocco riutilizzabile non ha versioni. Una modifica vale dopo il salvataggio (una breve pausa dopo la digitazione) **subito su tutte le pagine** che lo contengono — senza invio per approvazione né approvazione. La modifica compare nel registro.
 
 Un blocco riutilizzabile non contiene blocchi riutilizzabili — nella tavolozza manca lì il gruppo «Riutilizzabili».
 

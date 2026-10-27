@@ -29,9 +29,22 @@ final class Recorder
         $request = app()->bound('request') ? app('request') : null;
         $user ??= $request instanceof Request ? $request->user() : null;
         $ip = $request instanceof Request ? $request->ip() : null;
+        $siteId = ($site ?? $this->current->get())?->id;
+        // CR-013: eine Folge von Autosaves derselben Person am selben Gegenstand ist eine Zeile — im Kundenkonto (ohne
+        // Benutzer des Backends) zählt der Gegenstand allein, etwa das eigene Kundenkonto
+        if (AutosaveRequest::current() && ($user !== null || $subject !== null)) {
+            $recent = $this->recent($action, $subject, $siteId, $user === null ? null : (int) $user->getAuthIdentifier());
+            if ($recent !== null) {
+                $recent->after = $after;
+                $recent->created_at = CarbonImmutable::now();
+                $recent->save();
+
+                return $recent;
+            }
+        }
 
         return Activity::query()->create([
-            'site_id' => ($site ?? $this->current->get())?->id,
+            'site_id' => $siteId,
             'user_id' => $user === null ? null : (int) $user->getAuthIdentifier(),
             'subject_type' => $subject?->getMorphClass(),
             'subject_id' => $subject === null ? null : (int) $subject->getKey(),
@@ -41,5 +54,19 @@ final class Recorder
             'ip_hash' => $ip === null ? null : hash('sha256', $ip.'|'.(string) config('app.key')),
             'created_at' => CarbonImmutable::now(),
         ]);
+    }
+
+    private function recent(string $action, ?Model $subject, ?int $siteId, ?int $userId): ?Activity
+    {
+        $query = Activity::query()->where('action', $action)->where('created_at', '>=', AutosaveRequest::since());
+        $userId === null ? $query->whereNull('user_id') : $query->where('user_id', $userId);
+        $siteId === null ? $query->whereNull('site_id') : $query->where('site_id', $siteId);
+        if ($subject === null) {
+            $query->whereNull('subject_type')->whereNull('subject_id');
+        } else {
+            $query->where('subject_type', $subject->getMorphClass())->where('subject_id', (int) $subject->getKey());
+        }
+
+        return $query->latest('id')->first();
     }
 }

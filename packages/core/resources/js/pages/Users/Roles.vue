@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head, router, useForm, usePage } from '@inertiajs/vue3';
-import { computed, nextTick, reactive, ref, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
+import { useAutosave } from '../../components/autosave';
 import Button from '../../components/Button.vue';
 import { controlClasses, labelClasses } from '../../components/control';
 import Field from '../../components/Field.vue';
@@ -24,8 +25,8 @@ import type {
 /**
  * Rollen-Editor (CR-005, R-08): links die Rollen mit Zahl der Personen und Vorschau «sieht», rechts die gewählte
  * Rolle — Matrix Bereich × Stufe (keine · ansehen · bearbeiten · löschen · alles) und Sprachen. Stufen sind echte
- * Optionsfelder (Pfeiltasten wechseln), die Reihe bricht mobil um statt zu scrollen. Gespeichert wird bewusst mit
- * «Speichern»: Rechte ändern sich nicht nebenbei.
+ * Optionsfelder (Pfeiltasten wechseln), die Reihe bricht mobil um statt zu scrollen. Seit CR-013 speichert die Rolle
+ * selbst (TB 17 hatte bewusst «Speichern»): Jede Änderung steht im Protokoll, die Vorschau «sieht …» zeigt die Wirkung.
  */
 const props = defineProps<RolesPageProps>();
 
@@ -82,15 +83,39 @@ function draftOf(role: AdminRole | null): Draft {
     };
 }
 
-const draft = reactive<Draft>(draftOf(selected.value));
-const saving = ref(false);
-
-// Neue Auswahl oder frische Daten vom Server: Entwurf neu aufsetzen
-watch(selected, (role) => Object.assign(draft, draftOf(role)));
+const draft = useForm<Draft>(draftOf(selected.value));
 
 const editable = computed(
     () => props.can_manage && selected.value !== null && !selected.value.locked,
 );
+
+const autosave = useAutosave(draft, {
+    url: () => selected.value?.urls.update ?? '',
+    keepRejected: true,
+    only: ['errors', 'roles'],
+    labels: {
+        name: t('Name'),
+        description: t('Beschreibung'),
+        levels: t('Rechte'),
+        languages: t('Sprachen'),
+    },
+    enabled: () => editable.value,
+});
+
+/** Entwurf auf den Stand des Servers setzen (andere Rolle gewählt, zurückgesetzt). */
+function load(role: AdminRole | null): void {
+    const next = draftOf(role);
+    draft.name = next.name;
+    draft.description = next.description;
+    draft.levels = next.levels;
+    draft.languages = next.languages;
+    draft.defaults(next);
+    draft.clearErrors();
+    autosave.rebase();
+}
+
+// Neue Auswahl: Entwurf neu aufsetzen — nicht bei jedem Neuladen derselben Rolle (das überschriebe das Tippen)
+watch(selectedKey, () => load(selected.value));
 const dirty = computed(
     () =>
         selected.value !== null && roleChanged(draft, draftOf(selected.value)),
@@ -99,10 +124,12 @@ const draftLocales = computed(() =>
     editableLocales(draft.languages, props.locales),
 );
 
-function choose(role: AdminRole): void {
+async function choose(role: AdminRole): Promise<void> {
+    // Was noch wartet, geht vor dem Wechsel raus; nur was der Server ablehnt, wäre verloren
     if (
         dirty.value &&
-        !window.confirm(t('Ungespeicherte Änderungen verwerfen?'))
+        !(await autosave.flush()) &&
+        !window.confirm(t('Nicht gespeicherte Änderungen verwerfen?'))
     ) {
         return;
     }
@@ -121,28 +148,6 @@ async function reveal(): Promise<void> {
     }
 }
 
-function save(): void {
-    if (selected.value === null) {
-        return;
-    }
-    saving.value = true;
-    router.put(
-        selected.value.urls.update,
-        {
-            name: draft.name,
-            description: draft.description,
-            levels: draft.levels,
-            languages: draft.languages,
-        },
-        {
-            preserveScroll: true,
-            onFinish: () => {
-                saving.value = false;
-            },
-        },
-    );
-}
-
 function reset(): void {
     const role = selected.value;
     if (
@@ -151,7 +156,11 @@ function reset(): void {
             t('«:name» auf die Vorlage zurücksetzen?', { name: role.name }),
         )
     ) {
-        router.post(role.urls.reset, {}, { preserveScroll: true });
+        router.post(
+            role.urls.reset,
+            {},
+            { preserveScroll: true, onSuccess: () => load(selected.value) },
+        );
     }
 }
 
@@ -423,7 +432,7 @@ const selectClass = controlClasses({ small: true });
             <form
                 class="flex flex-col gap-4 px-3.5 py-3"
                 novalidate
-                @submit.prevent="save"
+                @submit.prevent="autosave.flush()"
             >
                 <div v-if="editable" class="grid gap-3">
                     <Field
@@ -432,6 +441,7 @@ const selectClass = controlClasses({ small: true });
                         required
                         :maxlength="120"
                         :error="errors.name"
+                        :saved="autosave.saved('name')"
                     />
                     <Field
                         v-model="draft.description"
@@ -441,6 +451,7 @@ const selectClass = controlClasses({ small: true });
                         optional
                         :maxlength="500"
                         :error="errors.description"
+                        :saved="autosave.saved('description')"
                     />
                 </div>
 
@@ -614,12 +625,6 @@ const selectClass = controlClasses({ small: true });
                             )
                         }}
                     </p>
-                    <Button
-                        v-if="editable"
-                        type="submit"
-                        :disabled="!dirty || saving"
-                        >{{ $t('Speichern') }}</Button
-                    >
                 </div>
             </form>
         </section>

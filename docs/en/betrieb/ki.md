@@ -31,7 +31,7 @@ It applies to your own installations and the SaaS alike.
      OpenRouter. Alt texts need a provider that reads images; with DeepSeek and Groq the function is off.
    - **Model** — empty means the SDK default for this provider (shown as placeholder). Enter your own model (for
      example a cheaper one) with its name at the provider.
-   - Paste the **key** (API key) and save. Leaving it empty keeps the current one; “Remove key” switches off all AI
+   - Paste the **key** (API key) — it saves itself with Enter or when you leave the field. Leaving it empty keeps the current one; “Remove key” switches off all AI
      buttons of the site.
    - **Daily limit** (suggestions per day for the whole site, default 100) and **cost cap** (tokens per month, empty =
      none). In addition, a fixed limit applies: at most ten suggestions per person and minute.

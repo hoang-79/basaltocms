@@ -16,7 +16,7 @@ Un thème fourni se trouve dans le dossier `themes/` de l’installation. Basalt
 
 ## Brouillons
 
-Chaque **« Enregistrer comme brouillon »** — dans les mises en page, pour les variantes d’image ou dans l’éditeur de thème — crée un brouillon. Basalto vérifie alors tout le thème : s’il contient une erreur, **rien n’est enregistré** (« un thème avec des erreurs ne passe jamais en ligne »), et le code montre l’endroit.
+Chaque modification — dans les mises en page, pour les variantes d’image ou dans l’éditeur de thème — s’enregistre d’elle-même dans un brouillon après une courte pause. Basalto vérifie alors tout le thème : s’il contient une erreur, **rien n’est enregistré** (« un thème avec des erreurs ne passe jamais en ligne »), et le code montre l’endroit.
 
 L’effet des brouillons se voit dans l’**aperçu avec brouillons** — dans les mises en page et dans l’éditeur de thème, pour le chemin de votre choix. **« Parcourir tout le site avec les brouillons »** étend l’aperçu à tout le site web pour votre session ; les visiteurs continuent de voir la version en ligne.
 

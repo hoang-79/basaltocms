@@ -37,7 +37,7 @@ Cela vaut de la même manière pour les installations propres et pour le SaaS.
    - **Modèle** — vide signifie : la valeur par défaut du SDK pour ce fournisseur (affichée comme espace réservé dans le
      champ). Vous saisissez un modèle de votre choix (par exemple un modèle moins cher) sous le nom qu’il porte chez le
      fournisseur.
-   - Coller la **Clé** (clé d’API) et enregistrer. Laisser vide conserve la clé actuelle ; « Retirer la clé » désactive
+   - Coller la **Clé** (clé d’API) — elle s’enregistre avec Entrée ou en quittant le champ. Laisser vide conserve la clé actuelle ; « Retirer la clé » désactive
      tous les boutons IA du site.
    - **Limite journalière** (suggestions par jour pour tout le site, 100 par défaut) et **Plafond de coûts** (jetons
      par mois, vide = sans). S’y ajoute une règle fixe : au plus dix suggestions par personne et par minute.

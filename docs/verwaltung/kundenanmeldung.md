@@ -35,7 +35,7 @@ Passkeys brauchen keine Einrichtung. Wer angemeldet ist, legt im Konto unter **�
 
 1. **Verwaltung › Sites ›** Ihre Site **› Anmeldung für Kundenkonten** öffnen.
 2. Beim Anbieter eine App anlegen (Anleitungen unten) und dort die **Redirect-URL** aus Basalto eintragen — **Kopieren** übernimmt sie genau.
-3. In Basalto **Client-ID** und **Client-Secret** eintragen, **Knopf im Frontend** einschalten und **Speichern**.
+3. In Basalto **Client-ID** und **Client-Secret** eintragen und **Knopf im Frontend** einschalten — gespeichert wird von selbst, sobald beide Felder stehen (jeweils mit Enter oder beim Verlassen des Felds).
 4. **Ausprobieren:** Sie melden sich einmal echt beim Anbieter an. Danach steht oben das Ergebnis, etwa «Google hat das Konto … bestätigt». Ein Kundenkonto entsteht dabei nicht.
 
 Einrichten dürfen der Betreiber der Site sowie Besitzer und Verwaltung des Kontos. Die Knöpfe erscheinen nur, wenn auf der Site ein Modul das Kundenkonto nutzt (Forum, Mitglieder, Lizenzkauf oder Marktplatz).

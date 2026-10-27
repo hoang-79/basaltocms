@@ -35,7 +35,7 @@ Passkeys need no setup. Anyone who is signed in creates one in the account under
 
 1. Open **Administration › Sites ›** your site **› Customer account sign-in**.
 2. Create an app at the provider (instructions below) and enter the **redirect URL** from Basalto there — **Copy** takes it over exactly.
-3. In Basalto, enter the **Client ID** and **Client secret**, switch on **Button on the frontend** and **Save**.
+3. In Basalto, enter the **Client ID** and **Client secret** and switch on **Button on the frontend** — it saves itself as soon as both fields are filled in (each with Enter or when you leave the field).
 4. **Try it out:** you sign in with the provider once for real. Afterwards the result appears at the top, for example “Google confirmed the account …”. No customer account is created.
 
 The site’s operator and the account’s owner and administrators may set this up. The buttons only appear if a module on the site uses the customer account (forum, members, licence sales or marketplace).

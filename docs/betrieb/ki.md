@@ -31,7 +31,7 @@ Es gilt für eigene Installationen und die SaaS gleich.
      OpenRouter. Alt-Texte brauchen einen Anbieter, der Bilder liest; bei DeepSeek und Groq ist die Funktion aus.
    - **Modell** — leer heisst: die Vorgabe des SDK für diesen Anbieter (steht als Platzhalter im Feld). Ein eigenes
      Modell (etwa ein günstigeres) tragen Sie mit seinem Namen beim Anbieter ein.
-   - **Schlüssel** (API-Key) einfügen und speichern. Leer lassen behält den bisherigen; «Schlüssel entfernen» schaltet
+   - **Schlüssel** (API-Key) einfügen — er speichert sich mit Enter oder beim Verlassen des Felds. Leer lassen behält den bisherigen; «Schlüssel entfernen» schaltet
      alle KI-Knöpfe der Site aus.
    - **Tageslimit** (Vorschläge je Tag für die ganze Site, Vorgabe 100) und **Kostenbremse** (Tokens je Monat, leer =
      ohne). Dazu gilt fest: höchstens zehn Vorschläge je Person und Minute.

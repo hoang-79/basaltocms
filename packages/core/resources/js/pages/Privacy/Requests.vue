@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+import { useDraft } from '../../components/autosave';
 import { computed } from 'vue';
 import Button from '../../components/Button.vue';
 import EmptyState from '../../components/EmptyState.vue';
@@ -46,13 +47,23 @@ const forms = Object.fromEntries(
         .filter((item) => item.answer_url !== null)
         .map((item) => [item.id, useForm({ answer: '' })]),
 );
+// CR-013: Die Antwort geht mit dem Knopf (und einer Mail); bis dahin bleibt sie als Entwurf im Browser
+const drafts = Object.fromEntries(
+    Object.entries(forms).map(([id, form]) => [
+        id,
+        useDraft(form, () => `datenschutz.antwort.${id}`, ['answer']),
+    ]),
+);
 
 function send(item: Item): void {
     const form = forms[item.id];
     if (item.answer_url === null || form === undefined) {
         return;
     }
-    form.post(item.answer_url, { preserveScroll: true });
+    form.post(item.answer_url, {
+        preserveScroll: true,
+        onSuccess: () => drafts[item.id]?.clear(),
+    });
 }
 
 const tabClass = (active: boolean): string =>

@@ -13,7 +13,7 @@ Mode « Administration » › **Rôles** (ou, sous « Utilisateurs », le bouton
 1. **Nom** et **Description** (facultative) — la description apparaît sous le rôle lors de l’invitation.
 2. **Langues** : **toutes**, **toutes sauf la langue source** ou une **Sélection**. En dessous figure dans quelles langues le rôle peut modifier des contenus. Créer, supprimer et déplacer des pages et modifier leurs paramètres exige la langue source.
 3. **La matrice** — un niveau par domaine, selon les groupes Contenus, Configuration et Administration. **« tout sur »** règle tout un groupe sur « aucune », « voir » ou « modifier ». Les domaines venant de modules portent la mention « module ».
-4. **Aperçu** en bas — ce que le rôle voit et combien de personnes l’ont. **« Enregistrer »** applique la modification ; elle vaut dès la requête suivante. Les droits ne changent jamais en passant.
+4. **Aperçu** en bas — ce que le rôle voit et combien de personnes l’ont. Chaque modification s’enregistre d’elle-même et vaut dès la requête suivante ; elle figure dans le [journal](protokoll.md).
 
 | Niveau | Signifie |
 | --- | --- |

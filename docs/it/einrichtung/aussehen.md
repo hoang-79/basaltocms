@@ -97,7 +97,7 @@ Scheda **Varianti d’immagine** accanto a «Token». Una **variante d’immagin
 2. **Le varianti** — per riga nome, dimensioni (larghezza × altezza, «—» significa libera), modalità, densità, `sizes`, «lazy» o «eager», quante volte viene usata la variante, e «Visualizza» o «Modifica». **«+ Variante»** ne crea una nuova.
 3. **La variante scelta** in tre schede: **Dimensioni** (nome, larghezza, altezza, modalità), **Densità e sizes**, **Caricamento**. Sotto, il codice della variante.
 4. **Modalità** — come l’immagine arriva alla dimensione (vedi lo schema).
-5. **Salva** — come bozza; **«All’approvazione nell’editor del tema»** invia la modifica per approvazione.
+5. **Salvataggio** — da sé nella bozza (il nome uscendo dal campo); **«All’approvazione nell’editor del tema»** invia la modifica per approvazione.
 
 ![Proporzionale, cornice ed esatto](bilder/variante-modus.svg)
 

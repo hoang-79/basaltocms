@@ -433,7 +433,9 @@ trait CommunityPages
             $errors = Html::errors($this->r->request, 'forum');
             $html .= $this->formStart(route('basalto.community.wall.store', ['profile' => $profile->id], false), $this->t('Auf die Pinnwand schreiben'), $page, $errors, 'pinnwand-schreiben')
                 .Html::field('pinnwand-text', 'body', $this->e($this->t('Ihr Eintrag')).Html::required(),
-                    Islands::editor('pinnwand-text', 'body', '', $lang, 3, true, ['names' => route('basalto.community.names', absolute: false), 'preview' => route('basalto.community.preview', absolute: false)]), null, $errors)
+                    // CR-013: Entwurf im Browser, bis der Eintrag gesendet ist
+                    Islands::editor('pinnwand-text', 'body', '', $lang, 3, true, ['names' => route('basalto.community.names', absolute: false), 'preview' => route('basalto.community.preview', absolute: false),
+                        'draft' => 'pinnwand:'.$site->id.':'.$profile->id]), null, $errors)
                 .sprintf('<p class="form-actions"><button type="submit" class="forum-button">%s %s</button></p></form>', Markup::mini('send'), $this->e($this->t('Eintragen')));
         } elseif ($this->customer !== null && $this->customer->id !== $owner->id) {
             $html .= sprintf('<p class="forum-note">%s %s</p>', Markup::mini('lock'), $this->e($wall->mode($owner) === 'gefolgte'

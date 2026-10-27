@@ -25,7 +25,7 @@ Liegt das Theme noch im Ordner der Installation, zeigt die Seite oben «Dieses T
 4. **Die Regionen** — je Region eine Karte mit Name, Kennung und Platz («vor main»). **«freiwillig (optional)»** heisst: Bleibt die Region leer, fällt sie ganz weg. Mit ↑ und ↓ ändern Sie die Reihenfolge, ✕ entfernt die Region. Geerbte Regionen tragen «Geerbt aus …»; **«Füllung überschreiben»** gibt diesem Layout eine eigene Füllung. Eine leere Region füllt das Template — steht es dort nicht, bleibt sie leer.
 5. **Teil hinzufügen** — siehe unten. Die Teile einer Region stehen in Reihenfolge und lassen sich verschieben, aus- und einschalten und entfernen.
 6. **«+ Region»** — eine eigene Region: Name und Platz im Markup des Layouts (davor oder danach, bezogen auf eine bestehende Region). Häufige Regionen — Bühne, Seitenleiste, Hinweisband, Aufruf — setzen Name und Platz mit einem Klick. Setzt das Markup die Region schon ein, ist kein Platz nötig.
-7. **«Als Entwurf speichern»** und **«Verwerfen»**; **«Layout entfernen …»** löscht ein Layout nach einer Rückfrage. Stimmt etwas nicht, heisst es «Nichts gespeichert — ein Theme mit Fehler geht nie live», und der Code zeigt die Stelle.
+7. Änderungen **speichern sich selbst im Entwurf** — nach einer kurzen Pause, unten steht «✓ Entwurf gespeichert»; **«Layout entfernen …»** löscht ein Layout nach einer Rückfrage. Stimmt etwas nicht, heisst es «Nichts gespeichert — ein Theme mit Fehler geht nie live», und der Code zeigt die Stelle.
 8. **Vorschau mit Entwürfen** — die Website mit Ihren gespeicherten Entwürfen, für einen Pfad Ihrer Wahl («/» ist die Startseite); «im neuen Tab» öffnet sie gross.
 
 ### Was in eine Region kommt
@@ -77,7 +77,7 @@ Je Template eine Zeile: Name, für welchen Typ («für «Seite»»), in welchem 
    Markup einsetzt. «Eigene Füllung» übernimmt zuerst, was das Layout dort hat; danach ändern Sie es mit denselben
    Vorschlägen und derselben Auswahl wie im Layout («Passt oft», «+ Teil hinzufügen …»).
 4. **Vorschau mit Entwürfen** — eine Seite, die dieses Template nutzt, mit Ihren gespeicherten Entwürfen; nach
-   «Als Entwurf speichern» lädt sie neu.
+   jedem Speichern lädt sie neu.
 
 Darunter steht der **Code** — das Template als Lava. Sein Markup (das HTML des Inhalts) bleibt Code und wird im
 Theme-Editor geändert. Ein Typ kann mehrere Templates haben; welches eine Seite nutzt, wählen Sie in den Einstellungen

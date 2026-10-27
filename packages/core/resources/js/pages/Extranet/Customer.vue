@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { useDraft } from '../../components/autosave';
 import Button from '../../components/Button.vue';
 import Card from '../../components/Card.vue';
 import Field from '../../components/Field.vue';
@@ -16,11 +17,18 @@ import type { CustomerProps } from '../../types-extranet';
 const props = defineProps<CustomerProps>();
 
 const form = useForm({ email: props.customer.email, body: '' });
+// CR-013: Die Notiz entsteht mit dem Knopf; bis dahin bleibt der Text als Entwurf im Browser
+const draft = useDraft(form, () => `extranet.notiz.${props.customer.email}`, [
+    'body',
+]);
 
 function saveNote(): void {
     form.post(props.urls.note, {
         preserveScroll: true,
-        onSuccess: () => form.reset('body'),
+        onSuccess: () => {
+            form.reset('body');
+            draft.clear();
+        },
     });
 }
 </script>

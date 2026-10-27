@@ -1390,7 +1390,8 @@ final class ForumMount implements MountHandler
             $form .= $this->tagsInput(is_string($old['tags'] ?? null) ? $old['tags'] : implode(', ', array_column(Tags::of([$thread->id])[$thread->id] ?? [], 'name')), $errors);
         }
         $form .= Html::field('forum-text', 'body', $this->e($this->t('Beitrag')).Html::required(),
-            Islands::editor('forum-text', 'body', is_string($old['body'] ?? null) ? $old['body'] : RichText::toText($post->body), $lang, 10, true, $this->editorOptions(null, $old === [] ? $post->body : null)), null, $errors);
+            // CR-013: Bearbeiten speichert eine neue Fassung erst mit dem Knopf — bis dahin bleibt ein Entwurf im Browser
+            Islands::editor('forum-text', 'body', is_string($old['body'] ?? null) ? $old['body'] : RichText::toText($post->body), $lang, 10, true, $this->editorOptions('bearbeiten-'.$post->id, $old === [] ? $post->body : null)), null, $errors);
         $form .= Html::field('forum-grund', 'reason', $this->e($this->t('Grund der Änderung')),
             sprintf('<input id="forum-grund" name="reason" type="text" maxlength="200" value="%s"{aria}>', $this->e(is_string($old['reason'] ?? null) ? $old['reason'] : '')), $this->t('Freiwillig — erscheint unter dem Beitrag.'), $errors);
         $form .= $this->fileInput($errors).sprintf('<p class="form-actions"><button type="submit" class="forum-button">%s</button> <a href="%s">%s</a></p></form>',

@@ -5,6 +5,8 @@ import { t } from '@core/i18n';
 import Button from '@core/components/Button.vue';
 import { controlClasses, labelClasses } from '@core/components/control';
 import Modal from '@core/components/Modal.vue';
+import AutosaveState from '@core/components/AutosaveState.vue';
+import { useAutosave } from '@core/components/autosave';
 import Notice from '@core/components/Notice.vue';
 import PageHeader from '@core/components/PageHeader.vue';
 import StateTag from '@core/components/StateTag.vue';
@@ -71,21 +73,22 @@ function storeGroup(): void {
 /* Gruppe bearbeiten */
 const editing = ref<GroupRow | null>(null);
 const editForm = useForm({ name: '', badge: '' });
+// CR-013: Der Dialog speichert selbst; «Schliessen» wartet, bis gespeichert ist
+const editSave = useAutosave(editForm, {
+    url: () => editing.value?.update_url ?? '',
+    keepRejected: true,
+    enabled: () => editing.value !== null,
+});
 function edit(group: GroupRow): void {
     editing.value = group;
     editForm.name = group.name;
     editForm.badge = group.badge ?? '';
     editForm.clearErrors();
+    editSave.rebase();
 }
-function updateGroup(): void {
-    if (editing.value) {
-        editForm.put(editing.value.update_url, {
-            preserveScroll: true,
-            onSuccess: () => {
-                editing.value = null;
-            },
-        });
-    }
+async function closeEdit(): Promise<void> {
+    await editSave.flush();
+    editing.value = null;
 }
 function destroyGroup(group: GroupRow): void {
     if (
@@ -427,9 +430,9 @@ function removeMember(url: string): void {
         :open="editing !== null"
         :title="$t('Gruppe bearbeiten')"
         :wide="false"
-        @close="editing = null"
+        @close="closeEdit"
     >
-        <form class="flex flex-col gap-3" @submit.prevent="updateGroup">
+        <form class="flex flex-col gap-3" @submit.prevent="closeEdit">
             <label class="block">
                 <span :class="labelClasses">{{ $t('Name') }}</span>
                 <input
@@ -439,6 +442,12 @@ function removeMember(url: string): void {
                     :disabled="editing?.system"
                     :class="controlClasses({ error: !!editForm.errors.name })"
                 />
+                <span
+                    v-if="editForm.errors.name"
+                    class="text-danger mt-1 block text-[12px]"
+                    role="alert"
+                    >{{ editForm.errors.name }}</span
+                >
                 <span
                     v-if="editing?.system"
                     class="mt-1 block text-[11.5px] text-basalt-light"
@@ -454,12 +463,13 @@ function removeMember(url: string): void {
                     :class="controlClasses()"
                 />
             </label>
-            <div class="flex justify-end gap-2">
-                <Button variant="secondary" @click="editing = null">{{
-                    $t('Abbrechen')
-                }}</Button>
-                <Button type="submit" :disabled="editForm.processing">{{
-                    $t('Speichern')
+            <div class="flex flex-wrap items-center justify-end gap-2">
+                <AutosaveState
+                    class="mr-auto"
+                    :status="editSave.status.value"
+                />
+                <Button type="submit" variant="secondary">{{
+                    $t('Schliessen')
                 }}</Button>
             </div>
         </form>

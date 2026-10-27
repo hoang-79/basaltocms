@@ -11,6 +11,7 @@ use Basalto\Core\Community\Profiles;
 use Basalto\Core\Community\VisitorAccess;
 use Basalto\Core\Community\VisitorGroups;
 use Basalto\Core\Community\Wall;
+use Basalto\Core\FrontendAccounts\AutosaveResponse;
 use Basalto\Core\FrontendAccounts\CustomerAuth;
 use Basalto\Core\FrontendAccounts\Html;
 use Basalto\Core\Sites\CurrentSite;
@@ -20,6 +21,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\MessageBag;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -30,7 +32,7 @@ final class ProfileController
 {
     public function __construct(private readonly Profiles $profiles) {}
 
-    public function update(Request $request): RedirectResponse
+    public function update(Request $request): RedirectResponse|JsonResponse
     {
         $customer = CustomerAuth::current();
         abort_if($customer === null, 403);
@@ -72,7 +74,8 @@ final class ProfileController
             }
         });
         if ($validator->fails()) {
-            return redirect($back)->withErrors($validator, 'community')->withInput($request->except(['avatar', 'cover']));
+            return AutosaveResponse::wanted($request) ? AutosaveResponse::invalid($validator->errors())
+                : redirect($back)->withErrors($validator, 'community')->withInput($request->except(['avatar', 'cover']));
         }
         $profile = $this->profiles->save($customer, (string) $request->input('name'), is_string($request->input('signature')) ? (string) $request->input('signature') : null);
         $about = trim((string) $request->input('about', ''));
@@ -99,7 +102,16 @@ final class ProfileController
                 Covers::delete($profile);
             }
         } catch (RuntimeException) {
-            return redirect($back)->withErrors(['avatar' => __('Das Bild liess sich nicht lesen.', [], $lang)], 'community')->withInput($request->except(['avatar', 'cover']));
+            $unreadable = new MessageBag(['avatar' => __('Das Bild liess sich nicht lesen.', [], $lang)]);
+
+            return AutosaveResponse::wanted($request) ? AutosaveResponse::invalid($unreadable)
+                : redirect($back)->withErrors($unreadable, 'community')->withInput($request->except(['avatar', 'cover']));
+        }
+        if (AutosaveResponse::wanted($request)) {
+            // Ein neues oder entferntes Bild erscheint an mehreren Stellen — dann lädt die Seite neu
+            $pictures = ($file !== null && ! is_array($file)) || ($cover !== null && ! is_array($cover)) || $request->boolean('avatar_delete') || $request->boolean('cover_delete');
+
+            return AutosaveResponse::saved(__('Profil gespeichert.', [], $lang), reload: $pictures);
         }
 
         return redirect($back)->with('community.profile_status', __('Profil gespeichert.', [], $lang));

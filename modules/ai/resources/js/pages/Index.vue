@@ -2,6 +2,8 @@
 import { Head, router, useForm, usePage } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 import { t, tc } from '@core/i18n';
+import AutosaveState from '@core/components/AutosaveState.vue';
+import { useAutosave } from '@core/components/autosave';
 import Button from '@core/components/Button.vue';
 import Card from '@core/components/Card.vue';
 import { controlClasses, labelClasses } from '@core/components/control';
@@ -51,12 +53,21 @@ const provider = computed(() =>
     props.providers.find((p) => p.value === form.provider),
 );
 
-function save(): void {
-    form.put(props.urls.update, {
-        preserveScroll: true,
-        onSuccess: () => form.reset('api_key'),
-    });
-}
+/**
+ * CR-013: Die Einstellungen speichern selbst; der Schlüssel erst beim Verlassen (Enter) — leer heisst «bisheriger
+ * bleibt», nach dem Speichern leert sich das Feld, der Schlüssel kommt nie zurück in die Seite.
+ */
+const save = useAutosave(form, {
+    url: props.urls.update,
+    onLeave: ['api_key'],
+    only: ['errors', 'settings'],
+    onSaved: () => {
+        if (form.api_key !== '') {
+            form.api_key = '';
+            save.rebase();
+        }
+    },
+});
 
 function removeKey(): void {
     if (
@@ -153,7 +164,7 @@ const tokenField = computed({
 
         <Tabs v-model="tab" :tabs="tabs">
             <template #settings>
-                <form class="space-y-3" @submit.prevent="save">
+                <form class="space-y-3" @submit.prevent="save.flush()">
                     <Card :title="$t('Anbieter und Schlüssel')">
                         <div class="grid gap-x-4 gap-y-2.5 md:grid-cols-2">
                             <Field
@@ -218,6 +229,7 @@ const tokenField = computed({
                                         'min-w-0 flex-1 basis-60',
                                     ]"
                                     :aria-describedby="'ai-key-state'"
+                                    v-bind="save.leave('api_key')"
                                 />
                                 <span
                                     id="ai-key-state"
@@ -326,9 +338,7 @@ const tokenField = computed({
                     </Card>
 
                     <div class="flex justify-end">
-                        <Button type="submit" :disabled="form.processing">{{
-                            $t('Speichern')
-                        }}</Button>
+                        <AutosaveState :status="save.status.value" />
                     </div>
                     <p v-if="errors.ai" class="text-danger text-[12px]">
                         {{ errors.ai }}

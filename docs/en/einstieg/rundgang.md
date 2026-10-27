@@ -54,6 +54,19 @@ This is where you look after the installation: **Sites** with languages and doma
 **Roles**, **Settings**, **Updates**, **Licence**, **Operations** and the **Activity log** of all changes. More in
 [Administration](../verwaltung/README.md).
 
+## Saving
+
+What you change saves itself — there is no “Save” button. Bottom right, “… saved” appears briefly, with a tick at the
+field; an error stays until it is fixed. A rejected field does not hold up the others.
+
+- **Immediately:** switches, selections, options and dates.
+- **After a short pause:** text and numbers, at the latest when you leave the field.
+- **When you leave the field or press Enter:** identifiers, addresses, keys and prices — half a value would take
+  effect at once. While it waits, the field says “Enter or leaving the field saves”; **Esc** undoes the change.
+
+There is still a button where something new is created (**“Create”**) or a step is deliberate: submitting, approving,
+sending, paying, deleting. Text in such forms is kept as a draft in the browser until it is sent.
+
 ## The help
 
 ![The help as a panel on the right, next to the page tree](bilder/rundgang-hilfe.webp)

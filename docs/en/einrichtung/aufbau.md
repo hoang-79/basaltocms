@@ -25,7 +25,7 @@ While the theme still lies in the installation’s folder, the page says “This
 4. **The regions** — one card per region with name, identifier and position (“before main”). **“optional”** means: if the region stays empty, it is left out entirely. ↑ and ↓ change the order, ✕ removes the region. Inherited regions carry “Inherited from …”; **“Override filling”** gives this layout its own filling. An empty region is filled by the template — if it is not there either, it stays empty.
 5. **Add part** — see below. A region’s parts are in order and can be moved, switched off and on, and removed.
 6. **“+ Region”** — an own region: name and position in the layout’s markup (before or after an existing region). Common regions — hero, sidebar, notice bar, call to action — set name and position with one click. If the markup already places the region, no position is needed.
-7. **“Save as draft”** and **“Discard”**; **“Remove layout …”** deletes a layout after a confirmation. If something is wrong, it says “Nothing saved — a theme with an error never goes live”, and the code shows the spot.
+7. Changes **save themselves to the draft** — after a short pause, below it says “✓ Draft saved”; **“Remove layout …”** deletes a layout after a confirmation. If something is wrong, it says “Nothing saved — a theme with an error never goes live”, and the code shows the spot.
 8. **Preview with drafts** — the website with your saved drafts, for a path of your choice (“/” is the start page); “in a new tab” opens it large.
 
 On the right are the layout’s **code** (saved state), **“Show markup”** for the HTML, the **findings** with E (error) and W (warning) and a **schematic preview** of the regions. At the bottom, “Template per type × layout” shows which templates use this layout and how much content depends on them.
@@ -76,7 +76,7 @@ it; at the top a sentence says what a template does:
 3. **Per region: “as in the layout” or “own filling”** — all regions of the layout are listed, including those only
    the markup places. “Own filling” first takes over what the layout has there; then you change it with the same
    suggestions and the same choice as in the layout (“Often fits”, “+ Add part …”).
-4. **Preview with drafts** — a page that uses this template, with your saved drafts; it reloads after “Save as draft”.
+4. **Preview with drafts** — a page that uses this template, with your saved drafts; it reloads after every save.
 
 Below is the **code** — the template as Lava. Its markup (the content’s HTML) stays code and is changed in the theme
 editor. A type can have several templates; which one a page uses is chosen in the page’s settings, “Layout” tab (see

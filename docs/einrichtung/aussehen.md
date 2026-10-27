@@ -97,7 +97,7 @@ Reiter **Bildvarianten** neben «Tokens». Eine **Bildvariante** ist eine Gröss
 2. **Die Varianten** — je Zeile Name, Masse (Breite × Höhe, «—» heisst frei), Modus, Dichten, `sizes`, «lazy» oder «eager», wie oft die Variante verwendet wird, und «Ansehen» bzw. «Bearbeiten». **«+ Variante»** legt eine neue an.
 3. **Die gewählte Variante** in drei Reitern: **Masse** (Name, Breite, Höhe, Modus), **Dichten und sizes**, **Laden**. Darunter der Code der Variante.
 4. **Modus** — wie das Bild auf das Mass kommt (siehe Schema).
-5. **Speichern** — als Entwurf; **«Zur Freigabe im Theme-Editor»** reicht die Änderung ein.
+5. **Speichern** — von selbst in den Entwurf (der Name beim Verlassen des Felds); **«Zur Freigabe im Theme-Editor»** reicht die Änderung ein.
 
 ![Proportional, Rahmen und exakt](bilder/variante-modus.svg)
 

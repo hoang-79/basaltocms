@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import { computed, ref, watch } from 'vue';
+import AutosaveState from '../../components/AutosaveState.vue';
+import { useAutosaveValue } from '../../components/autosave';
 import Button from '../../components/Button.vue';
 import Card from '../../components/Card.vue';
 import CodeBlock from '../../components/CodeBlock.vue';
@@ -209,8 +211,11 @@ watch(layout, (l) => {
 watch(
     () => props.layouts,
     () => {
-        layoutForm.value = layout.value ? clone(layout.value.form) : null;
-        probeCode.value = null;
+        // Nicht über den Entwurf schreiben, solange noch gespeichert wird (sonst ginge Getipptes verloren)
+        if (!layoutSave.busy()) {
+            layoutForm.value = layout.value ? clone(layout.value.form) : null;
+            probeCode.value = null;
+        }
         previewKey.value++;
     },
 );
@@ -352,15 +357,20 @@ function addRegion(): void {
     newRegion.value = { name: '', where: 'after', target: '' };
 }
 
-function saveLayout(): void {
-    if (layout.value && layoutForm.value) {
-        router.put(
-            `${props.urls.layouts}/${layout.value.name}`,
-            layoutForm.value as never,
-            { preserveScroll: true },
-        );
-    }
-}
+// CR-013: Das Layout speichert selbst in den Entwurf — nach einer Pause und nur ohne Fehler beim Prüfen
+const layoutSave = useAutosaveValue(() => layoutForm.value, {
+    target: () =>
+        layout.value && editable.value
+            ? {
+                  method: 'put',
+                  url: `${props.urls.layouts}/${layout.value.name}`,
+              }
+            : null,
+    only: ['layouts'],
+    dirty: () => layoutDirty.value,
+    enabled: () => probeErrors.value.length === 0,
+    label: () => t('Layout «:name»', { name: layout.value?.name ?? '' }),
+});
 
 const newLayoutOpen = ref(false);
 const newLayout = ref({ name: '', extends: props.layouts[0]?.name ?? '' });
@@ -427,13 +437,36 @@ const partDirty = computed(() =>
         : JSON.stringify(partForm.value) !== JSON.stringify(part.value.form),
 );
 
-watch([part, () => props.parts], () => {
-    if (!creatingKind.value) {
-        partForm.value = part.value ? clone(part.value.form) : null;
+// Andere Instanz gewählt: Entwurf neu aufsetzen; nach dem Speichern neu geladen: nur, wenn nichts mehr wartet
+watch(
+    () => part.value?.name,
+    () => {
+        if (!creatingKind.value) {
+            partForm.value = part.value ? clone(part.value.form) : null;
+            partNameDraft.value = partForm.value?.name ?? '';
+        }
+        probeCode.value = null;
+        probeFindings.value = [];
+    },
+);
+watch(
+    () => props.parts,
+    () => {
+        if (!creatingKind.value && !partSave.busy()) {
+            partForm.value = part.value ? clone(part.value.form) : null;
+            partNameDraft.value = partForm.value?.name ?? '';
+            probeCode.value = null;
+        }
+    },
+);
+
+/** Die Kennung einer bestehenden Instanz ändert sich erst mit Enter oder beim Verlassen (sie benennt um). */
+const partNameDraft = ref(partForm.value?.name ?? '');
+function commitPartName(): void {
+    if (partForm.value && partForm.value.name !== partNameDraft.value) {
+        partForm.value = { ...partForm.value, name: partNameDraft.value };
     }
-    probeCode.value = null;
-    probeFindings.value = [];
-});
+}
 watch(
     partForm,
     (form) => {
@@ -548,6 +581,24 @@ function toggleListValue(key: string, value: string): void {
     );
 }
 
+// CR-013: Eine bestehende Instanz speichert selbst in den Entwurf; neu angelegt wird weiter mit «Anlegen»
+const partSave = useAutosaveValue(() => (part.value ? partForm.value : null), {
+    target: () =>
+        part.value && editable.value
+            ? { method: 'put', url: `${props.urls.parts}/${part.value.name}` }
+            : null,
+    only: ['parts'],
+    dirty: () => part.value !== null && partDirty.value,
+    enabled: () =>
+        probeErrors.value.length === 0 &&
+        partForm.value !== null &&
+        isValidName(partForm.value.name),
+    label: () => t('Teil «:name»', { name: partForm.value?.name ?? '' }),
+    onSaved: () => {
+        selectedPart.value = partForm.value?.name ?? selectedPart.value;
+    },
+});
+
 function savePart(): void {
     if (!partForm.value) {
         return;
@@ -609,7 +660,11 @@ function editTemplate(t: TemplateInfo): void {
 watch(
     () => props.templates,
     () => {
-        templateForm.value = template.value ? clone(template.value.form) : null;
+        if (!templateSave.busy()) {
+            templateForm.value = template.value
+                ? clone(template.value.form)
+                : null;
+        }
     },
 );
 
@@ -641,21 +696,27 @@ function layoutFillOf(layoutName: string, region: string): FillItem[] {
     );
 }
 
-function saveTemplate(): void {
-    if (template.value && templateForm.value) {
-        router.put(
-            (props.urls.templates ?? '').replace(
-                '__name__',
-                template.value.name,
-            ),
-            templateForm.value as never,
-            {
-                preserveScroll: true,
-                onSuccess: () => templatePreviewKey.value++,
-            },
-        );
-    }
-}
+// CR-013: Das offene Template speichert selbst in den Entwurf; danach lädt die Vorschau neu
+const templateSave = useAutosaveValue(() => templateForm.value, {
+    target: () =>
+        template.value && editable.value
+            ? {
+                  method: 'put',
+                  url: (props.urls.templates ?? '').replace(
+                      '__name__',
+                      template.value.name,
+                  ),
+              }
+            : null,
+    only: ['templates'],
+    dirty: () =>
+        template.value !== null &&
+        templateForm.value !== null &&
+        JSON.stringify(templateForm.value) !==
+            JSON.stringify(template.value.form),
+    label: () => t('Template «:name»', { name: template.value?.name ?? '' }),
+    onSaved: () => templatePreviewKey.value++,
+});
 
 /* ── TB 35: Templates geführt — Vorschau einer Seite mit dem Template, Erklärungen, Vorschlag noindex ── */
 const templatePreviewKey = ref(0);
@@ -1132,27 +1193,17 @@ const sel =
                                 @click="deleteOpen = true"
                                 >{{ $t('Layout entfernen …') }}</Button
                             >
-                            <Button
-                                variant="secondary"
-                                size="sm"
-                                :disabled="!layoutDirty"
-                                @click="
-                                    layoutForm = layout
-                                        ? JSON.parse(
-                                              JSON.stringify(layout.form),
+                            <AutosaveState
+                                :status="layoutSave.status.value"
+                                draft
+                                :blocked="
+                                    probeErrors.length > 0
+                                        ? $t(
+                                              'Nicht gespeichert — zuerst die Fehler beim Prüfen beheben.',
                                           )
-                                        : null
+                                        : ''
                                 "
-                                >{{ $t('Verwerfen') }}</Button
-                            >
-                            <Button
-                                size="sm"
-                                :disabled="
-                                    !layoutDirty || probeErrors.length > 0
-                                "
-                                @click="saveLayout"
-                                >{{ $t('Als Entwurf speichern') }}</Button
-                            >
+                            />
                         </div>
                     </Card>
                 </section>
@@ -1491,6 +1542,19 @@ const sel =
                         >
                             {{ $t('Kennung') }}
                             <input
+                                v-if="part"
+                                v-model="partNameDraft"
+                                :disabled="!editable"
+                                :class="[
+                                    sel,
+                                    'mt-1 block w-full font-mono normal-case',
+                                ]"
+                                @blur="commitPartName"
+                                @keydown.enter.prevent="commitPartName"
+                                @keydown.esc="partNameDraft = partForm.name"
+                            />
+                            <input
+                                v-else
                                 :value="partForm.name"
                                 :disabled="!editable"
                                 :class="[
@@ -1789,7 +1853,24 @@ const sel =
                             "
                             >{{ $t('Abbrechen') }}</Button
                         >
+                        <AutosaveState
+                            v-if="part"
+                            :status="partSave.status.value"
+                            draft
+                            :blocked="
+                                probeErrors.length > 0
+                                    ? $t(
+                                          'Nicht gespeichert — zuerst die Fehler beim Prüfen beheben.',
+                                      )
+                                    : !isValidName(partForm.name)
+                                      ? $t(
+                                            'Nicht gespeichert — die Kennung ist ungültig.',
+                                        )
+                                      : ''
+                            "
+                        />
                         <Button
+                            v-else
                             size="sm"
                             :disabled="
                                 !partDirty ||
@@ -1797,11 +1878,7 @@ const sel =
                                 probeErrors.length > 0
                             "
                             @click="savePart"
-                            >{{
-                                part
-                                    ? $t('Als Entwurf speichern')
-                                    : $t('Anlegen (Entwurf)')
-                            }}</Button
+                            >{{ $t('Anlegen (Entwurf)') }}</Button
                         >
                     </div>
                 </Card>
@@ -2077,19 +2154,10 @@ const sel =
                             v-if="editable"
                             class="flex justify-end gap-2 border-t border-ash-light pt-2"
                         >
-                            <Button
-                                variant="secondary"
-                                size="sm"
-                                @click="
-                                    templateForm = JSON.parse(
-                                        JSON.stringify(t.form),
-                                    )
-                                "
-                                >{{ $t('Verwerfen') }}</Button
-                            >
-                            <Button size="sm" @click="saveTemplate">{{
-                                $t('Als Entwurf speichern')
-                            }}</Button>
+                            <AutosaveState
+                                :status="templateSave.status.value"
+                                draft
+                            />
                         </div>
                     </div>
                     <div class="min-w-0 space-y-2">

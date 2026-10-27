@@ -29,9 +29,9 @@ The difference:
 1. **“+ Building block”**, then **name** (for example “Contact bar”). The **identifier** is derived from it; it can be adjusted (lowercase letters, digits, hyphen). If you leave the name empty, it takes the first title you write in the first block.
 2. Add blocks — with the block palette as in a page’s editor, with the same fields, ↑ ↓, duplicate and remove. The form shows the essentials first, help at each field and fine-tuning under “More options” ([The fields of a block](../redaktion/bloecke.md#the-fields-of-a-block)).
 3. At the bottom right, the **“Live preview”** window shows the building block with your site’s theme, redrawn with every input — the field you are typing in lights up, and a click in the preview jumps to the field ([Live preview](../redaktion/bloecke.md#live-preview-in-a-window)).
-4. **“Save”**. The building block appears in every page’s editor under **“+ Building block”**.
+4. **“Create”**. The building block appears in every page’s editor under **“+ Building block”**. After that, changes save themselves; the identifier only changes with Enter or when you leave the field — pages refer to it.
 
-**Caution:** a building block has no versions. After saving, a change applies **immediately on all pages** that use it — without submitting and approval. The change is recorded in the log.
+**Caution:** a building block has no versions. After saving (a short pause after typing), a change applies **immediately on all pages** that use it — without submitting and approval. The change is recorded in the log.
 
 A building block contains no building blocks — its palette lacks the “Reusable” group for building blocks.
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head, Link, router, useForm, usePage } from '@inertiajs/vue3';
-import { computed, ref } from 'vue';
+import { computed, onBeforeUnmount, ref, watch } from 'vue';
+import { AUTOSAVE_HEADER } from '../components/autosave';
 import Button from '../components/Button.vue';
 import Card from '../components/Card.vue';
 import LavaEditor from '../components/LavaEditor.vue';
@@ -138,7 +139,7 @@ async function save(remove = false): Promise<void> {
                         ? props.theme
                         : undefined,
             },
-            headers: { Accept: 'application/json' },
+            headers: { Accept: 'application/json', [AUTOSAVE_HEADER]: '1' },
         });
         const data = JSON.parse(response.data) as {
             message: string;
@@ -167,6 +168,40 @@ async function save(remove = false): Promise<void> {
         saving.value = false;
     }
 }
+
+/*
+ * CR-013: Die Datei speichert selbst in den Entwurf — zwei Sekunden nach der letzten Änderung und nur ohne Fehler in
+ * dieser Datei (sonst würde der Entwurf nicht kompilieren). Behoben, speichert sie gleich.
+ */
+let autoTimer: ReturnType<typeof setTimeout> | undefined;
+const fileErrors = computed(() =>
+    errors.value.filter((f) => f.file === props.file.path),
+);
+function autoSave(): void {
+    autoTimer = undefined;
+    if (!props.database || !props.file.editable || !dirty.value) {
+        return;
+    }
+    if (saving.value) {
+        autoTimer = setTimeout(autoSave, 800);
+
+        return;
+    }
+    if (fileErrors.value.length === 0) {
+        void save();
+    }
+}
+watch([text, () => fileErrors.value.length], () => {
+    clearTimeout(autoTimer);
+    saved.value = '';
+    autoTimer = setTimeout(autoSave, 2000);
+});
+onBeforeUnmount(() => {
+    if (autoTimer) {
+        clearTimeout(autoTimer);
+        autoSave();
+    }
+});
 
 const newOpen = ref(false);
 const newPath = ref('');
@@ -282,18 +317,30 @@ const languageUrl = computed(() => withTheme(props.urls.language));
             <Button variant="secondary" size="sm" @click="editor?.check()">{{
                 $t('Jetzt prüfen')
             }}</Button>
-            <Button
-                size="sm"
-                :disabled="
-                    !file.editable ||
-                    saving ||
-                    errors.some((f) => f.file === file.path) ||
-                    (!dirty && file.exists)
-                "
-                @click="save()"
+            <p
+                v-if="file.editable"
+                class="text-[12px] text-basalt-light"
+                role="status"
+                aria-live="polite"
             >
-                {{ saving ? $t('Speichert …') : $t('Als Entwurf speichern') }}
-            </Button>
+                <span v-if="saving">{{ $t('Speichert …') }}</span>
+                <span
+                    v-else-if="dirty && fileErrors.length > 0"
+                    class="text-danger"
+                    >{{
+                        $t(
+                            'Nicht gespeichert — zuerst die Fehler im Code beheben.',
+                        )
+                    }}</span
+                >
+                <span v-else-if="dirty">{{ $t('Speichert gleich …') }}</span>
+                <span v-else-if="saved" class="text-success"
+                    >✓ {{ $t('Entwurf gespeichert') }}</span
+                >
+                <span v-else>{{
+                    $t('Änderungen speichern sich selbst im Entwurf.')
+                }}</span>
+            </p>
         </template>
     </PageHeader>
 

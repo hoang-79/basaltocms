@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head, Link, router, useForm, usePage } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
+import { useAutosave } from '../../components/autosave';
 import Button from '../../components/Button.vue';
 import Card from '../../components/Card.vue';
 import { controlClasses } from '../../components/control';
@@ -72,6 +73,50 @@ const forms = Object.fromEntries(
     ]),
 ) as Record<ProviderKey, ReturnType<typeof useForm<SsoForm>>>;
 
+const current = (key: ProviderKey): Provider =>
+    props.providers.find((p) => p.key === key) as Provider;
+
+/**
+ * CR-013: speichert selbst — Schalter und Rolle sofort; Tenant, Client-ID, Secret und erlaubte Domain beim Verlassen
+ * (Enter), weil ein halber Wert die Anmeldung sperren würde. Neu eingerichtet wird erst mit allen Pflichtangaben.
+ */
+const saves = Object.fromEntries(
+    props.providers.map((provider) => {
+        const form = forms[provider.key];
+        const save = useAutosave(form, {
+            url: provider.update_url,
+            onLeave: [
+                'tenant_id',
+                'client_id',
+                'client_secret',
+                'hosted_domain',
+            ],
+            only: ['errors', 'providers'],
+            labels: {
+                enabled: provider.label,
+                tenant_id: t('Tenant-ID (Verzeichnis-ID)'),
+                client_id: t('Client-ID'),
+                client_secret: t('Client-Secret'),
+                hosted_domain: t('Erlaubte Domain'),
+                auto_create_role: t('Rolle für neue Benutzer'),
+            },
+            enabled: () =>
+                current(provider.key).configured ||
+                (form.client_id.trim() !== '' &&
+                    form.client_secret.trim() !== '' &&
+                    (provider.key !== 'entra' || form.tenant_id.trim() !== '')),
+            onSaved: () => {
+                if (form.client_secret !== '') {
+                    form.client_secret = '';
+                    save.rebase();
+                }
+            },
+        });
+
+        return [provider.key, save];
+    }),
+) as Record<ProviderKey, ReturnType<typeof useAutosave<SsoForm>>>;
+
 const copied = ref('');
 
 function roleOptions(provider: Provider): { value: string; label: string }[] {
@@ -84,14 +129,6 @@ function roleOptions(provider: Provider): { value: string; label: string }[] {
             provider.key === 'entra' ||
             forms[provider.key].hosted_domain.trim() !== '',
     );
-}
-
-function save(provider: Provider): void {
-    const form = forms[provider.key];
-    form.put(provider.update_url, {
-        preserveScroll: true,
-        onSuccess: () => form.reset('client_secret'),
-    });
 }
 
 function remove(provider: Provider): void {
@@ -193,7 +230,7 @@ const secretClasses = (error: boolean): string =>
                     : $t('nicht eingerichtet')
             "
         >
-            <form novalidate @submit.prevent="save(provider)">
+            <form novalidate @submit.prevent="saves[provider.key].flush()">
                 <div class="mb-2.5 flex items-center gap-2.5">
                     <Toggle
                         v-model="forms[provider.key].enabled"
@@ -218,6 +255,9 @@ const secretClasses = (error: boolean): string =>
                     autocomplete="off"
                     placeholder="00000000-0000-0000-0000-000000000000"
                     :error="forms.entra.errors.tenant_id"
+                    :saved="saves['entra'].saved('tenant_id')"
+                    :waiting="saves['entra'].waiting('tenant_id')"
+                    v-bind="saves['entra'].leave('tenant_id')"
                     :help="
                         $t(
                             'Fest ein Tenant — «common» geht nicht. Entra › Übersicht › Mandanten-ID.',
@@ -236,10 +276,16 @@ const secretClasses = (error: boolean): string =>
                             : '123456789012-abc.apps.googleusercontent.com'
                     "
                     :error="forms[provider.key].errors.client_id"
+                    :saved="saves[provider.key].saved('client_id')"
+                    :waiting="saves[provider.key].waiting('client_id')"
+                    v-bind="saves[provider.key].leave('client_id')"
                 />
                 <Field
                     :label="$t('Client-Secret')"
                     :error="forms[provider.key].errors.client_secret"
+                    :saved="saves[provider.key].saved('client_secret')"
+                    :waiting="saves[provider.key].waiting('client_secret')"
+                    v-bind="saves[provider.key].leave('client_secret')"
                     :help="
                         provider.has_secret
                             ? $t(
@@ -273,6 +319,9 @@ const secretClasses = (error: boolean): string =>
                     autocomplete="off"
                     placeholder="firma.ch"
                     :error="forms.google.errors.hosted_domain"
+                    :saved="saves['google'].saved('hosted_domain')"
+                    :waiting="saves['google'].waiting('hosted_domain')"
+                    v-bind="saves['google'].leave('hosted_domain')"
                     :help="
                         $t(
                             'Nur Konten dieser Google-Workspace-Domain. Leer: jedes Google-Konto mit bestätigter E-Mail, die hier einen Benutzer hat.',
@@ -285,6 +334,7 @@ const secretClasses = (error: boolean): string =>
                     :label="$t('Rolle für neue Benutzer')"
                     :options="roleOptions(provider)"
                     :error="forms[provider.key].errors.auto_create_role"
+                    :saved="saves[provider.key].saved('auto_create_role')"
                     :help="
                         provider.key === 'google'
                             ? $t(
@@ -335,12 +385,20 @@ const secretClasses = (error: boolean): string =>
                     {{ check.message }}
                 </Notice>
 
+                <p
+                    v-if="
+                        !current(provider.key).configured &&
+                        saves[provider.key].status.value === 'pending'
+                    "
+                    class="mt-3 text-[12px] text-basalt-light"
+                >
+                    {{
+                        $t(
+                            'Noch nicht gespeichert — es speichert sich, sobald alle Pflichtangaben stehen.',
+                        )
+                    }}
+                </p>
                 <div class="mt-3.5 flex flex-wrap items-center gap-2">
-                    <Button
-                        type="submit"
-                        :disabled="forms[provider.key].processing"
-                        >{{ $t('Speichern') }}</Button
-                    >
                     <Button
                         v-if="provider.configured"
                         variant="secondary"

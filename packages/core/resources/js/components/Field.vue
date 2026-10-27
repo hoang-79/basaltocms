@@ -29,6 +29,8 @@ const props = withDefaults(
         id?: string;
         /** Autosave: Häkchen «gespeichert» am Label für einen Moment */
         saved?: boolean;
+        /** Autosave «beim Verlassen» (CR-013): Die Änderung wartet auf Enter oder das Verlassen des Felds */
+        waiting?: boolean;
     }>(),
     {
         modelValue: '',
@@ -48,6 +50,7 @@ const props = withDefaults(
         rows: 3,
         id: undefined,
         saved: false,
+        waiting: false,
     },
 );
 
@@ -107,6 +110,14 @@ function update(event: Event): void {
                     class="text-success ml-1.5 inline-flex items-center gap-0.5 font-semibold tracking-normal normal-case"
                     >✓ {{ $t('gespeichert') }}</span
                 ></Transition
+            ><span
+                v-if="waiting && !saved"
+                class="ml-1.5 font-normal tracking-normal text-basalt-light normal-case"
+                >{{
+                    type === 'textarea'
+                        ? $t('Feld verlassen speichert')
+                        : $t('Enter oder Feld verlassen speichert')
+                }}</span
             >
         </label>
         <slot

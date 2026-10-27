@@ -34,7 +34,8 @@ final class AccountHub
         }
         $areas = $this->areas->resolve($only);
 
-        return AccountStyles::once().($page->customer === null ? $this->guest($page, $areas) : $this->signedIn($page, $areas)).self::script();
+        // CR-013: Formulare mit Autosave bringen ihr Skript hinter dem Konto mit
+        return AccountStyles::once().($page->customer === null ? $this->guest($page, $areas) : $this->signedIn($page, $areas)).self::script().Html::autosaveScript();
     }
 
     /**
@@ -56,7 +57,7 @@ final class AccountHub
             $html .= $summary === null ? '' : self::notices([$summary]).$this->section($page, $area, $summary);
         }
 
-        return $html === '' ? '' : AccountStyles::once().'<div class="konto konto--eingebettet">'.$html.'</div>'.self::script();
+        return $html === '' ? '' : AccountStyles::once().'<div class="konto konto--eingebettet">'.$html.'</div>'.self::script().Html::autosaveScript();
     }
 
     /** @param  list<AccountArea>  $areas */

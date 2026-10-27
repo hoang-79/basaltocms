@@ -29,9 +29,9 @@ Mode « Configuration » › « De quoi se composent les pages ? » › **« Gé
 1. **« + Bloc réutilisable »**, puis **Nom** (par exemple « Barre de contact »). L’**identifiant** en découle ; il peut être adapté (minuscules, chiffres, trait d’union). Si vous laissez le nom vide, il reprend le premier titre que vous écrivez dans le premier bloc.
 2. Ajouter des blocs — avec la palette de blocs comme dans l’éditeur d’une page, avec les mêmes champs, ↑ ↓, Dupliquer et Retirer. Le formulaire affiche l’essentiel en premier, une aide à chaque champ et, sous « Plus de possibilités », les réglages fins ([Les champs d’un bloc](../redaktion/bloecke.md#les-champs-dun-bloc)).
 3. En bas à droite, la fenêtre **« Aperçu en direct »** affiche le bloc réutilisable avec le thème de votre site, actualisé à chaque saisie — le champ dans lequel vous écrivez s’y illumine, et un clic dans l’aperçu saute au champ ([Aperçu en direct](../redaktion/bloecke.md#aperçu-en-direct-dans-la-fenêtre)).
-4. **« Enregistrer »**. Le bloc réutilisable apparaît dans l’éditeur de chaque page sous **« + Bloc réutilisable »**.
+4. **« Créer »**. Le bloc réutilisable apparaît dans l’éditeur de chaque page sous **« + Bloc réutilisable »**. Ensuite, les modifications s’enregistrent d’elles-mêmes ; l’identifiant ne change qu’avec Entrée ou en quittant le champ — les pages y renvoient.
 
-**Attention :** un bloc réutilisable n’a pas de versions. Une modification s’applique, dès l’enregistrement, **immédiatement sur toutes les pages** qui le contiennent — sans soumission ni validation. La modification figure dans le journal.
+**Attention :** un bloc réutilisable n’a pas de versions. Une modification s’applique, dès l’enregistrement (une courte pause après la saisie), **immédiatement sur toutes les pages** qui le contiennent — sans soumission ni validation. La modification figure dans le journal.
 
 Un bloc réutilisable ne contient pas de blocs réutilisables — dans sa palette, le groupe « Réutilisables » pour les blocs réutilisables est absent.
 

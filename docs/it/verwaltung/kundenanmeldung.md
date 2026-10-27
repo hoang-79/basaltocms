@@ -35,7 +35,7 @@ Le passkey non richiedono alcuna configurazione. Chi ha effettuato l’accesso n
 
 1. Apra **Amministrazione › Siti ›** il Suo sito **› Accesso per account cliente**.
 2. Crei un’app presso il fornitore (istruzioni sotto) e vi inserisca l’**URL di reindirizzamento** di Basalto: **Copia** la riprende esattamente.
-3. In Basalto inserisca **Client ID** e **Client secret**, attivi **Pulsante nel frontend** e clicchi su **Salva**.
+3. In Basalto inserisca **Client ID** e **Client secret** e attivi **Pulsante nel frontend** — si salva da sé non appena i due campi sono compilati (ciascuno con Invio o uscendo dal campo).
 4. **Prova:** accede una volta davvero presso il fornitore. Poi in alto compare il risultato, ad esempio «Google ha confermato l’account …». Non viene creato alcun account cliente.
 
 Possono configurare il gestore del sito e il proprietario e l’amministrazione dell’account. I pulsanti compaiono solo se un modulo del sito usa l’account cliente (forum, membri, vendita licenze o marketplace).

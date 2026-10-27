@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { Head, router, useForm } from '@inertiajs/vue3';
+import AutosaveState from '@core/components/AutosaveState.vue';
+import { useAutosave } from '@core/components/autosave';
 import { ref, watch } from 'vue';
 import { t } from '@core/i18n';
 import Button from '@core/components/Button.vue';
@@ -84,6 +86,7 @@ function editRank(rank: RankRow | null): void {
     );
     rankForm.reset();
     rankForm.clearErrors();
+    rankSave.rebase();
     rankOpen.value = true;
 }
 function saveRank(): void {
@@ -96,6 +99,18 @@ function saveRank(): void {
     } else {
         rankForm.post(props.urls.ranks, done);
     }
+}
+// CR-013: Bearbeiten speichert selbst, «Schliessen» wartet darauf; neu angelegt wird mit «Anlegen»
+const rankSave = useAutosave(rankForm, {
+    url: () => rankEditing.value?.update_url ?? '',
+    keepRejected: true,
+    enabled: () => rankOpen.value && rankEditing.value !== null,
+});
+async function closeRank(): Promise<void> {
+    if (rankEditing.value) {
+        await rankSave.flush();
+    }
+    rankOpen.value = false;
 }
 
 // Trophäen
@@ -132,6 +147,7 @@ function editTrophy(trophy: TrophyRow | null): void {
     );
     trophyForm.reset();
     trophyForm.clearErrors();
+    trophySave.rebase();
     trophyOpen.value = true;
     void loadPreview(trophyForm.rule, trophyForm.threshold);
 }
@@ -145,6 +161,18 @@ function saveTrophy(): void {
     } else {
         trophyForm.post(props.urls.trophies, done);
     }
+}
+// CR-013: Bearbeiten speichert selbst, «Schliessen» wartet darauf; neu angelegt wird mit «Anlegen»
+const trophySave = useAutosave(trophyForm, {
+    url: () => trophyEditing.value?.update_url ?? '',
+    keepRejected: true,
+    enabled: () => trophyOpen.value && trophyEditing.value !== null,
+});
+async function closeTrophy(): Promise<void> {
+    if (trophyEditing.value) {
+        await trophySave.flush();
+    }
+    trophyOpen.value = false;
 }
 watch(
     () => [trophyForm.rule, trophyForm.threshold] as const,
@@ -217,6 +245,7 @@ function editRule(rule: GroupRuleRow | null): void {
     );
     ruleForm.reset();
     ruleForm.clearErrors();
+    ruleSave.rebase();
     ruleOpen.value = true;
     void loadPreview(ruleForm.rule, ruleForm.threshold);
 }
@@ -230,6 +259,18 @@ function saveRule(): void {
     } else {
         ruleForm.post(props.urls.group_rules, done);
     }
+}
+// CR-013: Bearbeiten speichert selbst, «Schliessen» wartet darauf; neu angelegt wird mit «Anlegen»
+const ruleSave = useAutosave(ruleForm, {
+    url: () => ruleEditing.value?.update_url ?? '',
+    keepRejected: true,
+    enabled: () => ruleOpen.value && ruleEditing.value !== null,
+});
+async function closeRule(): Promise<void> {
+    if (ruleEditing.value) {
+        await ruleSave.flush();
+    }
+    ruleOpen.value = false;
 }
 watch(
     () => [ruleForm.rule, ruleForm.threshold] as const,
@@ -266,17 +307,25 @@ function addField(): void {
         options: [],
     });
 }
-/** Die Möglichkeiten einer Auswahl gehen als Text (eine je Zeile) an den Server. */
-function saveFields(): void {
-    fieldsForm
-        .transform((data) => ({
-            fields: data.fields.map((f) => ({
-                ...f,
-                options: (f.options ?? []).join('\n'),
-            })),
-        }))
-        .put(props.urls.fields, { preserveScroll: true });
-}
+/**
+ * CR-013: Die Liste speichert selbst. Die Möglichkeiten einer Auswahl gehen als Text (eine je Zeile) an den Server. Ein
+ * Schlüssel ändert sich erst mit Enter oder beim Verlassen (gespeicherte Angaben der Mitglieder hängen daran); eine
+ * neue Zeile speichert erst, wenn Schlüssel und Beschriftung stehen.
+ */
+const fieldsSave = useAutosave(fieldsForm, {
+    url: props.urls.fields,
+    onLeave: ['fields.*.key'],
+    transform: (data) => ({
+        fields: data.fields.map((f) => ({
+            ...f,
+            options: (f.options ?? []).join('\n'),
+        })),
+    }),
+    enabled: () =>
+        fieldsForm.fields.every(
+            (f) => f.key.trim() !== '' && f.label.trim() !== '',
+        ),
+});
 const error = (form: { errors: object }, key: string): string =>
     (form.errors as Record<string, string | undefined>)[key] ?? '';
 const rankTone = (
@@ -551,7 +600,10 @@ const rankTone = (
                     $t('Feld hinzufügen')
                 }}</Button>
             </div>
-            <form class="mt-3 flex flex-col gap-3" @submit.prevent="saveFields">
+            <form
+                class="mt-3 flex flex-col gap-3"
+                @submit.prevent="fieldsSave.flush()"
+            >
                 <div
                     v-for="(field, i) in fieldsForm.fields"
                     :key="i"
@@ -563,6 +615,7 @@ const rankTone = (
                             v-model="field.key"
                             type="text"
                             maxlength="30"
+                            v-bind="fieldsSave.leave(`fields.${i}.key`)"
                             :class="
                                 controlClasses({
                                     error: !!error(
@@ -688,11 +741,18 @@ const rankTone = (
                         )
                     }}
                 </p>
-                <div>
-                    <Button type="submit" :disabled="fieldsForm.processing">{{
-                        $t('Felder speichern')
-                    }}</Button>
-                </div>
+                <AutosaveState
+                    :status="fieldsSave.status.value"
+                    :blocked="
+                        fieldsForm.fields.some(
+                            (f) => f.key.trim() === '' || f.label.trim() === '',
+                        )
+                            ? $t(
+                                  'Noch nicht gespeichert — jede Zeile braucht Schlüssel und Beschriftung.',
+                              )
+                            : ''
+                    "
+                />
             </form>
         </section>
     </div>
@@ -702,9 +762,12 @@ const rankTone = (
         :open="rankOpen"
         :title="rankEditing ? $t('Rang bearbeiten') : $t('Neuer Rang')"
         :wide="false"
-        @close="rankOpen = false"
+        @close="closeRank"
     >
-        <form class="flex flex-col gap-3" @submit.prevent="saveRank">
+        <form
+            class="flex flex-col gap-3"
+            @submit.prevent="rankEditing ? closeRank() : saveRank()"
+        >
             <label class="block">
                 <span :class="labelClasses">{{ $t('Titel') }}</span>
                 <input
@@ -782,12 +845,20 @@ const rankTone = (
                 </select>
             </label>
             <div class="flex gap-2">
-                <Button type="submit" :disabled="rankForm.processing">{{
-                    $t('Speichern')
-                }}</Button>
-                <Button variant="secondary" @click="rankOpen = false">{{
-                    $t('Abbrechen')
-                }}</Button>
+                <template v-if="rankEditing">
+                    <Button type="submit" variant="secondary">{{
+                        $t('Schliessen')
+                    }}</Button>
+                    <AutosaveState :status="rankSave.status.value" />
+                </template>
+                <template v-else>
+                    <Button type="submit" :disabled="rankForm.processing">{{
+                        $t('Anlegen')
+                    }}</Button>
+                    <Button variant="secondary" @click="rankOpen = false">{{
+                        $t('Abbrechen')
+                    }}</Button>
+                </template>
             </div>
         </form>
     </Modal>
@@ -797,9 +868,12 @@ const rankTone = (
         :open="trophyOpen"
         :title="trophyEditing ? $t('Trophäe bearbeiten') : $t('Neue Trophäe')"
         :wide="false"
-        @close="trophyOpen = false"
+        @close="closeTrophy"
     >
-        <form class="flex flex-col gap-3" @submit.prevent="saveTrophy">
+        <form
+            class="flex flex-col gap-3"
+            @submit.prevent="trophyEditing ? closeTrophy() : saveTrophy()"
+        >
             <div class="grid grid-cols-[5rem_1fr] gap-3">
                 <label class="block">
                     <span :class="labelClasses">{{ $t('Symbol') }}</span>
@@ -868,12 +942,20 @@ const rankTone = (
                 {{ $t('Aktiv') }}
             </label>
             <div class="flex gap-2">
-                <Button type="submit" :disabled="trophyForm.processing">{{
-                    $t('Speichern')
-                }}</Button>
-                <Button variant="secondary" @click="trophyOpen = false">{{
-                    $t('Abbrechen')
-                }}</Button>
+                <template v-if="trophyEditing">
+                    <Button type="submit" variant="secondary">{{
+                        $t('Schliessen')
+                    }}</Button>
+                    <AutosaveState :status="trophySave.status.value" />
+                </template>
+                <template v-else>
+                    <Button type="submit" :disabled="trophyForm.processing">{{
+                        $t('Anlegen')
+                    }}</Button>
+                    <Button variant="secondary" @click="trophyOpen = false">{{
+                        $t('Abbrechen')
+                    }}</Button>
+                </template>
             </div>
         </form>
     </Modal>
@@ -921,9 +1003,12 @@ const rankTone = (
         :open="ruleOpen"
         :title="ruleEditing ? $t('Regel bearbeiten') : $t('Neue Regel')"
         :wide="false"
-        @close="ruleOpen = false"
+        @close="closeRule"
     >
-        <form class="flex flex-col gap-3" @submit.prevent="saveRule">
+        <form
+            class="flex flex-col gap-3"
+            @submit.prevent="ruleEditing ? closeRule() : saveRule()"
+        >
             <label class="block">
                 <span :class="labelClasses">{{ $t('Gruppe') }}</span>
                 <select
@@ -973,12 +1058,20 @@ const rankTone = (
                 {{ $t('Aktiv') }}
             </label>
             <div class="flex gap-2">
-                <Button type="submit" :disabled="ruleForm.processing">{{
-                    $t('Speichern')
-                }}</Button>
-                <Button variant="secondary" @click="ruleOpen = false">{{
-                    $t('Abbrechen')
-                }}</Button>
+                <template v-if="ruleEditing">
+                    <Button type="submit" variant="secondary">{{
+                        $t('Schliessen')
+                    }}</Button>
+                    <AutosaveState :status="ruleSave.status.value" />
+                </template>
+                <template v-else>
+                    <Button type="submit" :disabled="ruleForm.processing">{{
+                        $t('Anlegen')
+                    }}</Button>
+                    <Button variant="secondary" @click="ruleOpen = false">{{
+                        $t('Abbrechen')
+                    }}</Button>
+                </template>
             </div>
         </form>
     </Modal>

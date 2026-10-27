@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Basalto\Core\Settings;
 
+use Basalto\Core\Activity\AutosaveRequest;
 use Basalto\Core\Activity\Recorder;
 use Basalto\Core\Models\Setting;
 use Basalto\Core\Models\SettingRevision;
@@ -47,7 +48,7 @@ final class Settings
         $setting->value = $value;
         $setting->updated_by = $userId;
         $setting->save();
-        $setting->revisions()->create(['old' => $old, 'new' => $value, 'user_id' => $userId, 'created_at' => CarbonImmutable::now()]);
+        $this->revise($setting, $old, $value, $userId);
         // Jede Änderung einer Einstellung steht auch im Protokoll (K-15)
         app(Recorder::class)->record('setting.changed', $setting, ['value' => $old], ['key' => $key, 'value' => $value], $site, $user);
 
@@ -69,6 +70,30 @@ final class Settings
         $site = $setting->site_id === null ? null : Site::query()->find($setting->site_id);
 
         return $this->set($setting->key, $revision->old, $site, $user);
+    }
+
+    /**
+     * Verlauf schreiben; eine Folge von Autosaves derselben Person ist ein Eintrag (CR-013) — führt sie zurück auf den
+     * Ausgangswert, fällt der Eintrag weg.
+     */
+    private function revise(Setting $setting, mixed $old, mixed $value, ?int $userId): void
+    {
+        $now = CarbonImmutable::now();
+        if ($userId !== null && AutosaveRequest::current()) {
+            $recent = $setting->revisions()->where('user_id', $userId)->where('created_at', '>=', AutosaveRequest::since())->latest('id')->first();
+            if ($recent instanceof SettingRevision) {
+                if ($recent->old === $value) {
+                    $recent->delete();
+                } else {
+                    $recent->new = $value;
+                    $recent->created_at = $now;
+                    $recent->save();
+                }
+
+                return;
+            }
+        }
+        $setting->revisions()->create(['old' => $old, 'new' => $value, 'user_id' => $userId, 'created_at' => $now]);
     }
 
     private function find(string $key, ?Site $site): ?Setting

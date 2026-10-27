@@ -13,7 +13,7 @@ A sinistra si trovano i ruoli — per ogni ruolo quante persone lo hanno, quali 
 1. **Nome** e **Descrizione** (facoltativa) — la descrizione compare sotto il ruolo al momento dell’invito.
 2. **Lingue**: **tutte**, **tutte tranne la lingua di origine** o una **Selezione**. Sotto è indicato in quali lingue il ruolo può modificare contenuti. Creare, eliminare, spostare pagine e modificarne le impostazioni richiede la lingua di origine.
 3. **La matrice** — per ogni area un livello, secondo i gruppi Contenuti, Configurazione e Amministrazione. **«tutti su»** imposta un intero gruppo su «nessuno», «vedere» o «modifica». Le aree provenienti dai moduli portano «modulo».
-4. **Anteprima** in basso — che cosa vede il ruolo e quante persone lo hanno. **«Salva»** applica la modifica; vale dalla richiesta successiva. I diritti non cambiano mai di sfuggita.
+4. **Anteprima** in basso — che cosa vede il ruolo e quante persone lo hanno. Ogni modifica si salva da sola e vale dalla richiesta successiva; compare nel [registro](protokoll.md).
 
 | Livello | Significa |
 | --- | --- |

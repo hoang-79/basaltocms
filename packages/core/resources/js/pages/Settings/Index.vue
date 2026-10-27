@@ -4,6 +4,7 @@ import {
     announceError,
     announceSaved,
     announceSaving,
+    AUTOSAVE_HEADER,
 } from '../../components/autosave';
 import { useMediaQuery } from '@vueuse/core';
 import { computed, reactive, ref, watch } from 'vue';
@@ -128,6 +129,7 @@ function save(item: SettingItem): void {
         props.urls.update,
         { key: item.key, value: parseSettingInput(item.type, draftOf(item)) },
         {
+            headers: { [AUTOSAVE_HEADER]: '1' },
             preserveScroll: true,
             preserveState: true,
             async: true,

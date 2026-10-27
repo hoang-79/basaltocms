@@ -25,7 +25,7 @@ Si le thème se trouve encore dans le dossier de l’installation, la page affic
 4. **Les régions** — une carte par région avec nom, identifiant et emplacement (« avant main »). **« facultative (optional) »** signifie : si la région reste vide, elle disparaît entièrement. Avec ↑ et ↓, vous modifiez l’ordre, ✕ retire la région. Les régions héritées portent « Hérité de … » ; **« Remplacer le remplissage »** donne à cette mise en page son propre remplissage. Une région vide est remplie par le modèle — s’il ne la remplit pas, elle reste vide.
 5. **Ajouter une partie** — voir ci-dessous. Les parties d’une région sont dans l’ordre et peuvent être déplacées, désactivées et activées, et retirées.
 6. **« + Région »** — une région propre : nom et emplacement dans le markup de la mise en page (avant ou après, par rapport à une région existante). Les régions fréquentes — bandeau, barre latérale, bandeau d’information, appel à l’action — définissent nom et emplacement d’un clic. Si le markup insère déjà la région, aucun emplacement n’est nécessaire.
-7. **« Enregistrer comme brouillon »** et **« Écarter »** ; **« Retirer la mise en page … »** supprime une mise en page après confirmation. Si quelque chose ne va pas, le message est « Rien n’a été enregistré — un thème avec des erreurs ne passe jamais en ligne », et le code montre l’endroit.
+7. Les modifications **s’enregistrent d’elles-mêmes dans le brouillon** — après une courte pause, en bas s’affiche « ✓ Brouillon enregistré » ; **« Retirer la mise en page … »** supprime une mise en page après confirmation. Si quelque chose ne va pas, le message est « Rien n’a été enregistré — un thème avec des erreurs ne passe jamais en ligne », et le code montre l’endroit.
 8. **Aperçu avec brouillons** — le site web avec vos brouillons enregistrés, pour un chemin de votre choix (« / » est la page d’accueil) ; « dans un nouvel onglet » l’ouvre en grand.
 
 ### Ce qui va dans une région
@@ -77,7 +77,7 @@ Une ligne par modèle : nom, pour quel type (« pour « Page » »), dans quelle
    le markup insère. « Remplissage propre » reprend d’abord ce que la mise en page y contient ; ensuite, vous le modifiez avec les mêmes
    suggestions et la même sélection que dans la mise en page (« Convient souvent », « + Ajouter une partie … »).
 4. **Aperçu avec brouillons** — une page qui utilise ce modèle, avec vos brouillons enregistrés ; après
-   « Enregistrer comme brouillon », elle se recharge.
+   chaque enregistrement, elle se recharge.
 
 En dessous figure le **code** — le modèle en Lava. Son markup (le HTML du contenu) reste du code et se modifie dans
 l’éditeur de thème. Un type peut avoir plusieurs modèles ; celui qu’utilise une page se choisit dans les paramètres

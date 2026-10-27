@@ -49,7 +49,7 @@ Proprietario e amministrazione di un account SaaS possono fare tutto su tutti i 
 **Nuovo ruolo** crea un ruolo vuoto (non può nulla) oppure una copia di un ruolo esistente («Partendo da» o
 **Copia**). Nella matrice sceglie il livello per ogni area; «tutti su» imposta un intero gruppo in una volta. In basso
 l’anteprima mostra che cosa vede il ruolo («Contenuti · Configurazione · Amministrazione») e quante persone lo hanno.
-Si salva con **Salva** — i diritti non cambiano di passaggio. La modifica vale dalla richiesta successiva.
+Ogni modifica si salva da sola (una serie di modifiche è una sola riga nel registro) e vale dalla richiesta successiva.
 
 Un ruolo si assegna come sempre in **Utenti** (selezione nell’elenco o al momento dell’invito). Un ruolo proprio si
 può **eliminare**, finché nessuno lo ha e nessun invito aperto lo riporta.

@@ -25,7 +25,7 @@ Se il tema si trova ancora nella cartella dell’installazione, la pagina mostra
 4. **Le regioni** — per ogni regione una scheda con nome, ID e posizione («vor main»). **«facoltativa (optional)»** significa: se la regione resta vuota, scompare del tutto. Con ↑ e ↓ cambia l’ordine, ✕ rimuove la regione. Le regioni ereditate portano «Ereditato da …»; **«Sovrascrivi riempimento»** dà a questo layout un riempimento proprio. Una regione vuota la riempie il template — se lì non c’è nulla, resta vuota.
 5. **Aggiungere una parte** — vedi sotto. Le parti di una regione sono in ordine e si possono spostare, disattivare e attivare e rimuovere.
 6. **«+ Regione»** — una regione propria: nome e posizione nel markup del layout (prima o dopo, rispetto a una regione esistente). Le regioni frequenti — hero, barra laterale, barra di avviso, invito all’azione — impostano nome e posizione con un clic. Se il markup inserisce già la regione, non serve alcuna posizione.
-7. **«Salva come bozza»** e **«Scarta»**; **«Rimuovi layout …»** elimina un layout dopo una conferma. Se qualcosa non va, compare «Nulla salvato — un tema con errori non va mai online», e il codice mostra il punto.
+7. Le modifiche **si salvano da sole nella bozza** — dopo una breve pausa, in basso compare «✓ Bozza salvata»; **«Rimuovi layout …»** elimina un layout dopo una conferma. Se qualcosa non va, compare «Nulla salvato — un tema con errori non va mai online», e il codice mostra il punto.
 8. **Anteprima con bozze** — il sito web con le Sue bozze salvate, per un percorso a scelta («/» è la pagina iniziale); «in una nuova scheda» la apre a tutto schermo.
 
 ### Che cosa va in una regione
@@ -77,7 +77,7 @@ Una riga per template: nome, per quale tipo («per «Pagina»»), in quale layou
    inserisce solo il markup. «Riempimento proprio» riprende prima ciò che il layout ha lì; poi lo modifica con le stesse
    proposte e la stessa selezione del layout («Spesso adatto», «+ Aggiungi parte …»).
 4. **Anteprima con bozze** — una pagina che usa questo template, con le Sue bozze salvate; dopo
-   «Salva come bozza» si ricarica.
+   ogni salvataggio si ricarica.
 
 Sotto si trova il **codice** — il template in Lava. Il suo markup (l’HTML del contenuto) resta codice e si modifica
 nell’editor del tema. Un tipo può avere più template; quale usa una pagina lo sceglie nelle impostazioni della
