@@ -212,6 +212,13 @@ const modes = computed(() => {
 
                 <!-- TB 27: Glocke und Benutzermenü als Paar rechts — auf dem Telefon schiebt das Paar nach rechts -->
                 <div class="ml-auto flex items-center gap-1.5 md:ml-0">
+                    <!-- Gegenstück zu «Zum CMS» im Extranet: nur für Superadmin und das Team des Extranets -->
+                    <a
+                        v-if="backend.extranet_url"
+                        :href="backend.extranet_url"
+                        class="mr-1.5 hidden text-[11.5px] text-ash-light underline hover:text-paper sm:inline"
+                        >{{ $t('Zum Extranet') }}</a
+                    >
                     <NotificationBell />
                     <UserMenu
                         v-if="user"

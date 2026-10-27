@@ -12,6 +12,8 @@ use Basalto\Core\Content\EntryStatus;
 use Basalto\Core\Content\Translations;
 use Basalto\Core\Core;
 use Basalto\Core\Demo\DemoMode;
+use Basalto\Core\Extranet\Extranet;
+use Basalto\Core\Extranet\ExtranetAccess;
 use Basalto\Core\Extranet\SupportAccess;
 use Basalto\Core\Help\HelpPages;
 use Basalto\Core\Legal\Cancellation\ContractCancellations;
@@ -150,6 +152,8 @@ final class HandleBackendRequests extends Middleware
                 'account_exit' => Lifecycle::backendNotice($request->user(), $site),
                 // TB 19 (P-16): Band «Support des Herstellers hat lesenden Zugriff» — für alle in der Site sichtbar
                 'support' => SupportAccess::notice($site),
+                // Gegenstück zu «Zum CMS» im Extranet (Hoang, 27.10.2026): nur für Superadmin und das Team des Extranets
+                'extranet_url' => self::extranetUrl($request),
             ],
         ];
     }
@@ -192,5 +196,13 @@ final class HandleBackendRequests extends Middleware
         }
 
         return $menus;
+    }
+
+    /** «Zum Extranet» — nur wenn es ein Extranet gibt und die Person dazugehört (Inhaber, Administration, Team). */
+    private static function extranetUrl(Request $request): ?string
+    {
+        $user = $request->user();
+
+        return Extranet::enabled() && $user !== null && app(ExtranetAccess::class)->isMember($user) ? Extranet::url('/') : null;
     }
 }

@@ -191,6 +191,8 @@ export type BackendProps = {
         modes: { setup: boolean; admin: boolean };
         /** TB 19 (P-16): Band «Support des Herstellers hat lesenden Zugriff» */
         support?: { text: string; until: string } | null;
+        /** «Zum Extranet» für Superadmin und das Team des Extranets — sonst null */
+        extranet_url?: string | null;
         /** CR-004 (P-01): Adresse des Herstellers */
         vendor: { url: string; host: string; license_url: string };
         content_url: string;

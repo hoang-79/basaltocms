@@ -11,6 +11,8 @@ use Basalto\Core\Access\Level;
 use Basalto\Core\Activity\Recorder;
 use Basalto\Core\Analytics\Statistics;
 use Basalto\Core\Analytics\TrackPageView;
+use Basalto\Core\Auth\PasskeyOrigins;
+use Basalto\Core\Auth\QuietDatabaseSessionHandler;
 use Basalto\Core\Backend\Backend;
 use Basalto\Core\Cache\PageCacheInvalidation;
 use Basalto\Core\Cloud\CloudCli;
@@ -113,6 +115,7 @@ use Illuminate\Console\Events\ScheduledTaskFailed;
 use Illuminate\Console\Events\ScheduledTaskFinished;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Http\Kernel as KernelContract;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\TrimStrings;
@@ -206,6 +209,12 @@ final class CoreServiceProvider extends ServiceProvider
         // Fliesstext: Text-Knoten im ProseMirror-JSON nicht kürzen — sonst verschwinden Leerzeichen neben Formatierung
         // («Produkte **und** Projekte» → «Produkte**und**Projekte»), gefunden mit dem Autosave
         TrimStrings::except(['*content.*.text', 'lava_source']);
+        // Sitzungen in der Datenbank schreiben nur, was sich geändert hat — sonst überschreibt eine Abfrage der
+        // Live-Aktualisierung, was eine gleichzeitige Anfrage gespeichert hat (Passkey-Registrierung, Hoang 27.10.2026)
+        $this->app->make('session')->extend('database', fn (Application $app): QuietDatabaseSessionHandler => new QuietDatabaseSessionHandler(
+            $app->make('db')->connection(config('session.connection')), (string) config('session.table', 'sessions'), (int) config('session.lifetime', 120), $app));
+        // Passkeys des Backends auch im Extranet, wenn es unter der Domain der Anwendung liegt (Hoang, 27.10.2026)
+        PasskeyOrigins::apply();
         $this->loadViewsFrom($this->root.'/resources/views', 'basalto');
         // CR-011 (TB 58): eigenes Mail-Layout — Kopf und Fuss mit der Site des Empfängers, Gruss mit ihrem Namen, Basalt und Lava
         config(['mail.markdown.paths' => array_values(array_unique([$this->root.'/resources/views/mail', ...(array) config('mail.markdown.paths', [])]))]);
