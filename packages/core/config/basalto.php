@@ -160,7 +160,9 @@ return [
     // TB 11 Scheibe 4 (G-10): öffentliche Demo — Schnellzugang, Mails abgefangen, nächtlich basalto:demo-reset; nie sonst
     'demo' => ['enabled' => (bool) env('BASALTO_DEMO', false), 'site' => env('BASALTO_DEMO_SITE', 'demo'), 'theme' => env('BASALTO_DEMO_THEME', 'starter'), 'mailer' => env('BASALTO_DEMO_MAILER', 'log'),
         // Testdaten nach dem Neuaufsetzen: klein, mittel, gross oder aus
-        'testdata' => env('BASALTO_DEMO_TESTDATA', 'klein')],
+        'testdata' => env('BASALTO_DEMO_TESTDATA', 'klein'),
+        // TB 66 Nachtrag: Speicher, den Besucher bis zum Neuaufsetzen belegen dürfen (MB, 0 = ohne Grenze)
+        'quota_megabytes' => (int) env('BASALTO_DEMO_QUOTA_MB', 200)],
 
     // Installer im Browser (K-05): mit Wert braucht /admin/installieren den Parameter ?token=… — sonst offen, bis eingerichtet
     'install_token' => env('BASALTO_INSTALL_TOKEN'),

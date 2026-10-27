@@ -106,7 +106,9 @@ final class DashboardController
         }
 
         $hints = [];
-        if ($passkeys === 0) {
+        // TB 66 Nachtrag: nicht in der Demo — ihre Konten entstehen jede Nacht neu, ein Passkey dafür wäre am Morgen weg
+        $suggestPasskey = ! DemoMode::enabled();
+        if ($suggestPasskey && $passkeys === 0) {
             $hints[] = ['kind' => 'passkey', 'text' => __('Dieses Konto hat noch keinen Passkey. Mit einem Passkey melden Sie sich ohne Code an, auch ohne Mail-Server.'), 'href' => route('basalto.passkeys'), 'action' => __('Passkey einrichten')];
         }
         // CR-005: Lizenz und Betrieb sieht nur, wer die Bereiche sieht; die Demo braucht keinen Lizenzhinweis
@@ -161,7 +163,7 @@ final class DashboardController
             'license' => Saas::enabled() || ! $seesLicense ? null : [...$license->toArray(), 'banner_from' => $this->dates->date($license->bannerFrom())],
             // TB 12 Scheibe 1: Betrieb der Instanz auf der SaaS nur für den Betreiber (GuardSaasInstanceAreas)
             'operations' => $instanceView ? $operations : null,
-            'passkeys' => ['count' => $passkeys, 'url' => route('basalto.passkeys')],
+            'passkeys' => $suggestPasskey ? ['count' => $passkeys, 'url' => route('basalto.passkeys')] : null,
         ]);
     }
 

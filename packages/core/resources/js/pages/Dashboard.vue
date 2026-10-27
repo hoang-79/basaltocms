@@ -33,7 +33,8 @@ const props = defineProps<{
     license: LicenseInfo | null;
     /** TB 12 Scheibe 1: null auf der SaaS für Kundenkonten (Betrieb der Instanz) */
     operations: OperationsInfo | null;
-    passkeys: { count: number; url: string };
+    /** null in der Demo: dort kein Hinweis auf Passkeys (die Konten entstehen jede Nacht neu) */
+    passkeys: { count: number; url: string } | null;
 }>();
 
 const page = usePage<BackendProps>();
@@ -44,6 +45,7 @@ const siteName = computed(
 /** Der Passkey-Hinweis kommt aus `hints`; fehlt er dort, steht er aus `passkeys` — nie doppelt. */
 const showPasskeyHint = computed(
     () =>
+        props.passkeys !== null &&
         props.passkeys.count === 0 &&
         !props.hints.some((h) => h.kind === 'passkey'),
 );
@@ -112,7 +114,7 @@ function runHintAction(action: HintAction): void {
                 >
             </span>
         </Notice>
-        <Notice v-if="showPasskeyHint" tone="lava">
+        <Notice v-if="passkeys && showPasskeyHint" tone="lava">
             <strong>{{ $t('Passkey einrichten.') }}</strong>
             {{
                 $t(

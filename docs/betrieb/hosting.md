@@ -117,6 +117,10 @@ sollen.
 - **Nächtlich neu:** Der Scheduler ruft um 02:30 `basalto:demo-reset --force` auf — Datenbank leeren und frisch
   migrieren, Medien leeren, Site `BASALTO_DEMO_SITE` (Vorgabe `demo`) mit den Startinhalten von `BASALTO_DEMO_THEME`
   (Vorgabe `starter`) einspielen und live schalten, drei Konten anlegen.
+- **Speicher begrenzt:** Was Besucher hochladen — Medien, Formular-Anhänge, Profilbilder, Theme-Bilder, Anhänge im
+  Forum —, belegt bis zum nächsten Neuaufsetzen zusammen höchstens `BASALTO_DEMO_QUOTA_MB` (Vorgabe 200, `0` ohne
+  Grenze). Ist der Speicher voll, wird jeder weitere Upload mit einem Hinweis am Dateifeld abgewiesen. Den Hinweis
+  «Passkey einrichten» zeigt die Demo nicht — ihre Konten entstehen jede Nacht neu.
 - **Funktionsschau:** Zur Demo gehört die Seite `/funktionen` mit einer Unterseite je Bereich — was er kann, was man
   probieren kann, und ein Weg ins Backend über den Schnellzugang direkt an die Stelle.
 - Die Domain der Demo-Site ist der Host aus `APP_URL`; `BASALTO_DEFAULT_SITE=demo` lässt auch andere Hosts dorthin.

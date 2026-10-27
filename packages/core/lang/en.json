@@ -4551,5 +4551,6 @@
     "Speichert gleich …": "Saving shortly …",
     "Nicht gespeicherte Änderungen verwerfen?": "Discard unsaved changes?",
     "Zum Extranet": "Go to Extranet",
-    "LOKAL": "LOCAL"
+    "LOKAL": "LOCAL",
+    "Die Demo hat ihren Speicher für heute aufgebraucht (:mb MB). Sie wird jede Nacht zurückgesetzt — danach lassen sich wieder Dateien hochladen.": "The demo has used up its storage for today (:mb MB). It is reset every night — after that you can upload files again."
 }

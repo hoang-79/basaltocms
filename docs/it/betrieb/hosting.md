@@ -120,6 +120,11 @@ Un’installazione può funzionare come demo pubblica: con `BASALTO_DEMO=true` �
 - **Nuova ogni notte:** alle 02:30 lo scheduler richiama `basalto:demo-reset --force` — svuotare il database ed
   eseguire di nuovo le migrazioni, svuotare i media, caricare il sito `BASALTO_DEMO_SITE` (predefinito `demo`) con i
   contenuti iniziali di `BASALTO_DEMO_THEME` (predefinito `starter`) e metterlo online, creare tre account.
+- **Spazio limitato:** ciò che i visitatori caricano — media, allegati dei moduli, immagini del profilo, immagini del
+  tema, allegati del forum — occupa in tutto al massimo `BASALTO_DEMO_QUOTA_MB` fino al prossimo ripristino
+  (predefinito 200, `0` senza limite). Quando lo spazio è pieno, ogni ulteriore caricamento viene rifiutato con un
+  avviso nel campo del file. La demo non mostra l’invito «Configurare passkey» — i suoi account vengono creati di nuovo
+  ogni notte.
 - **Tour delle funzioni:** della demo fa parte la pagina `/funktionen` con una sottopagina per ogni area — che cosa sa
   fare, che cosa si può provare e un accesso diretto al punto giusto del backend tramite l’accesso rapido.
 - Il dominio del sito demo è l’host di `APP_URL`; `BASALTO_DEFAULT_SITE=demo` vi indirizza anche altri host.

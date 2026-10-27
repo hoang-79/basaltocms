@@ -4555,5 +4555,6 @@
     "Speichert gleich …": "Enregistrement imminent …",
     "Nicht gespeicherte Änderungen verwerfen?": "Abandonner les modifications non enregistrées ?",
     "Zum Extranet": "Vers l’extranet",
-    "LOKAL": "LOCAL"
+    "LOKAL": "LOCAL",
+    "Die Demo hat ihren Speicher für heute aufgebraucht (:mb MB). Sie wird jede Nacht zurückgesetzt — danach lassen sich wieder Dateien hochladen.": "La démo a épuisé son espace de stockage pour aujourd’hui (:mb Mo). Elle est réinitialisée chaque nuit — vous pourrez ensuite à nouveau téléverser des fichiers."
 }

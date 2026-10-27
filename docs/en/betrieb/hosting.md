@@ -116,6 +116,10 @@ An installation can run as a public demo: with `BASALTO_DEMO=true` — never tog
 - **New every night:** the scheduler calls `basalto:demo-reset --force` at 02:30 — empty and freshly migrate the
   database, empty the media, import site `BASALTO_DEMO_SITE` (default `demo`) with the starter content of
   `BASALTO_DEMO_THEME` (default `starter`) and put it live, create three accounts.
+- **Limited storage:** what visitors upload — media, form attachments, profile pictures, theme images, forum
+  attachments — takes up at most `BASALTO_DEMO_QUOTA_MB` in total until the next reset (default 200, `0` for no limit).
+  Once the storage is full, every further upload is refused with a note at the file field. The demo does not show the
+  “Set up passkey” hint — its accounts are created anew every night.
 - **Feature tour:** the demo includes the page `/funktionen` with a subpage per area — what it can do, what you can try,
   and a way into the backend via quick access straight to the right place.
 - The demo site's domain is the host from `APP_URL`; `BASALTO_DEFAULT_SITE=demo` lets other hosts go there too.

@@ -64,6 +64,7 @@ use Basalto\Core\Extranet\ExtranetAccess;
 use Basalto\Core\Extranet\ExtranetRegistry;
 use Basalto\Core\FrontendAccounts\FrontendAccountsServiceProvider;
 use Basalto\Core\Http\Middleware\KeepOutOfSearchEngines;
+use Basalto\Core\Http\Middleware\LimitDemoStorage;
 use Basalto\Core\Http\Middleware\ResetRequestState;
 use Basalto\Core\Http\Middleware\ResolveSiteFromHost;
 use Basalto\Core\Http\Middleware\SelectBackendSite;
@@ -293,6 +294,9 @@ final class CoreServiceProvider extends ServiceProvider
         $kernel->addToMiddlewarePriorityBefore(SubstituteBindings::class, SelectBackendSite::class);
         // D-12: Frontend-Hinweis nach 30 Tagen «unregistriert» — über den Kernel in die web-Gruppe (der Router-Stand wird vom Kernel überschrieben).
         $kernel->appendMiddlewareToGroup('web', ShowLicenseBanner::class);
+        // TB 66 Nachtrag: Uploads in der öffentlichen Demo bis zum Kontingent (nach der Sitzung, damit Fehler ankommen)
+        $kernel->appendMiddlewareToGroup('web', LimitDemoStorage::class);
+        $kernel->appendMiddlewareToGroup('api', LimitDemoStorage::class);
         // TB 64: Testumgebung ohne Suchmaschinen (BASALTO_NOINDEX)
         $kernel->pushMiddleware(KeepOutOfSearchEngines::class);
         // B-06: Zustand der Singletons je Anfrage leeren (Octane) — und vor jedem Job im Worker, nicht bei «sync» (mitten in einer Anfrage)

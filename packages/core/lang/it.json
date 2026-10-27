@@ -4555,5 +4555,6 @@
     "Speichert gleich …": "Salvataggio tra poco …",
     "Nicht gespeicherte Änderungen verwerfen?": "Scartare le modifiche non salvate?",
     "Zum Extranet": "All’extranet",
-    "LOKAL": "LOCALE"
+    "LOKAL": "LOCALE",
+    "Die Demo hat ihren Speicher für heute aufgebraucht (:mb MB). Sie wird jede Nacht zurückgesetzt — danach lassen sich wieder Dateien hochladen.": "La demo ha esaurito lo spazio di archiviazione per oggi (:mb MB). Viene ripristinata ogni notte — dopo potrà di nuovo caricare file."
 }

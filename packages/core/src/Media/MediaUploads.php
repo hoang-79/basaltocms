@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Basalto\Core\Media;
 
+use Basalto\Core\Demo\DemoQuota;
 use Basalto\Core\Events\MediaUploaded;
 use Basalto\Core\Jobs\GenerateMediaVariants;
 use Basalto\Core\Models\Media;
@@ -46,9 +47,13 @@ final class MediaUploads
         return $path;
     }
 
-    /** Gründe, eine Datei trotz gültigem Typ abzuweisen: Kontingent der Site, Skripte in SVG. */
+    /** Gründe, eine Datei trotz gültigem Typ abzuweisen: Kontingent der Demo und der Site, Skripte in SVG. */
     public function refuse(UploadedFile $file, Site $site, int $replacing = 0): ?string
     {
+        // TB 66 Nachtrag: auch, was ohne Datei in der Anfrage ankommt (Bild aus der Zwischenablage, Abruf einer Adresse)
+        if (($demo = DemoQuota::refuse((int) $file->getSize() - $replacing)) !== null) {
+            return $demo;
+        }
         $quotaMb = config('basalto.media.quota_megabytes');
         if (is_int($quotaMb) && $quotaMb > 0) {
             $used = (int) Media::query()->withoutGlobalScopes()->withTrashed()->where('site_id', $site->id)->sum('size') - $replacing;

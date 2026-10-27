@@ -122,6 +122,11 @@ Une installation peut fonctionner comme démo publique : avec `BASALTO_DEMO=true
 - **Remise à neuf chaque nuit :** à 02:30, le scheduler appelle `basalto:demo-reset --force` — vider la base de données
   et relancer les migrations, vider les médias, importer le site `BASALTO_DEMO_SITE` (`demo` par défaut) avec les
   contenus de départ de `BASALTO_DEMO_THEME` (`starter` par défaut) et le mettre en ligne, créer trois comptes.
+- **Stockage limité :** ce que les visiteurs téléversent — médias, pièces jointes de formulaires, photos de profil,
+  images du thème, pièces jointes du forum — occupe au total au plus `BASALTO_DEMO_QUOTA_MB` jusqu’à la prochaine
+  réinitialisation (200 par défaut, `0` sans limite). Une fois le stockage plein, chaque nouveau téléversement est refusé
+  avec une remarque au champ de fichier. La démo n’affiche pas l’invitation « Configurer une passkey » — ses comptes
+  sont recréés chaque nuit.
 - **Visite des fonctions :** la démo comprend la page `/funktionen` avec une sous-page par domaine — ce qu’il sait
   faire, ce que l’on peut essayer, et un chemin vers le backend qui, via l’accès rapide, mène directement au bon
   endroit.
