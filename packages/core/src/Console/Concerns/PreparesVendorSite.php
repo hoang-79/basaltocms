@@ -68,6 +68,51 @@ trait PreparesVendorSite
         if (Artisan::call('basalto:docs-import', ['site' => $site->handle]) === 0) {
             $this->components->twoColumnDetail('Doku', trim(collect(explode("\n", Artisan::output()))->filter()->last() ?? ''));
         }
+        $demo = self::pointDemoLinks($site);
+        if ($demo > 0) {
+            $this->components->twoColumnDetail('Demo-Links', sprintf('%d Fassungen zeigen direkt auf die Demo', $demo));
+        }
+    }
+
+    /** Wohin die Demo-Links zeigen — lokal macht `basalto:lokal` daraus demo-basalto.test. */
+    public const DEMO_URL = 'https://demo.basaltocms.com';
+
+    /**
+     * Knöpfe auf die Zwischenseite /demo zeigen direkt auf die Demo, in der Sprache der Seite (Hoang, 27.10.2026: «der
+     * link von diesem button ist falsch … es müsste demo.basaltocms.com sein») — wie der Menüpunkt «Demo».
+     */
+    public static function pointDemoLinks(Site $site): int
+    {
+        $changed = 0;
+        $entryIds = Entry::query()->withoutGlobalScopes()->where('site_id', $site->id)->pluck('id');
+        EntryVersion::query()->whereIn('entry_id', $entryIds)->orderBy('id')->each(static function (EntryVersion $version) use (&$changed): void {
+            $data = $version->data;
+            $pointed = self::pointDemo($data);
+            if ($pointed !== $data) {
+                $version->forceFill(['data' => $pointed])->saveQuietly();
+                $changed++;
+            }
+        });
+
+        return $changed;
+    }
+
+    /**
+     * @param  array<array-key, mixed>  $data
+     * @return array<array-key, mixed>
+     */
+    private static function pointDemo(array $data): array
+    {
+        if (is_string($data['href'] ?? null) && preg_match('#^(?:/(en|fr|it))?/demo/?$#', $data['href'], $match) === 1) {
+            $data['href'] = self::DEMO_URL.(($match[1] ?? '') !== '' ? '/'.$match[1] : '');
+        }
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $data[$key] = self::pointDemo($value);
+            }
+        }
+
+        return $data;
     }
 
     /**

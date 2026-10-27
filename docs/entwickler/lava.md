@@ -88,8 +88,8 @@ zeigen dieselbe Linie (Quelle: `Basalto\Lava\Diagnostics\Step`, `Basalto\Lava\Th
 | Z | `publish` | Darf es raus? | `seo sitemap robots cookie legal redirects check` · `seo legal redirects` |
 
 **Dunkle Darstellung:** Eine Farbe in `design` kann einen zweiten Wert für dunkel tragen, `color text: #23262b dark #ebe8e3`.
-Er gilt, wenn das Betriebssystem der Besucher dunkel eingestellt ist oder sie mit `{% appearance %}` «dunkel» wählen;
-«hell» gewählt bleibt hell. Farben ohne dunklen Wert gelten in beiden Darstellungen. `basalto:check` rechnet die
+Er gilt, wenn Besucher mit `{% appearance %}` «dunkel» wählen; ohne Wahl ist die Seite hell, auch bei dunklem
+Betriebssystem. Farben ohne dunklen Wert gelten in beiden Darstellungen. `basalto:check` rechnet die
 Kontraste auch für die dunkle Palette.
 
 **Logo in Mails:** Der Kopf jeder Mail zeigt das Logo der Site. Gmail und Outlook zeigen kein SVG — legen Sie

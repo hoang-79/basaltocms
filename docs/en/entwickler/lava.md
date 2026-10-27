@@ -88,8 +88,8 @@ show the same line (source: `Basalto\Lava\Diagnostics\Step`, `Basalto\Lava\Theme
 | Z | `publish` | May it go live? | `seo sitemap robots cookie legal redirects check` · `seo legal redirects` |
 
 **Dark appearance:** a colour in `design` can carry a second value for dark, `color text: #23262b dark #ebe8e3`. It
-applies when the visitor’s operating system is set to dark or they choose “dark” with `{% appearance %}`; “light” chosen
-stays light. Colours without a dark value apply in both. `basalto:check` also calculates the contrasts of the dark
+applies when visitors choose “dark” with `{% appearance %}`; without a choice the page is light, even with a dark
+operating system. Colours without a dark value apply in both. `basalto:check` also calculates the contrasts of the dark
 palette.
 
 **Logo in emails:** the header of every email shows the logo of the site. Gmail and Outlook do not show SVG — so put

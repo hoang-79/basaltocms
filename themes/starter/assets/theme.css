@@ -1729,13 +1729,6 @@ mark {
     --mark: #fff3b0;
 }
 
-@media (prefers-color-scheme: dark) {
-    :root:not([data-theme='light']) {
-        --error: #f27a83;
-        --mark: #f5d76e;
-    }
-}
-
 :root[data-theme='dark'] {
     --error: #f27a83;
     --mark: #f5d76e;

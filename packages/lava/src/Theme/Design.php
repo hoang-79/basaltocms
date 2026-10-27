@@ -11,9 +11,9 @@ use Basalto\Lava\Structure\Definition;
  * für den Kopf jeder Seite, ein Tailwind-Theme für Theme-Autorinnen und die Kontrastprüfung nach WCAG 2.2 (1.4.3).
  * Überschreibungen aus dem Backend (M-15) legen sich über die Werte des Themes, ohne Build.
  *
- * Dunkle Darstellung (TB 21): `color text: #23262b dark #ebe8e3` — der zweite Wert gilt, wenn Besucher dunkel
- * wünschen (`prefers-color-scheme`) oder auf der Seite «dunkel» wählen (`data-theme="dark"` am `<html>`, Tag
- * `{% appearance %}`); «hell» gewählt (`data-theme="light"`) bleibt hell. Farben ohne dunklen Wert gelten in beiden.
+ * Dunkle Darstellung (TB 21): `color text: #23262b dark #ebe8e3` — der zweite Wert gilt, wenn Besucher auf der Seite
+ * «dunkel» wählen (`data-theme="dark"` am `<html>`, Tag `{% appearance %}`). Ohne Wahl ist die Seite hell, auch bei
+ * dunklem Betriebssystem (27.10.2026). Farben ohne dunklen Wert gelten in beiden.
  *
  * Paare für den Kontrast ergeben sich aus den Namen: `text`, `muted` und `link` auf `background`, `X-text` (oder `on-X`)
  * auf `X` — so prüft `basalto:check`, ohne dass ein Theme die Rollen eigens erklären muss.
@@ -175,8 +175,9 @@ final class Design
                 $night[] = '--color-'.$name.':'.$value;
             }
             $block = implode(';', $night);
-            // Wunsch des Systems, ausser «hell» ist gewählt — und «dunkel» gewählt gilt immer
-            $css .= '@media (prefers-color-scheme:dark){:root:not([data-theme=light]){'.$block.'}}:root[data-theme=dark]{'.$block.'}';
+            // Nur wer «dunkel» wählt, sieht die dunklen Farben — ohne Wahl ist die Seite hell, auch bei dunklem
+            // Betriebssystem (Hoang, 27.10.2026: «hier müsste der standard hell sein»)
+            $css .= ':root[data-theme=dark]{'.$block.'}';
         }
 
         return $css;

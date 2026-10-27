@@ -165,7 +165,8 @@ final class ThemeAssets
 
     /**
      * Umschalter hell/dunkel für Besucher (`{% appearance %}`, TB 21) — nur, wenn das Theme dunkle Farben hat. Ein Knopf
-     * mit Sonne und Mond; die Wahl liegt im Browser (localStorage), ohne sie gilt das Betriebssystem.
+     * mit Sonne und Mond; die Wahl liegt im Browser (localStorage), ohne sie ist die Seite hell — auch bei dunklem
+     * Betriebssystem (Hoang, 27.10.2026).
      */
     public function appearanceToggle(Site $site, string $language): string
     {
@@ -181,11 +182,11 @@ final class ThemeAssets
         $key = self::APPEARANCE_KEY;
 
         return '<button type="button" class="appearance-toggle" aria-pressed="false" aria-label="'.htmlspecialchars($label, ENT_QUOTES).'" title="'.htmlspecialchars($label, ENT_QUOTES).'">'.$moon.$sun.'</button>'
-            .'<script>(function(b){var r=document.documentElement,m=window.matchMedia?window.matchMedia("(prefers-color-scheme: dark)"):null;'
-            .'function dark(){return r.dataset.theme==="dark"||(r.dataset.theme!=="light"&&!!(m&&m.matches))}'
+            .'<script>(function(b){var r=document.documentElement;'
+            .'function dark(){return r.dataset.theme==="dark"}'
             .'function show(){b.setAttribute("aria-pressed",dark()?"true":"false")}'
             .'b.addEventListener("click",function(){var a=dark()?"light":"dark";r.dataset.theme=a;try{localStorage.setItem("'.$key.'",a)}catch(e){}show()});'
-            .'if(m&&m.addEventListener){m.addEventListener("change",show)}show()})(document.currentScript.previousElementSibling)</script>';
+            .'show()})(document.currentScript.previousElementSibling)</script>';
     }
 
     /** Schlüssel der Wahl hell/dunkel im Browser der Besucher. */

@@ -88,8 +88,8 @@ mostrano la stessa linea (fonte: `Basalto\Lava\Diagnostics\Step`, `Basalto\Lava\
 | Z | `publish` | Può andare online? | `seo sitemap robots cookie legal redirects check` · `seo legal redirects` |
 
 **Rappresentazione scura:** un colore in `design` può portare un secondo valore per lo scuro, `color text: #23262b dark #ebe8e3`.
-Vale quando il sistema operativo dei visitatori è impostato su scuro o quando scelgono «Scuro» con `{% appearance %}`;
-scegliendo «Chiaro» resta chiaro. I colori senza valore scuro valgono in entrambe le rappresentazioni. `basalto:check` calcola
+Vale quando i visitatori scelgono «Scuro» con `{% appearance %}`; senza scelta la pagina è chiara, anche con un
+sistema operativo impostato su scuro. I colori senza valore scuro valgono in entrambe le rappresentazioni. `basalto:check` calcola
 i contrasti anche per la palette scura.
 
 **Logo nelle e-mail:** l’intestazione di ogni e-mail mostra il logo del sito. Gmail e Outlook non mostrano l’SVG — metta

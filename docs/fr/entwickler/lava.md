@@ -88,8 +88,8 @@ affichent la même ligne (source : `Basalto\Lava\Diagnostics\Step`, `Basalto\Lav
 | Z | `publish` | Peut-on mettre en ligne ? | `seo sitemap robots cookie legal redirects check` · `seo legal redirects` |
 
 **Présentation sombre :** une couleur dans `design` peut porter une deuxième valeur pour le mode sombre, `color text: #23262b dark #ebe8e3`.
-Elle s’applique lorsque le système d’exploitation des visiteurs est réglé en mode sombre ou qu’ils choisissent « Sombre » avec `{% appearance %}` ;
-le choix « Clair » reste clair. Les couleurs sans valeur sombre valent dans les deux présentations. `basalto:check` calcule les
+Elle s’applique lorsque les visiteurs choisissent « Sombre » avec `{% appearance %}` ; sans choix, la page est claire,
+même avec un système d’exploitation en mode sombre. Les couleurs sans valeur sombre valent dans les deux présentations. `basalto:check` calcule les
 contrastes également pour la palette sombre.
 
 **Logo dans les e-mails :** l’en-tête de chaque e-mail montre le logo du site. Gmail et Outlook n’affichent pas le SVG —
