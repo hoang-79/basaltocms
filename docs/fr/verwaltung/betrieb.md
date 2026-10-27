@@ -35,10 +35,9 @@ Une sauvegarde protège toute l’installation en cas d’urgence. L’**export*
 
 ## État de l’installation
 
-En bas à gauche de chaque page figure en petit l’état : un badge coloré pour l’environnement — **PROD** (rouge),
+En bas à gauche de chaque page du backend et de l’extranet figure en petit l’état : un badge coloré pour l’environnement — **PROD** (rouge),
 **TESTING** (ambre), **DEMO** (bleu), **LOCAL** (vert) —, avec la version et le moment de sa livraison. Au survol de la
-souris s’affiche le commit. Sur le site web en production, seules les personnes connectées au backend le voient ; les
-visiteurs ne voient aucun numéro de version.
+souris s’affiche le commit. Le site web n’affiche aucun état.
 
 ## Indicateurs et alerte d’erreurs
 

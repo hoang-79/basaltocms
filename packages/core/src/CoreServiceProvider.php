@@ -68,7 +68,6 @@ use Basalto\Core\Http\Middleware\ResetRequestState;
 use Basalto\Core\Http\Middleware\ResolveSiteFromHost;
 use Basalto\Core\Http\Middleware\SelectBackendSite;
 use Basalto\Core\Http\Middleware\ShowLicenseBanner;
-use Basalto\Core\Http\Middleware\ShowReleaseBadge;
 use Basalto\Core\Legal\Cancellation\ContractSources;
 use Basalto\Core\Legal\Cancellation\SaasContractSource;
 use Basalto\Core\Listeners\RecordActivity;
@@ -294,8 +293,6 @@ final class CoreServiceProvider extends ServiceProvider
         $kernel->addToMiddlewarePriorityBefore(SubstituteBindings::class, SelectBackendSite::class);
         // D-12: Frontend-Hinweis nach 30 Tagen «unregistriert» — über den Kernel in die web-Gruppe (der Router-Stand wird vom Kernel überschrieben).
         $kernel->appendMiddlewareToGroup('web', ShowLicenseBanner::class);
-        // Stand der Installation unten links auf der Website (Backend und Extranet zeigen ihn selbst)
-        $kernel->appendMiddlewareToGroup('web', ShowReleaseBadge::class);
         // TB 64: Testumgebung ohne Suchmaschinen (BASALTO_NOINDEX)
         $kernel->pushMiddleware(KeepOutOfSearchEngines::class);
         // B-06: Zustand der Singletons je Anfrage leeren (Octane) — und vor jedem Job im Worker, nicht bei «sync» (mitten in einer Anfrage)

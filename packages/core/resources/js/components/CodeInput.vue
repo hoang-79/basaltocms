@@ -147,7 +147,7 @@ onMounted(() => {
             :aria-label="t('Ziffer :n von :total', { n: i + 1, total: length })"
             :aria-invalid="invalid ? 'true' : undefined"
             :class="[
-                'dark:bg-basalt-dark h-12 w-10 rounded-md border bg-white text-center font-mono text-xl font-semibold text-basalt focus:ring-2 focus:outline-none disabled:bg-paper sm:h-14 sm:w-12 dark:text-paper',
+                'h-12 w-10 rounded-md border bg-white text-center font-mono text-xl font-semibold text-basalt focus:ring-2 focus:outline-none disabled:bg-paper sm:h-14 sm:w-12',
                 invalid
                     ? 'border-danger ring-danger/15 focus:ring-danger ring-2'
                     : 'border-ash-dark focus:border-lava-dark focus:ring-lava-dark/40',

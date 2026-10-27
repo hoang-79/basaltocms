@@ -35,10 +35,9 @@ A backup saves the whole installation for emergencies. The **export** of a site 
 
 ## State of the installation
 
-At the bottom left of every page, the state is shown in small print: a coloured badge for the environment — **PROD**
+At the bottom left of every page of the backend and the extranet, the state is shown in small print: a coloured badge for the environment — **PROD**
 (red), **TESTING** (amber), **DEMO** (blue), **LOCAL** (green) — plus the version and when it was delivered. Hovering
-shows the commit. On the website in production, only people signed in to the backend see it; visitors see no version
-number.
+shows the commit. The website shows no state.
 
 ## Metrics and error alarm
 

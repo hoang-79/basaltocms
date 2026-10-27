@@ -35,10 +35,9 @@ Un backup salva l’intera installazione per le emergenze. L’**esportazione** 
 
 ## Stato dell’installazione
 
-In basso a sinistra di ogni pagina compare in piccolo lo stato: un badge colorato per l’ambiente — **PROD** (rosso),
+In basso a sinistra di ogni pagina del backend e dell’extranet compare in piccolo lo stato: un badge colorato per l’ambiente — **PROD** (rosso),
 **TESTING** (ambra), **DEMO** (blu), **LOCALE** (verde) — con la versione e quando è stata consegnata. Passando con il
-mouse compare il commit. Sul sito web in produzione lo vedono solo le persone che hanno effettuato l’accesso al backend;
-chi visita il sito non vede alcun numero di versione.
+mouse compare il commit. Il sito web non mostra alcuno stato.
 
 ## Metriche e allarme errori
 
