@@ -33,6 +33,13 @@ Jobs are work in the background — cutting image variants, sending emails, warm
 
 A backup saves the whole installation for emergencies. The **export** of a site (under “Sites”) is something else: a copy of a single site for moving.
 
+## State of the installation
+
+At the bottom left of every page, the state is shown in small print: a coloured badge for the environment — **PROD**
+(red), **TESTING** (amber), **DEMO** (blue), **LOCAL** (green) — plus the version and when it was delivered. Hovering
+shows the commit. On the website in production, only people signed in to the backend see it; visitors see no version
+number.
+
 ## Metrics and error alarm
 
 Whoever operates the installation sees **metrics of the last hour** below, across all sites — reported exceptions, slow requests and queries, jobs — and **“Open Pulse dashboard”** for details.

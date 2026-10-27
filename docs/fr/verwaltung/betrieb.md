@@ -33,6 +33,13 @@ Les jobs sont des travaux en arrière-plan — découper les variantes d’image
 
 Une sauvegarde protège toute l’installation en cas d’urgence. L’**export** d’un site (sous « Sites ») est autre chose : une copie d’un seul site pour un transfert.
 
+## État de l’installation
+
+En bas à gauche de chaque page figure en petit l’état : un badge coloré pour l’environnement — **PROD** (rouge),
+**TESTING** (ambre), **DEMO** (bleu), **LOCAL** (vert) —, avec la version et le moment de sa livraison. Au survol de la
+souris s’affiche le commit. Sur le site web en production, seules les personnes connectées au backend le voient ; les
+visiteurs ne voient aucun numéro de version.
+
 ## Indicateurs et alerte d’erreurs
 
 Qui exploite l’installation voit en dessous les **indicateurs de la dernière heure** pour tous les sites — exceptions signalées, requêtes et interrogations lentes, jobs — et **« Ouvrir le tableau de bord Pulse »** pour les détails.

@@ -24,6 +24,7 @@ use Basalto\Core\Models\FormSubmission;
 use Basalto\Core\Models\Site;
 use Basalto\Core\Notifications\NotificationCenter;
 use Basalto\Core\Notifications\NotificationType;
+use Basalto\Core\Operations\ReleaseInfo;
 use Basalto\Core\Saas\Offboarding\Lifecycle;
 use Basalto\Core\Saas\Saas;
 use Basalto\Core\Saas\Trial;
@@ -87,6 +88,8 @@ final class HandleBackendRequests extends Middleware
 
         return [
             ...parent::share($request),
+            // Stand der Installation für den Hinweis unten links (Version, Auslieferung, Umgebung) — auch im Extranet
+            'release' => ReleaseInfo::current(),
             // TB 21: das Profilbild für Kopfzeile und Benutzermenü (sonst Initialen)
             'auth' => ['user' => ($user = $request->user()) instanceof Model ? [...$user->only(['id', 'name', 'email']), 'avatar_url' => Avatars::url($user)] : null],
             'backend' => [

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Basalto\Core\Http\Middleware;
 
 use Basalto\Core\Core;
+use Basalto\Core\Operations\ReleaseInfo;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -22,6 +23,7 @@ final class HandleInstallRequests extends Middleware
         return [
             ...parent::share($request),
             'backend' => ['name' => 'Basalto', 'brand' => null, 'version' => Core::VERSION],
+            'release' => ReleaseInfo::current(),
         ];
     }
 }

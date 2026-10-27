@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import ReleaseBadge from '../components/ReleaseBadge.vue';
 import DemoBanner from '../components/DemoBanner.vue';
 import Wordmark from '../components/Wordmark.vue';
 import { isEmbedded } from '../components/embed';
@@ -45,5 +46,6 @@ const cancellation = computed(() => page.props.backend?.cancellation ?? null);
                 $t('Verträge hier kündigen')
             }}</a>
         </footer>
+        <ReleaseBadge />
     </div>
 </template>

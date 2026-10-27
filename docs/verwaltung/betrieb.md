@@ -33,6 +33,13 @@ Jobs sind Arbeiten im Hintergrund — Bildvarianten schneiden, Mails verschicken
 
 Ein Backup sichert die ganze Installation für den Notfall. Der **Export** einer Site (unter «Sites») ist etwas anderes: eine Kopie einer einzelnen Site zum Umziehen.
 
+## Stand der Installation
+
+Unten links auf jeder Seite steht klein der Stand: ein farbiges Abzeichen für die Umgebung — **PROD** (rot),
+**TESTING** (bernstein), **DEMO** (blau), **LOKAL** (grün) —, dazu die Version und wann sie ausgeliefert wurde. Mit der
+Maus darüber zeigt es den Commit. Auf der Website sehen ihn in der Produktion nur Personen, die im Backend angemeldet
+sind; Besuchende sehen keine Versionsnummer.
+
 ## Kennzahlen und Fehleralarm
 
 Wer die Installation betreibt, sieht darunter **Kennzahlen der letzten Stunde** über alle Sites — gemeldete Ausnahmen, langsame Anfragen und Abfragen, Jobs — und **«Pulse-Dashboard öffnen»** für Einzelheiten.

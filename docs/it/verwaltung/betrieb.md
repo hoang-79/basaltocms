@@ -33,6 +33,13 @@ I job sono lavori in background — ritagliare varianti d’immagine, inviare e-
 
 Un backup salva l’intera installazione per le emergenze. L’**esportazione** di un sito (sotto «Siti») è un’altra cosa: una copia di un singolo sito per il trasferimento.
 
+## Stato dell’installazione
+
+In basso a sinistra di ogni pagina compare in piccolo lo stato: un badge colorato per l’ambiente — **PROD** (rosso),
+**TESTING** (ambra), **DEMO** (blu), **LOCALE** (verde) — con la versione e quando è stata consegnata. Passando con il
+mouse compare il commit. Sul sito web in produzione lo vedono solo le persone che hanno effettuato l’accesso al backend;
+chi visita il sito non vede alcun numero di versione.
+
 ## Metriche e allarme errori
 
 Chi gestisce l’installazione vede sotto le **metriche dell’ultima ora** su tutti i siti — eccezioni segnalate, richieste e query lente, job — e **«Apri la dashboard di Pulse»** per i dettagli.

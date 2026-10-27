@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ReleaseBadge from '../components/ReleaseBadge.vue';
 import UserMenu from '../components/UserMenu.vue';
 import NotificationBell from '../components/NotificationBell.vue';
 import { Link, router, usePage } from '@inertiajs/vue3';
@@ -162,5 +163,6 @@ onBeforeUnmount(() => {
                 <path d="M1 1l5 5 5-5" />
             </svg>
         </div>
+        <ReleaseBadge />
     </div>
 </template>

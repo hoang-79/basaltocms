@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Link, router, usePage } from '@inertiajs/vue3';
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
+import ReleaseBadge from '../components/ReleaseBadge.vue';
 import Hex from '../components/Hex.vue';
 import AutosaveToast from '../components/AutosaveToast.vue';
 import BackendSearch from '../components/BackendSearch.vue';
@@ -263,5 +264,6 @@ const modes = computed(() => {
                 <path d="M1 1l5 5 5-5" />
             </svg>
         </div>
+        <ReleaseBadge />
     </div>
 </template>

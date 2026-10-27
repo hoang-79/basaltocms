@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
+import ReleaseBadge from '../components/ReleaseBadge.vue';
 import DemoBanner from '../components/DemoBanner.vue';
 import Wordmark from '../components/Wordmark.vue';
 import type { BackendProps } from '../types';
@@ -43,5 +44,6 @@ const cancellation = computed(() => page.props.backend?.cancellation ?? null);
                 }}</a>
             </template>
         </p>
+        <ReleaseBadge />
     </main>
 </template>
