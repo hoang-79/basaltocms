@@ -63,6 +63,8 @@ Route::domain(Extranet::host())->middleware(['web', 'auth', SelectAccountLocale:
     }
 });
 // Alles andere auf diesem Host: 404 statt der Website. Ausgenommen der Backend-Pfad (Anmelden, Abmelden, Profil — der
-// Rest leitet KeepCmsOffExtranet hierher) und /up: Laravel prüft Routen mit Host vor allen anderen
+// Rest leitet KeepCmsOffExtranet hierher), /up, die Passkeys (Registrieren im Profil, Anmelden; Hoang 27.10.2026: «404
+// auf /user/passkeys/options») und die Live-Aktualisierung der Glocke: Laravel prüft Routen mit Host vor allen anderen
 Route::domain(Extranet::host())->middleware('web')->match(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], '{path}', static fn () => abort(404))
-    ->where('path', '(?!'.preg_quote(trim((string) config('basalto.backend.path', 'admin'), '/'), '/').'(?:/|$)|up(?:/|$)).+')->name('extranet.missing');
+    ->where('path', '(?!'.preg_quote(trim((string) config('basalto.backend.path', 'admin'), '/'), '/').'(?:/|$)|up(?:/|$)|user/passkeys(?:/|$)|passkeys(?:/|$)'
+        .'|\.well-known/passkey-endpoints$|_live(?:/|$)).+')->name('extranet.missing');
