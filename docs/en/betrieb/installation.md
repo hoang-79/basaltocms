@@ -35,10 +35,39 @@ backend with a one-time link. Then it deletes itself.
 - **Advanced:** MariaDB/MySQL or PostgreSQL instead of SQLite, a licence key straight away.
 - **Only into an empty folder** (allowed are files that hosting providers create themselves: `.htaccess`, `.user.ini`,
   `.well-known`, `cgi-bin`, `error_log`).
-- **First come:** the first browser gets the installation; a second one sees “already running”. To start over, delete
-  the file `.basalto-install.json` in the folder.
+- **First come:** the first browser gets the installation; a second one sees “already running”. Requests without a
+  browser (curl, monitoring, search engines) take over nothing. After 30 minutes without activity the installation is
+  free again; to start over right away, delete the file `.basalto-install.json` in the folder.
 - **Web server starts in the main folder instead of `public/`:** the installer creates an `.htaccess` that routes
   everything through `public/` (Apache). On nginx set the root to `public/`.
+
+### If something is missing: diagnosis and self-help
+
+The installer checks the server before downloading anything and shows every finding in plain words — with the reason,
+a solution and the steps in the control panel of the detected host (with a link to its guide). What it can fix itself,
+it only fixes after you confirm, and always with a backup:
+
+- **PHP too old:** it first tries the matching line in a test folder and only writes it at the top of this folder’s
+  `.htaccess` if it works there. Existing PHP lines are commented out, the old file is kept as
+  `.htaccess.basalto-vorher`; if the line does not work here, it takes it back. On OVHcloud it writes the
+  `.ovhconfig`. A typical case: a document root two levels below `public_html` — the setting in the control panel does
+  not reach it.
+- **Folder not empty:** it recognises placeholders of the host and existing websites (WordPress, Joomla …) and, on
+  request, moves the files into a folder `.basalto-vorher-<time>` — nothing is deleted.
+- **Database:** before downloading it tests the connection, explains errors (wrong password, missing database, server
+  not reachable), tries the server names the host uses itself, and creates a missing database where the host allows
+  it. If SQLite is missing, it suggests MariaDB.
+- **What only the host can do** (extensions, downloading, permissions): the steps in its control panel and a
+  ready-made message to support with all details.
+- **After the installation** it checks from outside whether Basalto answers and whether `.env` is protected — otherwise
+  it shows a warning instead of redirecting. Setup errors (memory, time, permissions, space) are explained in plain
+  words.
+
+The common hosts are recognised by their paths: cyon, Hostpoint, Infomaniak, Metanet, green.ch, ALL-INKL.COM, IONOS and
+STRATO (older packages), Hetzner, netcup, mittwald, Host Europe, DomainFactory, Hostinger, SiteGround, DreamHost,
+OVHcloud, one.com, Gandi and Laravel Forge, plus the panels cPanel (for example Bluehost, GoDaddy, Namecheap, HostGator,
+InMotion, Novatrend), Plesk, DirectAdmin, ISPConfig, Froxlor and KeyHelp. Everywhere else general hints apply; the PHP
+self-help still works if the server provides a suitable version.
 
 ## Way 2: release archive and console
 

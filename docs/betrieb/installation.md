@@ -36,10 +36,38 @@ einem Einmal-Link im Backend an. Danach löscht er sich selbst.
 - **Erweitert:** MariaDB/MySQL oder PostgreSQL statt SQLite, Lizenzschlüssel gleich mitgeben.
 - **Nur in einen leeren Ordner** (erlaubt sind Dateien, die Hoster selbst anlegen: `.htaccess`, `.user.ini`,
   `.well-known`, `cgi-bin`, `error_log`).
-- **Wer zuerst kommt:** Der erste Browser bekommt die Installation; ein zweiter sieht «läuft bereits». Neu beginnen:
-  die Datei `.basalto-install.json` im Ordner löschen.
+- **Wer zuerst kommt:** Der erste Browser bekommt die Installation; ein zweiter sieht «läuft bereits». Abrufe ohne
+  Browser (curl, Überwachung, Suchmaschinen) übernehmen nichts. Nach 30 Minuten ohne Aktivität ist die Installation
+  wieder frei; sofort neu beginnen: die Datei `.basalto-install.json` im Ordner löschen.
 - **Webserver beginnt im Hauptordner statt in `public/`:** Der Installer legt eine `.htaccess` an, die alles über
   `public/` leitet (Apache). Bei nginx die Wurzel auf `public/` setzen.
+
+### Wenn etwas fehlt: Diagnose und Selbsthilfe
+
+Der Installer prüft den Server, bevor er etwas herunterlädt, und zeigt jeden Befund in Klartext — mit dem Grund, mit
+einer Lösung und mit den Schritten in der Verwaltung des erkannten Hosters (samt Link zu dessen Anleitung). Was er
+selbst lösen kann, löst er erst nach Ihrer Bestätigung und immer mit Sicherung:
+
+- **PHP zu alt:** Er probiert die passende Zeile zuerst in einem Testordner aus und schreibt sie nur dann zuoberst in
+  die `.htaccess` dieses Ordners, wenn sie dort wirkt. Bisherige PHP-Zeilen werden auskommentiert, die alte Datei
+  bleibt als `.htaccess.basalto-vorher`; wirkt die Zeile hier nicht, nimmt er sie zurück. Bei OVHcloud schreibt er die
+  `.ovhconfig`. Typischer Fall: Ein Dokumentstamm liegt zwei Ebenen unter `public_html` — die Einstellung im
+  Verwaltungsbereich erreicht ihn dann nicht.
+- **Ordner nicht leer:** Er erkennt Platzhalter des Hosters und bestehende Websites (WordPress, Joomla …) und legt die
+  Dateien auf Wunsch in einen Ordner `.basalto-vorher-<zeit>` — gelöscht wird nichts.
+- **Datenbank:** Vor dem Herunterladen prüft er die Verbindung, erklärt Fehler (falsches Passwort, Datenbank fehlt,
+  Server nicht erreichbar), probiert selbst die Server-Namen, die der Hoster verwendet, und legt eine fehlende Datenbank
+  an, wo der Hoster das erlaubt. Fehlt SQLite, schlägt er MariaDB vor.
+- **Was nur der Hoster kann** (Erweiterungen, Herunterladen, Rechte): die Schritte in dessen Verwaltung und eine fertige
+  Nachricht an den Support mit allen Angaben.
+- **Nach der Installation** prüft er von aussen, ob Basalto antwortet und ob `.env` geschützt ist — sonst zeigt er eine
+  Warnung statt weiterzuleiten. Fehler beim Einrichten (Speicher, Zeit, Rechte, Platz) erklärt er in Klartext.
+
+Erkannt werden die gängigen Hoster an ihren Pfaden: cyon, Hostpoint, Infomaniak, Metanet, green.ch, ALL-INKL.COM,
+IONOS und STRATO (ältere Pakete), Hetzner, netcup, mittwald, Host Europe, DomainFactory, Hostinger, SiteGround,
+DreamHost, OVHcloud, one.com, Gandi und Laravel Forge, dazu die Oberflächen cPanel (etwa Bluehost, GoDaddy, Namecheap,
+HostGator, InMotion, Novatrend), Plesk, DirectAdmin, ISPConfig, Froxlor und KeyHelp. Bei allen anderen gelten
+allgemeine Hinweise; die Selbsthilfe für PHP arbeitet trotzdem, wenn der Server eine passende Version mitbringt.
 
 ## Weg 2: Release-Archiv und Konsole
 

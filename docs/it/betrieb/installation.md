@@ -36,10 +36,38 @@ al backend con un link monouso. Poi si cancella da solo.
 - **Avanzate:** MariaDB/MySQL o PostgreSQL al posto di SQLite, chiave di licenza indicata subito.
 - **Solo in una cartella vuota** (sono ammessi i file che i provider di hosting creano da sé: `.htaccess`,
   `.user.ini`, `.well-known`, `cgi-bin`, `error_log`).
-- **Chi arriva prima:** il primo browser ottiene l’installazione; un secondo vede «già in corso». Per ricominciare:
-  eliminare il file `.basalto-install.json` nella cartella.
+- **Chi arriva prima:** il primo browser ottiene l’installazione; un secondo vede «già in corso». Le richieste senza
+  browser (curl, monitoraggio, motori di ricerca) non la occupano. Dopo 30 minuti senza attività l’installazione è di
+  nuovo libera; per ricominciare subito: eliminare il file `.basalto-install.json` nella cartella.
 - **Il server web parte dalla cartella principale invece che da `public/`:** l’installer crea un `.htaccess` che
   instrada tutto attraverso `public/` (Apache). Con nginx impostare la radice su `public/`.
+
+### Se manca qualcosa: diagnosi e autoaiuto
+
+L’installer verifica il server prima di scaricare qualsiasi cosa e mostra ogni riscontro in modo chiaro — con il
+motivo, una soluzione e i passi nel pannello dell’hosting riconosciuto (con un link alla sua guida). Ciò che può
+risolvere da sé lo risolve solo dopo la Sua conferma, e sempre con una copia di sicurezza:
+
+- **PHP troppo vecchio:** prova prima la riga adatta in una cartella di prova e la scrive in cima al file `.htaccess`
+  di questa cartella solo se lì funziona. Le righe PHP esistenti vengono commentate, il vecchio file resta come
+  `.htaccess.basalto-vorher`; se la riga qui non funziona, la annulla. Presso OVHcloud scrive il file `.ovhconfig`.
+  Caso tipico: una radice dei documenti due livelli sotto `public_html` — l’impostazione del pannello non la raggiunge.
+- **Cartella non vuota:** riconosce i segnaposto dell’hosting e i siti esistenti (WordPress, Joomla …) e, su richiesta,
+  sposta i file in una cartella `.basalto-vorher-<ora>` — non viene eliminato nulla.
+- **Database:** prima del download verifica la connessione, spiega gli errori (password errata, database mancante,
+  server non raggiungibile), prova da sé i nomi dei server usati dall’hosting e crea un database mancante dove l’hosting
+  lo consente. Se manca SQLite, propone MariaDB.
+- **Ciò che può fare solo l’hosting** (estensioni, download, permessi): i passi nel suo pannello e un messaggio pronto
+  per il supporto con tutti i dati.
+- **Dopo l’installazione** verifica dall’esterno che Basalto risponda e che `.env` sia protetto — altrimenti mostra un
+  avviso invece di reindirizzare. Gli errori di configurazione (memoria, tempo, permessi, spazio) vengono spiegati
+  chiaramente.
+
+Gli hosting più diffusi vengono riconosciuti dai loro percorsi: cyon, Hostpoint, Infomaniak, Metanet, green.ch,
+ALL-INKL.COM, IONOS e STRATO (pacchetti meno recenti), Hetzner, netcup, mittwald, Host Europe, DomainFactory, Hostinger,
+SiteGround, DreamHost, OVHcloud, one.com, Gandi e Laravel Forge, oltre ai pannelli cPanel (per esempio Bluehost,
+GoDaddy, Namecheap, HostGator, InMotion, Novatrend), Plesk, DirectAdmin, ISPConfig, Froxlor e KeyHelp. Altrove valgono
+indicazioni generali; l’autoaiuto per PHP funziona comunque se il server offre una versione adatta.
 
 ## Via 2: archivio di release e console
 

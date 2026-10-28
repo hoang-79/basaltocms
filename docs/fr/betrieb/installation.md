@@ -37,10 +37,39 @@ contenus de départ et vous connecte au backend au moyen d’un lien à usage un
 - **Uniquement dans un dossier vide** (sont autorisés les fichiers que les hébergeurs créent eux-mêmes : `.htaccess`,
   `.user.ini`, `.well-known`, `cgi-bin`, `error_log`).
 - **Premier arrivé, premier servi :** le premier navigateur obtient l’installation ; un second voit « L’installation
-  est déjà en cours dans un autre navigateur ». Pour recommencer : supprimer le fichier `.basalto-install.json` du
-  dossier.
+  est déjà en cours dans un autre navigateur ». Les requêtes sans navigateur (curl, surveillance, moteurs de recherche)
+  n’en prennent pas possession. Après 30 minutes sans activité, l’installation est de nouveau libre ; pour recommencer
+  tout de suite : supprimer le fichier `.basalto-install.json` du dossier.
 - **Le serveur web démarre dans le dossier principal au lieu de `public/` :** l’installateur crée un `.htaccess` qui
   fait tout passer par `public/` (Apache). Avec nginx, placer la racine sur `public/`.
+
+### S’il manque quelque chose : diagnostic et auto-assistance
+
+L’installateur vérifie le serveur avant de télécharger quoi que ce soit et présente chaque constat en clair — avec la
+raison, une solution et les étapes dans l’espace de gestion de l’hébergeur détecté (avec un lien vers son guide). Ce
+qu’il peut résoudre lui-même, il ne le fait qu’après votre confirmation, et toujours avec une copie de sécurité :
+
+- **PHP trop ancien :** il essaie d’abord la ligne adaptée dans un dossier de test et ne l’écrit tout en haut du
+  `.htaccess` de ce dossier que si elle y fonctionne. Les lignes PHP existantes sont mises en commentaire, l’ancien
+  fichier est conservé sous `.htaccess.basalto-vorher` ; si la ligne ne fonctionne pas ici, il l’annule. Chez OVHcloud,
+  il écrit le `.ovhconfig`. Cas typique : une racine des documents située deux niveaux sous `public_html` — le réglage
+  de l’espace de gestion ne l’atteint pas.
+- **Dossier non vide :** il reconnaît les pages d’attente de l’hébergeur et les sites existants (WordPress, Joomla …) et,
+  sur demande, déplace les fichiers dans un dossier `.basalto-vorher-<heure>` — rien n’est supprimé.
+- **Base de données :** avant le téléchargement, il teste la connexion, explique les erreurs (mot de passe erroné, base
+  manquante, serveur injoignable), essaie lui-même les noms de serveur utilisés par l’hébergeur et crée une base
+  manquante là où l’hébergeur le permet. Si SQLite manque, il propose MariaDB.
+- **Ce que seul l’hébergeur peut faire** (extensions, téléchargement, droits) : les étapes dans son espace de gestion et
+  un message prêt à envoyer au support avec toutes les indications.
+- **Après l’installation**, il vérifie depuis l’extérieur que Basalto répond et que `.env` est protégé — sinon il
+  affiche un avertissement au lieu de rediriger. Les erreurs de configuration (mémoire, temps, droits, espace) sont
+  expliquées en clair.
+
+Les hébergeurs courants sont reconnus à leurs chemins : cyon, Hostpoint, Infomaniak, Metanet, green.ch, ALL-INKL.COM,
+IONOS et STRATO (anciens forfaits), Hetzner, netcup, mittwald, Host Europe, DomainFactory, Hostinger, SiteGround,
+DreamHost, OVHcloud, one.com, Gandi et Laravel Forge, ainsi que les interfaces cPanel (par exemple Bluehost, GoDaddy,
+Namecheap, HostGator, InMotion, Novatrend), Plesk, DirectAdmin, ISPConfig, Froxlor et KeyHelp. Ailleurs, des indications
+générales s’appliquent ; l’auto-assistance PHP fonctionne quand même si le serveur fournit une version adaptée.
 
 ## Voie 2 : archive de version et console
 
