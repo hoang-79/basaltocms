@@ -36,7 +36,7 @@ Si un site compte les visites, les **paramètres des cookies** demandent le cons
 - **Nécessaires** est toujours actif (session, protection contre les requêtes falsifiées, langue, affichage).
 - **Statistiques** est désactivé par défaut — un consentement précoché ne serait pas valable. Si le thème intègre des services d’autres fournisseurs, **Contenus externes** s’ajoute.
 - **Uniquement les nécessaires**, **Enregistrer la sélection** et **Tout accepter** ont la même taille et sont aussi faciles à atteindre.
-- Le choix vaut un an. Les visiteurs le modifient à tout moment via **Paramètres des cookies** dans le pied de page ; « En savoir plus » mène à la politique de confidentialité du site.
+- Le choix vaut un an. Les visiteurs le modifient à tout moment via **Paramètres des cookies** dans le pied de page ; « En savoir plus » mène à la politique de confidentialité du site dans la langue de la page — la page que le thème désigne sous `publish { legal { datenschutz: … } }` (sinon la page sous `/datenschutz`), à l’adresse qu’elle a dans cette langue. Si elle n’est pas publiée, le lien est omis.
 
 ## Activer, désactiver, conserver
 

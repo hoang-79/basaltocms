@@ -28,7 +28,7 @@ final class LegalPages
     public function apply(Site $site, string $kind, ?int $authorId = null): Entry
     {
         $theme = $this->themes->forSite($site);
-        $name = $theme->document->find('publish')?->childrenOf('legal')[0]?->value($kind) ?? $kind;
+        $name = ($theme->document->find('publish')?->childrenOf('legal')[0] ?? null)?->value($kind) ?? $kind;
         $entry = $this->target($site, $name);
         if ($entry === null) {
             $position = (int) Entry::query()->withoutGlobalScopes()->where('site_id', $site->id)->whereNull('parent_id')->max('position') + 1;
@@ -49,6 +49,20 @@ final class LegalPages
         $this->pages->forget();
 
         return $entry;
+    }
+
+    /**
+     * Adresse einer Rechtsseite in einer Sprache — die Seite aus `publish.legal` des Themes (Seed-Name), sonst die Seite
+     * unter `/<art>`; mit Sprachpräfix und entlang der Fallback-Kette. Null, wenn es keine veröffentlichte Seite gibt.
+     * Der Cookie-Hinweis verlinkt so die Datenschutzerklärung, wie die Site sie wirklich nennt (`/fr/protection-…`).
+     */
+    public function urlFor(Site $site, string $kind, string $locale): ?string
+    {
+        // Ohne «legal» im Theme (oder ohne «publish») gilt der Name der Art, wie bei der Vorlage
+        $legal = $this->themes->forSite($site)->document->find('publish')?->childrenOf('legal')[0] ?? null;
+        $entry = $this->target($site, $legal?->value($kind) ?? $kind);
+
+        return $entry === null ? null : $this->pages->urlOf($entry, $locale);
     }
 
     /**

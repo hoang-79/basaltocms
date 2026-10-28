@@ -36,7 +36,7 @@ If a site counts visits, the **cookie settings** ask for consent on the first vi
 - **Essential** is always active (session, protection against forged requests, language, display).
 - **Statistics** is off by default — pre-ticked consent would not be valid. If the theme embeds services from other providers, **External content** is added.
 - **Essential only**, **Save selection** and **Accept all** are the same size and equally easy to reach.
-- The choice applies for one year. Visitors can change it at any time via **Cookie settings** in the footer; “Learn more” leads to the site’s privacy policy.
+- The choice applies for one year. Visitors can change it at any time via **Cookie settings** in the footer; “Learn more” leads to the site’s privacy policy in the language of the page — the page the theme names under `publish { legal { datenschutz: … } }` (otherwise the page at `/datenschutz`), at the address it has in that language. If it is not published, the link is left out.
 
 ## Switching on, switching off, retention
 

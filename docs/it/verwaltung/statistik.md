@@ -36,7 +36,7 @@ Se un sito conta le visite, le **impostazioni dei cookie** chiedono il consenso 
 - **Necessari** è sempre attivo (sessione, protezione da richieste contraffatte, lingua, visualizzazione).
 - **Statistiche** è disattivato di fabbrica: un consenso preselezionato non sarebbe valido. Se il tema integra servizi di altri fornitori, si aggiunge **Contenuti esterni**.
 - **Solo necessari**, **Salva selezione** e **Accetta tutti** hanno la stessa grandezza e sono ugualmente facili da raggiungere.
-- La scelta vale un anno. I visitatori la modificano in qualsiasi momento tramite **Impostazioni dei cookie** nel piè di pagina; «Maggiori informazioni» porta all’informativa sulla privacy del sito.
+- La scelta vale un anno. I visitatori la modificano in qualsiasi momento tramite **Impostazioni dei cookie** nel piè di pagina; «Maggiori informazioni» porta all’informativa sulla privacy del sito nella lingua della pagina — la pagina che il tema indica sotto `publish { legal { datenschutz: … } }` (altrimenti la pagina sotto `/datenschutz`), all’indirizzo che ha in quella lingua. Se non è pubblicata, il link manca.
 
 ## Attivare, disattivare, conservare
 

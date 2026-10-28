@@ -36,7 +36,7 @@ Zählt eine Site Besuche, fragen die **Cookie-Einstellungen** beim ersten Besuch
 - **Notwendig** ist immer aktiv (Sitzung, Schutz vor fremden Anfragen, Sprache, Darstellung).
 - **Statistik** ist ab Werk aus — eine vorab angekreuzte Einwilligung gälte nicht. Bindet das Theme Dienste anderer Anbieter ein, kommt **Externe Inhalte** dazu.
 - **Nur notwendige**, **Auswahl speichern** und **Alle akzeptieren** sind gleich gross und gleich leicht zu erreichen.
-- Die Wahl gilt ein Jahr. Über **Cookie-Einstellungen** in der Fusszeile ändern Besucher sie jederzeit; «Mehr erfahren» führt zur Datenschutzerklärung der Site.
+- Die Wahl gilt ein Jahr. Über **Cookie-Einstellungen** in der Fusszeile ändern Besucher sie jederzeit; «Mehr erfahren» führt zur Datenschutzerklärung der Site in der Sprache der Seite — zur Seite, die das Theme unter `publish { legal { datenschutz: … } }` nennt (sonst zur Seite unter `/datenschutz`), mit der Adresse, die sie in dieser Sprache hat. Ist sie nicht veröffentlicht, fehlt der Link.
 
 ## Einschalten, ausschalten, aufbewahren
 

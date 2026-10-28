@@ -16,7 +16,7 @@ use Basalto\Core\Models\EntryVersion;
 use Basalto\Core\Models\Media;
 use Basalto\Core\Models\Site;
 use Basalto\Core\Navigation\Navigation;
-use Basalto\Core\Publish\LegalTemplates;
+use Basalto\Core\Publish\LegalPages;
 use Basalto\Core\Search\SiteSearch;
 use Basalto\Core\Support\DevServer;
 use Basalto\Core\Theme\ThemeAssets;
@@ -173,12 +173,13 @@ final class EntryRenderer
 
         $html = FormRenderer::inject($html, $version->locale);
 
-        // TB 54: Cookie-Einstellungen auch, wenn die Site Besuche zählt — mit Verweis auf die Datenschutzerklärung. Nur für
-        // Besucher der Website ({@see self::forVisitors()}), nicht in Vorschau und Editor des Backends
-        $privacy = LegalTemplates::meta('datenschutz', $version->locale)['slug'];
+        // TB 54: Cookie-Einstellungen auch, wenn die Site Besuche zählt — mit Verweis auf die Datenschutzerklärung der Site in
+        // der Sprache der Seite (ohne veröffentlichte Seite kein Verweis). Nur für Besucher der Website
+        // ({@see self::forVisitors()}), nicht in Vorschau und Editor des Backends
+        $privacy = $visitor ? app(LegalPages::class)->urlFor($entry->site, 'datenschutz', $version->locale) : null;
 
         return Consent::inject($html, $visitor ? (string) ($theme->document->find('publish')?->value('cookie') ?? 'essential-only') : 'essential-only', $version->locale,
-            $visitor && app(Statistics::class)->enabled($entry->site), ($version->locale === $entry->site->default_locale ? '' : '/'.$version->locale).'/'.$privacy);
+            $visitor && app(Statistics::class)->enabled($entry->site), $privacy);
     }
 
     /** @return array<string, true> eingeschaltete Module der Site (Kern und nicht schaltbare immer) */
