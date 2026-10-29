@@ -287,7 +287,7 @@ holds for both names) — only comparisons by the class name as a string (such a
 
 | Method | Purpose |
 | --- | --- |
-| `key()` · `position()` | Anchor `#konto-<key>` and order (sites 10, licences 20, installations 30, marketplace 40, community 50, invoices 60, profile 90) |
+| `key()` · `position()` | Anchor `#konto-<key>` and order (sites 10, licences 20, installations 30, marketplace 40, author account 45, community 50, invoices 60, profile 90) |
 | `pitch($page)` | For guests: icon, title and one sentence (`AreaPitch`) — or `null` |
 | `summary($page)` | Signed in: `AreaSummary` with label, icon, count, tone (`lava`, `warn`), tasks (`AreaTodo`), events (`AreaEvent`), buttons (`AreaAction`) and notices — `null` hides the area |
 | `render($page, $summary)` | The content of the section; the account sets frame, heading and anchor |

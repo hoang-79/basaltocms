@@ -286,7 +286,7 @@ subsistent sous forme de `class_alias` et sont considérés comme obsolètes ; l
 
 | Méthode | Rôle |
 | --- | --- |
-| `key()` · `position()` | Ancre `#konto-<key>` et ordre (sites 10, licences 20, installations 30, Marketplace 40, communauté 50, factures 60, profil 90) |
+| `key()` · `position()` | Ancre `#konto-<key>` et ordre (sites 10, licences 20, installations 30, Marketplace 40, compte auteur 45, communauté 50, factures 60, profil 90) |
 | `pitch($page)` | Pour les visiteurs : symbole, titre et une phrase (`AreaPitch`) — ou `null` |
 | `summary($page)` | Connecté : `AreaSummary` avec libellé, symbole, nombre, ton (`lava`, `warn`), tâches (`AreaTodo`), événements (`AreaEvent`), boutons (`AreaAction`) et messages — `null` masque la section |
 | `render($page, $summary)` | Le contenu de la section ; le compte pose le cadre, le titre et l’ancre |

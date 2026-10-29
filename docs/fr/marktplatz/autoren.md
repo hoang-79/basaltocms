@@ -2,8 +2,9 @@
 
 Sur le Marketplace de basaltocms.com, vous proposez des thèmes et des plugins pour Basalto. Chaque soumission est vérifiée
 automatiquement, passée en revue à la main et signée par basaltocms.com lors de la validation — ce n’est qu’alors qu’elle figure dans le catalogue. Une
-fiche est gratuite ou coûte un montant unique par installation ; la vente est possible dès que basaltocms.com active la partie payante
-et que votre compte Stripe est connecté ([Vendre](#vendre)).
+fiche est gratuite ou coûte un montant unique par installation — vous le choisissez lors de la soumission. Une fiche
+payante apparaît dans le catalogue dès que basaltocms.com ouvre la vente et que votre compte Stripe est connecté
+([Vendre](#vendre)).
 
 ![Le parcours d’une soumission : vérification automatique, revue à la main, validation et signature](bilder/ablauf.svg)
 
@@ -16,9 +17,15 @@ et que votre compte Stripe est connecté ([Vendre](#vendre)).
 1. Sur la page **« Compte auteur »** de basaltocms.com, saisissez votre e-mail. Il n’y a pas de mot de passe : vous recevez un
    code par e-mail ; la première fois, votre compte client est ainsi créé (le même que pour l’achat de licences).
 2. **« Créer le profil d’auteur »** : « Nom d’auteur » (personne, entreprise ou studio — c’est ainsi qu’il figure dans le catalogue), lieu, site web.
-3. Apparaissent ensuite **« Nouvelle soumission »**, **« Vos soumissions »** avec leur état et le rapport de vérification, ainsi que le
-   **« Jeton Composer »**. Si le Marketplace payante est activée, trois onglets organisent le compte : **Fiches** (ce qui vient
-   d’être mentionné), **Ventes** et **Versement**.
+3. Le compte auteur est une **rubrique de votre compte client** (à côté des achats, des licences et de la communauté) ;
+   la page « Compte auteur » y mène. En haut figurent les chiffres (dans le catalogue, installations, en vérification),
+   puis **« Vos fiches »** sous forme de cartes : type, état (« dans le catalogue », « en revue », « refusé », « attend
+   l’ouverture de la vente »), version, offre, installations et téléchargements, avec **« Voir dans le catalogue »**,
+   **« Nouvelle version »** et les volets **« Modifier l’offre »**, **« Rapport de vérification »** et **« Versions »**.
+   En dessous **« Soumettre »**, dès qu’il y a quelque chose à vendre **« Ventes par mois »** et **« Versement »**,
+   enfin le profil d’auteur et le **« Jeton Composer »**.
+4. **« À faire ensuite »** dans l’aperçu du compte indique ce que vous devriez faire — par exemple soumettre à nouveau une
+   version refusée ou relier le compte de versement ; **« Dernier »** montre les validations et les refus.
 
 Vous ne voyez pas les fiches des autres dans le compte auteur, et un nom de paquet appartient à l’auteur qui l’a soumis en premier.
 
@@ -132,13 +139,17 @@ incomplète, tests manquants, `autoload.psr-4` manquant.
 
 ## Soumettre
 
-**« Nouvelle soumission »** dans le compte auteur :
+**« Nouvelle soumission »** dans le compte auteur ouvre une fenêtre en quatre étapes — **Paquet**, **Informations**,
+**Offre**, **Vérifier et soumettre**. « Suivant » vérifie les champs de l’étape ; glissez le fichier ZIP sur le champ ou
+choisissez-le, et la fenêtre affiche aussitôt le type, le nom et la version du paquet. Avant l’envoi, la dernière étape
+résume le paquet, la description courte et l’offre. Si le Marketplace signale une erreur, la fenêtre se rouvre à l’étape
+concernée. **« Nouvelle version »** sur une fiche ouvre la même fenêtre avec ses informations. Les champs :
 
 | Champ | |
 | --- | --- |
 | « Paquet (ZIP) » | obligatoire, 10 Mo au maximum |
-| « Licence » | obligatoire, par fiche : MIT, GPL-3.0-or-later, LGPL-3.0-or-later, Apache-2.0, BSD-3-Clause ou la Licence Basalto Marketplace |
-| « Prix par installation » et « Devise » | uniquement avec le Marketplace payante activée et un compte Stripe connecté ; vide = gratuit ([Vendre](#vendre)) |
+| « Offre » | **« Gratuit »** ou **« Vendre »** — avec « Vendre », en plus « Prix par installation » et « Devise » ([Vendre](#vendre)) |
+| « Licence » | avec « Gratuit », par fiche : MIT, GPL-3.0-or-later, LGPL-3.0-or-later, Apache-2.0, BSD-3-Clause ou la Licence Basalto Marketplace ; avec « Vendre », toujours la Licence Basalto Marketplace |
 | « Description courte » | une ligne pour la carte dans le catalogue ; vide = tirée du paquet |
 | « Description » | texte brut ; les lignes vides séparent les paragraphes |
 | « Nouveautés » | modifications de cette version |
@@ -191,8 +202,11 @@ propres versions payantes, sans les acheter.
 
 ## Vendre
 
-Les fiches payantes existent dès que basaltocms.com active le Marketplace payante (les conditions pour les auteurs l’annoncent
-30 jours à l’avance). D’ici là, le champ « Prix » est absent de la soumission.
+Vous pouvez choisir « Vendre » dès maintenant lors de la soumission — même avant que basaltocms.com ouvre la vente (les
+conditions pour les auteurs l’annoncent 30 jours à l’avance). Une fiche payante validée **attend** de pouvoir être
+vendue : elle ne figure pas dans le catalogue, n’a pas de page et n’est pas téléchargeable, pas même gratuitement. Votre
+compte auteur indique alors **« attend l’ouverture de la vente »** ou, une fois la vente ouverte, **« attend le compte
+de versement »**. Dès que les deux sont réunis, la fiche apparaît d’elle-même.
 
 ### Connecter Stripe Connect
 
@@ -209,19 +223,22 @@ compte bancaire et vous verse directement votre part. basaltocms.com ne voit ni 
 | --- | --- |
 | **non connecté** | pas encore de compte Stripe |
 | **informations manquantes** | onboarding non terminé, ou Stripe exige des informations supplémentaires — **« Compléter les informations chez Stripe »** |
-| **connecté ✓** | informations transmises, Stripe vérifie encore ; vous pouvez soumettre des versions payantes |
+| **connecté ✓** | informations transmises, Stripe vérifie encore ; vos fiches payantes apparaissent dans le catalogue |
 | **versements actifs ✓** | Stripe verse selon son calendrier de paiement |
 
 Avec **« Ouvrir le tableau de bord Stripe »**, vous voyez chez Stripe les versements, le compte bancaire et les informations fiscales.
 
 ### Prix
 
-Dans la soumission, indiquez **« Prix par installation »** (p. ex. `59` ou `59.50` ; vide = gratuit) et **« Devise »** (CHF,
-EUR ou USD) — entre 5 et 5000.
+Dans la soumission, choisissez **« Vendre »**, puis **« Prix par installation »** (p. ex. `59` ou `59.50`) et
+**« Devise »** (CHF, EUR ou USD) — entre 5 et 5000.
 
 - Une fiche payante est toujours sous **Licence Basalto Marketplace** ; le Marketplace change la licence elle-même.
-- Le prix s’applique avec la **validation** de la version, comme les textes et la licence — un nouveau prix exige donc une nouvelle
-  version. Qui a déjà obtenu gratuitement conserve les versions gratuites.
+- Le prix s’applique avec la **validation** de la version, comme les textes et la licence.
+- Pour une fiche validée, modifiez l’offre avec **« Modifier l’offre »** : gratuit ou vendre, prix et devise. Cela vaut
+  pour la version actuelle et toutes les nouvelles ; les anciennes versions gardent leur prix, et qui l’a déjà installée
+  garde sa version. Vendre de cette manière n’est possible que sous Licence Basalto Marketplace — si la fiche est sous
+  une licence libre, soumettez une nouvelle version sous la licence du Marketplace.
 - Un achat vaut **une seule fois par installation** et apporte **un an de mises à jour** : toutes les versions qui paraissent jusqu’à un an après
   l’achat. Ensuite, l’acheteur ne reçoit les nouvelles versions qu’avec un nouvel achat.
 - La fiche ne peut être achetée que tant que Stripe autorise les virements vers votre compte — sinon « Actuellement pas

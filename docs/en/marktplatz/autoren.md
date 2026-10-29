@@ -2,8 +2,8 @@
 
 In the marketplace on basaltocms.com you offer themes and plugins for Basalto. Every submission is checked
 automatically, reviewed by hand and signed by basaltocms.com on approval — only then does it appear in the catalogue. An
-entry is free or costs a one-off price per installation; selling works once basaltocms.com enables the paid part and your
-Stripe account is connected ([Selling](#selling)).
+entry is free or costs a one-off price per installation — you choose when submitting. An entry with a price appears in
+the catalogue once basaltocms.com enables sales and your Stripe account is connected ([Selling](#selling)).
 
 ![The way of a submission: automatic check, manual review, approval and signature](bilder/ablauf.svg)
 
@@ -17,9 +17,15 @@ Stripe account is connected ([Selling](#selling)).
    code by email; the first time, this creates your customer account (the same as for buying a licence).
 2. **“Create author profile”:** “Name as author” (person, company or studio — this is how it appears in the
    catalogue), town, website.
-3. After that, **“New submission”**, **“Your submissions”** with state and check report and the **“Composer token”**
-   appear. Once the paid marketplace is enabled, three tabs organise the account: **Entries** (the above), **Sales**
-   and **Payout**.
+3. The author account is an **area of your customer account** (next to purchases, licences and community); the
+   “Author account” page leads there. At the top are the figures (in the catalogue, installations, in review), then
+   **“Your entries”** as cards: kind, state (“in the catalogue”, “in review”, “rejected”, “waiting for sales to
+   start”), version, offer, installations and downloads, plus **“View in catalogue”**, **“New version”** and the
+   panels **“Change offer”**, **“Check report”** and **“Versions”**. Below that **“Submit”**, as soon as there is
+   something to sell **“Sales per month”** and **“Payout”**, and finally the author profile and the **“Composer
+   token”**.
+4. **“Up next”** in the account overview shows what you should do — for example resubmit a rejected version or connect
+   the payout account; **“Last”** shows approvals and rejections.
 
 You do not see other authors' entries in the author account, and a package name belongs to the author who submitted
 it first.
@@ -135,13 +141,17 @@ tests, missing `autoload.psr-4`.
 
 ## Submitting
 
-**“New submission”** in the author account:
+**“New submission”** in the author account opens a window in four steps — **Package**, **Details**, **Offer**,
+**Check and submit**. “Next” checks the fields of the step; drag the ZIP file onto the field or choose it, and the window
+immediately shows the kind, name and version of the package. Before sending, the last step summarises package, short
+description and offer. If the marketplace reports an error, the window reopens at the step concerned. **“New version”**
+on an entry opens the same window with its details. The fields:
 
 | Field | |
 | --- | --- |
 | “Package (ZIP)” | required, at most 10 MB |
-| “Licence” | required, per entry: MIT, GPL-3.0-or-later, LGPL-3.0-or-later, Apache-2.0, BSD-3-Clause or the Basalto Marketplace licence |
-| “Price per installation” and “Currency” | only with the paid marketplace enabled and a connected Stripe account; empty = free ([Selling](#selling)) |
+| “Offer” | **“Free”** or **“Sell”** — with “Sell” also “Price per installation” and “Currency” ([Selling](#selling)) |
+| “Licence” | with “Free” per entry: MIT, GPL-3.0-or-later, LGPL-3.0-or-later, Apache-2.0, BSD-3-Clause or the Basalto Marketplace licence; with “Sell” always the Basalto Marketplace licence |
 | “Short description” | one line for the card in the catalogue; empty = from the package |
 | “Description” | plain text; blank lines separate paragraphs |
 | “What’s new” | changes in this version |
@@ -194,8 +204,11 @@ your token you also get your own paid versions without buying them.
 
 ## Selling
 
-Paid entries are available once basaltocms.com enables the paid marketplace (the author terms announce this 30 days in
-advance). Until then the “Price” field is missing from the submission.
+You can choose “Sell” when submitting right now — even before basaltocms.com enables sales (the author terms announce
+this 30 days in advance). An approved entry with a price **waits** until it can be sold: it is not in the catalogue, has
+no entry page and cannot be downloaded, not even for free. Your author account then shows **“waiting for sales to
+start”** or, once sales are open, **“waiting for the payout account”**. As soon as both are in place, the entry appears
+by itself.
 
 ### Connecting Stripe Connect
 
@@ -212,19 +225,22 @@ account and pays out your share directly. basaltocms.com sees neither bank nor I
 | --- | --- |
 | **not connected** | no Stripe account yet |
 | **details missing** | onboarding not finished, or Stripe requires more details — **“Complete details with Stripe”** |
-| **connected ✓** | details submitted, Stripe is still checking; you can submit paid versions |
+| **connected ✓** | details submitted, Stripe is still checking; your entries with a price appear in the catalogue |
 | **payouts active ✓** | Stripe pays out on its payout schedule |
 
 **“Open Stripe dashboard”** shows payouts, bank account and tax details at Stripe.
 
 ### Price
 
-In the submission, enter **“Price per installation”** (e.g. `59` or `59.50`; empty = free) and **“Currency”** (CHF, EUR
-or USD) — between 5 and 5000.
+In the submission, choose **“Sell”**, then **“Price per installation”** (e.g. `59` or `59.50`) and **“Currency”** (CHF,
+EUR or USD) — between 5 and 5000.
 
 - A paid entry is always under the **Basalto Marketplace licence**; the marketplace switches the licence itself.
-- The price applies with the **approval** of the version, like texts and licence — a new price therefore needs a new
-  version. Anyone who obtained free versions keeps them.
+- The price applies with the **approval** of the version, like texts and licence.
+- For an approved entry, change the offer with **“Change offer”**: free or sell, price and currency. It applies to the
+  current version and all new ones; older versions keep their price, and anyone who has installed it keeps their copy.
+  Selling this way only works under the Basalto Marketplace licence — if the entry is under a free licence, submit a
+  new version under the marketplace licence.
 - A purchase is **one-off per installation** and includes **one year of updates**: all versions released up to one
   year after the purchase. After that, the buyer gets new versions only with a new purchase.
 - The entry can only be bought while Stripe allows transfers to your account — otherwise the entry shows “Currently not

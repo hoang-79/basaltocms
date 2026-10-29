@@ -288,7 +288,7 @@ classe (`instanceof` vale per entrambi i nomi) — solo i confronti tramite il n
 
 | Metodo | Scopo |
 | --- | --- |
-| `key()` · `position()` | Ancora `#konto-<key>` e ordine (siti 10, licenze 20, installazioni 30, Marketplace 40, community 50, fatture 60, profilo 90) |
+| `key()` · `position()` | Ancora `#konto-<key>` e ordine (siti 10, licenze 20, installazioni 30, Marketplace 40, account autore 45, community 50, fatture 60, profilo 90) |
 | `pitch($page)` | Per gli ospiti: simbolo, titolo e una frase (`AreaPitch`) — oppure `null` |
 | `summary($page)` | Con accesso: `AreaSummary` con etichetta, simbolo, numero, tono (`lava`, `warn`), compiti (`AreaTodo`), eventi (`AreaEvent`), pulsanti (`AreaAction`) e messaggi — `null` nasconde la sezione |
 | `render($page, $summary)` | Il contenuto della sezione; cornice, titolo e ancora li imposta l’account |

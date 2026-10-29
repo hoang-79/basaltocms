@@ -2,8 +2,8 @@
 
 Nel Marketplace su basaltocms.com offre temi e plugin per Basalto. Ogni invio viene verificato automaticamente,
 esaminato a mano e, all’approvazione, firmato da basaltocms.com — solo allora compare nel catalogo. Una
-voce è gratuita o costa una tantum per installazione; vendere è possibile non appena basaltocms.com attiva la parte
-a pagamento e il suo account Stripe è collegato ([Vendere](#vendere)).
+voce è gratuita o costa una tantum per installazione — lo sceglie al momento dell’invio. Una voce con prezzo compare
+nel catalogo non appena basaltocms.com avvia la vendita e il Suo account Stripe è collegato ([Vendere](#vendere)).
 
 ![Il percorso di un invio: verifica automatica, revisione a mano, approvazione e firma](bilder/ablauf.svg)
 
@@ -16,9 +16,14 @@ a pagamento e il suo account Stripe è collegato ([Vendere](#vendere)).
 1. Nella pagina **«Account autore»** su basaltocms.com inserire l’e-mail. Non c’è alcuna password: riceve un
    codice via e-mail; la prima volta nasce così il suo account cliente (lo stesso dell’acquisto di licenze).
 2. **«Crea profilo autore»:** «Nome come autore» (persona, ditta o studio — così compare nel catalogo), località, sito web.
-3. Dopo compaiono **«Nuovo invio»**, **«I Suoi invii»** con stato e rapporto di verifica e il
-   **«Token Composer»**. Se il Marketplace a pagamento è attivato, tre schede ordinano l’account: **Voci** (quanto
-   appena nominato), **Vendite** e **Versamento**.
+3. L’account autore è un’**area del Suo account cliente** (accanto ad acquisti, licenze e community); la pagina
+   «Account autore» porta lì. In alto ci sono le cifre (nel catalogo, installazioni, in verifica), poi **«Le Sue voci»**
+   come schede: tipo, stato («nel catalogo», «in revisione», «respinto», «in attesa dell’avvio della vendita»), versione,
+   offerta, installazioni e download, con **«Vedere nel catalogo»**, **«Nuova versione»** e i pannelli **«Modificare
+   l’offerta»**, **«Rapporto di verifica»** e **«Versioni»**. Sotto **«Inviare»**, non appena c’è qualcosa da vendere
+   **«Vendite per mese»** e **«Versamento»**, infine il profilo autore e il **«Token Composer»**.
+4. **«Prossimi passi»** nella panoramica dell’account mostra cosa fare — per esempio inviare di nuovo una versione
+   respinta o collegare il conto di versamento; **«Ultimo»** mostra approvazioni e respingimenti.
 
 Le voci altrui non le vede nell’account autore, e un nome di pacchetto appartiene all’autore che lo ha inviato per primo.
 
@@ -132,13 +137,17 @@ incompleta, test mancanti, `autoload.psr-4` mancante.
 
 ## Inviare
 
-**«Nuovo invio»** nell’account autore:
+**«Nuovo invio»** nell’account autore apre una finestra in quattro passi — **Pacchetto**, **Dati**, **Offerta**,
+**Verificare e inviare**. «Avanti» verifica i campi del passo; trascini il file ZIP sul campo o lo scelga, e la finestra
+mostra subito tipo, nome e versione del pacchetto. Prima dell’invio, l’ultimo passo riassume pacchetto, descrizione
+breve e offerta. Se il Marketplace segnala un errore, la finestra si riapre al passo interessato. **«Nuova versione»**
+su una voce apre la stessa finestra con i suoi dati. I campi:
 
 | Campo | |
 | --- | --- |
 | «Pacchetto (ZIP)» | obbligatorio, al massimo 10 MB |
-| «Licenza» | obbligatorio, per voce: MIT, GPL-3.0-or-later, LGPL-3.0-or-later, Apache-2.0, BSD-3-Clause o la Licenza Basalto Marketplace |
-| «Prezzo per installazione» e «Valuta» | solo con Marketplace a pagamento attivato e account Stripe collegato; vuoto = gratuito ([Vendere](#vendere)) |
+| «Offerta» | **«Gratuito»** o **«Vendere»** — con «Vendere» anche «Prezzo per installazione» e «Valuta» ([Vendere](#vendere)) |
+| «Licenza» | con «Gratuito», per voce: MIT, GPL-3.0-or-later, LGPL-3.0-or-later, Apache-2.0, BSD-3-Clause o la Licenza Basalto Marketplace; con «Vendere» sempre la Licenza Basalto Marketplace |
 | «Breve descrizione» | una riga per la scheda nel catalogo; vuoto = dal pacchetto |
 | «Descrizione» | testo semplice; le righe vuote separano i paragrafi |
 | «Novità» | modifiche di questa versione |
@@ -191,8 +200,11 @@ anche le sue versioni a pagamento, senza acquistarle.
 
 ## Vendere
 
-Le voci a pagamento esistono non appena basaltocms.com attiva il Marketplace a pagamento (le condizioni per gli autori
-lo annunciano 30 giorni prima). Fino ad allora il campo «Prezzo» manca nell’invio.
+«Vendere» lo sceglie già ora al momento dell’invio — anche prima che basaltocms.com avvii la vendita (le condizioni per
+gli autori lo annunciano 30 giorni prima). Una voce approvata con prezzo **attende** finché può essere venduta: non
+compare nel catalogo, non ha una pagina e non si può scaricare, nemmeno gratis. Nel Suo account autore compare allora
+**«in attesa dell’avvio della vendita»** oppure, a vendita avviata, **«in attesa del conto di versamento»**. Non appena
+entrambe le cose sono a posto, la voce compare da sola.
 
 ### Collegare Stripe Connect
 
@@ -210,19 +222,22 @@ d’identità.
 | --- | --- |
 | **non collegato** | ancora nessun account Stripe |
 | **dati mancanti** | onboarding non completato, oppure Stripe richiede altri dati — **«Completa i dati presso Stripe»** |
-| **collegato ✓** | dati inviati, Stripe sta ancora verificando; può inviare versioni a pagamento |
+| **collegato ✓** | dati inviati, Stripe sta ancora verificando; le Sue voci con prezzo compaiono nel catalogo |
 | **versamenti attivi ✓** | Stripe versa secondo il suo calendario dei versamenti |
 
 Con **«Apri la dashboard Stripe»** vede presso Stripe versamenti, conto bancario e dati fiscali.
 
 ### Prezzo
 
-Nell’invio indicare **«Prezzo per installazione»** (ad es. `59` o `59.50`; vuoto = gratuito) e **«Valuta»** (CHF,
+Nell’invio scegliere **«Vendere»**, poi **«Prezzo per installazione»** (ad es. `59` o `59.50`) e **«Valuta»** (CHF,
 EUR o USD) — tra 5 e 5000.
 
 - Una voce a pagamento è sempre sotto la **Licenza Basalto Marketplace**; la licenza la cambia il Marketplace stesso.
-- Il prezzo vale con l’**approvazione** della versione, come testi e licenza — un nuovo prezzo richiede quindi una nuova
-  versione. Chi ha già ottenuto la voce gratuitamente conserva le versioni gratuite.
+- Il prezzo vale con l’**approvazione** della versione, come testi e licenza.
+- Per una voce approvata, modifichi l’offerta con **«Modificare l’offerta»**: gratuito o vendere, prezzo e valuta. Vale
+  per la versione attuale e per tutte le nuove; le versioni precedenti mantengono il loro prezzo e chi l’ha già
+  installata mantiene la sua copia. Vendere in questo modo è possibile solo con la Licenza Basalto Marketplace — se la
+  voce è sotto una licenza libera, invii una nuova versione con la licenza del Marketplace.
 - Un acquisto vale **una tantum per installazione** e porta **un anno di aggiornamenti**: tutte le versioni che escono
   fino a un anno dopo l’acquisto. Dopo, l’acquirente riceve le nuove versioni solo con un nuovo acquisto.
 - La voce si può acquistare solo finché Stripe consente bonifici sul suo account — altrimenti presso la voce compare

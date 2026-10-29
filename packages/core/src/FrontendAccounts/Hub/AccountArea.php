@@ -15,7 +15,7 @@ interface AccountArea
     /** Kennung und Anker (`#konto-<key>`): Kleinbuchstaben, ohne Leerzeichen. */
     public function key(): string;
 
-    /** Reihenfolge — kleinere zuerst (Sites 10, Lizenzen 20, Installationen 30, Marktplatz 40, Community 50, Rechnungen 60, Profil 90). */
+    /** Reihenfolge — kleinere zuerst (Sites 10, Lizenzen 20, Installationen 30, Marktplatz 40, Autorenkonto 45, Community 50, Rechnungen 60, Profil 90). */
     public function position(): int;
 
     /** Für Gäste: was der Bereich bringt — null, wenn er auf dieser Site nichts zu bieten hat. */

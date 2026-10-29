@@ -286,7 +286,7 @@ bleiben als `class_alias` und gelten als veraltet; neuer Code nimmt die Namen im
 
 | Methode | Zweck |
 | --- | --- |
-| `key()` · `position()` | Anker `#konto-<key>` und Reihenfolge (Sites 10, Lizenzen 20, Installationen 30, Marktplatz 40, Community 50, Rechnungen 60, Profil 90) |
+| `key()` · `position()` | Anker `#konto-<key>` und Reihenfolge (Sites 10, Lizenzen 20, Installationen 30, Marktplatz 40, Autorenkonto 45, Community 50, Rechnungen 60, Profil 90) |
 | `pitch($page)` | Für Gäste: Symbol, Titel und ein Satz (`AreaPitch`) — oder `null` |
 | `summary($page)` | Angemeldet: `AreaSummary` mit Bezeichnung, Symbol, Zahl, Ton (`lava`, `warn`), Aufgaben (`AreaTodo`), Ereignissen (`AreaEvent`), Knöpfen (`AreaAction`) und Meldungen — `null` blendet den Bereich aus |
 | `render($page, $summary)` | Der Inhalt des Abschnitts; Rahmen, Überschrift und Anker setzt das Konto |

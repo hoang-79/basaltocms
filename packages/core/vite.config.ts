@@ -29,6 +29,8 @@ export default defineConfig({
                 'resources/js/search.ts',
                 'resources/js/codefelder.ts',
                 'resources/js/speichern.ts',
+                // CR-016, TB 86: Formulare in Schritten im Dialog (Einreichen im Marktplatz)
+                'resources/js/schritte.ts',
             ],
             publicDirectory: 'resources/dist',
             buildDirectory: 'build',

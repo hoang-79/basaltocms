@@ -2,8 +2,9 @@
 
 Im Marktplatz auf basaltocms.com bieten Sie Themes und Plugins für Basalto an. Jede Einreichung wird automatisch
 geprüft, von Hand durchgesehen und bei der Freigabe von basaltocms.com signiert — erst dann steht sie im Katalog. Ein
-Eintrag ist kostenlos oder kostet einmalig je Installation; verkaufen geht, sobald basaltocms.com den bezahlten Teil
-freischaltet und Ihr Stripe-Konto verbunden ist ([Verkaufen](#verkaufen)).
+Eintrag ist kostenlos oder kostet einmalig je Installation — das wählen Sie beim Einreichen. Ein Eintrag mit Preis
+erscheint im Katalog, sobald basaltocms.com den Verkauf freischaltet und Ihr Stripe-Konto verbunden ist
+([Verkaufen](#verkaufen)).
 
 ![Der Weg einer Einreichung: automatische Prüfung, Durchsicht von Hand, Freigabe und Signatur](bilder/ablauf.svg)
 
@@ -16,9 +17,14 @@ freischaltet und Ihr Stripe-Konto verbunden ist ([Verkaufen](#verkaufen)).
 1. Auf der Seite **«Autorenkonto»** auf basaltocms.com die E-Mail eingeben. Es gibt kein Passwort: Sie bekommen einen
    Code per Mail; beim ersten Mal entsteht so Ihr Kundenkonto (dasselbe wie für den Lizenzkauf).
 2. **«Autorenprofil anlegen»:** «Name als Autor» (Person, Firma oder Studio — so steht es im Katalog), Ort, Website.
-3. Danach erscheinen **«Neue Einreichung»**, **«Ihre Einreichungen»** mit Stand und Prüfbericht und das
-   **«Composer-Token»**. Ist der bezahlte Marktplatz freigeschaltet, ordnen drei Reiter das Konto: **Einträge** (das
-   eben Genannte), **Verkäufe** und **Auszahlung**.
+3. Das Autorenkonto ist ein **Bereich Ihres Kundenkontos** (neben Käufen, Lizenzen und Community); die Seite
+   «Autorenkonto» führt dorthin. Oben stehen die Zahlen (im Katalog, Installationen, in Prüfung), dann **«Ihre
+   Einträge»** als Karten: Art, Stand («im Katalog», «in Durchsicht», «abgelehnt», «wartet auf den Verkaufsstart»),
+   Version, Angebot, Installationen und Downloads, dazu **«Im Katalog ansehen»**, **«Neue Version»** und die Klappen
+   **«Angebot ändern»**, **«Prüfbericht»** und **«Versionen»**. Darunter **«Einreichen»**, sobald es etwas zu verkaufen
+   gibt **«Verkäufe je Monat»** und **«Auszahlung»**, zuletzt Autorenprofil und **«Composer-Token»**.
+4. Unter **«Als Nächstes»** in der Übersicht des Kontos steht, was Sie tun sollten — etwa eine abgelehnte Version
+   neu einreichen oder das Auszahlungskonto verbinden; unter **«Zuletzt»** Freigaben und Ablehnungen.
 
 Fremde Einträge sehen Sie im Autorenkonto nicht, und ein Paketname gehört dem Autor, der ihn zuerst eingereicht hat.
 
@@ -132,13 +138,17 @@ Linie, fehlende Tests, fehlendes `autoload.psr-4`.
 
 ## Einreichen
 
-**«Neue Einreichung»** im Autorenkonto:
+**«Neue Einreichung»** im Autorenkonto öffnet ein Fenster in vier Schritten — **Paket**, **Angaben**, **Angebot**,
+**Prüfen und einreichen**. «Weiter» prüft die Felder des Schritts; ziehen Sie die ZIP-Datei auf das Feld oder wählen Sie
+sie aus, dann zeigt das Fenster gleich Art, Name und Version des Pakets. Vor dem Absenden fasst der letzte Schritt
+Paket, Kurzbeschreibung und Angebot zusammen. Meldet der Marktplatz einen Fehler, öffnet das Fenster wieder beim
+betroffenen Schritt. **«Neue Version»** an einem Eintrag öffnet dasselbe Fenster mit dessen Angaben. Die Felder:
 
 | Feld | |
 | --- | --- |
 | «Paket (ZIP)» | Pflicht, höchstens 10 MB |
-| «Lizenz» | Pflicht, je Eintrag: MIT, GPL-3.0-or-later, LGPL-3.0-or-later, Apache-2.0, BSD-3-Clause oder die Basalto Marktplatz-Lizenz |
-| «Preis je Installation» und «Währung» | nur mit freigeschaltetem bezahltem Marktplatz und verbundenem Stripe-Konto; leer = kostenlos ([Verkaufen](#verkaufen)) |
+| «Angebot» | **«Kostenlos»** oder **«Verkaufen»** — bei «Verkaufen» dazu «Preis je Installation» und «Währung» ([Verkaufen](#verkaufen)) |
+| «Lizenz» | bei «Kostenlos» je Eintrag: MIT, GPL-3.0-or-later, LGPL-3.0-or-later, Apache-2.0, BSD-3-Clause oder die Basalto Marktplatz-Lizenz; bei «Verkaufen» immer die Basalto Marktplatz-Lizenz |
 | «Kurzbeschreibung» | eine Zeile für die Karte im Katalog; leer = aus dem Paket |
 | «Beschreibung» | Klartext; Leerzeilen trennen Absätze |
 | «Was ist neu» | Änderungen dieser Version |
@@ -191,8 +201,11 @@ eigenen bezahlten Versionen, ohne sie zu kaufen.
 
 ## Verkaufen
 
-Bezahlte Einträge gibt es, sobald basaltocms.com den bezahlten Marktplatz freischaltet (die Autoren-Bedingungen kündigen
-das 30 Tage vorher an). Bis dahin fehlt das Feld «Preis» in der Einreichung.
+«Verkaufen» wählen Sie beim Einreichen schon jetzt — auch bevor basaltocms.com den Verkauf freischaltet (die
+Autoren-Bedingungen kündigen das 30 Tage vorher an). Ein freigegebener Eintrag mit Preis **wartet**, bis verkauft werden
+kann: Er steht nicht im Katalog, hat keine Eintragsseite und ist nicht ladbar, auch nicht kostenlos. Im Autorenkonto
+steht dann **«wartet auf den Verkaufsstart»** oder, ist der Verkauf schon offen, **«wartet auf das Auszahlungskonto»**.
+Sobald beides stimmt, erscheint der Eintrag von selbst.
 
 ### Stripe Connect verbinden
 
@@ -209,19 +222,22 @@ Bankkonto auf und zahlt Ihren Anteil direkt aus. basaltocms.com sieht weder Bank
 | --- | --- |
 | **nicht verbunden** | noch kein Stripe-Konto |
 | **Angaben fehlen** | Onboarding nicht fertig, oder Stripe verlangt weitere Angaben — **«Angaben bei Stripe ergänzen»** |
-| **verbunden ✓** | Angaben eingereicht, Stripe prüft noch; Sie können bezahlte Versionen einreichen |
+| **verbunden ✓** | Angaben eingereicht, Stripe prüft noch; Ihre Einträge mit Preis erscheinen im Katalog |
 | **Auszahlungen aktiv ✓** | Stripe zahlt nach seinem Zahlungsplan aus |
 
 Mit **«Stripe-Dashboard öffnen»** sehen Sie bei Stripe Auszahlungen, Bankkonto und Steuerangaben.
 
 ### Preis
 
-In der Einreichung **«Preis je Installation»** (z. B. `59` oder `59.50`; leer = kostenlos) und **«Währung»** (CHF,
-EUR oder USD) angeben — zwischen 5 und 5000.
+In der Einreichung **«Verkaufen»** wählen, dann **«Preis je Installation»** (z. B. `59` oder `59.50`) und
+**«Währung»** (CHF, EUR oder USD) — zwischen 5 und 5000.
 
 - Ein bezahlter Eintrag steht immer unter der **Basalto Marktplatz-Lizenz**; die Lizenz stellt der Marktplatz selbst um.
-- Der Preis gilt mit der **Freigabe** der Version, wie Texte und Lizenz — ein neuer Preis braucht also eine neue
-  Version. Wer schon kostenlos bezogen hat, behält die kostenlosen Versionen.
+- Der Preis gilt mit der **Freigabe** der Version, wie Texte und Lizenz.
+- Bei einem freigegebenen Eintrag ändern Sie das Angebot mit **«Angebot ändern»**: kostenlos oder verkaufen, Preis und
+  Währung. Das gilt für die aktuelle Version und alle neuen; ältere Versionen behalten ihren Preis, wer schon
+  installiert hat, behält seine Fassung. Verkaufen geht so nur unter der Basalto Marktplatz-Lizenz — steht der Eintrag
+  unter einer freien Lizenz, reichen Sie eine neue Version unter der Marktplatz-Lizenz ein.
 - Ein Kauf gilt **einmalig je Installation** und bringt **ein Jahr Updates**: alle Versionen, die bis ein Jahr nach dem
   Kauf erscheinen. Danach bekommt der Käufer neue Versionen erst mit einem neuen Kauf.
 - Kaufen lässt sich der Eintrag nur, solange Stripe Überweisungen an Ihr Konto zulässt — sonst steht «Derzeit nicht
