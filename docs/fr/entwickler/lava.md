@@ -77,7 +77,7 @@ affichent la même ligne (source : `Basalto\Lava\Diagnostics\Step`, `Basalto\Lav
 | Station | Mot-clé | Question | Propriétés · sous-éléments |
 | --- | --- | --- | --- |
 | A | `site` | Qui suis-je ? | `name languages default domain redirects timezone` |
-| B | `design` | À quoi est-ce que je ressemble ? | `space radius images css logo` · `color font images` |
+| B | `design` | À quoi est-ce que je ressemble ? | `space radius images css logo` · `color font images palette` |
 | C | `layout` | Où se trouve quoi ? | `region`, balisage ; plus les parties Lava `part` |
 | D | `nav` | Comment s’oriente-t-on ? | `from items depth start exclude only label` · `item`, balisage |
 | E | `type` | Quels contenus existe-t-il ? | `label route template` · `field` ; plus `global` (`label` · `field`) |
@@ -91,6 +91,26 @@ affichent la même ligne (source : `Basalto\Lava\Diagnostics\Step`, `Basalto\Lav
 Elle s’applique lorsque les visiteurs choisissent « Sombre » avec `{% appearance %}` ; sans choix, la page est claire,
 même avec un système d’exploitation en mode sombre. Les couleurs sans valeur sombre valent dans les deux présentations. `basalto:check` calcule les
 contrastes également pour la palette sombre.
+
+**Variantes de couleurs :** un thème peut apporter des variantes de couleurs dans `design` (`palette`) ; le site en
+choisit une sous Configuration › Design.
+
+```lava
+design {
+  color accent: #3b1f2b dark #e3b98a
+  palette salbei {
+    label: "Salbei"  label.en: "Sage"  label.fr: "Sauge"  label.it: "Salvia"
+    color accent: #23402f dark #a9cf9a
+  }
+}
+```
+
+Chaque ligne de la variante remplace entièrement la ligne du même nom dans `design`, valeur sombre comprise : si elle
+n’en indique aucune, sa valeur claire vaut aussi en sombre. Les couleurs que la variante ne nomme pas restent comme dans
+le thème ; une couleur que `design` ne connaît pas est un avertissement. Les couleurs propres du site se posent
+par-dessus la variante. `basalto:check` calcule les contrastes de chaque variante, en clair et en sombre. Pour qu’une
+variante agisse partout, la feuille de style n’utilise que des variables (`var(--color-…)`), aucune valeur de couleur
+fixe — pas même pour les bandeaux sombres : des noms comme `dark-link` existent pour cela.
 
 **Logo dans les e-mails :** l’en-tête de chaque e-mail montre le logo du site. Gmail et Outlook n’affichent pas le SVG —
 placez donc à côté du logo le même fichier en PNG (`logo: assets/logo.svg` → `assets/logo.png`) en taille triple : l’e-mail
@@ -164,7 +184,7 @@ Pour toutes les stations : un mot-clé inconnu est une **erreur** avec suggestio
 | Station | Erreurs (`✗`) | Avertissements (`!`) |
 | --- | --- | --- |
 | A `site` | — | propriété inconnue |
-| B `design` | valeur de couleur autre que `#rgb`, `#rrggbb` ou `#rrggbbaa` ; `css` autre que `.css`, `logo` autre que `.svg/.png/.webp/.jpg/.jpeg`, `src` de police autre que `.woff2/.woff` ; fichier absent du dossier du thème | contraste inférieur à WCAG 2.2 AA (4,5:1 pour le texte) pour les paires `text`, `muted`, `link` sur `background` ainsi que `X-text` ou `on-X` sur `X` |
+| B `design` | valeur de couleur autre que `#rgb`, `#rrggbb` ou `#rrggbbaa` (aussi dans les variantes de couleurs) ; variante de couleurs sans nom ; `css` autre que `.css`, `logo` autre que `.svg/.png/.webp/.jpg/.jpeg`, `src` de police autre que `.woff2/.woff` ; fichier absent du dossier du thème | contraste inférieur à WCAG 2.2 AA (4,5:1 pour le texte) pour les paires `text`, `muted`, `link` sur `background` ainsi que `X-text`, `X-muted`, `X-link` ou `on-X` sur `X` — aussi pour chaque variante de couleurs ; variante de couleurs avec une couleur, une propriété ou un sous-élément inconnus |
 | C `layout`, `part` | `extends` vers une mise en page inconnue ; syntaxe du balisage ; région avec un `part`, `nav` ou `global` inexistant ; partie d’une sorte inconnue ; partie sans `source:` (pour `nav`, `global`, `form`, `sitemap`, `list`) ou avec une source inconnue | réglage que la sorte de la partie ne connaît pas ; balisage imbriqué sur plus de 6 niveaux `each`/`if` |
 | D `nav` | entrée de menu sans cible `-> …` ; la cible n’est pas une page issue de `seed` ; `only:`/`exclude:` nomme un modèle inconnu ; `from:` n’est ni `pages` ni un type ; `items:` autre que `db` ; syntaxe du balisage | imbrication |
 | E `type`, `global` | champ sans type ; type de champ inconnu (noyau et modules, avec suggestion) ; `blocks { allow: … }` avec un bloc inconnu ; `relation <typ>` avec un type inconnu (autorisés : `form`, `page`, `global` ou un type du thème) ; `template:` inconnu | — |
@@ -381,7 +401,7 @@ dans `Basalto\Lava\Runtime\Registry::standard()` ; `entries` est défini par l�
 | `nl2br` | `{{ raw text \| nl2br }}` | échappe et insère `<br />` — à sortir donc avec `raw` |
 | `replace` | `text \| replace("a", "b")` | remplace chaque occurrence |
 | `slug` | `text \| slug` | minuscules, tout ce qui n’est pas `a–z` ou `0–9` devient `-` (les trémas disparaissent : « Zürich » → `z-rich`) |
-| `entries` | `entries("post", 10)` | contenus publiés d’un type avec pagination (pour chaque entrée, entre autres `url`, `title`, `date`, `intro`, `category`, `category_url`, `author`) |
+| `entries` | `entries("post", 10)` · `entries("event", 6, "kommend")` | contenus publiés d’un type avec pagination (pour chaque entrée, entre autres `url`, `title`, `date`, `intro`, `category`, `category_url`, `author`). La troisième valeur choisit l’ordre : `neu` (par défaut : champ `date`, sinon publication, le plus récent d’abord), `alt`, `kommend` (seulement les contenus avec leur propre `date` à partir d’aujourd’hui, le plus proche d’abord — événements) ou `reihenfolge` (champ `position`, sinon la place dans l’arborescence — carte, chambres). Les versions plus anciennes de Basalto l’ignorent et trient du plus récent au plus ancien |
 | `asset` | `asset("demo/editor.svg")` | adresse d’un fichier sous `assets/` du thème (images, graphiques), avec somme de contrôle — vide si le fichier manque |
 
 Les fonctions des modules portent le préfixe du module, p. ex. `{{ example.greeting(name) }}` ou

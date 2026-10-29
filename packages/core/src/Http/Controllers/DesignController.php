@@ -22,7 +22,8 @@ use Inertia\Response;
 /**
  * Station B — Design (M-15, L-10): Farben, Schriften und Logo des Themes mit den Überschreibungen dieser Site. Speichern
  * wirkt sofort und ohne Build (CSS-Variablen im Kopf jeder Seite); der Kontrast jedes Farbpaars wird gerechnet, ein Paar
- * unter 4,5:1 lässt sich nicht speichern (N-02). Der Lava-Code daneben zeigt, was im Theme steht.
+ * unter 4,5:1 lässt sich nicht speichern (N-02). Der Lava-Code daneben zeigt, was im Theme steht. Bringt das Theme
+ * Farbvarianten mit (`palette`, CR-015/TB 83), wählt die Site eine davon; eigene Farben liegen darüber.
  */
 final class DesignController
 {
@@ -32,9 +33,13 @@ final class DesignController
     {
         $site = $this->current->require();
         $theme = $this->themes->forSite($site);
-        $base = Design::of($theme);
-        $effective = $this->assets->design($site);
         $overrides = ThemeAssets::overrides($site);
+        $themeDesign = Design::of($theme);
+        // Die gewählte Farbvariante ist der Massstab für «wie im Theme» — kennt das Theme sie nicht mehr, gilt keine
+        $palette = $overrides['palette'] ?? null;
+        $palette = $palette !== null && isset($themeDesign->palettes[$palette]) ? $palette : null;
+        $base = $themeDesign->palette($palette);
+        $effective = $this->assets->design($site);
         $logoMedia = isset($overrides['logo_media_id']) ? Media::query()->find($overrides['logo_media_id']) : null;
         $definition = $theme->document->find('design');
 
@@ -47,6 +52,8 @@ final class DesignController
                 'overridden' => isset($overrides['fonts'][$name]),
             ], array_map('strval', array_keys($base->fonts))),
             'pairs' => array_map(static fn (array $pair): array => ['foreground' => $pair[0], 'background' => $pair[1]], $base->contrastPairs()),
+            'palette' => $palette,
+            'palettes' => self::palettes($themeDesign),
             'min_contrast' => Design::MIN_CONTRAST,
             'space' => $base->space,
             'radius' => $base->radius,
@@ -69,17 +76,22 @@ final class DesignController
     {
         $site = $this->current->require();
         Gate::authorize('update', $site);
-        $base = Design::of($this->themes->forSite($site));
+        $themeDesign = Design::of($this->themes->forSite($site));
         $data = $request->validate([
+            'palette' => ['nullable', 'string', Rule::in(array_map('strval', array_keys($themeDesign->palettes)))],
             'colors' => ['array'],
             'colors.*' => ['nullable', 'string', 'regex:/^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/'],
             'fonts' => ['array'],
             'fonts.*' => ['nullable', 'string', 'max:80', 'regex:/^[\pL\pN _-]+$/u'],
             'logo_media_id' => ['nullable', 'integer', Rule::exists('media', 'id')->where('site_id', $site->id)->whereNull('deleted_at')],
         ], [
+            'palette.in' => __('Diese Farbvariante kennt das Theme nicht.'),
             'colors.*.regex' => __('Farbe als #rgb oder #rrggbb.'),
             'fonts.*.regex' => __('Nur Buchstaben, Ziffern, Leerzeichen, Binde- und Unterstrich.'),
         ]);
+        // Eigene Farben zählen gegenüber der gewählten Farbvariante (CR-015/TB 83)
+        $palette = isset($data['palette']) && is_string($data['palette']) ? $data['palette'] : null;
+        $base = $themeDesign->palette($palette);
         $colors = [];
         foreach ($data['colors'] ?? [] as $name => $value) {
             if (isset($base->colors[$name]) && is_string($value) && $value !== '' && strtolower($value) !== $base->colors[$name]) {
@@ -107,7 +119,7 @@ final class DesignController
         if ($logo !== null && ! str_starts_with((string) Media::query()->whereKey($logo)->value('mime'), 'image/')) {
             return back()->withErrors(['logo_media_id' => __('Das Logo muss ein Bild sein.')]);
         }
-        $this->save($site, ['colors' => $colors, 'fonts' => $fonts, 'logo_media_id' => $logo]);
+        $this->save($site, ['palette' => $palette, 'colors' => $colors, 'fonts' => $fonts, 'logo_media_id' => $logo]);
 
         return back()->with('status', __('Design gespeichert — die Site zeigt es sofort.'));
     }
@@ -121,7 +133,27 @@ final class DesignController
         return back()->with('status', __('Überschreibungen entfernt — es gilt wieder das Theme.'));
     }
 
-    /** @param  array{colors?: array<string, string>, fonts?: array<string, string>, logo_media_id?: int|null}  $design */
+    /**
+     * Die Farbvarianten des Themes zur Wahl, vorneweg die Farben des Themes selbst — leer, wenn das Theme keine hat.
+     *
+     * @return list<array{name: string|null, label: string, colors: array<string, string>, dark: array<string, string>}>
+     */
+    private static function palettes(Design $theme): array
+    {
+        if ($theme->palettes === []) {
+            return [];
+        }
+        $palettes = [['name' => null, 'label' => __('Standard'), 'colors' => $theme->colors, 'dark' => $theme->dark]];
+        foreach (array_keys($theme->palettes) as $name) {
+            $name = (string) $name;
+            $applied = $theme->palette($name);
+            $palettes[] = ['name' => $name, 'label' => $theme->paletteLabel($name, app()->getLocale()), 'colors' => $applied->colors, 'dark' => $applied->dark];
+        }
+
+        return $palettes;
+    }
+
+    /** @param  array{palette?: string|null, colors?: array<string, string>, fonts?: array<string, string>, logo_media_id?: int|null}  $design */
     private function save(Site $site, array $design): void
     {
         $before = ThemeAssets::overrides($site);

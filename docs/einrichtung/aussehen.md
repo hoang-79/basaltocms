@@ -65,6 +65,14 @@ Modus «Einrichtung» › «Wie sieht sie aus?» › **«Design anpassen»**, Re
 
 Welche Farben es gibt, bestimmt das Theme — im Starter zum Beispiel `text`, `background`, `surface`, `muted`, `link`, `accent`, `accent-text`, `dark`, `dark-text`, `dark-muted`, `border`, `line`, `marker` und `focus`.
 
+### Farbvariante
+
+Bringt das Theme Farbvarianten mit, steht über den Farben die Karte **Farbvariante**: **Standard** (die Farben des Themes) und je Variante eine Karte mit ihrem Namen, einer Vorschau hell und dunkel und drei Farbpunkten. Ein Klick wählt die Variante; sie gilt sofort auf der ganzen Site, auch in der dunklen Darstellung.
+
+- Die Farbfelder folgen der Variante; darunter steht ihr Wert («Salbei: #23402f»).
+- Eine Farbe, die Sie selbst gesetzt haben, bleibt beim Wechsel der Variante stehen und gilt zusätzlich. «zurücksetzen» am Feld führt zum Wert der Variante.
+- Themes ohne Farbvarianten zeigen die Karte nicht.
+
 ### Kontrast
 
 ![Kontrast: ein Paar unter 4,5:1 ist «zu schwach»](bilder/design-kontrast.webp)
@@ -85,7 +93,7 @@ Das Theme zeigt das Logo dort, wo es `{{ site.logo }}` setzt. Sie wählen:
 - **Bild aus der Mediathek** — ein eigenes Bild,
 - **kein Logo**.
 
-Sobald etwas vom Theme abweicht, erscheint oben rechts **«Alles wie im Theme»**: Es setzt alle Farben, Schriften und das Logo auf das Theme zurück.
+Sobald etwas vom Theme abweicht, erscheint oben rechts **«Alles wie im Theme»**: Es setzt die Farbvariante, alle Farben, Schriften und das Logo auf das Theme zurück.
 
 ## Bildvarianten
 
@@ -118,6 +126,9 @@ Wichtig:
 
 **Die Farbe lässt sich nicht speichern.**
 Der Kontrast ist zu schwach. Die Meldung am Feld nennt das Paar und das Verhältnis — mindestens 4,5:1.
+
+**Ich habe eine Farbvariante gewählt, aber eine Farbe passt nicht dazu.**
+Sie haben diese Farbe früher selbst gesetzt; eigene Farben gelten über der Variante. «zurücksetzen» am Feld übernimmt den Wert der Variante.
 
 **Ich habe das Theme gewechselt, und ein Teil der Seiten sieht leer aus.**
 Das neue Theme kennt deren Blöcke oder Templates nicht. Nichts ist verloren: Wechseln Sie zurück, oder ergänzen Sie das neue Theme.

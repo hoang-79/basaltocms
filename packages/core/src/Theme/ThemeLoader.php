@@ -63,7 +63,7 @@ final class ThemeLoader
         $kind = 'files';
         $source = new FileSource(ThemeCatalog::path().'/'.$name);
         // TB 22: ein eigenes Theme gleichen Namens aus der Bibliothek der Site geht dem Ordner vor
-        $own = SiteTheme::query()->where('site_id', $site->id)->where('name', $name)->first(['id', 'site_id', 'name']);
+        $own = SiteTheme::query()->where('site_id', $site->id)->where('name', $name)->first(['id', 'site_id', 'name', 'assets']);
         if ($own !== null) {
             $kind = 'database';
             $source = new DatabaseSource($site->id, $own->scope(), $site->handle);
@@ -74,6 +74,8 @@ final class ThemeLoader
                     $source = self::overlay($source, $drafts, $site->handle);
                 }
             }
+            // Bilder und Schriften der Bibliothek gehören zum Theme (Prüfung von css, logo und Schriften)
+            $source = new LibrarySource($source, new AssetStore($own));
         }
         if ($withSiteLayer) {
             $siteSource = new DatabaseSource($site->id, LavaSource::SCOPE_SITE, $site->handle.'/site');

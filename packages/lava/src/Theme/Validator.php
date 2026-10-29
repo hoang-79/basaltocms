@@ -31,7 +31,7 @@ final class Validator
      */
     public const SHAPE = [
         'site' => ['properties' => ['name', 'languages', 'default', 'domain', 'redirects', 'timezone'], 'children' => []],
-        'design' => ['properties' => ['space', 'radius', 'images', 'css', 'logo'], 'children' => ['color', 'font', 'images']],
+        'design' => ['properties' => ['space', 'radius', 'images', 'css', 'logo'], 'children' => ['color', 'font', 'images', 'palette']],
         'layout' => ['properties' => [], 'children' => ['region']],
         'nav' => ['properties' => ['from', 'items', 'depth', 'start', 'exclude', 'only', 'label'], 'children' => ['item']],
         'type' => ['properties' => ['label', 'route', 'template'], 'children' => ['field']],
@@ -485,18 +485,8 @@ final class Validator
      */
     private function design(Definition $design): void
     {
-        foreach ($design->childrenOf('color') as $color) {
-            $value = $color->typed[0] ?? null;
-            if ($value === null || ! Design::isColor($value->text())) {
-                $this->error(sprintf('Farbe «%s»: «%s» ist kein Farbwert — erlaubt sind #rgb, #rrggbb und #rrggbbaa', $color->name, $value?->text() ?? '—'), $color, 'B');
-            }
-            // TB 21: «dark #…» — der Wert der dunklen Darstellung
-            $words = array_map(static fn ($v): string => $v->text(), $color->typed);
-            $at = array_search('dark', $words, true);
-            if ($at !== false && ! Design::isColor($words[$at + 1] ?? '')) {
-                $this->error(sprintf('Farbe «%s»: nach «dark» fehlt ein Farbwert (#rgb, #rrggbb, #rrggbbaa)', $color->name), $color, 'B');
-            }
-        }
+        $this->colorLines($design);
+        $this->palettes($design);
         $files = [];
         foreach ($design->property('css')->values ?? [] as $value) {
             $files[] = [$value->text(), ['css'], 'Stylesheet'];
@@ -522,6 +512,70 @@ final class Validator
         }
         foreach (Design::fromDefinition($design)->darkContrastIssues() as $issue) {
             $this->warn(sprintf('Kontrast «%s» auf «%s» in der dunklen Darstellung ist %s:1 — WCAG 2.2 AA verlangt %s:1 für Text', $issue['foreground'], $issue['background'], number_format($issue['ratio'], 2, '.', ''), number_format($issue['required'], 1, '.', '')), $design->file, $design->line, $design->column, 'B');
+        }
+    }
+
+    /** Die Zeilen `color name: #hell [dark #dunkel]` in `design` oder einer Farbvariante. */
+    private function colorLines(Definition $owner): void
+    {
+        foreach ($owner->childrenOf('color') as $color) {
+            $value = $color->typed[0] ?? null;
+            if ($value === null || ! Design::isColor($value->text())) {
+                $this->error(sprintf('Farbe «%s»: «%s» ist kein Farbwert — erlaubt sind #rgb, #rrggbb und #rrggbbaa', $color->name, $value?->text() ?? '—'), $color, 'B');
+            }
+            // TB 21: «dark #…» — der Wert der dunklen Darstellung
+            $words = array_map(static fn ($v): string => $v->text(), $color->typed);
+            $at = array_search('dark', $words, true);
+            if ($at !== false && ! Design::isColor($words[$at + 1] ?? '')) {
+                $this->error(sprintf('Farbe «%s»: nach «dark» fehlt ein Farbwert (#rgb, #rrggbb, #rrggbbaa)', $color->name), $color, 'B');
+            }
+        }
+    }
+
+    /**
+     * Farbvarianten (CR-015, TB 83): `palette name { label: …  color …: … }` — nur Farben, die `design` nennt, und je
+     * Variante dieselbe Kontrastprüfung wie für das Theme, hell und dunkel.
+     */
+    private function palettes(Definition $design): void
+    {
+        $base = Design::fromDefinition($design);
+        $seen = [];
+        foreach ($design->childrenOf('palette') as $palette) {
+            if ($palette->name === null) {
+                $this->error('Farbvariante ohne Namen — so: «palette salbei { label: "Salbei"  color accent: #2f4a3a }»', $palette, 'B');
+
+                continue;
+            }
+            if (isset($seen[$palette->name])) {
+                $this->warn(sprintf('Farbvariante «%s» steht doppelt — es gilt die erste', $palette->name), $palette->file, $palette->line, $palette->column, 'B');
+
+                continue;
+            }
+            $seen[$palette->name] = true;
+            foreach ($palette->properties as $p) {
+                if ($p->key !== 'label') {
+                    $this->warn(sprintf('Unbekannte Eigenschaft «%s» in Farbvariante «%s»', $p->key, $palette->name), $palette->file, $p->line, $p->column, 'B', self::suggest($p->key, ['label', 'color']));
+                }
+            }
+            foreach ($palette->children as $child) {
+                if ($child->kind !== 'color') {
+                    $this->warn(sprintf('Unbekanntes Unterelement «%s» in Farbvariante «%s» — eine Variante nennt nur Farben', $child->kind, $palette->name), $child->file, $child->line, $child->column, 'B', self::suggest($child->kind, ['color', 'label']));
+                }
+            }
+            $this->colorLines($palette);
+            $colors = $palette->childrenOf('color');
+            if ($colors === []) {
+                $this->warn(sprintf('Farbvariante «%s» nennt keine Farbe', $palette->name), $palette->file, $palette->line, $palette->column, 'B');
+            }
+            foreach ($colors as $color) {
+                if ($color->name !== null && ! isset($base->colors[$color->name])) {
+                    $this->warn(sprintf('Farbvariante «%s»: Farbe «%s» fehlt in design — eine Variante ändert nur Farben, die das Theme nennt', $palette->name, $color->name), $color->file, $color->line, $color->column, 'B', self::suggest($color->name, array_map('strval', array_keys($base->colors))));
+                }
+            }
+        }
+        foreach ($base->paletteContrastIssues() as $issue) {
+            $at = $design->child('palette', $issue['palette']) ?? $design;
+            $this->warn(sprintf('Farbvariante «%s»: Kontrast «%s» auf «%s»%s ist %s:1 — WCAG 2.2 AA verlangt %s:1 für Text', $issue['palette'], $issue['foreground'], $issue['background'], $issue['dark'] ? ' in der dunklen Darstellung' : '', number_format($issue['ratio'], 2, '.', ''), number_format($issue['required'], 1, '.', '')), $at->file, $at->line, $at->column, 'B');
         }
     }
 

@@ -33,7 +33,9 @@ final class SeedCommand extends Command
 
         // Lokal zeigen die Inhalte der Hersteller-Site auf die lokale Landschaft (demo-basalto.test …) — der Seed bringt
         // die Adressen der Produktion zurück, also danach wieder umschreiben
-        if ($result['created'] !== [] && app()->environment('local') && $site->handle === BasaltoSiteSeeder::HANDLE) {
+        // Das Release liefert database/seeders nicht mit — ohne die Prüfung brach der Befehl auf jeder lokalen Installation
+        // (APP_ENV=local, etwa der Sandbox des Marktplatzes) nach dem Einspielen ab
+        if ($result['created'] !== [] && app()->environment('local') && class_exists(BasaltoSiteSeeder::class) && $site->handle === BasaltoSiteSeeder::HANDLE) {
             $this->call('basalto:local', ['--no-publish' => true]);
         }
 

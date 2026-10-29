@@ -39,12 +39,14 @@ php artisan basalto:theme-pack mein-theme              # → storage/app/themes/
 - **Nome:** il nome della cartella — minuscole, cifre e trattino, al massimo 64 caratteri.
 - **Versione** da `theme.json` (`version`), come numero di versione tipo `1.2.0`; senza indicazione `theme-pack` impacchetta `0.0.0`.
 - **Dati** da `theme.json`: `label` (titolo nel catalogo), `description`, `license`, `preview` (percorso di
-  un’immagine di anteprima nel pacchetto: SVG, PNG, JPG o WebP, al massimo 1 MB).
+  un’immagine di anteprima nel pacchetto: SVG, PNG, JPG o WebP, al massimo 1 MB), `requires` (versione minima di
+  Basalto, per esempio `{"basalto": ">=1.3.9"}` — la scheda la mostra sotto «Richiede»; senza indicazione vale `>=1.0`).
 - **Obbligatorio:** `category` — una tra `firma`, `portfolio`, `gastro`, `verein`, `magazin`, `onepager`,
   `shop` — e almeno un’immagine: `screenshots` (elenco di percorsi nel pacchetto, 1–6 immagini, PNG, JPEG o WebP, ciascuna
   al massimo 1 MB) o `preview`.
 - **Facoltativo:** `homepage`, `docs`, `support` (indirizzi https). Un `seed` con contenuti iniziali mostra il tema nella
-  sandbox e nella vetrina con contenuto anziché vuoto.
+  sandbox e nella vetrina con contenuto anziché vuoto. Le lingue di `site { languages: … }` diventano le lingue del
+  sito della sandbox e della vetrina — i contenuti iniziali in più lingue vi sono quindi tutti visibili.
 
 ```json
 {
@@ -114,7 +116,7 @@ passaggi. Nel farlo non viene eseguito nulla del pacchetto.
 | **Pacchetto** | ZIP leggibile, dimensione, percorsi | oltre 10 MB compresso o 50 MB estratto, oltre 2000 file; **ZIP slip** (percorsi con `..`, percorsi assoluti, lettere di unità, backslash); link simbolici |
 | **Manifest** | Tema: manifest e checksum, compilatore Lava; plugin: `composer.json`, `php -l` di ogni file PHP, elenco dei divieti | manifest mancante o non corrispondente, errori del compilatore, errori di sintassi, chiamate vietate, campi non validi |
 | **Test** | Temi: il compilatore invece dei test; plugin: se sono allegati test | — (i test inclusi non vengono mai eseguiti; la revisione li legge) |
-| **Banco di prova** | Temi: contrasti secondo WCAG 2.2 AA (chiaro e scuro), modalità scura, risorse esterne (`src`, `<link href>`, `url()`, `@import` verso server esterni), peso degli asset, contenuti iniziali; plugin: PHPStan (livello 5, statico), accessi in scrittura, test | — (solo indicazioni; gli indicatori compaiono come marchi nel catalogo) |
+| **Banco di prova** | Temi: contrasti secondo WCAG 2.2 AA (chiaro e scuro, anche per ogni variante di colori), modalità scura, varianti di colori (`palette`, marchio proprio), risorse esterne (`src`, `<link href>`, `url()`, `@import` verso server esterni), peso degli asset, contenuti iniziali; plugin: PHPStan (livello 5, statico), accessi in scrittura, test | — (solo indicazioni; gli indicatori compaiono come marchi nel catalogo) |
 | **Sandbox** | installiamo l’invio in un’installazione usa e getta con contenuti di esempio e lo proviamo | ciò che lì non funziona, con nota |
 | **Firma** | aperta fino all’approvazione | — |
 | **Revisione** | a mano | motivo del rifiuto |

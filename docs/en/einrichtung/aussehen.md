@@ -65,6 +65,14 @@ Switching, adding and removing is allowed for roles that may edit the area “De
 
 Which colours exist is set by the theme — in Starter for example `text`, `background`, `surface`, `muted`, `link`, `accent`, `accent-text`, `dark`, `dark-text`, `dark-muted`, `border`, `line`, `marker` and `focus`.
 
+### Colour variant
+
+If the theme comes with colour variants, the card **Colour variant** appears above the colours: **Default** (the theme’s colours) and one card per variant with its name, a light and dark preview and three colour dots. A click chooses the variant; it applies immediately across the whole site, including the dark appearance.
+
+- The colour fields follow the variant; below each one is its value (“Sage: #23402f”).
+- A colour you have set yourself stays when you change the variant and applies on top. “reset” at the field returns to the variant’s value.
+- Themes without colour variants do not show the card.
+
 ### Contrast
 
 ![Contrast: a pair below 4.5:1 is “too weak”](bilder/design-kontrast.webp)
@@ -85,7 +93,7 @@ The theme shows the logo where it places `{{ site.logo }}`. You choose:
 - **image from the media library** — your own image,
 - **no logo**.
 
-As soon as something differs from the theme, **“Everything as in the theme”** appears at the top right: it resets all colours, fonts and the logo to the theme.
+As soon as something differs from the theme, **“Everything as in the theme”** appears at the top right: it resets the colour variant, all colours, fonts and the logo to the theme.
 
 ## Image variants
 
@@ -118,6 +126,9 @@ Important:
 
 **The colour cannot be saved.**
 The contrast is too weak. The message at the field names the pair and the ratio — at least 4.5:1.
+
+**I chose a colour variant, but one colour does not match it.**
+You set this colour yourself earlier; your own colours apply on top of the variant. “reset” at the field takes over the variant’s value.
 
 **I switched the theme, and some pages look empty.**
 The new theme does not know their blocks or templates. Nothing is lost: switch back, or extend the new theme.

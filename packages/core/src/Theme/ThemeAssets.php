@@ -20,7 +20,7 @@ use Basalto\Lava\Theme\Source;
  * Theme-Ordner gleichen Namens auf der Platte. Dazu `design` als CSS-Variablen mit den Überschreibungen der Site aus dem
  * Backend (`sites.settings.design`) — die wirken ohne Build und ohne Deployment.
  *
- * @phpstan-type Overrides array{colors?: array<string, string>, fonts?: array<string, string>, logo_media_id?: int|null}
+ * @phpstan-type Overrides array{palette?: string, colors?: array<string, string>, fonts?: array<string, string>, logo_media_id?: int|null}
  */
 final class ThemeAssets
 {
@@ -128,7 +128,9 @@ final class ThemeAssets
             $logo = Media::query()->withoutGlobalScopes()->where('site_id', $site->id)->whereKey($overrides['logo_media_id'])->first()?->url();
         }
 
-        return Design::of($this->themes->forSite($site))->with(['colors' => $overrides['colors'] ?? [], 'fonts' => $overrides['fonts'] ?? [], 'logo' => $logo]);
+        // CR-015/TB 83: zuerst die gewählte Farbvariante des Themes, darüber die Überschreibungen der Site
+        return Design::of($this->themes->forSite($site))->palette($overrides['palette'] ?? null)
+            ->with(['colors' => $overrides['colors'] ?? [], 'fonts' => $overrides['fonts'] ?? [], 'logo' => $logo]);
     }
 
     /** Adresse des Logos: aus der Mediathek (Überschreibung) oder aus dem Theme-Ordner; null ohne Logo. */
@@ -213,7 +215,8 @@ final class ThemeAssets
     private function sources(Site $site): array
     {
         $resolved = $this->themes->sourceFor($site, false);
-        $sources = [$resolved['source']];
+        // Die Bibliothek bringt Bilder und Schriften als AssetStore mit (unten, mit Prüfsumme aus dem Verzeichnis)
+        $sources = [$resolved['source'] instanceof LibrarySource ? $resolved['source']->text() : $resolved['source']];
         if ($resolved['kind'] !== 'files') {
             $own = SiteTheme::query()->where('site_id', $site->id)->where('name', $resolved['name'])->first();
             if ($own !== null) {

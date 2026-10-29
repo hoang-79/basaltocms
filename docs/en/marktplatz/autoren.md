@@ -42,12 +42,14 @@ php artisan basalto:theme-pack mein-theme              # → storage/app/themes/
 - **Version** from `theme.json` (`version`), as a version number such as `1.2.0`; without it, `theme-pack` packs
   `0.0.0`.
 - **Details** from `theme.json`: `label` (title in the catalogue), `description`, `license`, `preview` (path to a
-  preview image in the package: SVG, PNG, JPG or WebP, at most 1 MB).
+  preview image in the package: SVG, PNG, JPG or WebP, at most 1 MB), `requires` (minimum version of Basalto, such as
+  `{"basalto": ">=1.3.9"}` — the entry shows it under “Requires”; without it, `>=1.0` applies).
 - **Required:** `category` — one of `firma`, `portfolio`, `gastro`, `verein`, `magazin`, `onepager`,
   `shop` — and at least one image: `screenshots` (list of paths in the package, 1–6 images, PNG, JPEG or WebP, each at
   most 1 MB) or `preview`.
 - **Optional:** `homepage`, `docs`, `support` (https addresses). A `seed` with starter content shows the theme in the
-  sandbox and in the showcase with content instead of empty.
+  sandbox and in the showcase with content instead of empty. The languages from `site { languages: … }` become the
+  languages of the sandbox and showcase site — starter content in several languages is visible there in all of them.
 
 ```json
 {
@@ -118,7 +120,7 @@ from the package is executed.
 | **Package** | readable ZIP, size, paths | over 10 MB packed or 50 MB unpacked, over 2,000 files; **zip slip** (paths with `..`, absolute paths, drive letters, backslashes); symbolic links |
 | **Manifest** | theme: manifest and checksums, Lava compiler; plugin: `composer.json`, `php -l` on every PHP file, blocklist | manifest missing or not matching, compiler errors, syntax errors, forbidden calls, invalid fields |
 | **Tests** | themes: the compiler instead of tests; plugins: whether tests are included | — (included tests are never run; the review reads them) |
-| **Quality check** | themes: WCAG 2.2 AA contrast (light and dark), dark mode, third-party resources (`src`, `<link href>`, `url()`, `@import` on foreign servers), weight of the assets, starter content; plugins: PHPStan (level 5, static), write access, tests | — (notes only; the figures appear as badges in the catalogue) |
+| **Quality check** | themes: WCAG 2.2 AA contrast (light and dark, also per colour variant), dark mode, colour variants (`palette`, own badge), third-party resources (`src`, `<link href>`, `url()`, `@import` on foreign servers), weight of the assets, starter content; plugins: PHPStan (level 5, static), write access, tests | — (notes only; the figures appear as badges in the catalogue) |
 | **Sandbox** | we install the submission in a throwaway installation with sample content and try it out | whatever doesn’t work there, with a note |
 | **Signature** | open until approval | — |
 | **Review** | by hand | reason for rejection |

@@ -4552,5 +4552,9 @@
     "Nicht gespeicherte Änderungen verwerfen?": "Discard unsaved changes?",
     "Zum Extranet": "Go to Extranet",
     "LOKAL": "LOCAL",
-    "Die Demo hat ihren Speicher für heute aufgebraucht (:mb MB). Sie wird jede Nacht zurückgesetzt — danach lassen sich wieder Dateien hochladen.": "The demo has used up its storage for today (:mb MB). It is reset every night — after that you can upload files again."
+    "Die Demo hat ihren Speicher für heute aufgebraucht (:mb MB). Sie wird jede Nacht zurückgesetzt — danach lassen sich wieder Dateien hochladen.": "The demo has used up its storage for today (:mb MB). It is reset every night — after that you can upload files again.",
+    "Diese Farbvariante kennt das Theme nicht.": "The theme does not know this colour variant.",
+    "Farbvariante :name": "Colour variant :name",
+    "Farbvariante": "Colour variant",
+    "Das Theme bringt Farbvarianten mit. Ihre eigenen Farben weiter unten gelten zusätzlich.": "The theme comes with colour variants. Your own colours further down apply on top."
 }

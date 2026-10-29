@@ -230,6 +230,9 @@ final class ThemeCatalog
         }
         $design = Design::of($theme);
         $overrides = ThemeAssets::overrides($site);
+        if (isset($overrides['palette']) && ! isset($design->palettes[$overrides['palette']])) {
+            $report['design'][] = __('Farbvariante :name', ['name' => $overrides['palette']]);
+        }
         foreach (array_keys($overrides['colors'] ?? []) as $name) {
             if (! isset($design->colors[$name])) {
                 $report['design'][] = __('Farbe :name', ['name' => $name]);

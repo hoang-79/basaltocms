@@ -4556,5 +4556,9 @@
     "Nicht gespeicherte Änderungen verwerfen?": "Abandonner les modifications non enregistrées ?",
     "Zum Extranet": "Vers l’extranet",
     "LOKAL": "LOCAL",
-    "Die Demo hat ihren Speicher für heute aufgebraucht (:mb MB). Sie wird jede Nacht zurückgesetzt — danach lassen sich wieder Dateien hochladen.": "La démo a épuisé son espace de stockage pour aujourd’hui (:mb Mo). Elle est réinitialisée chaque nuit — vous pourrez ensuite à nouveau téléverser des fichiers."
+    "Die Demo hat ihren Speicher für heute aufgebraucht (:mb MB). Sie wird jede Nacht zurückgesetzt — danach lassen sich wieder Dateien hochladen.": "La démo a épuisé son espace de stockage pour aujourd’hui (:mb Mo). Elle est réinitialisée chaque nuit — vous pourrez ensuite à nouveau téléverser des fichiers.",
+    "Diese Farbvariante kennt das Theme nicht.": "Le thème ne connaît pas cette variante de couleurs.",
+    "Farbvariante :name": "Variante de couleurs :name",
+    "Farbvariante": "Variante de couleurs",
+    "Das Theme bringt Farbvarianten mit. Ihre eigenen Farben weiter unten gelten zusätzlich.": "Le thème propose des variantes de couleurs. Vos propres couleurs plus bas s’y ajoutent."
 }

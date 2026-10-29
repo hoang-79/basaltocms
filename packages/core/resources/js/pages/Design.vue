@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, Link, router, useForm } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { useAutosave } from '../components/autosave';
 import Button from '../components/Button.vue';
 import Card from '../components/Card.vue';
@@ -15,7 +15,8 @@ import { t } from '../i18n';
 /**
  * Station B — Design (M-15, L-10): Farben, Schriften und Logo des Themes mit den Überschreibungen dieser Site. Jede
  * Änderung speichert sich selbst und ist sofort auf der Site sichtbar (CSS-Variablen, kein Build). Der Kontrast jedes
- * Farbpaars steht daneben; unter 4,5:1 weist der Server das Speichern ab.
+ * Farbpaars steht daneben; unter 4,5:1 weist der Server das Speichern ab. Bringt das Theme Farbvarianten mit
+ * (`palette`, CR-015/TB 83), steht ihre Wahl zuoberst; eigene Farben gelten gegenüber der gewählten Variante.
  */
 type Token = {
     name: string;
@@ -24,11 +25,19 @@ type Token = {
     overridden: boolean;
 };
 type FontToken = Token & { weight: number | null };
+type Palette = {
+    name: string | null;
+    label: string;
+    colors: Record<string, string>;
+    dark: Record<string, string>;
+};
 
 const props = defineProps<{
     colors: Token[];
     fonts: FontToken[];
     pairs: { foreground: string; background: string }[];
+    palette: string | null;
+    palettes: Palette[];
     min_contrast: number;
     space: number[];
     radius: number | null;
@@ -46,12 +55,14 @@ const props = defineProps<{
 }>();
 
 const form = useForm({
+    palette: props.palette,
     colors: Object.fromEntries(props.colors.map((c) => [c.name, c.value])),
     fonts: Object.fromEntries(props.fonts.map((f) => [f.name, f.value])),
     logo_media_id: props.logo.media?.id ?? null,
 });
 
 const labels: Record<string, string> = {
+    palette: t('Farbvariante'),
     colors: t('Farbe'),
     fonts: t('Schrift'),
     logo_media_id: t('Logo'),
@@ -109,8 +120,79 @@ function colorError(name: string): string {
         : '';
 }
 
+/** Die gewählte Farbvariante — ohne Varianten im Theme keine. */
+const chosen = computed<Palette | null>(
+    () => props.palettes.find((p) => p.name === form.palette) ?? null,
+);
+
+/** Der Wert «wie im Theme» einer Farbe: aus der gewählten Variante, sonst aus dem Theme. */
+function themeValue(token: Token): string {
+    return chosen.value?.colors[token.name] ?? token.theme;
+}
+
+/** Der Wert ganz ohne Variante — dahin führt «Alles wie im Theme». */
+function baseValue(token: Token): string {
+    return (
+        props.palettes.find((p) => p.name === null)?.colors[token.name] ??
+        token.theme
+    );
+}
+
+// Wechselt die Variante, folgen ihr alle Farben, die Sie nicht selbst gesetzt haben
+watch(
+    () => form.palette,
+    (next, previous) => {
+        const before = props.palettes.find((p) => p.name === previous);
+        const after = props.palettes.find((p) => p.name === next);
+        if (!before || !after) {
+            return;
+        }
+        for (const token of props.colors) {
+            const current = (form.colors[token.name] ?? '').toLowerCase();
+            const target = after.colors[token.name];
+            if (current === before.colors[token.name] && target) {
+                form.colors[token.name] = target;
+            }
+        }
+    },
+);
+
+/**
+ * Bis zu drei Farben je Variante als Punkte — zuerst Akzent, Link und die dunkle Fläche; nur, was sich vom Grund der
+ * Vorschau abhebt (in der dunklen Hälfte verschwände die dunkle Fläche).
+ */
+function swatches(palette: Palette, dark = false): string[] {
+    const colors = dark
+        ? { ...palette.colors, ...palette.dark }
+        : palette.colors;
+    const ground = colors.background ?? '';
+    const preferred = ['accent', 'link', 'dark'];
+    const rank = (name: string): number =>
+        preferred.includes(name) ? preferred.indexOf(name) : preferred.length;
+    const names = Object.keys(colors)
+        .filter(
+            (name) =>
+                !['text', 'background', 'line', 'border', 'focus'].includes(
+                    name,
+                ) &&
+                !name.endsWith('-text') &&
+                !name.startsWith('on-'),
+        )
+        .sort((a, b) => rank(a) - rank(b));
+
+    const visible = names
+        .map((name) => colors[name] ?? '')
+        .filter((color) => (contrast(color, ground) ?? 0) >= 1.4);
+
+    return [...new Set(visible)].slice(0, 3);
+}
+
+function hasDark(palette: Palette): boolean {
+    return Object.keys(palette.dark).length > 0;
+}
+
 function resetColor(token: Token): void {
-    form.colors[token.name] = token.theme;
+    form.colors[token.name] = themeValue(token);
 }
 
 function resetFont(token: FontToken): void {
@@ -119,7 +201,8 @@ function resetFont(token: FontToken): void {
 
 const changed = computed(
     () =>
-        props.colors.some((c) => form.colors[c.name] !== c.theme) ||
+        form.palette !== null ||
+        props.colors.some((c) => form.colors[c.name] !== themeValue(c)) ||
         props.fonts.some((f) => form.fonts[f.name] !== f.theme) ||
         form.logo_media_id !== null,
 );
@@ -128,7 +211,8 @@ function resetAll(): void {
     router.delete(props.urls.reset, {
         preserveScroll: true,
         onSuccess: () => {
-            props.colors.forEach((c) => (form.colors[c.name] = c.theme));
+            form.palette = null;
+            props.colors.forEach((c) => (form.colors[c.name] = baseValue(c)));
             props.fonts.forEach((f) => (form.fonts[f.name] = f.theme));
             form.logo_media_id = null;
             form.defaults();
@@ -198,7 +282,104 @@ const logoUrl = computed(
     </Notice>
 
     <div class="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]">
-        <div class="grid min-w-0 gap-4">
+        <div class="grid min-w-0 content-start gap-4">
+            <Card v-if="palettes.length > 0" :title="$t('Farbvariante')">
+                <p class="mb-3 text-[12.5px] text-basalt-light">
+                    {{
+                        $t(
+                            'Das Theme bringt Farbvarianten mit. Ihre eigenen Farben weiter unten gelten zusätzlich.',
+                        )
+                    }}
+                </p>
+                <fieldset>
+                    <legend class="sr-only">{{ $t('Farbvariante') }}</legend>
+                    <div
+                        class="grid grid-cols-[repeat(auto-fill,minmax(10rem,1fr))] gap-2"
+                    >
+                        <label
+                            v-for="option in palettes"
+                            :key="option.name ?? ''"
+                            class="grid gap-2 rounded-sm border border-ash-light p-2 has-[:checked]:border-lava has-[:checked]:ring-2 has-[:checked]:ring-lava/40 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-basalt"
+                            :class="can_edit ? 'cursor-pointer' : ''"
+                        >
+                            <input
+                                v-model="form.palette"
+                                type="radio"
+                                name="palette"
+                                :value="option.name"
+                                class="sr-only"
+                                :disabled="!can_edit"
+                            />
+                            <span
+                                class="grid h-14 overflow-hidden rounded-sm border border-black/10"
+                                :class="hasDark(option) ? 'grid-cols-2' : ''"
+                                aria-hidden="true"
+                            >
+                                <span
+                                    class="flex items-center justify-center gap-1"
+                                    :style="{
+                                        backgroundColor:
+                                            option.colors.background,
+                                        color: option.colors.text,
+                                    }"
+                                >
+                                    <span class="text-[17px] font-semibold"
+                                        >Aa</span
+                                    >
+                                    <span
+                                        v-for="color in swatches(option)"
+                                        :key="color"
+                                        class="size-2.5 rounded-full"
+                                        :style="{ backgroundColor: color }"
+                                    ></span>
+                                </span>
+                                <span
+                                    v-if="hasDark(option)"
+                                    class="flex items-center justify-center gap-1"
+                                    :style="{
+                                        backgroundColor:
+                                            option.dark.background ??
+                                            option.colors.background,
+                                        color:
+                                            option.dark.text ??
+                                            option.colors.text,
+                                    }"
+                                >
+                                    <span class="text-[17px] font-semibold"
+                                        >Aa</span
+                                    >
+                                    <span
+                                        v-for="color in swatches(option, true)"
+                                        :key="color"
+                                        class="size-2.5 rounded-full"
+                                        :style="{ backgroundColor: color }"
+                                    ></span>
+                                </span>
+                            </span>
+                            <span
+                                class="flex flex-wrap items-baseline justify-between gap-x-2 text-[12.5px] font-semibold"
+                            >
+                                {{ option.label }}
+                                <span
+                                    v-if="
+                                        form.palette === option.name &&
+                                        autosave.saved('palette')
+                                    "
+                                    class="text-success text-[11px] font-normal"
+                                    >{{ $t('gespeichert') }}</span
+                                >
+                            </span>
+                        </label>
+                    </div>
+                </fieldset>
+                <p
+                    v-if="form.errors.palette"
+                    class="text-danger mt-1 text-[11.5px]"
+                >
+                    {{ form.errors.palette }}
+                </p>
+            </Card>
+
             <Card :title="$t('Farben')">
                 <p v-if="colors.length === 0" class="text-sm text-basalt-light">
                     {{ $t('Das Theme nennt keine Farben.') }}
@@ -264,15 +445,19 @@ const logoUrl = computed(
                                     colorError(token.name)
                                 }}</template>
                                 <template v-else>
-                                    {{ $t('Theme:') }}
+                                    {{
+                                        chosen && chosen.name !== null
+                                            ? `${chosen.label}:`
+                                            : $t('Theme:')
+                                    }}
                                     <code class="font-mono">{{
-                                        token.theme
+                                        themeValue(token)
                                     }}</code>
                                     <button
                                         v-if="
                                             can_edit &&
                                             form.colors[token.name] !==
-                                                token.theme
+                                                themeValue(token)
                                         "
                                         type="button"
                                         class="ml-2 underline"
@@ -302,7 +487,9 @@ const logoUrl = computed(
                     <code class="font-mono">link</code> {{ $t('auf') }}
                     <code class="font-mono">background</code>,
                     {{ $t('dazu') }}
-                    <code class="font-mono">X-text</code> {{ $t('auf') }}
+                    <code class="font-mono">X-text</code>,
+                    <code class="font-mono">X-muted</code>,
+                    <code class="font-mono">X-link</code> {{ $t('auf') }}
                     <code class="font-mono">X</code>.
                 </p>
                 <ul class="grid gap-2">

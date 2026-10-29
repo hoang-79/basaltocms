@@ -39,12 +39,14 @@ php artisan basalto:theme-pack mein-theme              # → storage/app/themes/
 - **Name:** der Ordnername — Kleinbuchstaben, Ziffern und Bindestrich, höchstens 64 Zeichen.
 - **Version** aus `theme.json` (`version`), als Versionsnummer wie `1.2.0`; ohne Angabe packt `theme-pack` `0.0.0`.
 - **Angaben** aus `theme.json`: `label` (Titel im Katalog), `description`, `license`, `preview` (Pfad zu einem
-  Vorschaubild im Paket: SVG, PNG, JPG oder WebP, höchstens 1 MB).
+  Vorschaubild im Paket: SVG, PNG, JPG oder WebP, höchstens 1 MB), `requires` (Mindestversion von Basalto, etwa
+  `{"basalto": ">=1.3.9"}` — der Eintrag zeigt sie unter «Braucht»; ohne Angabe gilt `>=1.0`).
 - **Pflicht:** `category` — eine von `firma`, `portfolio`, `gastro`, `verein`, `magazin`, `onepager`,
   `shop` — und mindestens ein Bild: `screenshots` (Liste von Pfaden im Paket, 1–6 Bilder, PNG, JPEG oder WebP, je
   höchstens 1 MB) oder `preview`.
 - **Freiwillig:** `homepage`, `docs`, `support` (https-Adressen). Ein `seed` mit Startinhalten zeigt das Theme in der
-  Sandbox und im Schaufenster mit Inhalt statt leer.
+  Sandbox und im Schaufenster mit Inhalt statt leer. Die Sprachen aus `site { languages: … }` legen Sandbox und
+  Schaufenster als Sprachen der Site an — Startinhalte in mehreren Sprachen sind dort also alle zu sehen.
 
 ```json
 {
@@ -114,7 +116,7 @@ wird dabei nichts ausgeführt.
 | **Paket** | lesbares ZIP, Grösse, Pfade | über 10 MB gepackt oder 50 MB entpackt, über 2000 Dateien; **ZIP-Slip** (Pfade mit `..`, absolute Pfade, Laufwerksbuchstaben, Backslashes); symbolische Links |
 | **Manifest** | Theme: Manifest und Prüfsummen, Lava-Compiler; Plugin: `composer.json`, `php -l` jeder PHP-Datei, Verbotsliste | Manifest fehlt oder passt nicht, Compiler-Fehler, Syntaxfehler, verbotene Aufrufe, ungültige Felder |
 | **Tests** | Themes: der Compiler statt Tests; Plugins: ob Tests beiliegen | — (mitgelieferte Tests werden nie ausgeführt; die Durchsicht liest sie) |
-| **Prüfstand** | Themes: Kontraste nach WCAG 2.2 AA (hell und dunkel), Dunkelmodus, Fremdressourcen (`src`, `<link href>`, `url()`, `@import` auf fremde Server), Gewicht der Assets, Startinhalte; Plugins: PHPStan (Stufe 5, statisch), Schreibzugriffe, Tests | — (nur Hinweise; die Kennzahlen stehen als Marken im Katalog) |
+| **Prüfstand** | Themes: Kontraste nach WCAG 2.2 AA (hell und dunkel, auch je Farbvariante), Dunkelmodus, Farbvarianten (`palette`, eigene Marke), Fremdressourcen (`src`, `<link href>`, `url()`, `@import` auf fremde Server), Gewicht der Assets, Startinhalte; Plugins: PHPStan (Stufe 5, statisch), Schreibzugriffe, Tests | — (nur Hinweise; die Kennzahlen stehen als Marken im Katalog) |
 | **Sandbox** | wir installieren die Einreichung in einer Wegwerf-Installation mit Beispielinhalt und probieren sie aus | was dort nicht funktioniert, mit Notiz |
 | **Signatur** | offen bis zur Freigabe | — |
 | **Durchsicht** | von Hand | Grund der Ablehnung |

@@ -77,7 +77,7 @@ zeigen dieselbe Linie (Quelle: `Basalto\Lava\Diagnostics\Step`, `Basalto\Lava\Th
 | Station | Schlüsselwort | Frage | Eigenschaften · Unterelemente |
 | --- | --- | --- | --- |
 | A | `site` | Wer bin ich? | `name languages default domain redirects timezone` |
-| B | `design` | Wie sehe ich aus? | `space radius images css logo` · `color font images` |
+| B | `design` | Wie sehe ich aus? | `space radius images css logo` · `color font images palette` |
 | C | `layout` | Wo steht was? | `region`, Markup; dazu Lava-Teile `part` |
 | D | `nav` | Wie findet man sich zurecht? | `from items depth start exclude only label` · `item`, Markup |
 | E | `type` | Welche Inhalte gibt es? | `label route template` · `field`; dazu `global` (`label` · `field`) |
@@ -91,6 +91,25 @@ zeigen dieselbe Linie (Quelle: `Basalto\Lava\Diagnostics\Step`, `Basalto\Lava\Th
 Er gilt, wenn Besucher mit `{% appearance %}` «dunkel» wählen; ohne Wahl ist die Seite hell, auch bei dunklem
 Betriebssystem. Farben ohne dunklen Wert gelten in beiden Darstellungen. `basalto:check` rechnet die
 Kontraste auch für die dunkle Palette.
+
+**Farbvarianten:** Ein Theme kann in `design` Farbvarianten mitbringen (`palette`); die Site wählt eine davon unter
+Einrichtung › Design.
+
+```lava
+design {
+  color accent: #3b1f2b dark #e3b98a
+  palette salbei {
+    label: "Salbei"  label.en: "Sage"  label.fr: "Sauge"  label.it: "Salvia"
+    color accent: #23402f dark #a9cf9a
+  }
+}
+```
+
+Jede Zeile der Variante ersetzt die gleichnamige Zeile in `design` ganz, mit dem dunklen Wert: Nennt sie keinen, gilt
+ihr heller Wert auch dunkel. Farben, die die Variante nicht nennt, bleiben wie im Theme; eine Farbe, die `design` nicht
+kennt, ist eine Warnung. Die eigenen Farben der Site liegen über der Variante. `basalto:check` rechnet die Kontraste
+jeder Variante hell und dunkel. Damit eine Variante überall wirkt, nutzt das Stylesheet nur Variablen
+(`var(--color-…)`), keine festen Farbwerte — auch nicht für dunkle Bänder: dafür gibt es Namen wie `dark-link`.
 
 **Logo in Mails:** Der Kopf jeder Mail zeigt das Logo der Site. Gmail und Outlook zeigen kein SVG — legen Sie
 deshalb neben das Logo dieselbe Datei als PNG (`logo: assets/logo.svg` → `assets/logo.png`) in dreifacher Grösse: Die
@@ -164,7 +183,7 @@ Für alle Stationen gilt: Ein unbekanntes Schlüsselwort ist ein **Fehler** mit 
 | Station | Fehler (`✗`) | Warnungen (`!`) |
 | --- | --- | --- |
 | A `site` | — | unbekannte Eigenschaft |
-| B `design` | Farbwert kein `#rgb`, `#rrggbb` oder `#rrggbbaa`; `css` nicht `.css`, `logo` nicht `.svg/.png/.webp/.jpg/.jpeg`, Schrift-`src` nicht `.woff2/.woff`; Datei fehlt im Theme-Ordner | Kontrast unter WCAG 2.2 AA (4,5:1 für Text) für die Paare `text`, `muted`, `link` auf `background` sowie `X-text` oder `on-X` auf `X` |
+| B `design` | Farbwert kein `#rgb`, `#rrggbb` oder `#rrggbbaa` (auch in Farbvarianten); Farbvariante ohne Namen; `css` nicht `.css`, `logo` nicht `.svg/.png/.webp/.jpg/.jpeg`, Schrift-`src` nicht `.woff2/.woff`; Datei fehlt im Theme-Ordner | Kontrast unter WCAG 2.2 AA (4,5:1 für Text) für die Paare `text`, `muted`, `link` auf `background` sowie `X-text`, `X-muted`, `X-link` oder `on-X` auf `X` — auch je Farbvariante; Farbvariante mit unbekannter Farbe, Eigenschaft oder Unterelement |
 | C `layout`, `part` | `extends` auf unbekanntes Layout; Markup-Syntax; Region mit `part`, `nav` oder `global`, das es nicht gibt; Teil mit unbekannter Art; Teil ohne `source:` (bei `nav`, `global`, `form`, `sitemap`, `list`) oder mit unbekannter Quelle | Einstellung, die die Art des Teils nicht kennt; Markup mehr als 6 Ebenen `each`/`if` tief |
 | D `nav` | Menüeintrag ohne Ziel `-> …`; Ziel ist keine Seite aus `seed`; `only:`/`exclude:` nennt unbekanntes Template; `from:` ist weder `pages` noch ein Typ; `items:` ausser `db`; Markup-Syntax | Verschachtelung |
 | E `type`, `global` | Feld ohne Typ; unbekannter Feldtyp (Kern und Module, mit Vorschlag); `blocks { allow: … }` mit unbekanntem Block; `relation <typ>` mit unbekanntem Typ (erlaubt: `form`, `page`, `global` oder ein Typ des Themes); `template:` unbekannt | — |
@@ -381,7 +400,7 @@ sie in `Basalto\Lava\Runtime\Registry::standard()`; `entries` setzt die Anwendun
 | `nl2br` | `{{ raw text \| nl2br }}` | maskiert und fügt `<br />` ein — darum mit `raw` ausgeben |
 | `replace` | `text \| replace("a", "b")` | ersetzt jede Fundstelle |
 | `slug` | `text \| slug` | Kleinbuchstaben, alles ausser `a–z` und `0–9` wird zu `-` (Umlaute fallen weg: «Zürich» → `z-rich`) |
-| `entries` | `entries("post", 10)` | veröffentlichte Inhalte eines Typs mit Seitenblättern (je Eintrag u. a. `url`, `title`, `date`, `intro`, `category`, `category_url`, `author`) |
+| `entries` | `entries("post", 10)` · `entries("event", 6, "kommend")` | veröffentlichte Inhalte eines Typs mit Seitenblättern (je Eintrag u. a. `url`, `title`, `date`, `intro`, `category`, `category_url`, `author`). Der dritte Wert wählt die Reihenfolge: `neu` (Vorgabe: Feld `date`, sonst Veröffentlichung, neueste zuerst), `alt`, `kommend` (nur Inhalte mit eigenem `date` ab heute, das nächste zuerst — Anlässe) oder `reihenfolge` (Feld `position`, sonst Platz im Seitenbaum — Speisekarte, Zimmer). Ältere Fassungen von Basalto übergehen ihn und sortieren neueste zuerst |
 | `asset` | `asset("demo/editor.svg")` | Adresse einer Datei unter `assets/` des Themes (Bilder, Grafiken), mit Prüfsumme — leer, wenn die Datei fehlt |
 
 Funktionen aus Modulen tragen das Präfix des Moduls, z. B. `{{ example.greeting(name) }}` oder

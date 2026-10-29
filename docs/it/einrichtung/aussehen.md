@@ -65,6 +65,14 @@ Modalità «Configurazione» › «Che aspetto ha?» › **«Adatta design»**, 
 
 Quali colori esistono lo determina il tema — nello Starter per esempio `text`, `background`, `surface`, `muted`, `link`, `accent`, `accent-text`, `dark`, `dark-text`, `dark-muted`, `border`, `line`, `marker` e `focus`.
 
+### Variante di colori
+
+Se il tema offre varianti di colori, sopra i colori compare la scheda **Variante di colori**: **Predefinita** (i colori del tema) e per ogni variante una scheda con il suo nome, un’anteprima chiara e scura e tre punti di colore. Un clic sceglie la variante; vale subito su tutto il sito, anche nella rappresentazione scura.
+
+- I campi dei colori seguono la variante; sotto ciascuno c’è il suo valore («Salvia: #23402f»).
+- Un colore che ha impostato Lei resta quando cambia la variante e vale in aggiunta. «ripristina» al campo torna al valore della variante.
+- I temi senza varianti di colori non mostrano la scheda.
+
 ### Contrasto
 
 ![Contrasto: una coppia sotto 4,5:1 è «troppo debole»](bilder/design-kontrast.webp)
@@ -85,7 +93,7 @@ Il tema mostra il logo dove inserisce `{{ site.logo }}`. Lei sceglie:
 - **Immagine dalla mediateca** — un’immagine propria,
 - **nessun logo**.
 
-Non appena qualcosa si discosta dal tema, in alto a destra compare **«Tutto come nel tema»**: riporta tutti i colori, i caratteri e il logo ai valori del tema.
+Non appena qualcosa si discosta dal tema, in alto a destra compare **«Tutto come nel tema»**: riporta la variante di colori, tutti i colori, i caratteri e il logo ai valori del tema.
 
 ## Varianti d’immagine
 
@@ -118,6 +126,9 @@ Importante:
 
 **Il colore non si può salvare.**
 Il contrasto è troppo debole. Il messaggio accanto al campo indica la coppia e il rapporto — almeno 4,5:1.
+
+**Ho scelto una variante di colori, ma un colore non si accorda.**
+Ha impostato Lei questo colore in precedenza; i Suoi colori valgono sopra la variante. «ripristina» al campo riprende il valore della variante.
 
 **Ho cambiato tema e una parte delle pagine sembra vuota.**
 Il nuovo tema non ne conosce i blocchi o i template. Non è andato perso nulla: torni al tema precedente o completi il nuovo tema.

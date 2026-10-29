@@ -38,8 +38,9 @@ Danach in `theme.json` Name, Autor und Version anpassen und in `site` Name, Spra
 ## Design-Tokens
 
 Jede Farbe, Schrift, jeder Abstand und der Radius aus `design` wird eine CSS-Variable (`--color-text`,
-`--font-body`, `--space-3`, `--radius`). `{% assets %}` schreibt sie in den Kopf jeder Seite — mit den Überschreibungen
-der Site aus Einrichtung › Design.
+`--font-body`, `--space-3`, `--radius`). `{% assets %}` schreibt sie in den Kopf jeder Seite — mit der Farbvariante, die
+die Site gewählt hat (`palette`, siehe [Lava](lava.md)), und darüber den Überschreibungen der Site aus Einrichtung ›
+Design.
 
 ```text
 basalto:tokens [--tailwind] [<site>]

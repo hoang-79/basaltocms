@@ -124,7 +124,7 @@ final class Registry
         $r->tag('search', static fn (): string => '');
         $r->tag('categories', static fn (): string => '');
         $r->tag('archive', static fn (): string => '');
-        $r->function('entries', static fn (mixed $type = null, mixed $per = 10): array => []);
+        $r->function('entries', static fn (mixed $type = null, mixed $per = 10, mixed $order = 'neu'): array => []);
         // Adresse einer Datei des Themes unter assets/ (Bilder, Grafiken) — von der Anwendung beim Rendern ersetzt
         $r->function('asset', static fn (mixed $path = null): string => '');
         // TB 56: ein Rechtstext aus docs/recht als HTML — von der Anwendung beim Rendern ersetzt

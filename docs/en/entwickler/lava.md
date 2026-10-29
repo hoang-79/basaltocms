@@ -77,7 +77,7 @@ show the same line (source: `Basalto\Lava\Diagnostics\Step`, `Basalto\Lava\Theme
 | Station | Keyword | Question | Properties · child elements |
 | --- | --- | --- | --- |
 | A | `site` | Who am I? | `name languages default domain redirects timezone` |
-| B | `design` | What do I look like? | `space radius images css logo` · `color font images` |
+| B | `design` | What do I look like? | `space radius images css logo` · `color font images palette` |
 | C | `layout` | Where does what go? | `region`, markup; plus Lava parts `part` |
 | D | `nav` | How do people find their way around? | `from items depth start exclude only label` · `item`, markup |
 | E | `type` | What content is there? | `label route template` · `field`; plus `global` (`label` · `field`) |
@@ -91,6 +91,25 @@ show the same line (source: `Basalto\Lava\Diagnostics\Step`, `Basalto\Lava\Theme
 applies when visitors choose “dark” with `{% appearance %}`; without a choice the page is light, even with a dark
 operating system. Colours without a dark value apply in both. `basalto:check` also calculates the contrasts of the dark
 palette.
+
+**Colour variants:** a theme can bring colour variants in `design` (`palette`); the site chooses one of them under
+Setup › Design.
+
+```lava
+design {
+  color accent: #3b1f2b dark #e3b98a
+  palette salbei {
+    label: "Salbei"  label.en: "Sage"  label.fr: "Sauge"  label.it: "Salvia"
+    color accent: #23402f dark #a9cf9a
+  }
+}
+```
+
+Each line of the variant replaces the line of the same name in `design` completely, including the dark value: if it
+names none, its light value also applies in dark. Colours the variant does not name stay as in the theme; a colour that
+`design` does not know is a warning. The site’s own colours lie on top of the variant. `basalto:check` calculates the
+contrasts of every variant, light and dark. For a variant to work everywhere, the stylesheet uses only variables
+(`var(--color-…)`), no fixed colour values — not even for dark bands: names such as `dark-link` exist for that.
 
 **Logo in emails:** the header of every email shows the logo of the site. Gmail and Outlook do not show SVG — so put
 the same file as PNG next to the logo (`logo: assets/logo.svg` → `assets/logo.png`) at three times the size: the email
@@ -164,7 +183,7 @@ The following applies to all stations: an unknown keyword is an **error** with a
 | Station | Errors (`✗`) | Warnings (`!`) |
 | --- | --- | --- |
 | A `site` | — | unknown property |
-| B `design` | colour value not `#rgb`, `#rrggbb` or `#rrggbbaa`; `css` not `.css`, `logo` not `.svg/.png/.webp/.jpg/.jpeg`, font `src` not `.woff2/.woff`; file missing in the theme folder | contrast below WCAG 2.2 AA (4.5:1 for text) for the pairs `text`, `muted`, `link` on `background` as well as `X-text` or `on-X` on `X` |
+| B `design` | colour value not `#rgb`, `#rrggbb` or `#rrggbbaa` (also in colour variants); colour variant without a name; `css` not `.css`, `logo` not `.svg/.png/.webp/.jpg/.jpeg`, font `src` not `.woff2/.woff`; file missing in the theme folder | contrast below WCAG 2.2 AA (4.5:1 for text) for the pairs `text`, `muted`, `link` on `background` as well as `X-text`, `X-muted`, `X-link` or `on-X` on `X` — also per colour variant; colour variant with an unknown colour, property or child element |
 | C `layout`, `part` | `extends` pointing to an unknown layout; markup syntax; region with a `part`, `nav` or `global` that does not exist; part with an unknown kind; part without `source:` (for `nav`, `global`, `form`, `sitemap`, `list`) or with an unknown source | setting that the kind of part does not know; markup nested more than 6 levels of `each`/`if` deep |
 | D `nav` | menu item without target `-> …`; target is not a page from `seed`; `only:`/`exclude:` names an unknown template; `from:` is neither `pages` nor a type; `items:` other than `db`; markup syntax | nesting |
 | E `type`, `global` | field without type; unknown field type (core and modules, with suggestion); `blocks { allow: … }` with an unknown block; `relation <type>` with an unknown type (allowed: `form`, `page`, `global` or a type of the theme); unknown `template:` | — |
@@ -381,7 +400,7 @@ in `Basalto\Lava\Runtime\Registry::standard()`; `entries` is set by the applicat
 | `nl2br` | `{{ raw text \| nl2br }}` | escapes and inserts `<br />` — therefore output with `raw` |
 | `replace` | `text \| replace("a", "b")` | replaces every occurrence |
 | `slug` | `text \| slug` | lower case, everything except `a–z` and `0–9` becomes `-` (umlauts are dropped: “Zürich” → `z-rich`) |
-| `entries` | `entries("post", 10)` | published content entries of a type with pagination (per entry, among others, `url`, `title`, `date`, `intro`, `category`, `category_url`, `author`) |
+| `entries` | `entries("post", 10)` · `entries("event", 6, "kommend")` | published content entries of a type with pagination (per entry, among others, `url`, `title`, `date`, `intro`, `category`, `category_url`, `author`). The third value sets the order: `neu` (default: field `date`, otherwise publication, newest first), `alt`, `kommend` (only entries with their own `date` from today, the next one first — events) or `reihenfolge` (field `position`, otherwise the place in the page tree — menus, rooms). Older Basalto versions ignore it and sort newest first |
 | `asset` | `asset("demo/editor.svg")` | address of a file under the theme’s `assets/` (images, graphics), with checksum — empty if the file is missing |
 
 Functions from modules carry the module’s prefix, e.g. `{{ example.greeting(name) }}` or

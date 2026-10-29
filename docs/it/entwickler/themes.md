@@ -40,8 +40,9 @@ Poi adattare in `theme.json` nome, autore e versione e in `site` nome, lingue e 
 ## Design token
 
 Ogni colore, carattere, spaziatura e il raggio da `design` diventano una variabile CSS (`--color-text`,
-`--font-body`, `--space-3`, `--radius`). `{% assets %}` le scrive nell’intestazione di ogni pagina — con le
-sovrascritture del sito da Configurazione › Design.
+`--font-body`, `--space-3`, `--radius`). `{% assets %}` le scrive nell’intestazione di ogni pagina — con la
+variante di colori scelta dal sito (`palette`, vedi [Lava](lava.md)) e, sopra, le sovrascritture del sito da
+Configurazione › Design.
 
 ```text
 basalto:tokens [--tailwind] [<site>]

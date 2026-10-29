@@ -38,8 +38,8 @@ Then adjust name, author and version in `theme.json`, and name, languages and do
 ## Design tokens
 
 Every colour, font, spacing value and the radius from `design` becomes a CSS variable (`--color-text`, `--font-body`,
-`--space-3`, `--radius`). `{% assets %}` writes them into the head of every page — with the site's overrides from
-Setup › Design.
+`--space-3`, `--radius`). `{% assets %}` writes them into the head of every page — with the colour variant the site has
+chosen (`palette`, see [Lava](lava.md)) and, on top, the site's overrides from Setup › Design.
 
 ```text
 basalto:tokens [--tailwind] [<site>]

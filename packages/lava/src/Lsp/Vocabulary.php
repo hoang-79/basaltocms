@@ -15,7 +15,7 @@ final class Vocabulary
     /** @var array<string, string> Schlüsselwort der obersten Ebene → Erklärung */
     public const KEYWORDS = [
         'site' => 'Name, Sprachen, Standardsprache, Domain, Weiterleitungen und Zeitzone der Site.',
-        'design' => 'Farben, Schriften, Abstände, Radien und Bildvarianten.',
+        'design' => 'Farben, Schriften, Abstände, Radien, Bildvarianten und Farbvarianten.',
         'layout' => 'Seitengerüst mit Regionen und Markup; «extends» erbt von einem anderen Layout.',
         'part' => 'Lava-Teil: eine Art aus der Registrierung (nav, breadcrumbs, languages, global, form …) mit Einstellungen — in Regionen per «part name» eingesetzt.',
         'nav' => 'Navigation aus dem Seitenbaum («from: pages»), einer Typ-Liste oder festen Einträgen («item "…" -> seite»).',
@@ -40,6 +40,7 @@ final class Vocabulary
         'font' => 'Schrift des Designs: «font body: "IBM Plex Sans"».',
         'variant' => 'Bildvariante mit width, height, mode, sizes, densities und lazy.',
         'images' => 'Bildvarianten des Designs (Unterelemente «variant»).',
+        'palette' => 'Farbvariante des Designs: «palette salbei { label: "Salbei"  color accent: #2f4a3a dark #a9c4a0 }» — die Site wählt sie unter Einrichtung › Design.',
         'page' => 'Startseite in «seed» mit Titel, Slug, Template und Inhalt.',
         'content' => 'Inhalt einer Seite: Blöcke in der Reihenfolge, in der sie erscheinen.',
     ];
@@ -99,7 +100,7 @@ final class Vocabulary
         'nl2br' => 'Zeilenumbrüche als <br>, sicher escaped.',
         'replace' => 'Ersetzt Text.',
         'slug' => 'Macht aus Text einen URL-Teil.',
-        'entries' => 'Inhalte eines Typs mit Seitenaufteilung: entries("post", 10).',
+        'entries' => 'Inhalte eines Typs mit Seitenaufteilung: entries("post", 10) — neueste zuerst; dritter Wert "alt", "kommend" oder "reihenfolge".',
         'legal' => 'Ein Rechtstext in der Sprache der Seite als HTML: {{ raw legal("agb") }}.',
     ];
 

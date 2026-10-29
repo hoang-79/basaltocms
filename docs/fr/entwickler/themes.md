@@ -38,8 +38,9 @@ Ensuite, adaptez dans `theme.json` le nom, l’auteur et la version, et dans `si
 ## Design tokens
 
 Chaque couleur, chaque police, chaque espacement et le rayon issus de `design` deviennent une variable CSS (`--color-text`,
-`--font-body`, `--space-3`, `--radius`). `{% assets %}` les écrit dans l’en-tête de chaque page — avec les surcharges
-du site issues de Configuration › Design.
+`--font-body`, `--space-3`, `--radius`). `{% assets %}` les écrit dans l’en-tête de chaque page — avec la variante
+de couleurs choisie par le site (`palette`, voir [Lava](lava.md)) et, par-dessus, les surcharges du site issues de
+Configuration › Design.
 
 ```text
 basalto:tokens [--tailwind] [<site>]

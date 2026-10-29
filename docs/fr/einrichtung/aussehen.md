@@ -65,6 +65,14 @@ Mode « Configuration » › « À quoi ressemble-t-il ? » › **« Ajuster le 
 
 Le thème détermine les couleurs disponibles — dans Starter, par exemple, `text`, `background`, `surface`, `muted`, `link`, `accent`, `accent-text`, `dark`, `dark-text`, `dark-muted`, `border`, `line`, `marker` et `focus`.
 
+### Variante de couleurs
+
+Si le thème propose des variantes de couleurs, la carte **Variante de couleurs** apparaît au-dessus des couleurs : **Par défaut** (les couleurs du thème) et, pour chaque variante, une carte avec son nom, un aperçu clair et sombre et trois pastilles de couleur. Un clic choisit la variante ; elle s’applique aussitôt à tout le site, y compris en présentation sombre.
+
+- Les champs de couleur suivent la variante ; sous chacun figure sa valeur (« Sauge : #23402f »).
+- Une couleur que vous avez définie vous-même reste lors du changement de variante et s’applique en plus. « réinitialiser » au champ revient à la valeur de la variante.
+- Les thèmes sans variantes de couleurs n’affichent pas la carte.
+
 ### Contraste
 
 ![Contraste : une paire sous 4,5:1 est « trop faible »](bilder/design-kontrast.webp)
@@ -85,7 +93,7 @@ Le thème affiche le logo là où il place `{{ site.logo }}`. Vous choisissez :
 - **Image de la médiathèque** — une image propre,
 - **pas de logo**.
 
-Dès que quelque chose s’écarte du thème, **« Tout comme dans le thème »** apparaît en haut à droite : il réinitialise toutes les couleurs, polices et le logo selon le thème.
+Dès que quelque chose s’écarte du thème, **« Tout comme dans le thème »** apparaît en haut à droite : il réinitialise la variante de couleurs, toutes les couleurs, polices et le logo selon le thème.
 
 ## Variantes d’image
 
@@ -118,6 +126,9 @@ Important :
 
 **La couleur ne s’enregistre pas.**
 Le contraste est trop faible. Le message au champ indique la paire et le rapport — au moins 4,5:1.
+
+**J’ai choisi une variante de couleurs, mais une couleur ne s’y accorde pas.**
+Vous avez défini cette couleur vous-même auparavant ; vos propres couleurs s’appliquent par-dessus la variante. « réinitialiser » au champ reprend la valeur de la variante.
 
 **J’ai changé de thème, et une partie des pages paraît vide.**
 Le nouveau thème ne connaît pas leurs blocs ou leurs modèles. Rien n’est perdu : revenez à l’ancien thème, ou complétez le nouveau.

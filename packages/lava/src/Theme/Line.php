@@ -77,7 +77,15 @@ final class Line
 
         return match ($keyword) {
             'site' => sprintf('%s · %d Sprachen · %s', $first->name, count($first->property('languages')->values ?? []), $first->value('domain') ?? 'ohne Domain'),
-            'design' => sprintf('%d Farben · %d Schriften', count($first->childrenOf('color')), count($first->childrenOf('font'))),
+            'design' => implode(' · ', array_filter([
+                sprintf('%d Farben', count($first->childrenOf('color'))),
+                match (count($first->childrenOf('palette'))) {
+                    0 => '',
+                    1 => '1 Farbvariante',
+                    default => sprintf('%d Farbvarianten', count($first->childrenOf('palette'))),
+                },
+                sprintf('%d Schriften', count($first->childrenOf('font'))),
+            ])),
             'layout' => implode(' · ', array_map(static fn ($d): string => sprintf('%s (%d Regionen)', $d->name, count($d->childrenOf('region'))), $defs)),
             'block' => sprintf('%d Blöcke', count($defs)),
             'form' => implode(' · ', array_map(static fn ($d): string => sprintf('%s → %s', $d->name, $d->value('to') ?? 'ohne Empfänger'), $defs)),

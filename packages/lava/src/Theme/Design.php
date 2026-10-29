@@ -15,10 +15,16 @@ use Basalto\Lava\Structure\Definition;
  * «dunkel» wählen (`data-theme="dark"` am `<html>`, Tag `{% appearance %}`). Ohne Wahl ist die Seite hell, auch bei
  * dunklem Betriebssystem (27.10.2026). Farben ohne dunklen Wert gelten in beiden.
  *
- * Paare für den Kontrast ergeben sich aus den Namen: `text`, `muted` und `link` auf `background`, `X-text` (oder `on-X`)
- * auf `X` — so prüft `basalto:check`, ohne dass ein Theme die Rollen eigens erklären muss.
+ * Paare für den Kontrast ergeben sich aus den Namen: `text`, `muted` und `link` auf `background`, `X-text` (oder `on-X`),
+ * `X-muted` und `X-link` auf `X` — so prüft `basalto:check`, ohne dass ein Theme die Rollen eigens erklären muss.
+ *
+ * Farbvarianten (CR-015, TB 83): `palette salbei { label: "Salbei"  color accent: #2f4a3a dark #a9c4a0 }` in `design`.
+ * Die Site wählt eine davon unter Einrichtung › Design; jede Zeile der Variante ersetzt die gleichnamige Zeile des
+ * Themes ganz — mit dem dunklen Wert. Was die Variante nicht nennt, bleibt wie im Theme; die Überschreibungen der Site
+ * liegen darüber.
  *
  * @phpstan-type Font array{family: string, weight: int|null, src: string|null, fallback: 'sans'|'serif'|'mono'}
+ * @phpstan-type Palette array{labels: array<string, string>, colors: array<string, string>, dark: array<string, string>}
  * @phpstan-type Overrides array{colors?: array<string, string>, fonts?: array<string, string>, logo?: string|null}
  */
 final class Design
@@ -47,6 +53,8 @@ final class Design
         public readonly ?string $logo = null,
         /** @var array<string, string> Name → Farbwert der dunklen Darstellung */
         public readonly array $dark = [],
+        /** @var array<string, Palette> Name → Farbvariante (nur Farben, die das Theme kennt) */
+        public readonly array $palettes = [],
     ) {}
 
     public static function of(Theme $theme): self
@@ -58,17 +66,21 @@ final class Design
 
     public static function fromDefinition(Definition $design): self
     {
-        $colors = [];
-        $dark = [];
-        foreach ($design->childrenOf('color') as $color) {
-            $value = $color->typed[0] ?? null;
-            if ($color->name !== null && $value !== null) {
-                $colors[$color->name] = strtolower($value->text());
-                $night = self::after(array_map(static fn ($v): string => $v->text(), $color->typed), 'dark');
-                if ($night !== null && self::isColor($night)) {
-                    $dark[$color->name] = strtolower($night);
+        [$colors, $dark] = self::colorsOf($design);
+        $palettes = [];
+        foreach ($design->childrenOf('palette') as $palette) {
+            if ($palette->name === null || isset($palettes[$palette->name])) {
+                continue;
+            }
+            [$own, $night] = self::colorsOf($palette);
+            $labels = [];
+            foreach ($palette->properties as $property) {
+                $text = $property->key === 'label' ? $property->first()?->text() : null;
+                if ($text !== null && $text !== '') {
+                    $labels[$property->lang ?? Definition::SOURCE_LANG] = $text;
                 }
             }
+            $palettes[$palette->name] = ['labels' => $labels, 'colors' => array_intersect_key($own, $colors), 'dark' => array_intersect_key($night, $colors)];
         }
         $fonts = [];
         foreach ($design->childrenOf('font') as $font) {
@@ -96,7 +108,62 @@ final class Design
             $styles[] = $value->text();
         }
 
-        return new self($colors, $fonts, $space, is_numeric($radius) ? (int) $radius : null, $styles, $design->value('logo'), $dark);
+        return new self($colors, $fonts, $space, is_numeric($radius) ? (int) $radius : null, $styles, $design->value('logo'), $dark, $palettes);
+    }
+
+    /**
+     * Die Farbvariante über den Farben des Themes. Jede Zeile der Variante ersetzt die gleichnamige ganz: Ohne dunklen
+     * Wert gilt ihr heller Wert auch in der dunklen Darstellung — wie bei einer Zeile in `design`. Ohne Namen oder mit
+     * einem unbekannten (das Theme hat die Variante nicht mehr) bleibt alles, wie es ist.
+     */
+    public function palette(?string $name): self
+    {
+        $palette = $name === null ? null : ($this->palettes[$name] ?? null);
+        if ($palette === null) {
+            return $this;
+        }
+        $dark = $this->dark;
+        foreach (array_keys($palette['colors']) as $color) {
+            if (isset($palette['dark'][$color])) {
+                $dark[$color] = $palette['dark'][$color];
+            } else {
+                unset($dark[$color]);
+            }
+        }
+
+        return new self(array_merge($this->colors, $palette['colors']), $this->fonts, $this->space, $this->radius, $this->styles, $this->logo, $dark, $this->palettes);
+    }
+
+    /** Beschriftung einer Farbvariante in der Sprache — sonst Englisch, dann Deutsch, zuletzt ihr Name in Lava. */
+    public function paletteLabel(string $name, ?string $lang = null): string
+    {
+        $labels = $this->palettes[$name]['labels'] ?? [];
+
+        return $labels[$lang ?? Definition::SOURCE_LANG] ?? $labels[Definition::FALLBACK_LANG] ?? $labels[Definition::SOURCE_LANG] ?? $name;
+    }
+
+    /**
+     * Farbpaare der Farbvarianten unter dem Mindestkontrast, hell und dunkel — nur Paare mit mindestens einer Farbe der
+     * Variante; die übrigen sind dieselben wie im Theme und dort schon gemeldet.
+     *
+     * @return list<array{palette: string, dark: bool, foreground: string, background: string, ratio: float, required: float}>
+     */
+    public function paletteContrastIssues(): array
+    {
+        $found = [];
+        foreach ($this->palettes as $name => $palette) {
+            $name = (string) $name;
+            $applied = $this->palette($name);
+            foreach ([[false, $applied->contrastIssues()], [true, $applied->darkContrastIssues()]] as [$dark, $issues]) {
+                foreach ($issues as $issue) {
+                    if (isset($palette['colors'][$issue['foreground']]) || isset($palette['colors'][$issue['background']])) {
+                        $found[] = ['palette' => $name, 'dark' => $dark] + $issue;
+                    }
+                }
+            }
+        }
+
+        return $found;
     }
 
     /**
@@ -123,7 +190,7 @@ final class Design
         }
         $logo = $overrides['logo'] ?? null;
 
-        return new self($colors, $fonts, $this->space, $this->radius, $this->styles, is_string($logo) && $logo !== '' ? $logo : $this->logo, $this->dark);
+        return new self($colors, $fonts, $this->space, $this->radius, $this->styles, is_string($logo) && $logo !== '' ? $logo : $this->logo, $this->dark, $this->palettes);
     }
 
     /** @return array<string, string> CSS-Variable → Wert */
@@ -258,8 +325,14 @@ final class Design
         }
         foreach (array_keys($this->colors) as $name) {
             $name = (string) $name;
-            $base = str_ends_with($name, '-text') ? substr($name, 0, -5) : (str_starts_with($name, 'on-') ? substr($name, 3) : null);
-            if ($base !== null && $base !== '' && isset($this->colors[$base])) {
+            $base = str_starts_with($name, 'on-') ? substr($name, 3) : null;
+            // TB 83: neben `X-text` auch `X-muted` und `X-link` auf `X` — etwa der Link auf dem dunklen Band
+            foreach (['-text', '-muted', '-link'] as $suffix) {
+                if ($base === null && str_ends_with($name, $suffix)) {
+                    $base = substr($name, 0, -strlen($suffix));
+                }
+            }
+            if ($base !== null && $base !== '' && ! in_array($base, ['text', 'muted', 'link'], true) && isset($this->colors[$base])) {
                 $pairs[] = [$name, $base];
             }
         }
@@ -327,5 +400,28 @@ final class Design
         $i = array_search($keyword, $words, true);
 
         return $i === false || ! isset($words[$i + 1]) ? null : $words[$i + 1];
+    }
+
+    /**
+     * Die Zeilen `color name: #hell [dark #dunkel]` eines Elements (`design` oder `palette`).
+     *
+     * @return array{0: array<string, string>, 1: array<string, string>} hell, dunkel
+     */
+    private static function colorsOf(Definition $owner): array
+    {
+        $colors = [];
+        $dark = [];
+        foreach ($owner->childrenOf('color') as $color) {
+            $value = $color->typed[0] ?? null;
+            if ($color->name !== null && $value !== null) {
+                $colors[$color->name] = strtolower($value->text());
+                $night = self::after(array_map(static fn ($v): string => $v->text(), $color->typed), 'dark');
+                if ($night !== null && self::isColor($night)) {
+                    $dark[$color->name] = strtolower($night);
+                }
+            }
+        }
+
+        return [$colors, $dark];
     }
 }

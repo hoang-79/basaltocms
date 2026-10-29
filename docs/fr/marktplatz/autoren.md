@@ -39,12 +39,14 @@ php artisan basalto:theme-pack mein-theme              # → storage/app/themes/
 - **Nom :** le nom du dossier — minuscules, chiffres et trait d’union, 64 caractères au maximum.
 - **Version** issue de `theme.json` (`version`), sous forme de numéro de version comme `1.2.0` ; sans indication, `theme-pack` emballe en `0.0.0`.
 - **Indications** issues de `theme.json` : `label` (titre dans le catalogue), `description`, `license`, `preview` (chemin vers une
-  image d’aperçu dans le paquet : SVG, PNG, JPG ou WebP, 1 Mo au maximum).
+  image d’aperçu dans le paquet : SVG, PNG, JPG ou WebP, 1 Mo au maximum), `requires` (version minimale de Basalto,
+  par exemple `{"basalto": ">=1.3.9"}` — la fiche l’affiche sous « Nécessite » ; sans indication, `>=1.0` s’applique).
 - **Obligatoire :** `category` — l’une de `firma`, `portfolio`, `gastro`, `verein`, `magazin`, `onepager`,
   `shop` — et au moins une image : `screenshots` (liste de chemins dans le paquet, 1 à 6 images, PNG, JPEG ou WebP, chacune
   de 1 Mo au maximum) ou `preview`.
 - **Facultatif :** `homepage`, `docs`, `support` (adresses https). Un `seed` avec des contenus de départ montre le thème dans la
-  sandbox et dans la vitrine avec du contenu plutôt que vide.
+  sandbox et dans la vitrine avec du contenu plutôt que vide. Les langues de `site { languages: … }` deviennent les
+  langues du site de la sandbox et de la vitrine — des contenus de départ en plusieurs langues y sont donc tous visibles.
 
 ```json
 {
@@ -114,7 +116,7 @@ n’est exécuté.
 | **Paquet** | ZIP lisible, taille, chemins | plus de 10 Mo compressé ou 50 Mo décompressé, plus de 2000 fichiers ; **ZIP slip** (chemins avec `..`, chemins absolus, lettres de lecteur, barres obliques inverses) ; liens symboliques |
 | **Manifeste** | thème : manifeste et sommes de contrôle, compilateur Lava ; plugin : `composer.json`, `php -l` sur chaque fichier PHP, liste d’interdictions | manifeste absent ou non concordant, erreur du compilateur, erreur de syntaxe, appels interdits, champs invalides |
 | **Tests** | thèmes : le compilateur au lieu de tests ; plugins : présence de tests | — (les tests fournis ne sont jamais exécutés ; la revue les lit) |
-| **Banc d’essai** | thèmes : contrastes selon WCAG 2.2 AA (clair et sombre), mode sombre, ressources externes (`src`, `<link href>`, `url()`, `@import` vers des serveurs tiers), poids des assets, contenus de départ ; plugins : PHPStan (niveau 5, statique), accès en écriture, tests | — (remarques uniquement ; les indicateurs figurent sous forme de pastilles dans le catalogue) |
+| **Banc d’essai** | thèmes : contrastes selon WCAG 2.2 AA (clair et sombre, aussi pour chaque variante de couleurs), mode sombre, variantes de couleurs (`palette`, pastille propre), ressources externes (`src`, `<link href>`, `url()`, `@import` vers des serveurs tiers), poids des assets, contenus de départ ; plugins : PHPStan (niveau 5, statique), accès en écriture, tests | — (remarques uniquement ; les indicateurs figurent sous forme de pastilles dans le catalogue) |
 | **Sandbox** | nous installons la soumission dans une installation jetable avec du contenu d’exemple et l’essayons | ce qui n’y fonctionne pas, avec une note |
 | **Signature** | en attente jusqu’à la validation | — |
 | **Revue** | à la main | motif du refus |

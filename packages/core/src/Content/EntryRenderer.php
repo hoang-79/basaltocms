@@ -113,7 +113,7 @@ final class EntryRenderer
         $registry->function('asset', static fn (mixed $path = null): string => ! is_string($path) || $path === '' ? '' : (preg_match('#^https?://#', $path) === 1 ? $path : (string) $themeAssets->url($assetSite, 'assets/'.ltrim($path, '/'))));
         // Listen (M-13): «entries("post", 10)», «{% pagination %}», «{% categories "post" %}», «{% archive "post" %}»
         $listings = new Listings($entry->site, $version->locale, request(), app(Pages::class), fn (string $type, array $data): array => $this->prepare($schema->types[$type]['fields'] ?? [], $data));
-        $registry->function('entries', static fn (mixed $type = null, mixed $per = 10): array => $listings->entries((string) $type, is_numeric($per) ? (int) $per : 10));
+        $registry->function('entries', static fn (mixed $type = null, mixed $per = 10, mixed $order = 'neu'): array => $listings->entries((string) $type, is_numeric($per) ? (int) $per : 10, is_string($order) && in_array($order, Listings::ORDERS, true) ? $order : 'neu'));
         // TB 56: «legal("agb")» — ein Rechtstext aus docs/recht in der Sprache der Seite als HTML (Fallback Deutsch);
         // Verweise auf andere Rechtstexte zeigen auf deren öffentliche Fassung unter /_recht
         $legalLocale = $version->locale;

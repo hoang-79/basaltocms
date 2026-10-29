@@ -117,8 +117,9 @@ estring         = '"' , { ? Zeichen ausser '"' ? | "\" , ? Zeichen ? } , '"' | "
 (* A site · B design · C layout (und part) · D nav · E type (und global) · F block · G template · H form · I seed · Z publish.
    Eigenschaften je Schlüsselwort (fremde warnen, brechen nicht — L-02):
      site      name languages default domain redirects timezone
-     design    space radius images css logo · Unterelemente color font images (images: Unterelement variant mit width height mode sizes densities lazy;
-               color: Wert #rgb/#rrggbb/#rrggbbaa; font: Familie, danach «weight N», «src assets/…woff2», «fallback sans|serif|mono»;
+     design    space radius images css logo · Unterelemente color font images palette (images: Unterelement variant mit width height mode sizes densities lazy;
+               color: Wert #rgb/#rrggbb/#rrggbbaa, danach «dark #…» für die dunkle Darstellung; font: Familie, danach «weight N», «src assets/…woff2»,
+               «fallback sans|serif|mono»; palette: Farbvariante mit label und Unterelement color — nur Farben, die design nennt, je Zeile ganz ersetzt;
                css und logo: Dateien unter assets/; Kontrastpaare aus den Namen: text/muted/link auf background, X-text oder on-X auf X)
      layout    Unterelement region (mit Vorgabe-Füllung «region header: part main_nav, part lang_switch»; «off» hinter einem Eintrag schaltet ihn aus;
                Platz und «optional» auch hinter der Füllung: «region banner: part promo after header») · markup
