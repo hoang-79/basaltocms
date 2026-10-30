@@ -55,6 +55,9 @@ final class StripeSubscriptionGateway implements SubscriptionGateway
                 'client_reference_id' => 'account-'.$account->id,
                 'metadata' => $metadata,
                 'locale' => in_array($locale, ['de', 'fr', 'it', 'en'], true) ? $locale : 'auto',
+                // Basalto rechnet selbst ab (eigene Rechnung, MWST) — Managed Payments ist auf neuen Stripe-Konten
+                // standardmässig an und lehnt Sitzungen ohne Steuercode ab
+                'managed_payments' => ['enabled' => false],
             ]);
         } catch (Throwable $e) {
             report($e);
