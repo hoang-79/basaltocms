@@ -91,6 +91,26 @@ return [
     ],
 
     /*
+     * CR-017: Unterdomains beim Hoster selbst einrichten — über die Schnittstelle des Hosting-Panels (heute cPanel-UAPI,
+     * etwa bei cyon) mit dem Dokumentstamm der Zone, Zertifikat von Let's Encrypt (HTTP-01 über Dateien im
+     * Dokumentstamm), Erneuerung `renew_days` vor dem Ablauf. Leer = aus (Download, lokal, Cloud). Voraussetzung: Ein
+     * DNS-Platzhalter `*` der Zone zeigt auf den Server.
+     */
+    'hosting' => [
+        'panel' => env('BASALTO_HOSTING_PANEL'),
+        // die Zone, unter der Unterdomains entstehen; leer = die Alias-Zone (saas.alias_domain)
+        'zone' => env('BASALTO_HOSTING_ZONE'),
+        'uapi' => env('BASALTO_HOSTING_UAPI', 'uapi'),
+        'acme' => [
+            'directory' => env('BASALTO_ACME_DIRECTORY', 'https://acme-v02.api.letsencrypt.org/directory'),
+            'email' => env('BASALTO_ACME_EMAIL'),
+            'renew_days' => 30,
+        ],
+        // nach einem Fehler frühestens so viele Minuten später neu versuchen (Let's Encrypt zählt gescheiterte Prüfungen)
+        'retry_minutes' => 30,
+    ],
+
+    /*
      * SaaS-Domains (G-11): Alias je Site unter der Alias-Zone; reservierte Namen gehören der Produkt-Site.
      */
     'saas' => [

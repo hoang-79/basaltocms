@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Basalto\Core\Http\Middleware;
 
 use Basalto\Core\Backend\Backend;
+use Basalto\Core\Hosting\Hostnames;
 use Basalto\Core\Models\Site;
 use Basalto\Core\Models\SiteDomain;
 use Basalto\Core\Saas\Domains;
@@ -16,7 +17,8 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Frontend: Hostname → Site über `site_domains`; sonst die Standard-Site der Installation; sonst keine (der Controller antwortet) (K-01, G-11).
+ * Frontend: Hostname → Site über `site_domains`; sonst die Standard-Site der Installation — ausser für Unterdomains, die
+ * Basalto beim Hoster einrichtet (CR-017, {@see Hostnames::manages()}); sonst keine (der Controller antwortet) (K-01, G-11).
  *
  * TB 12 Scheibe 3 (G-11, nur im SaaS-Modus): Jeder Host einer Site, der nicht ihre Hauptadresse ist — der Alias neben
  * einer verbundenen Kundendomain, ein alter Alias in seinen 30 Tagen, `www` bzw. Apex des Paars, weitere Kundendomains —
@@ -37,7 +39,8 @@ final class ResolveSiteFromHost
             $domain = null;
         }
         $site = $domain?->site;
-        if ($site === null && ($default = config('basalto.default_site')) !== null) {
+        // CR-017: Eine Unterdomain, die Basalto beim Hoster einrichtet, zeigt nie die Standard-Site — ohne eigene Site 404
+        if ($site === null && ($default = config('basalto.default_site')) !== null && ! Hostnames::manages($host)) {
             $site = Site::query()->where('handle', $default)->first();
         }
         $this->current->set($site);

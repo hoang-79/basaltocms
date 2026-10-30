@@ -15,6 +15,7 @@ use Basalto\Core\Content\PageType;
 use Basalto\Core\Content\RichText;
 use Basalto\Core\FrontendAccounts\CustomerAuth;
 use Basalto\Core\FrontendAccounts\Html;
+use Basalto\Core\Hosting\Hostnames;
 use Basalto\Core\Models\Entry;
 use Basalto\Core\Models\EntryVersion;
 use Basalto\Core\Models\Redirect;
@@ -51,7 +52,8 @@ final class FrontendController
         $site = $this->current->get();
         $requestPath = '/'.trim($request->path(), '/');
         if ($site === null) {
-            abort_unless($requestPath === '/', 404, 'Keine Site für diesen Host');
+            // CR-017: eine unbekannte Unterdomain der Zone führt nicht zur Anmeldung, es gibt sie schlicht nicht
+            abort_unless($requestPath === '/' && ! Hostnames::manages($request->getHost()), 404, 'Keine Site für diesen Host');
 
             return redirect()->route('basalto.dashboard');
         }

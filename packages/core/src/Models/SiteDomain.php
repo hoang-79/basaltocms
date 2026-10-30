@@ -24,6 +24,11 @@ use Illuminate\Support\Carbon;
  * @property int|null $pair_id TB 12 Scheibe 3: `www` bzw. Apex zur Zeile, die den Cloud-Eintrag trägt
  * @property Carbon|null $redirect_until TB 12 Scheibe 3: alter Alias leitet bis dahin um, danach ist er frei
  * @property Carbon|null $checked_at TB 12 Scheibe 3: letzte Prüfung über die Cloud-CLI
+ * @property string|null $hosting_status CR-017: null = nicht von Basalto beim Hoster eingerichtet, sonst `pending`/`ready`
+ * @property string|null $hosting_error CR-017: der letzte Fehler beim Einrichten, für Betrieb und Extranet
+ * @property Carbon|null $hosting_checked_at CR-017: letzter Versuch
+ * @property Carbon|null $hosting_retry_at CR-017: frühester nächster Versuch nach einem Fehler
+ * @property Carbon|null $certificate_expires_at CR-017: Ablauf des eingespielten Zertifikats
  * @property Carbon|null $created_at
  */
 final class SiteDomain extends Model
@@ -34,11 +39,19 @@ final class SiteDomain extends Model
 
     public const KIND_REDIRECT = 'redirect';
 
-    protected $fillable = ['site_id', 'host', 'kind', 'is_primary', 'cloud_domain_id', 'cloud_status', 'cloud_response', 'verified_at', 'last_error', 'pair_id', 'redirect_until', 'checked_at'];
+    /** CR-017: Unterdomain und Zertifikat beim Hoster stehen noch aus. */
+    public const HOSTING_PENDING = 'pending';
+
+    /** CR-017: Unterdomain eingerichtet, Zertifikat eingespielt, die Adresse antwortet über https. */
+    public const HOSTING_READY = 'ready';
+
+    protected $fillable = ['site_id', 'host', 'kind', 'is_primary', 'cloud_domain_id', 'cloud_status', 'cloud_response', 'verified_at', 'last_error', 'pair_id', 'redirect_until', 'checked_at',
+        'hosting_status', 'hosting_error', 'hosting_checked_at', 'hosting_retry_at', 'certificate_expires_at'];
 
     protected function casts(): array
     {
-        return ['is_primary' => 'boolean', 'cloud_response' => 'array', 'verified_at' => 'datetime', 'redirect_until' => 'datetime', 'checked_at' => 'datetime'];
+        return ['is_primary' => 'boolean', 'cloud_response' => 'array', 'verified_at' => 'datetime', 'redirect_until' => 'datetime', 'checked_at' => 'datetime',
+            'hosting_checked_at' => 'datetime', 'hosting_retry_at' => 'datetime', 'certificate_expires_at' => 'datetime'];
     }
 
     /** @return BelongsTo<Site, $this> */

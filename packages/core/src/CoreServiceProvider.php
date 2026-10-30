@@ -30,6 +30,7 @@ use Basalto\Core\Console\DocsImportCommand;
 use Basalto\Core\Console\ErrorAlarmCommand;
 use Basalto\Core\Console\ExportCommand;
 use Basalto\Core\Console\HeartbeatCommand;
+use Basalto\Core\Console\HostnamesCommand;
 use Basalto\Core\Console\ImportCommand;
 use Basalto\Core\Console\InstallCommand;
 use Basalto\Core\Console\LegalCommand;
@@ -63,6 +64,9 @@ use Basalto\Core\Extranet\Extranet;
 use Basalto\Core\Extranet\ExtranetAccess;
 use Basalto\Core\Extranet\ExtranetRegistry;
 use Basalto\Core\FrontendAccounts\FrontendAccountsServiceProvider;
+use Basalto\Core\Hosting\Acme\AcmeClient;
+use Basalto\Core\Hosting\Cpanel;
+use Basalto\Core\Hosting\Hostnames;
 use Basalto\Core\Http\Middleware\KeepOutOfSearchEngines;
 use Basalto\Core\Http\Middleware\LimitDemoStorage;
 use Basalto\Core\Http\Middleware\ResetRequestState;
@@ -190,6 +194,9 @@ final class CoreServiceProvider extends ServiceProvider
         $this->app->singleton(Pages::class);
         $this->app->singleton(ContentTypes::class);
         $this->app->bind(CommandRunner::class, ProcessRunner::class);
+        // CR-017: Hosting-Panel und Let's Encrypt — gebunden, damit Tests Attrappen einsetzen können
+        $this->app->bind(Cpanel::class, static fn ($app): Cpanel => Cpanel::fromConfig($app->make(CommandRunner::class)));
+        $this->app->bind(AcmeClient::class, static fn (): AcmeClient => AcmeClient::fromConfig());
         $this->app->singleton(CloudCli::class, static fn ($app): CloudCli => CloudCli::fromConfig($app->make(CommandRunner::class)));
         // TB 12 Scheibe 1 (M-21): SaaS-Modus — Registrierung, Konto-Bereich, Testphase (ohne BASALTO_SAAS alles 404)
         $this->app->register(SaasServiceProvider::class);
@@ -328,12 +335,18 @@ final class CoreServiceProvider extends ServiceProvider
             $this->commands([CancellationsCommand::class]);
             // Zeitzone der Datenbank-Session: alte TIMESTAMP-Werte auf UTC umrechnen
             $this->commands([DatabaseTimezoneCommand::class]);
+            // CR-017: Unterdomains beim Hoster einrichten, Zertifikate holen und erneuern
+            $this->commands([HostnamesCommand::class]);
         }
         // Zeitplan aus dem Paket: Herzschlag jede Minute, Domain-Prüfung alle zehn Minuten, Lizenzstand stündlich — je nur auf einem Server (Cloud-Replikate).
         $this->callAfterResolving(Schedule::class, static function (Schedule $schedule): void {
             $schedule->command('basalto:heartbeat')->everyMinute()->onOneServer();
             $schedule->command('basalto:publish-scheduled')->everyMinute()->withoutOverlapping()->onOneServer();
             $schedule->command('basalto:domains-verify')->everyTenMinutes()->onOneServer();
+            // CR-017: nur mit Hosting-Panel und nur, wenn ein Host fällig ist — eine Freigabe ist so nach wenigen Minuten erreichbar
+            if (Hostnames::enabled()) {
+                $schedule->command('basalto:hostnamen')->everyMinute()->when(static fn (): bool => Hostnames::due()->exists())->withoutOverlapping(15)->onOneServer();
+            }
             $schedule->command('basalto:license')->hourly()->onOneServer();
             // CR-007 (U-11): täglich prüfen, ob es Updates gibt — die Verwaltung erfährt es einmal je neuem Stand
             if ((bool) config('basalto.updates.check_daily', true) && ! Saas::enabled()) {
