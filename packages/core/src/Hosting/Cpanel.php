@@ -53,7 +53,10 @@ final class Cpanel
         $this->call('SubDomain', 'addsubdomain', ['domain' => $name, 'rootdomain' => $zone, 'dir' => $directory, 'disallowdot' => '0']);
     }
 
-    /** Ablauf des Zertifikats, das der Webserver für diesen Host ausliefert — null, wenn keines eingespielt ist. */
+    /**
+     * Ablauf des Zertifikats, das der Webserver für diesen Host ausliefert — null, wenn keines eingespielt ist. Ein
+     * selbstsigniertes zählt nicht: cPanel legt es mit jeder neuen Unterdomain an, kein Browser vertraut ihm.
+     */
     public function certificateExpiry(string $host): ?CarbonImmutable
     {
         foreach ((array) $this->call('SSL', 'installed_hosts') as $installed) {
@@ -61,6 +64,9 @@ final class Cpanel
                 continue;
             }
             $certificate = (array) ($installed['certificate'] ?? []);
+            if ((bool) ($certificate['is_self_signed'] ?? false)) {
+                continue;
+            }
             $names = array_map(strtolower(...), array_filter((array) ($certificate['domains'] ?? []), 'is_string'));
             if ((strtolower((string) ($installed['servername'] ?? '')) === $host || in_array($host, $names, true)) && is_numeric($certificate['not_after'] ?? null)) {
                 return CarbonImmutable::createFromTimestamp((int) $certificate['not_after']);
