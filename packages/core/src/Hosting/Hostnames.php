@@ -97,13 +97,13 @@ final class Hostnames
             ->when(! $now, static fn (Builder $q) => $q->where(static fn (Builder $q) => $q->whereNull('hosting_retry_at')->orWhere('hosting_retry_at', '<=', now())));
     }
 
-    /** @return list<array{host: string, ok: bool, message: string}> */
+    /** @return list<array{host: string, ok: bool, waiting: bool, message: string}> */
     public function run(bool $now = false): array
     {
         return array_values(self::due($now)->orderBy('id')->get()->map(fn (SiteDomain $domain): array => $this->provision($domain))->all());
     }
 
-    /** @return array{host: string, ok: bool, message: string} */
+    /** @return array{host: string, ok: bool, waiting: bool, message: string} `waiting`: nur eine Voraussetzung fehlt noch */
     public function provision(SiteDomain $domain): array
     {
         $host = strtolower($domain->host);
@@ -133,7 +133,7 @@ final class Hostnames
                 event(new HostnameReady($domain));
             }
 
-            return ['host' => $host, 'ok' => true, 'message' => sprintf('bereit, Zertifikat bis %s', $expires->format('d.m.Y'))];
+            return ['host' => $host, 'ok' => true, 'waiting' => false, 'message' => sprintf('bereit, Zertifikat bis %s', $expires->format('d.m.Y'))];
         } catch (HostingException|AcmeException $e) {
             $waiting = $e instanceof HostingException && $e->waiting;
             if (! $waiting) {
@@ -143,7 +143,7 @@ final class Hostnames
             $domain->forceFill(['hosting_error' => Str::limit($e->getMessage(), 490), 'hosting_checked_at' => now(),
                 'hosting_retry_at' => now()->addMinutes($waiting ? self::WAITING_RETRY_MINUTES : (int) config('basalto.hosting.retry_minutes', 30))])->save();
 
-            return ['host' => $host, 'ok' => false, 'message' => $e->getMessage()];
+            return ['host' => $host, 'ok' => false, 'waiting' => $waiting, 'message' => $e->getMessage()];
         }
     }
 

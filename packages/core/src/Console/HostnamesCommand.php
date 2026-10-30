@@ -35,9 +35,10 @@ final class HostnamesCommand extends Command
             }
             Hostnames::request($domain);
         }
+        // Warten auf DNS oder Webserver ist kein Fehler — sonst meldete der Zeitplan in den Minuten nach einer Freigabe Fehler
         $failed = false;
         foreach ($hostnames->run((bool) $this->option('jetzt')) as $result) {
-            $failed = $failed || ! $result['ok'];
+            $failed = $failed || (! $result['ok'] && ! $result['waiting']);
             $result['ok'] ? $this->info($result['host'].': '.$result['message']) : $this->warn($result['host'].': '.$result['message']);
         }
 
