@@ -7,6 +7,7 @@ namespace Basalto\Core\Saas\Billing;
 use Basalto\Core\Models\Account;
 use Basalto\Core\Saas\Plan;
 use Basalto\Core\Saas\Saas;
+use Basalto\Core\Support\StripeNotices;
 use Carbon\CarbonImmutable;
 use Laravel\Cashier\Subscription;
 use Throwable;
@@ -49,7 +50,7 @@ final class StripeSubscriptionGateway implements SubscriptionGateway
         }
         $locale = $account->billing['locale'] ?? app()->getLocale();
         try {
-            $checkout = $builder->withMetadata($metadata)->checkout([
+            $checkout = StripeNotices::quietly(fn () => $builder->withMetadata($metadata)->checkout([
                 'success_url' => $successUrl,
                 'cancel_url' => $cancelUrl,
                 'client_reference_id' => 'account-'.$account->id,
@@ -58,7 +59,7 @@ final class StripeSubscriptionGateway implements SubscriptionGateway
                 // Basalto rechnet selbst ab (eigene Rechnung, MWST) — Managed Payments ist auf neuen Stripe-Konten
                 // standardmässig an und lehnt Sitzungen ohne Steuercode ab
                 'managed_payments' => ['enabled' => false],
-            ]);
+            ]));
         } catch (Throwable $e) {
             report($e);
 
@@ -73,11 +74,7 @@ final class StripeSubscriptionGateway implements SubscriptionGateway
         $subscription = $this->subscription($account);
         try {
             $items = $this->items($plan, $extraSites, $extraDomains);
-            if ($prorate) {
-                $subscription->swapAndInvoice($items);
-            } else {
-                $subscription->noProrate()->swap($items);
-            }
+            StripeNotices::quietly(fn () => $prorate ? $subscription->swapAndInvoice($items) : $subscription->noProrate()->swap($items));
         } catch (Throwable $e) {
             report($e);
 
@@ -89,7 +86,7 @@ final class StripeSubscriptionGateway implements SubscriptionGateway
     {
         $subscription = $this->subscription($account);
         try {
-            $subscription->cancel();
+            StripeNotices::quietly(fn () => $subscription->cancel());
         } catch (Throwable $e) {
             report($e);
 
@@ -102,7 +99,7 @@ final class StripeSubscriptionGateway implements SubscriptionGateway
         $this->ensureConfigured();
         CashierModels::apply();
         try {
-            return $account->billingPortalUrl($returnUrl);
+            return StripeNotices::quietly(fn (): string => $account->billingPortalUrl($returnUrl));
         } catch (Throwable $e) {
             report($e);
 
