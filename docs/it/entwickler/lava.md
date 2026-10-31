@@ -329,10 +329,13 @@ nonché le classi dei form del nucleo (`form`, `form-field`, `form-error`, `form
 
 ### Limiti
 
-Al render valgono al massimo 10 000 iterazioni di ciclo, 2 secondi e un annidamento (inclusione, macro,
-ciclo, condizione) fino a profondità 8 (`Basalto\Lava\Runtime\Limits`); oltre, il render si interrompe con un errore
-Lava con riga. Il verificatore avvisa già da 7 livelli `each`/`if`. Un errore PHP in una funzione registrata diventa
-un errore Lava con riga — il tema non vede mai uno stack PHP.
+Al render valgono al massimo 10 000 iterazioni di ciclo, 2 secondi di tempo di calcolo e un annidamento (inclusione,
+macro, ciclo, condizione) fino a profondità 8 (`Basalto\Lava\Runtime\Limits`); oltre, il render si interrompe con un
+errore Lava con riga. I 2 secondi valgono per tutte le esecuzioni Lava di una pagina insieme, a partire dalla prima:
+conta il tempo di calcolo del processo PHP, non l’attesa del database o di un server carico. In caso di errore Lava, i
+visitatori vedono una breve pagina di errore (stato 503) e l’errore viene registrato; in sviluppo appare con la sua
+riga. Il verificatore avvisa già da 7 livelli `each`/`if`. Un errore PHP in una funzione registrata diventa un errore
+Lava con riga — il tema non vede mai uno stack PHP.
 
 ## Parti Lava
 

@@ -328,10 +328,14 @@ classes de formulaire du noyau (`form`, `form-field`, `form-error`, `form-help`)
 
 ### Limites
 
-Lors du rendu s’appliquent au maximum 10 000 itérations de boucle, 2 secondes et une imbrication (inclusion, macro,
-boucle, condition) jusqu’à la profondeur 8 (`Basalto\Lava\Runtime\Limits`) ; au-delà, le rendu s’interrompt par une erreur Lava
-avec numéro de ligne. Le vérificateur avertit dès 7 niveaux `each`/`if`. Une erreur PHP dans une fonction enregistrée devient
-une erreur Lava avec numéro de ligne — le thème ne voit jamais de pile PHP.
+Lors du rendu s’appliquent au maximum 10 000 itérations de boucle, 2 secondes de temps de calcul et une imbrication
+(inclusion, macro, boucle, condition) jusqu’à la profondeur 8 (`Basalto\Lava\Runtime\Limits`) ; au-delà, le rendu
+s’interrompt par une erreur Lava avec numéro de ligne. Les 2 secondes valent pour toutes les exécutions Lava d’une page
+ensemble, à partir de la première : compte le temps de calcul du processus PHP, pas l’attente de la base de données ou
+d’un serveur chargé. En cas d’erreur Lava, les visiteurs voient une courte page d’erreur (statut 503) et l’erreur est
+journalisée ; en développement, elle s’affiche avec sa ligne. Le vérificateur avertit dès 7 niveaux `each`/`if`. Une
+erreur PHP dans une fonction enregistrée devient une erreur Lava avec numéro de ligne — le thème ne voit jamais de pile
+PHP.
 
 ## Parties Lava
 

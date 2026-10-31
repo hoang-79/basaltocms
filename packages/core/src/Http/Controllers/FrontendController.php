@@ -30,6 +30,7 @@ use Basalto\Core\Support\BackendLocale;
 use Basalto\Core\Theme\ThemeException;
 use Basalto\Core\Theme\ThemeLibrary;
 use Basalto\Core\Theme\ThemeLoader;
+use Basalto\Lava\Runtime\LavaRuntimeException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -161,6 +162,8 @@ final class FrontendController
             return $this->error($request, $site, $locale, $path, 404);
         } catch (ThemeException $e) {
             return $this->themeError($e);
+        } catch (LavaRuntimeException $e) {
+            return $this->lavaError($e);
         }
     }
 
@@ -570,11 +573,32 @@ final class FrontendController
         return response($html, 503)->header('Retry-After', '3600')->header('X-Robots-Tag', 'noindex');
     }
 
+    /** Was Besucher sehen, wenn das Theme der Site einen Fehler hat — beim Übersetzen oder in seiner Logik, nie Einzelheiten. */
+    private static function themeUnavailable(): Response
+    {
+        return response('<!doctype html><html lang="de"><head><meta charset="utf-8"><title>Vorübergehend nicht verfügbar</title></head><body><h1>Vorübergehend nicht verfügbar</h1><p>Das Theme dieser Site hat einen Fehler. Die Betreiber sind informiert.</p></body></html>', 503);
+    }
+
+    /**
+     * TB 90: Ein Fehler in der Logik des Themes beim Rendern (Grenze erreicht, fehlender Block oder Teil) — Besucher sehen
+     * dieselbe Seite wie bei einem Theme-Fehler statt eines 500, das Log behält den Fehler mit Stack. In Entwicklung und
+     * Tests bleibt die Ausnahme sichtbar.
+     */
+    private function lavaError(LavaRuntimeException $e): Response
+    {
+        if (app()->environment(['local', 'testing'])) {
+            throw $e;
+        }
+        report($e);
+
+        return self::themeUnavailable();
+    }
+
     /** Theme-Fehler: im `local` und `testing` die Befunde mit Datei, Zeile, Spalte und Vorschlag (L-13); sonst 503. */
     private function themeError(ThemeException $e): Response
     {
         if (! app()->environment(['local', 'testing'])) {
-            return response('<!doctype html><html lang="de"><head><meta charset="utf-8"><title>Vorübergehend nicht verfügbar</title></head><body><h1>Vorübergehend nicht verfügbar</h1><p>Das Theme dieser Site hat einen Fehler. Die Betreiber sind informiert.</p></body></html>', 503);
+            return self::themeUnavailable();
         }
         $items = '';
         foreach ($e->diagnostics as $d) {

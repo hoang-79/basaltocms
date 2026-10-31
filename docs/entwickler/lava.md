@@ -327,10 +327,13 @@ Formular-Klassen des Kerns (`form`, `form-field`, `form-error`, `form-help`). Da
 
 ### Grenzen
 
-Beim Rendern gelten höchstens 10 000 Schleifendurchläufe, 2 Sekunden und eine Verschachtelung (Einbindung, Makro,
-Schleife, Bedingung) bis Tiefe 8 (`Basalto\Lava\Runtime\Limits`); darüber bricht das Rendern mit einem Lava-Fehler
-samt Zeile ab. Der Prüfer warnt schon ab 7 Ebenen `each`/`if`. Ein PHP-Fehler in einer registrierten Funktion wird
-zum Lava-Fehler mit Zeile — das Theme sieht nie einen PHP-Stack.
+Beim Rendern gelten höchstens 10 000 Schleifendurchläufe, 2 Sekunden Rechenzeit und eine Verschachtelung (Einbindung,
+Makro, Schleife, Bedingung) bis Tiefe 8 (`Basalto\Lava\Runtime\Limits`); darüber bricht das Rendern mit einem
+Lava-Fehler samt Zeile ab. Die 2 Sekunden gelten für alle Lava-Läufe einer Seite zusammen, ab dem ersten: Gezählt wird
+die Rechenzeit des PHP-Prozesses, nicht das Warten auf die Datenbank oder auf einen ausgelasteten Server. Besucher sehen
+bei einem Lava-Fehler die Seite «Vorübergehend nicht verfügbar» (Status 503), der Fehler steht im Log; in der
+Entwicklung erscheint er mit Zeile. Der Prüfer warnt schon ab 7 Ebenen `each`/`if`. Ein PHP-Fehler in einer
+registrierten Funktion wird zum Lava-Fehler mit Zeile — das Theme sieht nie einen PHP-Stack.
 
 ## Lava-Teile
 

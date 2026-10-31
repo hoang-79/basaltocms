@@ -38,8 +38,11 @@ final class Renderer
      */
     public function render(string $markup, array $variables, string $file = 'markup', ?Limits $limits = null, array $marks = []): string
     {
+        $limits ??= new Limits;
+        // Die Frist der Grenzen läuft ab dem ersten Lava-Lauf, nicht ab dem Bau des Renderers (TB 90)
+        $limits->begin();
         $nodes = Parser::parseCached($markup, $file, $this->registry);
-        $ctx = new Context($variables, $this->registry, $limits ?? new Limits, $file, $marks);
+        $ctx = new Context($variables, $this->registry, $limits, $file, $marks);
 
         return $this->nodes($nodes, $ctx);
     }

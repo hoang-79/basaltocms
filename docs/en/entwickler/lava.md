@@ -327,10 +327,13 @@ token); anyone signed in never gets a page from the cache. Style the classes `ac
 
 ### Limits
 
-When rendering, the limits are at most 10,000 loop iterations, 2 seconds and nesting (include, macro,
-loop, condition) up to depth 8 (`Basalto\Lava\Runtime\Limits`); beyond that, rendering aborts with a Lava error
-including the line. The checker already warns from 7 levels of `each`/`if`. A PHP error in a registered function becomes
-a Lava error with a line — the theme never sees a PHP stack.
+When rendering, the limits are at most 10,000 loop iterations, 2 seconds of CPU time and nesting (include, macro, loop,
+condition) up to depth 8 (`Basalto\Lava\Runtime\Limits`); beyond that, rendering aborts with a Lava error including the
+line. The 2 seconds apply to all Lava runs of a page together, starting with the first: what counts is the CPU time of
+the PHP process, not waiting for the database or for a busy server. Visitors see a short error page (status 503) instead
+of a server error and the error is logged; during development it appears with its line. The checker already warns from 7
+levels of `each`/`if`. A PHP error in a registered function becomes a Lava error with a line — the theme never sees a
+PHP stack.
 
 ## Lava parts
 
