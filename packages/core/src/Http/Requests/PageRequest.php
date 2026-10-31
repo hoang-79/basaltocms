@@ -71,8 +71,11 @@ final class PageRequest extends FormRequest
         }
         if ($type->hasTab('routing')) {
             $rules['routing.slugs'] = ['sometimes', 'array'];
+            $entry = $this->route('entry');
             foreach ($locales as $locale) {
-                $rules['routing.slugs.'.$locale] = ['nullable', 'string', 'max:200', 'regex:/^[a-z0-9][a-z0-9-]*(\.xml)?$/'];
+                // TB 92: Ein unveränderter Slug wird nicht neu geprüft — die Startseite aus den Startinhalten trägt «/»
+                $unchanged = $entry instanceof Entry && $this->input('routing.slugs.'.$locale) === $entry->latestVersion($locale)?->slug;
+                $rules['routing.slugs.'.$locale] = ['nullable', 'string', 'max:200', ...($unchanged ? [] : ['regex:/^[a-z0-9][a-z0-9-]*(\.xml)?$/'])];
                 $rules['routing.home.'.$locale] = ['sometimes', 'boolean'];
             }
             $rules['routing.priority'] = ['nullable', 'integer', 'between:0,100'];

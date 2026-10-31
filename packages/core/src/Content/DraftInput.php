@@ -29,6 +29,12 @@ final class DraftInput
     public function data(Entry $entry, array $input, ?EntryVersion $previous): array
     {
         $schema = ThemeSchema::fromTheme($this->themes->forSite($entry->site))->withoutRequired();
+        // TB 92: Geprüft wird nur ein geänderter Slug — die Startseite aus den Startinhalten trägt «/», und der Editor
+        // schickt bei Seiten den Slug mit, den er beim Laden sah (das Feld steht in den Seiteneinstellungen). Ein
+        // unveränderter Wert darf das Speichern nie verhindern; er bleibt, wie er ist.
+        if ($previous !== null && ($input['slug'] ?? null) === $previous->slug) {
+            $input['slug'] = null;
+        }
         $validator = Validator::make($input, [
             'title' => ['required', 'string', 'max:200'],
             'slug' => ['nullable', 'string', 'max:200', 'regex:/^[a-z0-9-]*$/'],

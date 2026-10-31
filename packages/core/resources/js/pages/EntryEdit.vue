@@ -970,10 +970,10 @@ const deviceButton =
                 </div>
             </div>
 
-            <!-- Seitenleiste (Desktop) -->
+            <!-- Seitenleiste (Desktop): fährt beim Scrollen mit; ist sie höher als das Fenster, scrollt sie selbst (Kante statt Balken) -->
             <aside
                 v-if="!previewOn && isDesktop"
-                class="space-y-4"
+                class="md:scroll-y space-y-4 [--scroll-bg:var(--color-paper)] md:sticky md:top-4 md:max-h-[calc(100dvh-2rem)] md:self-start"
                 :aria-label="$t('Fassung und Einstellungen')"
             >
                 <Card :title="$t('Fassung')">
