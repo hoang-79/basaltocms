@@ -21,6 +21,12 @@ final class ThemeCache
 
     public const TTL_SECONDS = 30 * 24 * 3600;
 
+    /**
+     * Stand der Übersetzung: erhöhen, wenn Lexer, Parser oder Compiler aus derselben Quelle ein anderes Ergebnis
+     * machen — sonst liefert der Cache bis zu 30 Tage die alte Übersetzung (TB 89: `\n` in Zeichenketten, v1.3.15).
+     */
+    public const REVISION = 2;
+
     private readonly Repository $store;
 
     private readonly Registry $registry;
@@ -79,7 +85,7 @@ final class ThemeCache
     {
         $registryPrint = hash('xxh128', implode(',', $registry->fieldTypes()).'|'.implode(',', $registry->dottedFunctionNames()));
 
-        return self::PREFIX.hash('xxh128', $source->name().'|'.$entry.'|'.$source->fingerprint().'|'.$registryPrint);
+        return self::PREFIX.hash('xxh128', self::REVISION.'|'.$source->name().'|'.$entry.'|'.$source->fingerprint().'|'.$registryPrint);
     }
 
     /** @return array{theme: ?Theme, diagnostics: list<Diagnostic>}|null */
