@@ -45,6 +45,14 @@ final class SiteDomain extends Model
     /** CR-017: Unterdomain eingerichtet, Zertifikat eingespielt, die Adresse antwortet über https. */
     public const HOSTING_READY = 'ready';
 
+    /**
+     * TB 91: Spalten, die nur den Stand beim Hoster festhalten — `basalto:hostnamen` schreibt sie bei jedem Versuch;
+     * sie ändern keine ausgelieferte Seite und machen den Seiten-Cache darum nicht ungültig.
+     *
+     * @var list<string>
+     */
+    public const HOSTING_COLUMNS = ['hosting_status', 'hosting_error', 'hosting_checked_at', 'hosting_retry_at', 'certificate_expires_at', 'updated_at'];
+
     protected $fillable = ['site_id', 'host', 'kind', 'is_primary', 'cloud_domain_id', 'cloud_status', 'cloud_response', 'verified_at', 'last_error', 'pair_id', 'redirect_until', 'checked_at',
         'hosting_status', 'hosting_error', 'hosting_checked_at', 'hosting_retry_at', 'certificate_expires_at'];
 

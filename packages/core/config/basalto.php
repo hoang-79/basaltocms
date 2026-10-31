@@ -41,6 +41,8 @@ return [
         'pages' => (bool) env('BASALTO_PAGE_CACHE', env('APP_ENV') !== 'local'),
         // leer = Standard-Store (Cloud: Valkey; sonst Datenbank)
         'store' => env('BASALTO_PAGE_CACHE_STORE'),
+        // TB 91: Vorwärmen in der Warteschlange — Sekunden je Lauf, danach übernimmt eine Fortsetzung (Worker: 60 s)
+        'warm_seconds' => (int) env('BASALTO_PAGE_CACHE_WARM_SECONDS', 40),
     ],
 
     // CR-008: Live-Aktualisierung — Takt der Abfrage im Browser in Sekunden (Push kommt ohne Takt, wo eingerichtet)

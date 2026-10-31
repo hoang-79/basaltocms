@@ -191,6 +191,7 @@ Le chiavi sono lette da `config/basalto.php` del core (`packages/core/config/bas
 | `BASALTO_INSTALL_TOKEN` | vuoto | protegge l’installer nel browser (non in `.env.example`) |
 | `BASALTO_PAGE_CACHE` | attivo, tranne con `APP_ENV=local` | attivare o disattivare la cache delle pagine (non in `.env.example`) |
 | `BASALTO_PAGE_CACHE_STORE` | store predefinito | store di cache proprio per la cache delle pagine (non in `.env.example`) |
+| `BASALTO_PAGE_CACHE_WARM_SECONDS` | `40` | preriscaldamento nella coda: secondi per passaggio, poi subentra una continuazione — restare sotto l’interruzione del worker (60 s) (non in `.env.example`) |
 | `BASALTO_MEDIA_QUOTA_MB` | illimitato | quota di spazio per sito in MB (non in `.env.example`) |
 | `BASALTO_PASSWORD_LOGIN` | `false` | accesso con password per installazioni senza posta (non in `.env.example`) |
 | `BASALTO_PHP_BINARY` | PHP di questo processo | PHP per i passaggi di un aggiornamento, p. es. `/opt/alt/php85/usr/bin/php` con LiteSpeed, vedi [Hosting](hosting.md) (non in `.env.example`) |

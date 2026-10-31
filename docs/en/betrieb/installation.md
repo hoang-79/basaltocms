@@ -187,6 +187,7 @@ are in `.env.example`; you only set the others when needed.
 | `BASALTO_INSTALL_TOKEN` | empty | protects the installer in the browser (not in `.env.example`) |
 | `BASALTO_PAGE_CACHE` | on, except with `APP_ENV=local` | switch the page cache on or off (not in `.env.example`) |
 | `BASALTO_PAGE_CACHE_STORE` | default store | separate cache store for the page cache (not in `.env.example`) |
+| `BASALTO_PAGE_CACHE_WARM_SECONDS` | `40` | warming in the queue: seconds per run, then a continuation takes over — stay below the worker's cut-off (60 s) (not in `.env.example`) |
 | `BASALTO_MEDIA_QUOTA_MB` | unlimited | storage quota per site in MB (not in `.env.example`) |
 | `BASALTO_PASSWORD_LOGIN` | `false` | login with a password for installations without mail (not in `.env.example`) |
 | `BASALTO_PHP_BINARY` | PHP of this process | PHP for the steps of an update, e.g. `/opt/alt/php85/usr/bin/php` under LiteSpeed, see [Hosting](hosting.md) (not in `.env.example`) |

@@ -189,6 +189,7 @@ Die Schlüssel liest `config/basalto.php` des Kerns (`packages/core/config/basal
 | `BASALTO_INSTALL_TOKEN` | leer | schützt den Installer im Browser (nicht in `.env.example`) |
 | `BASALTO_PAGE_CACHE` | an, ausser bei `APP_ENV=local` | Seiten-Cache ein- oder ausschalten (nicht in `.env.example`) |
 | `BASALTO_PAGE_CACHE_STORE` | Standard-Store | eigener Cache-Store für den Seiten-Cache (nicht in `.env.example`) |
+| `BASALTO_PAGE_CACHE_WARM_SECONDS` | `40` | Vorwärmen in der Warteschlange: Sekunden je Lauf, danach übernimmt eine Fortsetzung — unter dem Abbruch des Workers (60 s) bleiben (nicht in `.env.example`) |
 | `BASALTO_MEDIA_QUOTA_MB` | unbegrenzt | Speicherkontingent je Site in MB (nicht in `.env.example`) |
 | `BASALTO_PASSWORD_LOGIN` | `false` | Anmeldung mit Passwort für Installationen ohne Mail (nicht in `.env.example`) |
 | `BASALTO_PHP_BINARY` | PHP dieses Prozesses | PHP für die Schritte eines Updates, etwa `/opt/alt/php85/usr/bin/php` unter LiteSpeed, siehe [Hosting](hosting.md) (nicht in `.env.example`) |

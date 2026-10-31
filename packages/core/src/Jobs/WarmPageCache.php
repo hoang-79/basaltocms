@@ -20,6 +20,10 @@ use Throwable;
  * Vorwärmen nach dem Veröffentlichen (M-16): rendert die veröffentlichte Seite in jeder Sprache und die Startseite
  * einmal über die Auslieferung, damit der erste Besuch schon aus dem Cache kommt. Ohne `entryId` die ganze Site
  * (`basalto:page-cache warm`). Läuft ohne HTTP-Umweg: eine Anfrage ohne Sitzung und ohne Person an den Controller.
+ *
+ * TB 91: In der Warteschlange gilt ein Zeitbudget je Lauf (`basalto.cache.warm_seconds`) — der Worker auf einfachem
+ * Hosting bricht Jobs nach 60 s ab, ein grosses Schaufenster hat Hunderte Seiten. Ist es aufgebraucht, übernimmt eine
+ * Fortsetzung ab der nächsten Adresse; die Startseiten kommen zuerst.
  */
 final class WarmPageCache implements ShouldQueue
 {
@@ -27,7 +31,8 @@ final class WarmPageCache implements ShouldQueue
 
     public int $tries = 1;
 
-    public function __construct(public readonly int $siteId, public readonly ?int $entryId = null) {}
+    /** @param  int  $from  Fortsetzung: ab dieser Stelle der Adressen */
+    public function __construct(public readonly int $siteId, public readonly ?int $entryId = null, public readonly int $from = 0) {}
 
     public function handle(Pages $pages, CurrentSite $current, PageCache $cache): int
     {
@@ -51,7 +56,13 @@ final class WarmPageCache implements ShouldQueue
         $base = self::base($site);
         $warmed = 0;
         $locale = app()->getLocale();
-        foreach (array_unique($paths) as $path) {
+        $budget = (float) config('basalto.cache.warm_seconds', 40);
+        $started = hrtime(true);
+        foreach (array_slice(array_values(array_unique($paths)), $this->from, preserve_keys: true) as $index => $path) {
+            if ($this->job !== null && $index > $this->from && (hrtime(true) - $started) / 1e9 >= $budget) {
+                self::dispatch($this->siteId, $this->entryId, $index);
+                break;
+            }
             try {
                 $response = $current->within($site, static fn (): mixed => app(FrontendController::class)(Request::create($base.$path, 'GET')));
                 $warmed += $response->headers->get('X-Basalto-Cache') === 'MISS' ? 1 : 0;
