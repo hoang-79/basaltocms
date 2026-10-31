@@ -588,7 +588,7 @@ const viewButton =
         </Notice>
 
         <div class="grid gap-x-6 gap-y-4 xl:grid-cols-[minmax(0,1fr)_24rem]">
-            <fieldset :disabled="read_only" class="min-w-0">
+            <div class="min-w-0">
                 <!-- Art -->
                 <template v-if="isNew">
                     <span :class="[labelClasses, 'mt-4']">{{ $t('Art') }}</span>
@@ -646,6 +646,7 @@ const viewButton =
                 <!-- Beschriftung und Name (TB 32: der Name entsteht aus der Beschriftung) -->
                 <div class="mt-3 grid gap-x-4 gap-y-2.5 *:mt-0! md:grid-cols-2">
                     <Field
+                        :disabled="read_only"
                         :model-value="form.labels[defaultLocale] ?? ''"
                         :saved="saved(`labels.${defaultLocale}`)"
                         :label="$t('Beschriftung')"
@@ -665,6 +666,7 @@ const viewButton =
                         @update:model-value="setTypeLabel($event)"
                     />
                     <Field
+                        :disabled="read_only"
                         v-model="form.name"
                         :saved="saved('name')"
                         :label="$t('Name')"
@@ -708,6 +710,7 @@ const viewButton =
                         class="mt-2 grid gap-x-4 gap-y-2.5 *:mt-0! md:grid-cols-2"
                     >
                         <Field
+                            :disabled="read_only"
                             v-for="l in otherLocales"
                             :key="l"
                             v-model="form.labels[l]"
@@ -860,6 +863,7 @@ const viewButton =
                             class="border-t border-ash-light bg-white px-3 pt-1 pb-3"
                         >
                             <Field
+                                :disabled="read_only"
                                 :model-value="f.labels[defaultLocale] ?? ''"
                                 class="mt-2!"
                                 :label="$t('Beschriftung')"
@@ -926,6 +930,7 @@ const viewButton =
 
                             <!-- Was der Typ unbedingt braucht -->
                             <Field
+                                :disabled="read_only"
                                 v-if="f.type === 'select'"
                                 :model-value="f.options"
                                 class="mt-2.5!"
@@ -968,6 +973,7 @@ const viewButton =
                                         <input
                                             type="checkbox"
                                             :checked="f.allow.includes(b)"
+                                            :disabled="read_only"
                                             :class="checkbox"
                                             @change="
                                                 toggleAllow(
@@ -991,6 +997,7 @@ const viewButton =
                                 </p>
                             </div>
                             <Field
+                                :disabled="read_only"
                                 v-else-if="f.type === 'relation'"
                                 :model-value="f.relation"
                                 class="mt-2.5!"
@@ -1031,6 +1038,7 @@ const viewButton =
                                     class="mt-2.5 grid gap-x-3 gap-y-2.5 *:mt-0! sm:grid-cols-2"
                                 >
                                     <Field
+                                        :disabled="read_only"
                                         :model-value="f.name"
                                         :label="$t('Name')"
                                         mono
@@ -1054,6 +1062,7 @@ const viewButton =
                                         @focusout="nameBlur"
                                     />
                                     <Field
+                                        :disabled="read_only"
                                         :model-value="f.type"
                                         :label="$t('Typ')"
                                         type="select"
@@ -1065,6 +1074,7 @@ const viewButton =
                                     />
                                 </div>
                                 <Field
+                                    :disabled="read_only"
                                     :model-value="f.help"
                                     class="mt-2.5!"
                                     :label="$t('Hilfetext')"
@@ -1080,6 +1090,7 @@ const viewButton =
                                     "
                                 />
                                 <Field
+                                    :disabled="read_only"
                                     v-if="
                                         ![
                                             'select',
@@ -1108,6 +1119,7 @@ const viewButton =
                                     class="mt-2.5 grid gap-x-3 gap-y-2.5 *:mt-0! sm:grid-cols-2"
                                 >
                                     <Field
+                                        :disabled="read_only"
                                         v-for="l in otherLocales"
                                         :key="l"
                                         :model-value="f.labels[l] ?? ''"
@@ -1157,6 +1169,7 @@ const viewButton =
                     }}</span>
                     <div class="grid gap-x-4 gap-y-2.5 *:mt-0! md:grid-cols-2">
                         <Field
+                            :disabled="read_only"
                             v-model="form.route[defaultLocale]"
                             :saved="saved(`route.${defaultLocale}`)"
                             :label="$t('Route')"
@@ -1175,6 +1188,7 @@ const viewButton =
                             "
                         />
                         <Field
+                            :disabled="read_only"
                             v-model="form.template"
                             :saved="saved('template')"
                             :label="$t('Template')"
@@ -1219,6 +1233,7 @@ const viewButton =
                                 class="min-w-0"
                             >
                                 <Field
+                                    :disabled="read_only"
                                     v-model="form.route[l]"
                                     :saved="saved(`route.${l}`)"
                                     :label="
@@ -1234,6 +1249,7 @@ const viewButton =
                                 />
                                 <button
                                     v-if="
+                                        !read_only &&
                                         routeSuggestion(l) &&
                                         form.route[l] !== routeSuggestion(l)
                                     "
@@ -1274,7 +1290,7 @@ const viewButton =
                         >{{ form.name || '‹name›' }}.feld</span
                     >.
                 </Notice>
-            </fieldset>
+            </div>
 
             <!-- TB 32: So sieht die Redaktion den Editor — aus denselben Feldern, bei jeder Änderung neu -->
             <aside class="min-w-0" :aria-label="$t('Vorschau des Editors')">

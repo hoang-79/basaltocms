@@ -27,11 +27,12 @@ use Illuminate\Support\Str;
  * 4. Zertifikat: Fehlt eines oder läuft es in `renew_days` ab, ein neues holen und einspielen.
  * 5. https: `https://<host>/up` antwortet — dann ist der Host `ready`.
  *
- * Fehlt eine Voraussetzung (1, 3, 5), folgt der nächste Versuch nach fünf Minuten, sonst nach `retry_minutes`.
+ * Fehlt eine Voraussetzung (1, 3, 5), folgt der nächste Versuch nach zwei Minuten — so lange braucht LiteSpeed bei cyon
+ * für eine neue Unterdomain oder ein neues Zertifikat —, sonst nach `retry_minutes`.
  */
 final class Hostnames
 {
-    private const WAITING_RETRY_MINUTES = 5;
+    private const WAITING_RETRY_MINUTES = 2;
 
     public function __construct(private readonly Cpanel $panel, private readonly AcmeClient $acme, private readonly Dns $dns) {}
 

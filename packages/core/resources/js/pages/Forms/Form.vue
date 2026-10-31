@@ -1134,80 +1134,197 @@ const opButton =
                                         }}
                                     </p>
                                 </template>
-
-                                <!-- Weitere Möglichkeiten -->
-                                <button
-                                    type="button"
-                                    class="mt-3 flex w-full items-center gap-1.5 rounded-md border border-dashed border-ash-light px-3 py-2 text-left text-[12.5px] font-semibold text-basalt-light hover:border-ash hover:text-basalt"
-                                    :aria-expanded="showMore"
-                                    @click="moreOpen = !showMore"
+                            </fieldset>
+                            <!-- Weitere Möglichkeiten -->
+                            <button
+                                type="button"
+                                class="mt-3 flex w-full items-center gap-1.5 rounded-md border border-dashed border-ash-light px-3 py-2 text-left text-[12.5px] font-semibold text-basalt-light hover:border-ash hover:text-basalt"
+                                :aria-expanded="showMore"
+                                @click="moreOpen = !showMore"
+                            >
+                                <span aria-hidden="true">{{
+                                    showMore ? '−' : '+'
+                                }}</span>
+                                {{
+                                    showMore
+                                        ? $t('Weniger zeigen')
+                                        : $t(
+                                              'Weitere Möglichkeiten — Name, Typ, Platzhalter, Hilfetext, Übersetzungen',
+                                          )
+                                }}
+                            </button>
+                            <fieldset
+                                v-show="showMore"
+                                :disabled="readOnly"
+                                class="min-w-0"
+                            >
+                                <div
+                                    class="mt-2.5 grid gap-x-3 gap-y-2.5 *:mt-0! sm:grid-cols-2"
                                 >
-                                    <span aria-hidden="true">{{
-                                        showMore ? '−' : '+'
+                                    <Field
+                                        :model-value="selected.name"
+                                        :label="$t('Name')"
+                                        mono
+                                        required
+                                        :maxlength="60"
+                                        :error="fieldError('name')"
+                                        :help="
+                                            fresh.has(selected) &&
+                                            !nameTouched.has(selected)
+                                                ? $t(
+                                                      'Schlüssel im Eingang und im CSV — folgt der Beschriftung, bis Sie ihn ändern',
+                                                  )
+                                                : $t(
+                                                      'Schlüssel im Eingang und im CSV',
+                                                  )
+                                        "
+                                        @update:model-value="
+                                            setName(selected, $event)
+                                        "
+                                        @focusin="nameFocus"
+                                        @focusout="nameBlur"
+                                    />
+                                    <Field
+                                        v-model="selected.type"
+                                        :label="$t('Typ')"
+                                        type="select"
+                                        :options="
+                                            selectedRow.group === null
+                                                ? field_types
+                                                : childTypes
+                                        "
+                                        :error="fieldError('type')"
+                                    />
+                                </div>
+                                <Field
+                                    v-if="
+                                        placeholderTypes.includes(selected.type)
+                                    "
+                                    v-model="selected.placeholder['*']"
+                                    class="mt-2.5!"
+                                    :label="$t('Platzhalter')"
+                                    optional
+                                    :maxlength="200"
+                                    :help="
+                                        $t(
+                                            'Grauer Beispieltext im leeren Feld, z. B. «max@beispiel.ch».',
+                                        )
+                                    "
+                                />
+                                <Field
+                                    v-if="
+                                        !noInputTypes.includes(selected.type) &&
+                                        selected.type !== 'hidden'
+                                    "
+                                    v-model="selected.help['*']"
+                                    class="mt-2.5!"
+                                    :label="$t('Hilfetext')"
+                                    optional
+                                    :maxlength="300"
+                                    :help="$t('Steht klein unter dem Feld.')"
+                                />
+                                <div
+                                    v-if="rangeTypes.includes(selected.type)"
+                                    class="mt-2.5 grid grid-cols-3 gap-x-3 *:mt-0!"
+                                >
+                                    <Field
+                                        v-model="selected.min"
+                                        label="Min"
+                                        type="number"
+                                        optional
+                                        :error="fieldError('min')"
+                                    />
+                                    <Field
+                                        v-model="selected.max"
+                                        label="Max"
+                                        type="number"
+                                        optional
+                                        :error="fieldError('max')"
+                                    />
+                                    <Field
+                                        v-model="selected.step"
+                                        :label="$t('Schritt')"
+                                        type="number"
+                                        optional
+                                        :error="fieldError('step')"
+                                    />
+                                </div>
+                                <Field
+                                    v-if="lengthTypes.includes(selected.type)"
+                                    v-model="selected.max"
+                                    class="mt-2.5!"
+                                    :label="$t('Höchstens Zeichen')"
+                                    type="number"
+                                    optional
+                                    :placeholder="$t('ohne Grenze')"
+                                    :error="fieldError('max')"
+                                />
+
+                                <!-- Übersetzungen je weiterer Sprache -->
+                                <section
+                                    v-for="l in otherLocales"
+                                    :key="`tr-${l.code}`"
+                                    class="mt-3 rounded-md border border-ash-light px-3 py-2"
+                                    :aria-label="
+                                        $t('Übersetzung :code', {
+                                            code: l.code.toUpperCase(),
+                                        })
+                                    "
+                                >
+                                    <span :class="caption">{{
+                                        $t(
+                                            'Übersetzung :code · leer = Grundsprache',
+                                            {
+                                                code: l.code.toUpperCase(),
+                                            },
+                                        )
                                     }}</span>
-                                    {{
-                                        showMore
-                                            ? $t('Weniger zeigen')
-                                            : $t(
-                                                  'Weitere Möglichkeiten — Name, Typ, Platzhalter, Hilfetext, Übersetzungen',
-                                              )
-                                    }}
-                                </button>
-                                <div v-show="showMore" class="min-w-0">
-                                    <div
-                                        class="mt-2.5 grid gap-x-3 gap-y-2.5 *:mt-0! sm:grid-cols-2"
-                                    >
-                                        <Field
-                                            :model-value="selected.name"
-                                            :label="$t('Name')"
-                                            mono
-                                            required
-                                            :maxlength="60"
-                                            :error="fieldError('name')"
-                                            :help="
-                                                fresh.has(selected) &&
-                                                !nameTouched.has(selected)
-                                                    ? $t(
-                                                          'Schlüssel im Eingang und im CSV — folgt der Beschriftung, bis Sie ihn ändern',
-                                                      )
-                                                    : $t(
-                                                          'Schlüssel im Eingang und im CSV',
-                                                      )
-                                            "
-                                            @update:model-value="
-                                                setName(selected, $event)
-                                            "
-                                            @focusin="nameFocus"
-                                            @focusout="nameBlur"
-                                        />
-                                        <Field
-                                            v-model="selected.type"
-                                            :label="$t('Typ')"
-                                            type="select"
-                                            :options="
-                                                selectedRow.group === null
-                                                    ? field_types
-                                                    : childTypes
-                                            "
-                                            :error="fieldError('type')"
-                                        />
-                                    </div>
+                                    <Field
+                                        v-if="selected.type === 'explanation'"
+                                        v-model="selected.text[textKey(l)]"
+                                        type="textarea"
+                                        :rows="2"
+                                        :label="$t('Text')"
+                                        optional
+                                        :error="
+                                            fieldError(`text.${textKey(l)}`)
+                                        "
+                                    />
+                                    <Field
+                                        v-else
+                                        :model-value="
+                                            selected.labels[textKey(l)] ?? ''
+                                        "
+                                        :label="
+                                            selected.type === 'group'
+                                                ? $t('Überschrift der Gruppe')
+                                                : $t('Beschriftung')
+                                        "
+                                        optional
+                                        :maxlength="200"
+                                        :error="
+                                            fieldError(`labels.${textKey(l)}`)
+                                        "
+                                        @update:model-value="
+                                            setLabel(
+                                                selected,
+                                                textKey(l),
+                                                $event,
+                                            )
+                                        "
+                                    />
                                     <Field
                                         v-if="
                                             placeholderTypes.includes(
                                                 selected.type,
                                             )
                                         "
-                                        v-model="selected.placeholder['*']"
-                                        class="mt-2.5!"
+                                        v-model="
+                                            selected.placeholder[textKey(l)]
+                                        "
                                         :label="$t('Platzhalter')"
                                         optional
                                         :maxlength="200"
-                                        :help="
-                                            $t(
-                                                'Grauer Beispieltext im leeren Feld, z. B. «max@beispiel.ch».',
-                                            )
-                                        "
                                     />
                                     <Field
                                         v-if="
@@ -1215,180 +1332,46 @@ const opButton =
                                                 selected.type,
                                             ) && selected.type !== 'hidden'
                                         "
-                                        v-model="selected.help['*']"
-                                        class="mt-2.5!"
+                                        v-model="selected.help[textKey(l)]"
                                         :label="$t('Hilfetext')"
                                         optional
                                         :maxlength="300"
-                                        :help="
-                                            $t('Steht klein unter dem Feld.')
-                                        "
                                     />
-                                    <div
-                                        v-if="
-                                            rangeTypes.includes(selected.type)
-                                        "
-                                        class="mt-2.5 grid grid-cols-3 gap-x-3 *:mt-0!"
-                                    >
-                                        <Field
-                                            v-model="selected.min"
-                                            label="Min"
-                                            type="number"
-                                            optional
-                                            :error="fieldError('min')"
-                                        />
-                                        <Field
-                                            v-model="selected.max"
-                                            label="Max"
-                                            type="number"
-                                            optional
-                                            :error="fieldError('max')"
-                                        />
-                                        <Field
-                                            v-model="selected.step"
-                                            :label="$t('Schritt')"
-                                            type="number"
-                                            optional
-                                            :error="fieldError('step')"
-                                        />
-                                    </div>
                                     <Field
                                         v-if="
-                                            lengthTypes.includes(selected.type)
+                                            optionTypes.includes(selected.type)
                                         "
-                                        v-model="selected.max"
-                                        class="mt-2.5!"
-                                        :label="$t('Höchstens Zeichen')"
-                                        type="number"
-                                        optional
-                                        :placeholder="$t('ohne Grenze')"
-                                        :error="fieldError('max')"
-                                    />
-
-                                    <!-- Übersetzungen je weiterer Sprache -->
-                                    <section
-                                        v-for="l in otherLocales"
-                                        :key="`tr-${l.code}`"
-                                        class="mt-3 rounded-md border border-ash-light px-3 py-2"
-                                        :aria-label="
-                                            $t('Übersetzung :code', {
-                                                code: l.code.toUpperCase(),
-                                            })
-                                        "
-                                    >
-                                        <span :class="caption">{{
-                                            $t(
-                                                'Übersetzung :code · leer = Grundsprache',
-                                                {
-                                                    code: l.code.toUpperCase(),
-                                                },
+                                        :model-value="
+                                            optionsToLines(
+                                                selected.options[textKey(l)],
                                             )
-                                        }}</span>
-                                        <Field
-                                            v-if="
-                                                selected.type === 'explanation'
-                                            "
-                                            v-model="selected.text[textKey(l)]"
-                                            type="textarea"
-                                            :rows="2"
-                                            :label="$t('Text')"
-                                            optional
-                                            :error="
-                                                fieldError(`text.${textKey(l)}`)
-                                            "
-                                        />
-                                        <Field
-                                            v-else
-                                            :model-value="
-                                                selected.labels[textKey(l)] ??
-                                                ''
-                                            "
-                                            :label="
-                                                selected.type === 'group'
-                                                    ? $t(
-                                                          'Überschrift der Gruppe',
-                                                      )
-                                                    : $t('Beschriftung')
-                                            "
-                                            optional
-                                            :maxlength="200"
-                                            :error="
-                                                fieldError(
-                                                    `labels.${textKey(l)}`,
-                                                )
-                                            "
-                                            @update:model-value="
-                                                setLabel(
-                                                    selected,
-                                                    textKey(l),
-                                                    $event,
-                                                )
-                                            "
-                                        />
-                                        <Field
-                                            v-if="
-                                                placeholderTypes.includes(
-                                                    selected.type,
-                                                )
-                                            "
-                                            v-model="
-                                                selected.placeholder[textKey(l)]
-                                            "
-                                            :label="$t('Platzhalter')"
-                                            optional
-                                            :maxlength="200"
-                                        />
-                                        <Field
-                                            v-if="
-                                                !noInputTypes.includes(
-                                                    selected.type,
-                                                ) && selected.type !== 'hidden'
-                                            "
-                                            v-model="selected.help[textKey(l)]"
-                                            :label="$t('Hilfetext')"
-                                            optional
-                                            :maxlength="300"
-                                        />
-                                        <Field
-                                            v-if="
-                                                optionTypes.includes(
-                                                    selected.type,
-                                                )
-                                            "
-                                            :model-value="
-                                                optionsToLines(
+                                        "
+                                        type="textarea"
+                                        :rows="3"
+                                        :label="
+                                            $t('Optionen · :count', {
+                                                count: cleanOptions(
                                                     selected.options[
                                                         textKey(l)
                                                     ],
-                                                )
-                                            "
-                                            type="textarea"
-                                            :rows="3"
-                                            :label="
-                                                $t('Optionen · :count', {
-                                                    count: cleanOptions(
-                                                        selected.options[
-                                                            textKey(l)
-                                                        ],
-                                                    ).length,
-                                                })
-                                            "
-                                            optional
-                                            :help="
-                                                $t(
-                                                    'leer = Optionen der Grundsprache',
-                                                )
-                                            "
-                                            @update:model-value="
-                                                setOptions(
-                                                    selected,
-                                                    textKey(l),
-                                                    $event,
-                                                )
-                                            "
-                                        />
-                                    </section>
-                                </div>
+                                                ).length,
+                                            })
+                                        "
+                                        optional
+                                        :help="
+                                            $t(
+                                                'leer = Optionen der Grundsprache',
+                                            )
+                                        "
+                                        @update:model-value="
+                                            setOptions(
+                                                selected,
+                                                textKey(l),
+                                                $event,
+                                            )
+                                        "
+                                    />
+                                </section>
                             </fieldset>
                         </section>
                         <p
