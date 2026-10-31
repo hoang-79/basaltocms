@@ -42,6 +42,10 @@ Chaque couleur, chaque police, chaque espacement et le rayon issus de `design` d
 de couleurs choisie par le site (`palette`, voir [Lava](lava.md)) et, par-dessus, les surcharges du site issues de
 Configuration › Design.
 
+Le compte client, le forum et l’avis sur les cookies lisent ces variables : l’accent via `accent` et `accent-text`,
+les marques (par exemple « nouveau ») via `marker` et `marker-text`. Avec un `marker` clair, indiquez un `marker-text`
+foncé.
+
 ```text
 basalto:tokens [--tailwind] [<site>]
 ```

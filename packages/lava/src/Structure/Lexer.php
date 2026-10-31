@@ -178,7 +178,12 @@ final class Lexer
             }
             if ($char === '\\' && $this->position + 1 < $this->length) {
                 $this->advance();
-                $char = $this->source[$this->position];
+                // «\n» und «\t» sind Zeilenumbruch und Tabulator (wie in Ausdrücken), jedes andere Zeichen gilt wörtlich (\" \' \\)
+                $char = match ($this->source[$this->position]) {
+                    'n' => "\n",
+                    't' => "\t",
+                    default => $this->source[$this->position],
+                };
             }
             $value .= $char;
             $this->advance();

@@ -41,6 +41,9 @@ Every colour, font, spacing value and the radius from `design` becomes a CSS var
 `--space-3`, `--radius`). `{% assets %}` writes them into the head of every page — with the colour variant the site has
 chosen (`palette`, see [Lava](lava.md)) and, on top, the site's overrides from Setup › Design.
 
+The customer account, the forum and the cookie notice read these variables: the accent from `accent` and
+`accent-text`, markers (such as “new”) from `marker` and `marker-text`. With a light `marker`, set a dark `marker-text`.
+
 ```text
 basalto:tokens [--tailwind] [<site>]
 ```

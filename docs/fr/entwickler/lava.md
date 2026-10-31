@@ -59,7 +59,7 @@ layout landing extends standard {          # modificateur après le nom
 ```
 
 - Les **éléments** ont la forme `wort name: typ flags { … }` ; les **propriétés** la forme `schluessel: werte`.
-- **Valeurs :** chaînes entre `"…"` ou `'…'`, nombres, `true`/`false`, couleurs `#rgb` à `#rrggbbaa`, chemins `/…`,
+- **Valeurs :** chaînes entre `"…"` ou `'…'` (`\n` est un saut de ligne, `\t` une tabulation), nombres, `true`/`false`, couleurs `#rgb` à `#rrggbbaa`, chemins `/…`,
   références (mots nus) et flèches `->` (cible d’une entrée de menu ou d’un lien dans le seed).
 - **Les retours à la ligne comptent :** ils terminent une propriété. Un élément par ligne, lorsque seules des valeurs suivent.
 - Le **balisage** se trouve dans une clôture après le mot `markup` (trois accents graves avant et après, comme en Markdown) ou dans

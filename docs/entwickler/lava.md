@@ -59,7 +59,7 @@ layout landing extends standard {          # Modifikator hinter dem Namen
 ```
 
 - **Elemente** haben die Form `wort name: typ flags { … }`; **Eigenschaften** die Form `schluessel: werte`.
-- **Werte:** Zeichenketten in `"…"` oder `'…'`, Zahlen, `true`/`false`, Farben `#rgb` bis `#rrggbbaa`, Pfade `/…`,
+- **Werte:** Zeichenketten in `"…"` oder `'…'` (`\n` ist ein Zeilenumbruch, `\t` ein Tabulator), Zahlen, `true`/`false`, Farben `#rgb` bis `#rrggbbaa`, Pfade `/…`,
   Verweise (blosse Wörter) und Pfeile `->` (Ziel eines Menüeintrags oder Links im Seed).
 - **Zeilenumbrüche zählen:** Sie beenden eine Eigenschaft. Ein Element je Zeile, wenn nur Werte folgen.
 - **Markup** steht in einem Zaun hinter dem Wort `markup` (drei Backticks davor und danach, wie in Markdown) oder in

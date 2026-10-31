@@ -74,7 +74,8 @@ final class Printer
 
     public static function quote(string $text): string
     {
-        return '"'.addcslashes($text, '"\\').'"';
+        // Zeilenumbruch und Tabulator als «\n» und «\t» — ein echter Umbruch in Anführungszeichen wäre keine Lava
+        return '"'.addcslashes($text, "\"\\\n\t").'"';
     }
 
     private function head(Definition $def): string

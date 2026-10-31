@@ -23,7 +23,7 @@ final class AccountStyles
     }
 
     private const CSS = <<<'CSS'
-.konto{--konto-text:var(--color-text,#23262b);--konto-bg:var(--color-background,#f6f4f0);--konto-surface:var(--color-surface,#fff);--konto-muted:var(--color-muted,#3b3f46);--konto-quiet:var(--color-quiet,var(--color-muted,#62676e));--konto-line:var(--color-line,#e3e6ea);--konto-accent:var(--color-accent,#b53f1d);--konto-accent-text:var(--color-accent-text,#fff);--konto-link:var(--color-link,var(--color-accent,#b53f1d));--konto-lava:var(--color-marker,var(--color-lava,#e4572e));--konto-focus:var(--color-focus,var(--color-accent,#b53f1d));--konto-dark:var(--color-dark,#23262b);--konto-dark-text:var(--color-dark-text,#f6f4f0);--konto-dark-muted:var(--color-dark-muted,#b5bac0);--konto-ok:color-mix(in srgb,#2a744a 62%,var(--konto-text));--konto-ok-bg:color-mix(in srgb,#2a744a 12%,var(--konto-surface));--konto-warn:color-mix(in srgb,#8f5c00 55%,var(--konto-text));--konto-warn-bg:color-mix(in srgb,#d9a606 15%,var(--konto-surface));--konto-err:color-mix(in srgb,#b8232f 58%,var(--konto-text));--konto-err-bg:color-mix(in srgb,#b8232f 10%,var(--konto-surface));--konto-hover:color-mix(in srgb,var(--konto-text) 5%,var(--konto-surface));--konto-sanft:color-mix(in srgb,var(--konto-text) 4%,var(--konto-bg));--konto-r:calc(var(--radius,6px) + 4px);--konto-r-gross:calc(var(--radius,6px) * 2 + 6px);--konto-schatten:0 1px 2px rgb(0 0 0 / 5%),0 14px 36px -22px rgb(0 0 0 / 35%);--konto-hex:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0 50%);--konto-tempo:180ms cubic-bezier(.2,.7,.3,1);display:grid;gap:20px;color:var(--konto-text);line-height:1.5;text-align:left}
+.konto{--konto-text:var(--color-text,#23262b);--konto-bg:var(--color-background,#f6f4f0);--konto-surface:var(--color-surface,#fff);--konto-muted:var(--color-muted,#3b3f46);--konto-quiet:var(--color-quiet,var(--color-muted,#62676e));--konto-line:var(--color-line,#e3e6ea);--konto-accent:var(--color-accent,#b53f1d);--konto-accent-text:var(--color-accent-text,#fff);--konto-link:var(--color-link,var(--color-accent,#b53f1d));--konto-lava:var(--color-marker,var(--color-lava,#e4572e));--konto-lava-text:var(--color-marker-text,var(--color-lava-text,#fff));--konto-focus:var(--color-focus,var(--color-accent,#b53f1d));--konto-dark:var(--color-dark,#23262b);--konto-dark-text:var(--color-dark-text,#f6f4f0);--konto-dark-muted:var(--color-dark-muted,#b5bac0);--konto-ok:color-mix(in srgb,#2a744a 62%,var(--konto-text));--konto-ok-bg:color-mix(in srgb,#2a744a 12%,var(--konto-surface));--konto-warn:color-mix(in srgb,#8f5c00 55%,var(--konto-text));--konto-warn-bg:color-mix(in srgb,#d9a606 15%,var(--konto-surface));--konto-err:color-mix(in srgb,#b8232f 58%,var(--konto-text));--konto-err-bg:color-mix(in srgb,#b8232f 10%,var(--konto-surface));--konto-hover:color-mix(in srgb,var(--konto-text) 5%,var(--konto-surface));--konto-sanft:color-mix(in srgb,var(--konto-text) 4%,var(--konto-bg));--konto-r:calc(var(--radius,6px) + 4px);--konto-r-gross:calc(var(--radius,6px) * 2 + 6px);--konto-schatten:0 1px 2px rgb(0 0 0 / 5%),0 14px 36px -22px rgb(0 0 0 / 35%);--konto-hex:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0 50%);--konto-tempo:180ms cubic-bezier(.2,.7,.3,1);display:grid;gap:20px;color:var(--konto-text);line-height:1.5;text-align:left}
 .konto *,.konto *::before,.konto *::after{box-sizing:border-box}
 .konto :focus-visible{outline:2px solid var(--konto-focus);outline-offset:2px}
 .konto h2,.konto h3,.konto p,.konto ul,.konto ol,.konto dl,.konto details,.konto form,.konto figure,.konto pre{margin:0}
@@ -52,7 +52,7 @@ final class AccountStyles
 .konto-sechseck::before{content:"";position:absolute;inset:0;clip-path:var(--konto-hex);background:color-mix(in srgb,var(--konto-lava) 13%,var(--konto-surface))}
 .konto-sechseck .konto-icon{position:relative;width:20px;height:20px}
 .konto-sechseck--klein{width:34px;height:34px}.konto-sechseck--klein .konto-icon{width:16px;height:16px}
-.konto-sechseck--lava{color:#fff}.konto-sechseck--lava::before{background:var(--konto-lava)}
+.konto-sechseck--lava{color:var(--konto-lava-text,#fff)}.konto-sechseck--lava::before{background:var(--konto-lava)}
 .konto-sechseck--warn{color:var(--konto-warn)}.konto-sechseck--warn::before{background:var(--konto-warn-bg)}
 .konto-sechseck--ok{color:var(--konto-ok)}.konto-sechseck--ok::before{background:var(--konto-ok-bg)}
 .konto-sechseck--dunkel{color:var(--konto-lava)}.konto-sechseck--dunkel::before{background:var(--konto-dark)}
@@ -72,7 +72,7 @@ final class AccountStyles
 .konto-meldung,.konto .licensing-status,.konto .account-status{margin:0;padding:12px 16px;border:1px solid color-mix(in srgb,var(--konto-ok) 40%,var(--konto-line));border-radius:var(--konto-r-gross);background:var(--konto-ok-bg);color:var(--konto-ok);font-weight:600}
 .konto-meldung--warn{border-color:color-mix(in srgb,var(--konto-warn) 40%,var(--konto-line));background:var(--konto-warn-bg);color:var(--konto-warn)}
 /* Kopf (TB 63): kompakt, dunkel, Abmelden abgesetzt */
-.konto-held{position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 20px;padding:18px 20px;border-radius:calc(var(--konto-r-gross) + 4px);background:radial-gradient(circle at 92% 0%,color-mix(in srgb,#e4572e 34%,transparent),transparent 42%),linear-gradient(125deg,var(--konto-dark),color-mix(in srgb,var(--konto-dark) 88%,#4a4f57));color:var(--konto-dark-text);overflow:hidden;box-shadow:var(--konto-schatten)}
+.konto-held{position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 20px;padding:18px 20px;border-radius:calc(var(--konto-r-gross) + 4px);background:radial-gradient(circle at 92% 0%,color-mix(in srgb,var(--konto-lava,#e4572e) 34%,transparent),transparent 42%),linear-gradient(125deg,var(--konto-dark),color-mix(in srgb,var(--konto-dark) 88%,#4a4f57));color:var(--konto-dark-text);overflow:hidden;box-shadow:var(--konto-schatten)}
 .konto-held__person{display:flex;align-items:center;gap:14px;min-width:0;flex:1 1 18rem}
 .konto-held__person>div{display:grid;gap:2px;min-width:0}
 .konto-avatar{display:inline-grid;place-items:center;flex:none;width:56px;height:56px;clip-path:var(--konto-hex);object-fit:cover;background:linear-gradient(140deg,#5a616b,#2c3036);color:#fff;font-size:1.1rem;font-weight:700;letter-spacing:.02em}
@@ -222,7 +222,7 @@ final class AccountStyles
 .konto-kauf:hover{box-shadow:var(--konto-schatten);transform:translateY(-2px)}
 .konto-kauf__bild{display:block;aspect-ratio:16/10;background:var(--konto-sanft)}
 .konto-kauf__bild img{display:block;width:100%;height:100%;object-fit:cover}
-.konto-kauf__bild.ist-leer{display:grid;place-items:center;color:#fff;background:radial-gradient(circle at 80% 20%,color-mix(in srgb,#e4572e 45%,transparent),transparent 55%),linear-gradient(140deg,#55306d,var(--konto-dark))}
+.konto-kauf__bild.ist-leer{display:grid;place-items:center;color:#fff;background:radial-gradient(circle at 80% 20%,color-mix(in srgb,var(--konto-lava,#e4572e) 45%,transparent),transparent 55%),linear-gradient(140deg,#55306d,var(--konto-dark))}
 .konto-kauf__bild.ist-leer .konto-icon{width:44px;height:44px;opacity:.9}
 .konto-kauf__text{display:grid;gap:6px;align-content:start;padding:12px 14px 4px}
 .konto-kauf__art{display:flex;flex-wrap:wrap;gap:6px}
@@ -257,7 +257,7 @@ final class AccountStyles
 .konto-zeitleiste time{color:var(--konto-quiet);font-size:.8rem}
 /* Gäste: Versprechen und Anmeldung */
 .konto--gast{align-items:start}
-.konto-versprechen{display:grid;gap:14px;padding:26px;border-radius:calc(var(--konto-r-gross) + 6px);background:radial-gradient(circle at 90% 10%,color-mix(in srgb,#e4572e 35%,transparent),transparent 45%),linear-gradient(125deg,var(--konto-dark),color-mix(in srgb,var(--konto-dark) 88%,#4a4f57));color:var(--konto-dark-text)}
+.konto-versprechen{display:grid;gap:14px;padding:26px;border-radius:calc(var(--konto-r-gross) + 6px);background:radial-gradient(circle at 90% 10%,color-mix(in srgb,var(--konto-lava,#e4572e) 35%,transparent),transparent 45%),linear-gradient(125deg,var(--konto-dark),color-mix(in srgb,var(--konto-dark) 88%,#4a4f57));color:var(--konto-dark-text)}
 .konto-versprechen h2{color:var(--konto-dark-text);font-size:clamp(1.4rem,1.1rem + 1.2vw,1.9rem);line-height:1.2;letter-spacing:-.015em}
 .konto-versprechen>p{color:var(--konto-dark-muted)}
 .konto-versprechen ul{display:grid;gap:12px;margin-top:6px}

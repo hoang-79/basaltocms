@@ -128,8 +128,10 @@ final class ProofOfWork
         }
         $request->attributes->set('basalto.pow.assets', true);
 
-        return '<style>.basalto-pruefung{margin:.4em 0}.basalto-pruefung__status{display:inline-flex;align-items:center;gap:6px;margin:0;font-size:.85em;opacity:.85}'
-            .'.basalto-pruefung.ist-geprueft .basalto-pruefung__status{opacity:1;color:#1f7a45}.basalto-pruefung__frage{display:flex;flex-wrap:wrap;align-items:center;gap:8px}</style>'
+        // `[hidden]` gilt auch gegen die eigenen display-Regeln (ohne Web Crypto zeigt der Löser nur die Rechenfrage);
+        // Grün mit 60 % in der Textfarbe — auf hellem und dunklem Grund über 4,5:1
+        return '<style>.basalto-pruefung{margin:.4em 0}.basalto-pruefung [hidden]{display:none!important}.basalto-pruefung__status{display:inline-flex;align-items:center;gap:6px;margin:0;font-size:.85em;opacity:.85}'
+            .'.basalto-pruefung.ist-geprueft .basalto-pruefung__status{opacity:1;color:color-mix(in srgb,#2a744a 60%,currentColor)}.basalto-pruefung__frage{display:flex;flex-wrap:wrap;align-items:center;gap:8px}</style>'
             .'<script>'.self::SOLVER.'</script>';
     }
 

@@ -52,8 +52,9 @@ comment         = "#" , { ? Zeichen ausser "\n" ? } ;        (* bis Zeilenende �
 ident           = ident-start , { ident-char } ;
 ident-start     = letter | "_" | nonascii ;
 ident-char      = letter | digit | "_" | "-" | "." | "@" | "/" | nonascii ;
-string          = '"' , { ? Zeichen ausser '"' und "\n" ? | "\" , ? Zeichen ? } , '"'
-                | "'" , { ? Zeichen ausser "'" und "\n" ? | "\" , ? Zeichen ? } , "'" ;
+string          = '"' , { ? Zeichen ausser '"' und "\n" ? | escape } , '"'
+                | "'" , { ? Zeichen ausser "'" und "\n" ? | escape } , "'" ;
+escape          = "\" , ? Zeichen ? ;                         (* «\n» Zeilenumbruch, «\t» Tabulator, sonst das Zeichen selbst: \" \' \\ *)
 number          = [ "-" ] , digit , { digit | "." | "-" } ;  (* 16 · 1.5 · -4; mit "." eine Gleitkommazahl *)
 color           = "#" , hexdigit , hexdigit , hexdigit , [ hexdigit ] , [ hexdigit ] , [ hexdigit ] , [ hexdigit ] , [ hexdigit ] ;
                   (* 3 bis 8 Hexziffern, danach kein Buchstabe oder keine Ziffer — sonst ist «#» ein Kommentar *)

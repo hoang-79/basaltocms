@@ -59,7 +59,7 @@ layout landing extends standard {          # modifier after the name
 ```
 
 - **Elements** have the form `wort name: typ flags { … }`; **properties** have the form `schluessel: werte`.
-- **Values:** strings in `"…"` or `'…'`, numbers, `true`/`false`, colours `#rgb` to `#rrggbbaa`, paths `/…`,
+- **Values:** strings in `"…"` or `'…'` (`\n` is a line break, `\t` a tab), numbers, `true`/`false`, colours `#rgb` to `#rrggbbaa`, paths `/…`,
   references (bare words) and arrows `->` (target of a menu item or of a link in the seed).
 - **Line breaks count:** they end a property. One element per line if only values follow.
 - **Markup** goes in a fence after the word `markup` (three backticks before and after, as in Markdown) or in

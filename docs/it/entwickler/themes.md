@@ -44,6 +44,9 @@ Ogni colore, carattere, spaziatura e il raggio da `design` diventano una variabi
 variante di colori scelta dal sito (`palette`, vedi [Lava](lava.md)) e, sopra, le sovrascritture del sito da
 Configurazione › Design.
 
+L’account cliente, il forum e l’avviso sui cookie leggono queste variabili: l’accento da `accent` e `accent-text`, i
+contrassegni (per esempio «nuovo») da `marker` e `marker-text`. Con un `marker` chiaro, indichi un `marker-text` scuro.
+
 ```text
 basalto:tokens [--tailwind] [<site>]
 ```

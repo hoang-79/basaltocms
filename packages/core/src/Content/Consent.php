@@ -137,7 +137,7 @@ JS;
 .basalto-cookies__kategorie{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border:1px solid var(--bc-line);border-radius:var(--bc-r);background:color-mix(in srgb,var(--bc-text) 3%,var(--bc-surface))}
 .basalto-cookies__name{margin:0;font-size:.875rem;font-weight:600;color:var(--bc-text)}
 .basalto-cookies__text{margin:2px 0 0;font-size:.75rem;color:var(--bc-muted)}
-.basalto-cookies__aktiv{flex:none;padding:2px 10px;border-radius:999px;background:color-mix(in srgb,#2a744a 14%,var(--bc-surface));color:color-mix(in srgb,#2a744a 75%,var(--bc-text));font-size:.75rem;font-weight:600}
+.basalto-cookies__aktiv{flex:none;padding:2px 10px;border-radius:999px;background:color-mix(in srgb,#2a744a 14%,var(--bc-surface));color:color-mix(in srgb,#2a744a 60%,var(--bc-text));font-size:.75rem;font-weight:600}
 .basalto-cookies__schalter{position:relative;flex:none;width:44px;height:24px;margin:0;padding:0;border:2px solid transparent;border-radius:999px;background:color-mix(in srgb,var(--bc-text) 25%,var(--bc-surface));cursor:pointer;transition:background .2s}
 .basalto-cookies__schalter span{position:absolute;top:0;left:0;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgb(0 0 0 / 25%);transition:transform .2s}
 .basalto-cookies__schalter[aria-checked=true]{background:var(--bc-accent)}

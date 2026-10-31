@@ -59,7 +59,7 @@ layout landing extends standard {          # modificatore dopo il nome
 ```
 
 - **Gli elementi** hanno la forma `wort name: typ flags { … }`; **le proprietà** la forma `schluessel: werte`.
-- **Valori:** stringhe in `"…"` o `'…'`, numeri, `true`/`false`, colori da `#rgb` a `#rrggbbaa`, percorsi `/…`,
+- **Valori:** stringhe in `"…"` o `'…'` (`\n` è un a capo, `\t` una tabulazione), numeri, `true`/`false`, colori da `#rgb` a `#rrggbbaa`, percorsi `/…`,
   riferimenti (parole semplici) e frecce `->` (destinazione di una voce di menu o di un link nel seed).
 - **Gli a capo contano:** concludono una proprietà. Un elemento per riga, se seguono solo valori.
 - **Il markup** sta in un recinto dopo la parola `markup` (tre backtick prima e dopo, come in Markdown) o in

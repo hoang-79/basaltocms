@@ -42,6 +42,9 @@ Jede Farbe, Schrift, jeder Abstand und der Radius aus `design` wird eine CSS-Var
 die Site gewählt hat (`palette`, siehe [Lava](lava.md)), und darüber den Überschreibungen der Site aus Einrichtung ›
 Design.
 
+Kundenkonto, Forum und Cookie-Hinweis lesen diese Variablen: den Akzent über `accent` und `accent-text`, Markierungen
+(etwa «neu») über `marker` und `marker-text`. Wer einen hellen `marker` wählt, gibt `marker-text` dunkel an.
+
 ```text
 basalto:tokens [--tailwind] [<site>]
 ```
