@@ -2,34 +2,34 @@
 // Zeiten in Ortszeit Winterthur. Die Mitglieder sind erfunden; die Ereignisse ab dem 26.10.2026 folgen den echten Versionen.
 
 @team hoang | Hoang Nguyen | 2026-08-01 08:30 | Baut Basalto in Winterthur. Laravel seit vielen Jahren, Projekte nach DSDM.
-@mitglied luca | Luca Meier | 2026-08-01 19:42 | Webentwickler in Zürich, baut Websites für KMU. Seit der ersten Beta dabei.
-@mitglied sandra | Sandra Brunner | 2026-08-02 08:15 | Inhaberin von Brunner Digital in Bern, einer kleinen Agentur mit drei Leuten.
-@mitglied marco | Marco Bernasconi | 2026-08-03 21:05 | Freelancer in Lugano. Laravel, Vue und zu viel Espresso.
-@mitglied thomas | Thomas Keller | 2026-08-05 07:50 | Treuhänder in Winterthur. Kein Entwickler — ich will meine Website selbst pflegen.
+@mitglied luca | Luca Ammann | 2026-08-01 19:42 | Webentwickler in Zürich, baut Websites für KMU. Seit der ersten Beta dabei.
+@mitglied sandra | Sandra Gasser | 2026-08-02 08:15 | Inhaberin von Gasser Digital in Bern, einer kleinen Agentur mit drei Leuten.
+@mitglied marco | Marco Colombo | 2026-08-03 21:05 | Freelancer in Lugano. Laravel, Vue und zu viel Espresso.
+@mitglied thomas | Thomas Egloff | 2026-08-05 07:50 | Treuhänder in Winterthur. Kein Entwickler — ich will meine Website selbst pflegen.
 @mitglied nina | Nina Hofer | 2026-08-07 14:20 | Grafikerin und Theme-Gestalterin aus St. Gallen.
-@mitglied daniel | Daniel Frei | 2026-08-09 22:10 | Systemadministrator, betreut Server und Hostings für Vereine und Gemeinden.
-@mitglied fabian | Fabian Wyss | 2026-08-12 16:35 | Informatikstudent in Bern, schreibt gern Themes in Lava.
-@mitglied claire | Claire Dubois | 2026-08-11 21:40 | Webentwicklerin in Lausanne. Ich schreibe auf Deutsch, so gut es geht.
+@mitglied daniel | Daniel Rohner | 2026-08-09 22:10 | Systemadministrator, betreut Server und Hostings für Vereine und Gemeinden.
+@mitglied fabian | Fabian Stucki | 2026-08-12 16:35 | Informatikstudent in Bern, schreibt gern Themes in Lava.
+@mitglied claire | Claire Bonvin | 2026-08-11 21:40 | Webentwicklerin in Lausanne. Ich schreibe auf Deutsch, so gut es geht.
 @mitglied reto | Reto Gisler | 2026-08-19 08:40 | Gemeindeschreiber in einer Urner Gemeinde mit 2400 Einwohnerinnen und Einwohnern.
-@mitglied petra | Petra Zimmermann | 2026-08-24 19:30 | Aktuarin im Turnverein, kümmert sich um die Website.
-@mitglied oliver | Oliver Graf | 2026-08-28 11:15 | PHP-Entwickler in Basel, baut Plugins.
-@mitglied jasmin | Jasmin Ammann | 2026-09-02 09:55 | Führt mit ihrem Partner ein Restaurant am Zürichsee.
-@mitglied stefan | Stefan Huber | 2026-09-05 20:40 | Fotograf in Luzern.
-@mitglied lea | Lea Schmid | 2026-09-08 13:10 | Redakteurin bei einer Stiftung in Zürich.
-@mitglied michael | Michael Steiner | 2026-09-11 08:05 | IT-Leiter in einem KMU mit 40 Mitarbeitenden.
-@mitglied anna | Anna Rossi | 2026-09-15 18:25 | Übersetzerin Deutsch, Italienisch und Französisch in Bellinzona.
-@mitglied sabine | Sabine Kälin | 2026-09-19 07:45 | Lehrerin und ICT-Verantwortliche an einer Sekundarschule.
+@mitglied petra | Petra Odermatt | 2026-08-24 19:30 | Aktuarin im Turnverein, kümmert sich um die Website.
+@mitglied oliver | Oliver Hug | 2026-08-28 11:15 | PHP-Entwickler in Basel, baut Plugins.
+@mitglied jasmin | Jasmin Rüegg | 2026-09-02 09:55 | Führt mit ihrem Partner ein Restaurant am Zürichsee.
+@mitglied stefan | Stefan Amstutz | 2026-09-05 20:40 | Fotograf in Luzern.
+@mitglied lea | Lea Bachmann | 2026-09-08 13:10 | Redakteurin bei einer Stiftung in Zürich.
+@mitglied michael | Michael Sutter | 2026-09-11 08:05 | IT-Leiter in einem KMU mit 40 Mitarbeitenden.
+@mitglied anna | Anna Pedrazzini | 2026-09-15 18:25 | Übersetzerin Deutsch, Italienisch und Französisch in Bellinzona.
+@mitglied sabine | Sabine Inglin | 2026-09-19 07:45 | Lehrerin und ICT-Verantwortliche an einer Sekundarschule.
 @mitglied tobias | Tobias Brand | 2026-09-23 21:50 | Laravel-Entwickler aus Freiburg im Breisgau.
-@mitglied melanie | Melanie Roth | 2026-09-28 10:30 | Beraterin für digitale Barrierefreiheit.
-@mitglied kevin | Kevin Baumann | 2026-10-02 23:15 | Hobby-Entwickler. Baut nachts Websites für Freunde.
+@mitglied melanie | Melanie Furrer | 2026-09-28 10:30 | Beraterin für digitale Barrierefreiheit.
+@mitglied kevin | Kevin Flückiger | 2026-10-02 23:15 | Hobby-Entwickler. Baut nachts Websites für Freunde.
 @mitglied ursula | Ursula Lehmann | 2026-10-06 15:20 | Pensioniert. Schreibt die Chronik unserer Familie und möchte sie online stellen.
 @mitglied andrea | Andrea Vogt | 2026-10-10 09:00 | Projektleiterin in einer Agentur in Basel.
 @mitglied simon | Simon Egli | 2026-10-14 17:45 | Datenschutzberater in Aarau.
 @mitglied jonas | Jonas Kunz | 2026-10-19 20:10 | Webdesigner in Chur, viele Kunden auf Shared Hosting.
 @mitglied elena | Elena Marti | 2026-10-26 19:05 | Betreut die Website eines kleinen Hotels im Engadin.
 @mitglied raphael | Raphael Bucher | 2026-10-28 12:30 | Theme-Autor, möchte im Marktplatz verkaufen.
-@mitglied yves | Yves Morel | 2026-10-29 08:50 | Entwickler in Genf, lernt Deutsch.
-@mitglied laura | Laura Gerber | 2026-10-30 21:15 | Studiert Kommunikation und betreut die Website einer Band.
+@mitglied yves | Yves Pittet | 2026-10-29 08:50 | Entwickler in Genf, lernt Deutsch.
+@mitglied laura | Laura Zbinden | 2026-10-30 21:15 | Studiert Kommunikation und betreut die Website einer Band.
 
 // ── Neuigkeiten und Hinweise ─────────────────────────────────────────────────────────────────────────────────────
 
