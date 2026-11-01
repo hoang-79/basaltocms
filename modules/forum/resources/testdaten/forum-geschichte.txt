@@ -1,0 +1,1163 @@
+// Forum-Geschichte für basalto:testdaten (Bereich «forum-geschichte») — Aufbau siehe ForumStory.php.
+// Zeiten in Ortszeit Winterthur. Die Mitglieder sind erfunden; die Ereignisse ab dem 26.10.2026 folgen den echten Versionen.
+
+@team hoang | Hoang Nguyen | 2026-08-01 08:30 | Baut Basalto in Winterthur. Laravel seit vielen Jahren, Projekte nach DSDM.
+@mitglied luca | Luca Meier | 2026-08-01 19:42 | Webentwickler in Zürich, baut Websites für KMU. Seit der ersten Beta dabei.
+@mitglied sandra | Sandra Brunner | 2026-08-02 08:15 | Inhaberin von Brunner Digital in Bern, einer kleinen Agentur mit drei Leuten.
+@mitglied marco | Marco Bernasconi | 2026-08-03 21:05 | Freelancer in Lugano. Laravel, Vue und zu viel Espresso.
+@mitglied thomas | Thomas Keller | 2026-08-05 07:50 | Treuhänder in Winterthur. Kein Entwickler — ich will meine Website selbst pflegen.
+@mitglied nina | Nina Hofer | 2026-08-07 14:20 | Grafikerin und Theme-Gestalterin aus St. Gallen.
+@mitglied daniel | Daniel Frei | 2026-08-09 22:10 | Systemadministrator, betreut Server und Hostings für Vereine und Gemeinden.
+@mitglied fabian | Fabian Wyss | 2026-08-12 16:35 | Informatikstudent in Bern, schreibt gern Themes in Lava.
+@mitglied claire | Claire Dubois | 2026-08-11 21:40 | Webentwicklerin in Lausanne. Ich schreibe auf Deutsch, so gut es geht.
+@mitglied reto | Reto Gisler | 2026-08-19 08:40 | Gemeindeschreiber in einer Urner Gemeinde mit 2400 Einwohnerinnen und Einwohnern.
+@mitglied petra | Petra Zimmermann | 2026-08-24 19:30 | Aktuarin im Turnverein, kümmert sich um die Website.
+@mitglied oliver | Oliver Graf | 2026-08-28 11:15 | PHP-Entwickler in Basel, baut Plugins.
+@mitglied jasmin | Jasmin Ammann | 2026-09-02 09:55 | Führt mit ihrem Partner ein Restaurant am Zürichsee.
+@mitglied stefan | Stefan Huber | 2026-09-05 20:40 | Fotograf in Luzern.
+@mitglied lea | Lea Schmid | 2026-09-08 13:10 | Redakteurin bei einer Stiftung in Zürich.
+@mitglied michael | Michael Steiner | 2026-09-11 08:05 | IT-Leiter in einem KMU mit 40 Mitarbeitenden.
+@mitglied anna | Anna Rossi | 2026-09-15 18:25 | Übersetzerin Deutsch, Italienisch und Französisch in Bellinzona.
+@mitglied sabine | Sabine Kälin | 2026-09-19 07:45 | Lehrerin und ICT-Verantwortliche an einer Sekundarschule.
+@mitglied tobias | Tobias Brand | 2026-09-23 21:50 | Laravel-Entwickler aus Freiburg im Breisgau.
+@mitglied melanie | Melanie Roth | 2026-09-28 10:30 | Beraterin für digitale Barrierefreiheit.
+@mitglied kevin | Kevin Baumann | 2026-10-02 23:15 | Hobby-Entwickler. Baut nachts Websites für Freunde.
+@mitglied ursula | Ursula Lehmann | 2026-10-06 15:20 | Pensioniert. Schreibt die Chronik unserer Familie und möchte sie online stellen.
+@mitglied andrea | Andrea Vogt | 2026-10-10 09:00 | Projektleiterin in einer Agentur in Basel.
+@mitglied simon | Simon Egli | 2026-10-14 17:45 | Datenschutzberater in Aarau.
+@mitglied jonas | Jonas Kunz | 2026-10-19 20:10 | Webdesigner in Chur, viele Kunden auf Shared Hosting.
+@mitglied elena | Elena Marti | 2026-10-26 19:05 | Betreut die Website eines kleinen Hotels im Engadin.
+@mitglied raphael | Raphael Bucher | 2026-10-28 12:30 | Theme-Autor, möchte im Marktplatz verkaufen.
+@mitglied yves | Yves Morel | 2026-10-29 08:50 | Entwickler in Genf, lernt Deutsch.
+@mitglied laura | Laura Gerber | 2026-10-30 21:15 | Studiert Kommunikation und betreut die Website einer Band.
+
+// ── Neuigkeiten und Hinweise ─────────────────────────────────────────────────────────────────────────────────────
+
+@thema willkommen | ankundigungen | - | Willkommen in der Community von Basalto | angeheftet
+--- hoang | 2026-08-01 10:00
+Willkommen! Hier treffen sich alle, die mit Basalto Websites bauen und betreiben oder Themes und Plugins entwickeln.
+
+## Die Foren
+
+- **Neuigkeiten und Hinweise** — neue Versionen und Wichtiges zum Betrieb
+- **Fragen vor dem Kauf** — Lizenzen, Hosting, Sprachen
+- **Hilfe und Support** — wenn etwas nicht klappt
+- **Ideen & Vorschläge** — was Basalto noch können soll
+- **Fehlermeldungen** — mit Version und den Schritten dorthin
+- **Themes und Lava**, **Module und Plugins**, **Entwickler-Doku** — für alle, die selbst bauen
+- **Off-Topic** — alles andere
+
+Lesen geht ohne Anmeldung. Zum Schreiben melden Sie sich mit Ihrer E-Mail-Adresse an: Sie bekommen einen Code, ein Passwort gibt es nicht.
+
+Ich bin Hoang Nguyen und baue Basalto in Winterthur. Meine Beiträge sind als «offiziell» markiert.
+
+@thema beta-08 | ankundigungen | - | Basalto 0.8 Beta: zum Ausprobieren
+--- hoang | 2026-08-01 10:30
+Die erste öffentliche Beta ist da. Sie enthält schon das Wichtigste:
+
+- Seitenbaum und Block-Editor mit Vorschau
+- Themes in **Lava** — eine eigene Sprache ohne PHP, mit Prüfung
+- Medien mit Bildvarianten und Pflicht zum Alt-Text
+- Formulare, Suche und diese Community
+
+Bitte noch nicht für produktive Websites einsetzen. Rückmeldungen sind sehr willkommen — Fehler bitte unter [Fehlermeldungen](/community/fehlermeldungen), Wünsche unter [Ideen & Vorschläge](/community/ideen).
+--- hoang | 2026-08-14 17:20
+**0.8.1** ist draussen: Umlaute im Slug werden jetzt umgeschrieben statt entfernt, siehe [diese Meldung](@thema:slug-umlaute). Danke an alle, die getestet haben.
+
+@thema fragen-stellen | ankundigungen | - | So stellen Sie Fragen, die schnell eine Antwort bekommen | angeheftet
+--- hoang | 2026-08-06 09:00
+Ein paar Angaben helfen allen, die antworten möchten:
+
+1. **Version** — steht unten links im Backend.
+2. **Hosting** — Shared Hosting, eigener Server oder die Cloud.
+3. **Was Sie getan haben**, was Sie erwartet haben und was stattdessen passiert ist.
+4. **Meldung** — am besten als Text, nicht nur als Bildschirmfoto.
+
+Fehlermeldungen und Hilfe-Themen haben dafür eigene Felder. Und wenn eine Antwort geholfen hat: als «beste Antwort» markieren — dann finden andere sie schneller.
+
+@thema beta-09 | ankundigungen | - | Basalto 0.9: Übersetzen nebeneinander und Fassungen
+--- hoang | 2026-09-12 11:00
+Mit 0.9 kommen zwei grosse Stücke:
+
+- **Übersetzen nebeneinander** — links die Quelle, rechts die Übersetzung. Basalto merkt sich, auf welchem Stand der Quelle eine Übersetzung beruht, und zeigt an, wenn sie veraltet.
+- **Fassungen** — jede Änderung ist eine Fassung, vergleichbar und wiederherstellbar; dazu Einreichen und Freigabe.
+
+Ausserdem: Formulare in Lava mit Spamschutz, und die Mediathek schneidet Bilder nach Fokuspunkt zu.
+--- hoang | 2026-09-20 10:15
+Neu im Forum: Fehlermeldungen haben jetzt Felder für **Version** und **Browser**, Hilfe-Themen für **Version** und **Hosting**. Das spart viele Rückfragen.
+
+@thema rc-10 | ankundigungen | - | Basalto 1.0 Release Candidate: bitte testen
+--- hoang | 2026-10-05 16:00
+Der Release Candidate für 1.0 ist bereit. Was jetzt noch auffällt, kommt vor der 1.0 in Ordnung.
+
+Besonders interessiert mich:
+
+- Installation auf **Shared Hosting** — welcher Hoster, welche PHP-Version, was hat gefehlt?
+- Websites in **mehreren Sprachen**
+- **Barrierefreiheit** der mitgelieferten Themes
+
+Danke für jede Rückmeldung!
+
+@thema rel-10 | ankundigungen | - | Basalto 1.0 ist da
+--- hoang | 2026-10-19 18:00
+Heute ist **Basalto 1.0** erschienen. Danke an alle aus der Beta — viele Ideen aus diesem Forum stecken darin.
+
+Neu seit dem Release Candidate:
+
+- Lizenzen: **Free** für eine Site mit einem Benutzer und allen Modulen, **Site** und **Agentur** für mehr
+- Marktplatz für Themes und Plugins
+- Export und Sicherung, REST-API für Inhalte und Medien
+
+Wer die Beta im Einsatz hat: Bitte per Composer aktualisieren oder mit dem Web-Installer neu aufsetzen und die Inhalte über den Export mitnehmen.
+
+@thema cloud | ankundigungen | - | Basalto in der Cloud: «Kostenlos starten»
+--- hoang | 2026-10-19 19:30
+Wer nichts installieren möchte: Mit «Kostenlos starten» auf basaltocms.com entsteht eine eigene Site in der Cloud — mit Abo, eigener Domain und Umzug in beide Richtungen.
+
+Die Server stehen in der Schweiz.
+
+@thema rel-12 | ankundigungen | - | Basalto 1.2.0: die erste Fassung in Produktion
+--- hoang | 2026-10-26 17:55
+Basalto läuft ab heute in Produktion — die erste Installation ist basaltocms.com selbst: Website, Doku, Marktplatz und diese Community.
+
+## Was neu ist
+
+- Hilfe direkt im Backend (Taste F1 oder «?»), mit Bildern zu jeder Seite
+- Benachrichtigungen mit Glocke, Profilbild und Dunkelmodus im Benutzermenü
+- Theme-Bibliothek je Site und ein Fahrplan für die Einrichtung
+- Das Forum ist neu gestaltet — mit «wer schreibt gerade» und Live-Aktualisierung
+
+Updates wie immer unter Verwaltung › Updates.
+--- hoang | 2026-10-26 20:50
+Nachtrag: **1.2.1** ist draussen. Der Anmeldecode wird jetzt in sechs Ziffernfelder getippt und schickt sich von selbst ab; «Code erneut senden» erscheint nach einer kurzen Wartezeit.
+
+@thema rel-13 | ankundigungen | - | Basalto 1.3: Autosave überall
+--- hoang | 2026-10-27 12:35
+Mit **1.3.0** speichert Basalto überall von selbst — im Editor, in den Seiteneinstellungen, in der Verwaltung und im Kundenkonto. Der Wunsch kam aus [diesem Thema](@thema:idee-autosave).
+
+- **Drei Arten zu speichern:** sofort (Schalter, Auswahl), nach einer kurzen Pause (Texte) oder beim Verlassen eines Felds. Ein Häkchen am Feld zeigt, was gespeichert ist.
+- **Veröffentlichte Fassungen** speichern sich nicht von selbst — «Als neuen Entwurf speichern» legt eine neue Fassung an, ab dann übernimmt das Autosave.
+- Viele kleine Speicherungen fasst das Protokoll zu einem Eintrag zusammen.
+--- hoang | 2026-10-27 19:20
+Seit heute Mittag sind noch ein paar kleinere Fassungen dazugekommen: 1.3.1 bis 1.3.4 — die Version steht jetzt unten links in Backend und Extranet, die Website ist hell als Vorgabe.
+
+@thema demo | ankundigungen | - | Demo zum Ausprobieren: demo.basaltocms.com
+--- hoang | 2026-10-27 21:45
+Basalto lässt sich jetzt ohne Installation ausprobieren: **[demo.basaltocms.com](https://demo.basaltocms.com)** — angeregt in [diesem Vorschlag](@thema:idee-demo).
+
+- Backend und Website mit Beispielinhalten — Sie können alles ändern.
+- Jede Nacht wird die Demo zurückgesetzt; Mails verschickt sie nicht.
+- Hochladen geht bis zu einem Kontingent von 200 MB.
+
+@thema rel-138 | ankundigungen | - | Web-Installer mit Diagnose für rund 30 Hoster (1.3.8)
+--- hoang | 2026-10-28 11:30
+Der Web-Installer prüft ab **1.3.8** vor der Installation, was er tatsächlich vorfindet: PHP-Version, Webserver, Dokumentstamm, Erweiterungen, Datenbanktreiber und HTTPS. Rund 30 Hoster erkennt er beim Namen und nennt die passenden Menüs.
+
+Wo es geht, hilft er selbst — immer erst nach Ihrer Bestätigung und mit Sicherung. Danke an Jonas für den [Anstoss](@thema:idee-installer).
+
+@thema rel-139 | ankundigungen | - | Farbvarianten für Themes (1.3.9)
+--- hoang | 2026-10-29 17:05
+Themes können ab **1.3.9** mehrere Farbvarianten mitbringen. Welche gilt, wählen Sie unter **Einrichtung › Design** — ohne eine Zeile Code. Der Wunsch stammt von Nina, siehe [Farbvarianten für Themes](@thema:idee-farben).
+
+Ausserdem neu: Listen aus `entries()` lassen sich nach neu, alt, kommend oder einer eigenen Reihenfolge sortieren.
+
+@thema rel-1310 | ankundigungen | - | Marktplatz: Themes und Plugins verkaufen (1.3.10)
+--- hoang | 2026-10-30 11:15
+Im Marktplatz können Autorinnen und Autoren ab **1.3.10** ihre Themes und Plugins auch verkaufen.
+
+- Beim Einreichen wählen Sie «Kostenlos» oder «Verkaufen» mit Preis.
+- Das **Autorenkonto** ist ein Bereich Ihres Kundenkontos: Einträge, Verkäufe und Auszahlungen.
+- Einreichen geht in einem Dialog mit vier Schritten und Vorschau des Pakets im Browser.
+
+@thema schaufenster | ankundigungen | - | «Live anprobieren»: jedes Theme mit eigenem Schaufenster
+--- hoang | 2026-10-30 14:55
+Jedes freigegebene Theme bekommt jetzt ein eigenes **Schaufenster** — eine echte Site mit den Startinhalten des Themes. Im Katalog führt «Live anprobieren» dorthin.
+
+Unterdomain und Zertifikat richtet der Server selbst ein. «Live anprobieren» erscheint erst, wenn das Schaufenster antwortet.
+--- hoang | 2026-10-31 21:45
+Seit **1.3.18** liegen die Seiten eines neuen Schaufensters schon bei der Freigabe im Seiten-Cache, siehe [Schaufenster vorwärmen](@thema:idee-vorwaermen).
+
+@thema verkaufsstart | ankundigungen | - | Verkaufsstart im Marktplatz
+--- hoang | 2026-10-31 10:20
+Der Marktplatz verkauft jetzt: Bezahlte Themes und Plugins lassen sich mit Karte, TWINT oder QR-Rechnung kaufen.
+
+Den Anfang macht **Tavola** — ein Premium-Theme für Restaurants und Hotels mit Speisekarte, «Jetzt geöffnet», Zimmern, Anlässen und Reservierung, in vier Sprachen und mit drei Farbvarianten.
+
+@thema sechs-themes | ankundigungen | - | Sechs neue Themes im Marktplatz
+--- hoang | 2026-10-31 14:15
+Sechs neue Themes sind freigegeben, jedes mit eigenem Schaufenster:
+
+- **Auftakt** (kostenlos) — Onepager wie ein Plakat
+- **Dorfplatz** (kostenlos) — für Vereine, mit Anlässen, Sponsoren und Trainingszeiten
+- **Negativ** (kostenlos) — Portfolio für Fotografie
+- **Kanzlei** (CHF 99) — Treuhand, Recht und Beratung
+- **Allmend** (CHF 129) — für Gemeinden, mit Abfallkalender und «Ich möchte …»
+- **Agora** (CHF 89) — für Communities, Forum und Mitglieder gestaltet
+
+@thema rel-1315 | ankundigungen | - | Basalto 1.3.15 bis 1.3.18: Korrekturen vom 31. Oktober
+--- hoang | 2026-10-31 21:50
+Der 31. Oktober war ein Tag der Korrekturen — vieles davon ist beim Bau der sechs neuen Themes aufgefallen:
+
+- **1.3.15** — `\n` und `\t` in Lava-Zeichenketten ([Adresse mit «n»](@thema:bug-zeilenumbruch)), [Spamschutz ohne Web Crypto](@thema:bug-spamschutz), Farben des Themes in Kundenkonto und Forum
+- **1.3.16** — [Theme-Cache nach dem Update](@thema:bug-themecache), [Kurzbeschreibung mitten im Wort](@thema:bug-kurzbeschreibung), [«Ansehen» bei Typen aus dem Theme](@thema:bug-ansehen)
+- **1.3.17** — [Fehler 500 bei vielen Abrufen](@thema:bug-renderzeit): Die Zeitgrenze von Lava misst jetzt Rechenzeit
+- **1.3.18** — [Schaufenster werden vorgewärmt](@thema:idee-vorwaermen)
+
+@thema rel-1319 | ankundigungen | - | Basalto 1.3.19: Startseite wieder speicherbar
+--- hoang | 2026-11-01 01:45
+**1.3.19** behebt einen Fehler, der jede Website betraf, deren Startseite aus den Startinhalten eines Themes stammt: In der Standardsprache liess sie sich nicht speichern. Details unter [diesem Thema](@thema:bug-slug).
+
+Ausserdem fährt die Seitenleiste im Editor beim Scrollen mit, siehe [den Vorschlag von Andrea](@thema:idee-seitenleiste).
+
+// ── Fragen vor dem Kauf ──────────────────────────────────────────────────────────────────────────────────────────
+
+@thema programmieren | fragen-vor-dem-kauf | Gelöst | Muss ich programmieren können?
+--- thomas | 2026-08-05 08:10
+Guten Tag zusammen. Ich bin Treuhänder und möchte unsere Website endlich selbst pflegen, statt jedes Mal die Agentur anzurufen. Programmieren kann ich nicht. Ist Basalto trotzdem etwas für mich?
+--- sandra | 2026-08-05 09:02 | beste
+Ja. Wenn jemand das Theme einmal eingerichtet hat, arbeiten Sie nur noch mit Seiten und Blöcken: Text, Bild, Karten, Formular. Das ist ungefähr so schwierig wie ein Word-Dokument. Bei unseren Kundinnen und Kunden klappt das gut.
+--- luca | 2026-08-05 12:47
+Ergänzung: Texte aus Word können Sie direkt einfügen, auch mit Bildern. Und weil es Entwürfe gibt, machen Sie nichts kaputt — veröffentlicht wird erst, wenn Sie es wollen.
+--- hoang | 2026-08-05 18:30
+Genau so ist es gedacht. Für den Anfang: ein fertiges Theme nehmen, Startinhalte einspielen und dann die eigenen Texte hineinschreiben. Programmieren braucht es erst, wenn Sie ein ganz eigenes Theme möchten.
+--- thomas | 2026-08-06 07:35
+Danke allen. Das mit den Entwürfen beruhigt mich. Ich probiere es mit der Beta aus und melde mich.
+
+@thema backend-franzoesisch | fragen-vor-dem-kauf | Gelöst | Gibt es das Backend auf Französisch?
+--- claire | 2026-08-15 10:30
+Bonjour! Unsere Kundinnen in der Romandie arbeiten auf Französisch. Gibt es das Backend auch auf Französisch, nicht nur die Website?
+--- hoang | 2026-08-15 13:10 | beste
+Bonjour Claire! Ja: Das Backend gibt es auf Deutsch, Englisch, Französisch und Italienisch, jede Person wählt ihre Sprache im Profil. Die Website selbst kann beliebig viele Sprachen haben. Falls Ihnen eine Übersetzung holprig vorkommt, sagen Sie es bitte — die französischen Texte sind noch frisch.
+--- claire | 2026-08-15 14:05
+Merci! Ich schaue mir das an und schicke Ihnen die Stellen, die komisch klingen.
+--- anna | 2026-09-16 09:20
+Spät, aber vielleicht hilft es: Auch das Italienische ist gut. Ich habe ein paar Begriffe gemeldet, sie waren in der nächsten Beta korrigiert.
+
+@thema gemeinde-a11y | fragen-vor-dem-kauf | Gelöst | Gemeinde-Website: Wie steht es mit der Barrierefreiheit?
+--- reto | 2026-08-19 09:00
+Wir sind eine kleine Gemeinde und müssen bei der neuen Website auf Barrierefreiheit achten. Was macht Basalto hier von sich aus, und was müssen wir selbst beachten?
+--- hoang | 2026-08-19 11:25
+Von sich aus:
+
+- Bilder brauchen einen Alt-Text, sonst lassen sie sich nicht veröffentlichen.
+- Die mitgelieferten Themes sind auf Kontraste nach WCAG 2.2 AA geprüft, hell und dunkel.
+- Das Backend selbst ist mit Tastatur bedienbar und für Screenreader beschriftet.
+
+Selbst beachten müssen Sie vor allem die Inhalte: sinnvolle Überschriften, verständliche Linktexte, Dokumente als zugängliche PDFs.
+--- reto | 2026-08-19 14:40
+Danke, das hilft für den Antrag an den Gemeinderat.
+--- melanie | 2026-09-29 08:50 | beste
+Ich komme beruflich aus der Ecke und habe mir das angeschaut. Die Alt-Text-Pflicht ist Gold wert, das scheitert sonst überall. Mein Tipp für Gemeinden: Bei Formularen auf klare Fehlermeldungen achten und PDFs nur ergänzend anbieten, nicht als einzige Quelle.
+--- reto | 2026-10-31 15:20
+Kleiner Nachtrag für alle Gemeinden: Mit **Allmend** gibt es jetzt ein Theme genau für uns, siehe [Sechs neue Themes](@thema:sechs-themes). Grosse Schrift, starke Kontraste, «Ich möchte …» auf der Startseite.
+
+@thema restaurant | fragen-vor-dem-kauf | Gelöst | Eignet sich Basalto für ein Restaurant mit Speisekarte?
+--- jasmin | 2026-09-02 10:10
+Hallo! Wir haben ein Restaurant am Zürichsee und wollen die Speisekarte selbst ändern können, auch die Tagesmenüs. Geht das mit Basalto, ohne dass ich jedes Mal eine Seite neu bauen muss?
+--- luca | 2026-09-02 11:35
+Das geht gut: Man legt im Theme einen eigenen Inhaltstyp «Gericht» an (Name, Preis, Kategorie). Dann tragen Sie nur noch Gerichte ein, und die Speisekarte stellt sich selbst zusammen.
+--- hoang | 2026-09-02 17:50
+Luca hat recht. Ein fertiges Theme für Gastronomie ist übrigens in Arbeit — mit Speisekarte, Öffnungszeiten und Reservierung.
+--- jasmin | 2026-09-02 19:15
+Das klingt perfekt, ich warte gern.
+--- jasmin | 2026-10-31 11:00
+Es ist da: **Tavola**, siehe [Verkaufsstart](@thema:verkaufsstart). Ich habe es im Schaufenster ausprobiert, die Speisekarte ist genau, was wir brauchen. Gekauft!
+--- hoang | 2026-10-31 11:40 | beste
+Das freut mich sehr, Jasmin! Wenn beim Einrichten etwas hakt, einfach hier fragen.
+
+@thema benutzer-free | fragen-vor-dem-kauf | Gelöst | Wie viele Benutzer gehen mit Free?
+--- michael | 2026-09-11 08:20
+Wir sind drei Personen, die an der Website arbeiten würden. Reicht dafür Free, oder brauchen wir eine Lizenz?
+--- hoang | 2026-09-11 10:05 | beste
+Free ist für eine Site mit **einem** Backend-Benutzer. Für drei Personen brauchen Sie die Lizenz **Site**: beliebig viele Benutzer, bis zu drei Sites unter einer Produktions-Domain, einmal bezahlt, Updates ein Jahr inklusive. Ausprobieren können Sie aber alles mit Free.
+--- michael | 2026-09-11 10:40
+Klar, danke. Dann testen wir zu dritt mit einem Konto und kaufen zum Start.
+
+@thema schule | fragen-vor-dem-kauf | Gelöst | Lizenz für eine Schule?
+--- sabine | 2026-09-19 08:00
+Ich bin an einer Sekundarschule für die Website zuständig. Gibt es Konditionen für Schulen? Unser Budget ist … sagen wir: übersichtlich.
+--- hoang | 2026-09-19 12:15 | beste
+Ja: Schulen, Vereine und gemeinnützige Organisationen bekommen auf Anfrage eine kostenlose Site-Lizenz. Schreiben Sie mir einfach mit dem Namen der Schule und der Domain an email@basaltocms.com.
+--- sabine | 2026-09-19 12:40
+Wunderbar, Mail ist unterwegs!
+--- petra | 2026-09-19 19:10
+Gilt das auch für Turnvereine? 😊
+--- hoang | 2026-09-19 20:05
+Ja, auch für Turnvereine.
+
+@thema composer | fragen-vor-dem-kauf | Gelöst | Installation mit Composer statt Web-Installer?
+--- tobias | 2026-09-23 22:05
+Ich installiere Laravel-Projekte immer mit Composer und deploye per Git. Geht das mit Basalto auch, oder ist der Web-Installer der einzige Weg?
+--- oliver | 2026-09-24 07:55 | beste
+Geht: Es gibt ein Release-Archiv für die Konsole, mit `vendor/` und gebautem Frontend. Entpacken, `.env` anpassen, migrieren — fertig. Composer und Node brauchst du auf dem Server nicht einmal. Der Web-Installer ist für Leute ohne Terminal gedacht.
+--- hoang | 2026-09-24 09:30
+Genau. Beide Wege stehen unter [Installation](/doku/betrieb-installation). Wer Basalto über Composer in ein eigenes Projekt holt, aktualisiert dann auch per Composer — die Seite «Updates» im Backend zeigt den passenden Befehl.
+--- tobias | 2026-09-24 10:15
+Perfekt, danke euch beiden.
+
+@thema familienchronik | fragen-vor-dem-kauf | Gelöst | Etwas für eine Familienchronik?
+--- ursula | 2026-10-06 15:40
+Grüezi miteinander. Ich bin pensioniert und schreibe seit Jahren an der Chronik unserer Familie — mit vielen alten Fotos. Meine Enkelin meint, ich solle das ins Internet stellen, aber nur für die Familie. Ist Basalto dafür geeignet, oder ist das zu kompliziert für mich?
+--- petra | 2026-10-06 18:20
+Liebe Ursula, ich bin auch keine Technikerin und komme gut zurecht. Für «nur für die Familie» gibt es geschützte Seiten — nur wer ein Konto hat, sieht sie.
+--- thomas | 2026-10-06 19:45
+Ich kann Petra nur zustimmen. Fangen Sie mit einem fertigen Theme an, dann ist es wirklich wie Briefe schreiben.
+--- hoang | 2026-10-07 08:30 | beste
+Danke euch! Ursula: Free genügt dafür völlig. Mit dem Modul **Mitglieder** schützen Sie Seiten, sodass nur die Familie sie sieht. Und bei den alten Fotos: Basalto verlangt zu jedem Bild eine kurze Beschreibung — für eine Chronik ist das ohnehin schön.
+--- ursula | 2026-10-07 09:15
+Vielen Dank, Sie sind alle sehr freundlich. Dann wage ich es.
+
+@thema agentur-whitelabel | fragen-vor-dem-kauf | Gelöst | Agentur-Lizenz: Was heisst White-Label genau?
+--- andrea | 2026-10-10 09:20
+Wir sind eine Agentur in Basel und überlegen die Agentur-Lizenz. Was bedeutet White-Label konkret — sehen unsere Kundinnen und Kunden irgendwo «Basalto»?
+--- hoang | 2026-10-10 11:45 | beste
+Mit White-Label können Sie das Backend mit Ihrem Namen und Logo zeigen. Ausserdem bekommt jede Kundin eine eigene Unterlizenz mit ihrer Domain, und Sie haben Prioritäts-Support. Die Software bleibt dieselbe, Updates kommen wie gewohnt.
+--- sandra | 2026-10-10 13:20
+Aus Agentur-Sicht: Für uns lohnt sich das ab etwa vier Kunden-Websites. Darunter sind einzelne Site-Lizenzen günstiger.
+--- andrea | 2026-10-10 14:05
+Danke, das ist eine hilfreiche Rechnung.
+
+@thema datenschutz | fragen-vor-dem-kauf | Gelöst | Wo liegen die Daten — und wie steht es mit DSG und DSGVO?
+--- simon | 2026-10-14 18:00
+Ich berate KMU beim Datenschutz. Bevor ich Basalto empfehle: Wo liegen die Daten, und was bietet Basalto für Auskunft und Löschung?
+--- hoang | 2026-10-14 20:30 | beste
+Gute Frage, gern genau:
+
+- **Download:** Die Daten liegen dort, wo Sie Basalto installieren. Der Lizenzschlüssel wird offline geprüft.
+- **Cloud:** Die Server stehen in der Schweiz.
+- **Auskunft und Löschung:** Kundinnen und Kunden finden beides in ihrem Kundenkonto; im Backend gibt es Auskunft und Löschung je E-Mail-Adresse.
+- **Cookies:** Ohne Zustimmung nur die notwendigen; eine Statistik zählt erst nach Zustimmung.
+--- simon | 2026-10-15 08:10
+Das ist sauber gelöst. Danke für die ausführliche Antwort.
+
+@thema wordpress-umzug | fragen-vor-dem-kauf | Frage | Kann ich von WordPress umziehen?
+--- elena | 2026-10-26 19:20
+Hallo zusammen, ich betreue die Website eines kleinen Hotels im Engadin, bisher mit WordPress. Gibt es einen Import, oder muss ich alles neu anlegen?
+--- luca | 2026-10-26 20:35
+Einen Import aus WordPress gibt es (noch) nicht. Bei kleinen Websites ging es bei mir schnell: Texte aus dem alten Editor kopieren und einfügen, Bilder in die Mediathek ziehen. Für 20 Seiten rechnen Sie mit einem Nachmittag.
+--- elena | 2026-10-26 21:10
+Ok, das ist machbar. Ich habe den Wunsch trotzdem bei den [Ideen](@thema:idee-wordpress) eingetragen.
+
+// ── Hilfe und Support ────────────────────────────────────────────────────────────────────────────────────────────
+
+@thema bild-im-text | hilfe-und-support | Gelöst | Wie füge ich ein Bild in einen Textblock ein?
+@felder version=0.8.0; hosting=Shared Hosting
+--- thomas | 2026-08-07 09:00
+Ich habe einen Textblock und möchte rechts daneben ein Foto von unserem Büro. Ich finde nur einen eigenen Bildblock. Wie geht das?
+--- luca | 2026-08-07 10:20 | beste
+Im Textblock selbst gibt es in der Werkzeugleiste «Bild aus der Mediathek». Wenn Sie das Bild aber neben dem Text haben möchten, nehmen Sie den Block **«Text mit Bild»**, falls Ihr Theme ihn hat — dort wählen Sie links oder rechts.
+--- thomas | 2026-08-07 11:05
+«Text mit Bild» war es. Sieht gut aus, danke!
+
+@thema cron | hilfe-und-support | Gelöst | Cron auf Shared Hosting: welcher Befehl genau?
+@felder version=0.8.0; hosting=Shared Hosting
+--- daniel | 2026-08-10 08:30
+Ich setze Basalto für einen Verein auf einem Shared Hosting auf. Welchen Cron-Eintrag braucht es, und muss ich einen Queue-Worker laufen lassen? Supervisor gibt es dort nicht.
+--- hoang | 2026-08-10 10:15 | beste
+Ein Worker ist nicht nötig. Ein einziger Cron im Minutentakt genügt:
+
+```bash
+* * * * * cd /pfad/zu/basalto && php artisan schedule:run >> /dev/null 2>&1
+```
+
+Der Zeitplan arbeitet die Warteschlange dann jede Minute ab, solange `QUEUE_CONNECTION=database` gilt. Wichtig bei Shared Hosting: Im Cron den **vollen Pfad** zu PHP 8.4 oder neuer eintragen, sonst startet die Vorgabe-Version des Servers.
+--- daniel | 2026-08-10 11:40
+Danke. Der volle Pfad war der Knackpunkt — der Server startet sonst PHP 8.2. Läuft jetzt.
+--- jonas | 2026-10-20 07:55
+Danke für diesen Thread, genau mein Problem gestern Abend bei einem Kunden.
+
+@thema termine-liste | hilfe-und-support | Gelöst | Termine des Turnvereins als Liste
+@felder version=0.8.1; hosting=Shared Hosting
+--- petra | 2026-08-25 20:10
+Ich möchte auf der Startseite die nächsten Termine unseres Turnvereins zeigen — Training fällt aus, Turnfest, Generalversammlung. Muss ich die jedes Mal von Hand in einen Textblock schreiben?
+--- fabian | 2026-08-25 21:30 | beste
+Nein, dafür gibt es Inhaltstypen. Wenn Ihr Theme einen Typ «Anlass» mit Datum hat, legen Sie jeden Termin einzeln an, und ein Block zeigt automatisch die nächsten. In Lava sieht das etwa so aus:
+
+```lava
+{% each entries("event", 5, "kommend") as item %}
+  <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+{% end %}
+```
+
+Vergangene Termine fallen dann von selbst weg.
+--- petra | 2026-08-26 07:40
+Das mit «fallen von selbst weg» ist genau, was ich brauche. Ich frage unseren Webmeister, ob er den Typ einbaut.
+--- sandra | 2026-08-26 09:15
+Kleiner Hinweis: Wenn Ihr Theme so einen Typ noch nicht hat, lohnt sich ein Theme für Vereine — dann ist das schon eingebaut.
+
+@thema bilder-unscharf | hilfe-und-support | Gelöst | Bilder auf der Website sind unscharf
+@felder version=0.8.3; hosting=Eigener Server (VPS)
+--- stefan | 2026-09-06 21:00
+Ich bin Fotograf, und meine Bilder sehen auf der Website weich aus, vor allem auf dem MacBook. Ich lade sie als JPG mit 1600 Pixel Breite hoch.
+--- nina | 2026-09-06 22:15 | beste
+Laden Sie die Originale grösser hoch, etwa 3000 Pixel. Basalto schneidet daraus selbst die Varianten für jede Bildschirmgrösse, auch die doppelt so dichten für Retina-Bildschirme. Mit 1600 Pixel fehlt dafür schlicht das Material.
+--- hoang | 2026-09-07 08:30
+Genau, Nina. Und wenn bei Hochformaten der falsche Ausschnitt erscheint: In der Mediathek lässt sich ein **Fokuspunkt** setzen, an dem sich das Zuschneiden orientiert.
+--- stefan | 2026-09-07 19:20
+Mit den Originalen ist es scharf. Den Fokuspunkt kannte ich noch nicht, sehr praktisch für Porträts.
+
+@thema freigabe | hilfe-und-support | Gelöst | Wer darf veröffentlichen?
+@felder version=0.9.0; hosting=Basalto SaaS
+--- lea | 2026-09-09 09:15
+Bei uns schreiben zwei Personen Texte, aber nur die Kommunikationsleiterin soll veröffentlichen dürfen. Wie stelle ich das ein?
+--- sandra | 2026-09-09 10:30
+Über die Rollen: Die Redaktion schreibt und reicht ein, die Freigabe gibt frei und veröffentlicht. Geben Sie den zwei Schreibenden die Rolle Redaktion und der Leiterin die Freigabe.
+--- hoang | 2026-09-09 11:45 | beste
+Und wenn Sie es ganz streng möchten: In den Einstellungen gibt es das **Vier-Augen-Prinzip**. Dann darf niemand seine eigene Fassung freigeben, auch nicht die Leiterin.
+--- lea | 2026-09-09 13:00
+Perfekt, das Vier-Augen-Prinzip passt zu unserer Stiftung.
+
+@thema mail-spam | hilfe-und-support | Gelöst | Mails aus dem Kontaktformular landen im Spam
+@felder version=0.9.0; hosting=Eigener Server (VPS)
+--- michael | 2026-09-12 14:30
+Die Benachrichtigungen aus unserem Kontaktformular landen bei Outlook im Junk-Ordner. Absender ist info@unsere-firma.ch. Woran kann das liegen?
+--- daniel | 2026-09-12 16:05 | beste
+Fast immer am Mailserver, nicht an Basalto. Prüfen Sie für die Absender-Domain:
+
+- **SPF** — darf Ihr Server für die Domain senden?
+- **DKIM** — werden die Mails signiert?
+- **DMARC** — gibt es einen Eintrag?
+
+Und senden Sie über den SMTP-Server Ihres Mail-Anbieters statt direkt vom Webserver.
+--- michael | 2026-09-13 09:10
+DKIM fehlte tatsächlich. Seit der Eintrag steht, kommt alles im Posteingang an. Danke, Daniel!
+
+@thema mehrere-sites | hilfe-und-support | Gelöst | Mehrere Kunden-Websites in einer Installation?
+@felder version=0.8.1; hosting=Eigener Server (VPS)
+--- sandra | 2026-08-20 15:10
+Kann ich mehrere Kunden-Websites in einer einzigen Installation betreiben, mit je eigener Domain? Oder brauche ich für jede Kundin eine eigene Installation?
+--- hoang | 2026-08-20 17:30 | beste
+Beides geht. Eine Installation kann mehrere **Sites** haben, jede mit eigenen Domains, Sprachen, Theme und Team. Für Agenturen ist das oft bequemer, weil ein Update alle Sites auf einmal aktualisiert. Wer die Daten strikt trennen möchte, nimmt je Kundin eine eigene Installation.
+--- sandra | 2026-08-20 18:05
+Ich glaube, wir machen eine gemischte Lösung: kleine Kundinnen zusammen, die grossen getrennt.
+
+@thema weiterleitungen | hilfe-und-support | Gelöst | Neue Website: alte Adressen weiterleiten
+@felder version=0.8.1; hosting=Shared Hosting
+--- reto | 2026-08-21 10:00
+Unsere alte Website hat Adressen wie `/verwaltung/einwohnerkontrolle.html`. Viele Leute haben Links darauf gespeichert. Wie leite ich die auf die neuen Seiten um?
+--- hoang | 2026-08-21 13:20 | beste
+Im Seitenbaum gibt es **Umleitungen**: alte Adresse eintragen, neue Seite wählen, fertig — mit 301, damit auch Suchmaschinen es lernen. Und wenn Sie später den Slug einer Seite ändern, legt Basalto die Umleitung von selbst an.
+--- reto | 2026-08-21 15:10
+Danke. Ich habe die zwanzig wichtigsten Adressen aus der Statistik genommen und umgeleitet.
+
+@thema uebersetzung-veraltet | hilfe-und-support | Gelöst | Übersetzung zeigt «veraltet», obwohl ich nichts geändert habe
+@felder version=0.9.0; hosting=Basalto SaaS
+--- anna | 2026-09-16 11:40
+Bei einer Seite steht beim Italienischen «veraltet». Ich habe die Übersetzung aber erst gestern gemacht und seither nicht angerührt.
+--- hoang | 2026-09-16 13:15 | beste
+«Veraltet» hängt an der **Quelle**: Hat jemand die deutsche Fassung seither geändert, gilt die Übersetzung als veraltet. In «Übersetzen nebeneinander» sehen Sie markiert, was sich in der Quelle geändert hat.
+--- anna | 2026-09-16 14:00
+Tatsächlich, die Kollegin hat ein Komma ergänzt 😄 Danke, dann ist alles klar.
+
+@thema herd-weiss | hilfe-und-support | Gelöst | Lokal mit Herd: Die Seite bleibt weiss
+@felder version=1.0.0-rc; hosting=Docker
+--- kevin | 2026-10-03 00:20
+Ich habe Basalto lokal mit Herd aufgesetzt. Das Backend lädt, aber die Seite bleibt weiss. In der Konsole des Browsers steht etwas von Vite.
+--- marco | 2026-10-03 08:10 | beste
+Klingt nach einer übrig gebliebenen `public/hot`-Datei. Läuft vielleicht noch `npm run dev` in einem anderen Projekt? Dann zeigt Basalto auf einen Vite-Server, der nicht seiner ist. Entweder `npm run dev` im Basalto-Ordner starten oder die Datei `public/hot` löschen.
+--- kevin | 2026-10-03 09:30
+Volltreffer, im anderen Fenster lief noch ein altes Projekt. Danke!
+--- daniel | 2026-10-03 10:05
+Kleiner Tipp, falls Docker gemeint war: Im Feld oben steht «Docker», aber Herd ist kein Docker. Hilft beim nächsten Mal beim Suchen.
+
+@thema oeffnungszeiten | hilfe-und-support | Gelöst | Öffnungszeiten: «Jetzt geöffnet» anzeigen
+@felder version=0.8.3; hosting=Basalto SaaS
+--- jasmin | 2026-09-03 16:00
+Kann Basalto neben den Öffnungszeiten anzeigen, ob wir gerade offen haben? Viele Gäste schauen kurz auf dem Handy nach.
+--- luca | 2026-09-03 17:25
+Mit einem eigenen Block in Lava ginge das. Einfacher wird es mit dem angekündigten Gastro-Theme, siehe [diese Frage](@thema:restaurant).
+--- jasmin | 2026-09-03 18:40
+Dann warte ich auf das Theme.
+--- hoang | 2026-10-31 10:45 | beste
+Tavola hat genau diesen Block: «Jetzt geöffnet» zeigt anhand der eingetragenen Öffnungszeiten, ob gerade offen ist. Siehe [Verkaufsstart](@thema:verkaufsstart).
+
+@thema mitgliederbereich | hilfe-und-support | Gelöst | Ein Bereich nur für Vereinsmitglieder
+@felder version=0.9.2; hosting=Shared Hosting
+--- petra | 2026-09-30 19:00
+Wir möchten Protokolle und das Trainingsprogramm nur unseren Mitgliedern zeigen. Wie mache ich das?
+--- hoang | 2026-09-30 20:45 | beste
+Mit dem Modul **Mitglieder**: Seiten lassen sich als geschützt markieren, und nur angemeldete Mitglieder sehen sie. Die Anmeldung läuft mit einem Code per E-Mail, ein Passwort brauchen Ihre Mitglieder nicht.
+--- petra | 2026-10-01 18:30
+Eingerichtet! Die Mitglieder finden es super, dass sie sich kein Passwort merken müssen.
+
+@thema installer-php | hilfe-und-support | Gelöst | Web-Installer meldet «PHP-Version zu alt»
+@felder version=1.1.0; hosting=Shared Hosting
+--- jonas | 2026-10-20 08:45
+Der Web-Installer bricht bei einem Kunden mit «PHP-Version zu alt» ab. Im Hosting-Panel steht aber PHP 8.4.
+--- daniel | 2026-10-20 10:10 | beste
+Vermutlich gilt PHP 8.4 nur für einen anderen Ordner. Bei vielen Hostern stellt man die Version pro Domain oder Ordner ein. Prüfen Sie, welche Version für genau den Ordner gilt, in dem die Datei des Installers liegt. Manchmal steht auch eine alte PHP-Zeile in der `.htaccess`.
+--- jonas | 2026-10-20 11:30
+Es war die `.htaccess` im übergeordneten Ordner, mit einer Zeile für PHP 8.1. Danke!
+--- hoang | 2026-10-28 11:50
+Ab 1.3.8 findet der Installer solche Zeilen selbst und bietet an, sie zu ändern, siehe [Web-Installer mit Diagnose](@thema:rel-138).
+
+@thema log-500 | hilfe-und-support | Gelöst | Fehler 500 nach dem Umzug — wo ist das Log?
+@felder version=1.1.0; hosting=Shared Hosting
+--- jonas | 2026-10-24 19:00
+Nach dem Umzug zu einem anderen Hoster zeigt die Website nur noch «500». Wo finde ich heraus, was los ist?
+--- daniel | 2026-10-24 19:45 | beste
+Im Log: `storage/logs/laravel.log` im Ordner der Installation. Die letzten Zeilen zeigen den Fehler. Nach einem Umzug sind es meistens die Datenbank-Angaben in der `.env` oder Schreibrechte auf `storage/`.
+--- jonas | 2026-10-24 20:20
+Datenbank-Passwort, natürlich. Läuft wieder. Danke!
+
+@thema zimmer-sprachen | hilfe-und-support | Gelöst | Hotel-Website in drei Sprachen
+@felder version=1.2.0; hosting=Basalto SaaS
+--- elena | 2026-10-27 08:40
+Unser Hotel braucht die Website auf Deutsch, Englisch und Italienisch. Wie füge ich eine Sprache hinzu, und wie übersetze ich am besten?
+--- anna | 2026-10-27 10:15 | beste
+Die Sprachen fügen Sie in den Einstellungen der Site hinzu. Dann gibt es bei jeder Seite oben Reiter je Sprache. Am angenehmsten ist «Übersetzen nebeneinander»: links Deutsch, rechts die Übersetzung, Block für Block. Als Übersetzerin kann ich sagen: Das ist eines der besten Werkzeuge dafür, die ich kenne.
+--- elena | 2026-10-27 11:00
+Danke! Das Italienische mache ich selbst, fürs Englische frage ich eine Kollegin.
+
+@thema speichern-knopf | hilfe-und-support | Gelöst | Wo ist der Speichern-Knopf?
+@felder version=1.3.4; hosting=Basalto SaaS
+--- ursula | 2026-10-28 09:30
+Seit dem Update finde ich den Knopf «Speichern» nicht mehr. Habe ich etwas falsch eingestellt?
+--- lea | 2026-10-28 10:05 | beste
+Nein, Basalto speichert jetzt von selbst, siehe [die Ankündigung](@thema:rel-13). Beim Feld erscheint ein kleines Häkchen, wenn gespeichert ist. Nur bei einer schon veröffentlichten Seite steht «Als neuen Entwurf speichern».
+--- ursula | 2026-10-28 10:43
+Ach so! Das ist ja noch einfacher. Danke, Lea.
+
+@thema env-mail | hilfe-und-support | Gelöst | Neue Mail-Einstellungen in der .env greifen nicht
+@felder version=1.3.17; hosting=Shared Hosting
+--- sandra | 2026-10-31 22:40
+Ich habe bei einer Kundin die SMTP-Angaben in der `.env` geändert, aber Basalto verschickt weiter über den alten Server. Cache geleert habe ich im Browser schon.
+--- hoang | 2026-10-31 23:18 | beste
+Vermutlich gibt es einen **Konfigurations-Cache**. Solange er besteht, liest Laravel die `.env` nicht mehr. Nach jeder Änderung:
+
+```bash
+php artisan config:cache
+```
+
+Ob einer besteht, sehen Sie an `bootstrap/cache/config.php`. Ein Update über Verwaltung › Updates leert ihn übrigens.
+--- sandra | 2026-10-31 23:26
+Genau das war es. Danke für die späte Antwort!
+
+@thema php-cli | hilfe-und-support | Gelöst | «Composer detected issues … PHP >= 8.4.1» bei php artisan
+@felder version=1.3.17; hosting=Shared Hosting
+--- marco | 2026-10-31 23:05
+Ich wollte den Tipp aus dem Nachbarthema ausprobieren und bekomme beim `php artisan`:
+
+```plaintext
+Fatal error: Uncaught RuntimeException: Composer detected issues in your platform:
+Your Composer dependencies require a PHP version ">= 8.4.1". You are running 8.3.x.
+```
+
+Die Website läuft aber mit PHP 8.5.
+--- daniel | 2026-10-31 23:12 | beste
+Klassiker: Die Website und das Terminal haben beim Hoster verschiedene PHP-Versionen. Nimm den vollen Pfad, bei cyon zum Beispiel `/opt/alt/php85/usr/bin/php artisan config:cache`. Für die Sitzung geht auch `alias php=/opt/alt/php85/usr/bin/php`.
+--- hoang | 2026-10-31 23:22
+Danke, Daniel. Denselben Pfad braucht auch der Cron, siehe [Cron auf Shared Hosting](@thema:cron).
+--- marco | 2026-10-31 23:31
+Mit dem Pfad geht es. Grazie!
+
+@thema code-kommt-nicht | hilfe-und-support | Gelöst | Der Anmeldecode kommt nicht an
+@felder version=1.3.18; hosting=Basalto SaaS
+--- thomas | 2026-10-31 23:40
+Ich will mich anmelden, es steht «Wenn ein Konto zu … gehört, ist ein Code unterwegs» — aber es kommt nichts. Auch nicht im Spam.
+--- hoang | 2026-10-31 23:55 | beste
+Basalto verrät absichtlich nicht, ob eine Adresse ein Konto hat, und zeigt immer denselben Hinweis. Für eine Adresse ohne Konto wird kein Code verschickt. Ist es vielleicht eine andere Adresse als die, mit der Sie sich registriert haben? Mit «Andere Adresse» versuchen Sie es neu.
+--- thomas | 2026-11-01 00:10
+Tatsächlich: Ich hatte die Geschäftsadresse eingegeben, das Konto läuft auf die private. Danke und gute Nacht!
+
+@thema entwurf-live | hilfe-und-support | Gelöst | Geändert, aber auf der Website steht noch der alte Stand
+@felder version=1.3.18; hosting=Basalto SaaS
+--- elena | 2026-11-01 00:25
+Ich habe die Zimmerpreise auf Deutsch, Englisch und Italienisch geändert. Auf der Website sieht man aber nur auf Italienisch die neuen Preise.
+--- hoang | 2026-11-01 00:40 | beste
+Basalto trennt **Entwurf** und **veröffentlichte Fassung**, und zwar je Sprache. Vermutlich haben Sie nur die italienische Fassung freigegeben. Unter den Sprachreitern sehen Sie je Sprache, ob ein Entwurf oder die veröffentlichte Fassung offen ist; rechts unter «Fassung» steht bei «Live», was die Besucher sehen. Reichen Sie Deutsch und Englisch ebenfalls ein und geben Sie sie frei.
+--- elena | 2026-11-01 00:52
+Genau so war es. Danke für die schnelle Hilfe um diese Zeit!
+
+// ── Ideen & Vorschläge ───────────────────────────────────────────────────────────────────────────────────────────
+
+@thema idee-wordpress | ideen | Idee | Import aus WordPress
+--- elena | 2026-10-26 21:05
+Ein Import aus WordPress wäre für viele ein grosser Schritt: Seiten, Beiträge und Bilder übernehmen, damit man nicht alles kopieren muss.
+--- luca | 2026-10-27 08:15
++1. Gerade bei Blogs mit vielen Beiträgen wird Kopieren mühsam.
+--- andrea | 2026-10-27 09:40
+Aus Agentur-Sicht wäre das ein echtes Verkaufsargument. Die Hälfte unserer Anfragen sind WordPress-Umzüge.
+--- hoang | 2026-10-27 14:10
+Danke, ist notiert. Damit ich es richtig zuschneide: Was müsste mit? Ich denke an Seiten, Beiträge mit Kategorien, Medien mit Alt-Text und Umleitungen der alten Adressen. Kommentare und Plugins eher nicht.
+--- elena | 2026-10-27 15:05
+Seiten, Beiträge und Bilder würden mir schon reichen. Umleitungen wären ein schöner Bonus.
+
+@thema idee-a11y-pruefung | ideen | Idee | Überschriften-Reihenfolge im Editor prüfen
+--- melanie | 2026-10-01 11:00
+Ein häufiger Fehler: Redaktionen springen von H2 direkt auf H4, weil es «schöner aussieht». Könnte der Editor darauf hinweisen, so wie beim fehlenden Alt-Text?
+--- reto | 2026-10-01 13:25
+Das würde uns helfen. Bei uns schreiben fünf Leute, und jeder macht es anders.
+--- hoang | 2026-10-01 17:40
+Gute Idee, notiert. Ein Hinweis im Editor wäre machbar, ohne das Speichern zu blockieren — anders als beim Alt-Text, der ist Pflicht.
+
+@thema idee-kalender | ideen | Idee | Kalenderansicht für Termine
+--- thomas | 2026-09-18 08:30
+Für unsere Kurse wäre eine Monatsansicht schön, nicht nur eine Liste. Gibt es das?
+--- petra | 2026-09-18 20:10
+Würde ich auch nehmen, für die Hallenbelegung im Verein.
+--- hoang | 2026-09-19 09:40
+Als Block in Lava ist das machbar; ein fertiger Kalender-Block steht auf der Liste. Wie wichtig wäre ein Export für den eigenen Kalender (iCal)?
+--- thomas | 2026-09-19 10:15
+iCal wäre fantastisch, dann hätten die Teilnehmenden die Kurse gleich im Handy.
+
+@thema idee-entries-filter | ideen | Idee | Lava: entries() nach Feld filtern
+--- fabian | 2026-10-31 16:30
+Beim Bauen eines Themes stosse ich immer wieder darauf: Ich möchte nur die Einträge eines Typs zeigen, bei denen ein Feld einen bestimmten Wert hat — etwa nur die Publikationen einer Rubrik. Heute geht das nur mit eigenen Typen oder Umwegen.
+--- nina | 2026-10-31 17:05
++1, genau das hatte ich beim Bau einer Vereins-Website mit verschiedenen Riegen.
+--- hoang | 2026-10-31 18:20
+Notiert — ist mir beim Bau der sechs neuen Themes auch mehrfach begegnet. Denkbar ist ein weiterer Parameter für Feld und Wert.
+
+@thema idee-fehlerliste | ideen | Idee | Meldungen zu Feldern, die das Formular nicht zeigt, als Liste
+--- hoang | 2026-11-01 01:55
+Oben im Editor steht bei einem Fehler nur die Zahl: «1 Feld zu prüfen». Gehört der Fehler zu einem Feld, das das Formular gar nicht zeigt, weiss man nicht, wo suchen — so war es bei [diesem Fehler](@thema:bug-slug).
+
+Vorschlag: Ein Klick auf die Zahl springt zum ersten markierten Feld; gibt es keines, erscheint die Meldung selbst.
+
+// ── Umgesetzte Vorschläge ────────────────────────────────────────────────────────────────────────────────────────
+
+@thema idee-farben | umgesetzte-vorschlaege | Umgesetzt | Farbvarianten für Themes
+--- nina | 2026-08-30 10:00
+Viele Kundinnen lieben ein Theme, wollen aber «ihre» Farbe. Heute muss ich dafür das Theme kopieren. Schön wären Farbvarianten, die man im Backend wählt.
+--- fabian | 2026-08-30 12:30
++1, vor allem, wenn jede Variante auf Kontraste geprüft wird.
+--- sandra | 2026-08-31 08:45
+Das ist bei uns die häufigste Frage nach dem Launch: «Kann man das Blau etwas grüner machen?»
+--- hoang | 2026-08-31 18:00
+Danke, steht oben auf der Liste — mit Prüfung der Kontraste je Variante, hell und dunkel.
+--- hoang | 2026-10-29 17:35
+Umgesetzt in **1.3.9**, siehe [Farbvarianten für Themes](@thema:rel-139). Wie man Varianten ins Theme schreibt, steht unter [palette](@thema:palette).
+--- nina | 2026-10-29 18:40
+Grossartig, ich baue sie heute Abend gleich in mein Theme ein!
+
+@thema idee-autosave | umgesetzte-vorschlaege | Umgesetzt | Automatisch speichern
+--- sandra | 2026-09-25 09:30
+Eine Kundin hat gestern eine halbe Stunde Arbeit verloren, weil sie den Tab geschlossen hat. Könnte Basalto Entwürfe selbst speichern?
+--- lea | 2026-09-25 11:10
+Bitte! Bei langen Texten habe ich immer etwas Angst.
+--- hoang | 2026-09-25 17:30
+Verstanden. Ich möchte es überall machen, nicht nur im Editor — und so, dass man sieht, was gespeichert ist.
+--- hoang | 2026-10-27 12:50
+Umgesetzt in **1.3.0**, siehe [die Ankündigung](@thema:rel-13).
+--- sandra | 2026-10-27 13:40
+Danke! Die Kundin von damals wird sich freuen.
+
+@thema idee-dunkelmodus | umgesetzte-vorschlaege | Umgesetzt | Dunkelmodus fürs Backend
+--- kevin | 2026-10-15 23:40
+Ich arbeite meistens nachts. Ein Dunkelmodus fürs Backend wäre toll.
+--- tobias | 2026-10-16 07:20
++1, und bitte folgt er dem Betriebssystem, wenn man nichts wählt.
+--- hoang | 2026-10-21 18:30
+Umgesetzt: Im Benutzermenü lässt sich das Backend auf dunkel umschalten. Kommt mit der nächsten Version.
+--- kevin | 2026-10-26 22:05
+Läuft mit 1.2, meine Augen danken!
+
+@thema idee-demo | umgesetzte-vorschlaege | Umgesetzt | Eine Demo zum Zeigen
+--- luca | 2026-10-12 16:00
+Wenn ich Kundinnen Basalto zeigen will, muss ich immer meine eigene Installation öffnen. Eine öffentliche Demo wäre praktisch, in der man alles anfassen darf.
+--- andrea | 2026-10-13 08:30
++1, gern mit Beispielinhalten, die nicht leer aussehen.
+--- hoang | 2026-10-27 21:50
+Umgesetzt: [demo.basaltocms.com](@thema:demo) ist online, wird jede Nacht zurückgesetzt.
+--- luca | 2026-10-28 07:45
+Schon zweimal benutzt. Perfekt.
+
+@thema idee-installer | umgesetzte-vorschlaege | Umgesetzt | Der Installer soll sagen, was beim Hoster fehlt
+--- jonas | 2026-10-21 09:15
+Nach meinem [Ärger mit der PHP-Version](@thema:installer-php): Könnte der Installer nicht selbst prüfen, was beim Hoster fehlt, und sagen, wo man es einstellt?
+--- daniel | 2026-10-21 10:40
++1. Die meisten Probleme sind PHP-Version, Erweiterungen oder der Dokumentstamm.
+--- hoang | 2026-10-28 11:40
+Umgesetzt in **1.3.8**, siehe [Web-Installer mit Diagnose](@thema:rel-138). Er kennt rund 30 Hoster beim Namen.
+--- jonas | 2026-10-28 14:20
+Gerade bei einem Kunden ausprobiert: Er hat die alte PHP-Zeile gefunden und angeboten, sie zu ändern. Super.
+
+@thema idee-vorwaermen | umgesetzte-vorschlaege | Umgesetzt | Schaufenster vorwärmen
+--- hoang | 2026-10-31 19:55
+Ein neues Schaufenster bekommt kurz nach seinem Zertifikat Besuch von Crawlern — Dutzende Abrufe in Sekunden. Auf einem geteilten Server macht das die Seiten für einige Minuten langsam.
+
+Idee: Die Seiten schon bei der Freigabe in den Seiten-Cache legen, Minuten bevor die Unterdomain antwortet.
+--- raphael | 2026-10-31 20:25
+Als Autor: Das wäre gut, der erste Eindruck im Schaufenster zählt.
+--- hoang | 2026-10-31 21:40
+Umgesetzt in **1.3.18**: Die Seiten liegen schon bei der Freigabe im Cache, und der Stand beim Hoster leert ihn nicht mehr.
+
+@thema idee-seitenleiste | umgesetzte-vorschlaege | Umgesetzt | Seitenleiste im Editor soll mitfahren
+--- andrea | 2026-10-30 22:30
+Bei langen Seiten verschwindet die rechte Spalte des Editors — Fassung, Seiteneinstellungen — beim Scrollen. Zum Einreichen muss ich jedes Mal nach oben.
+--- lea | 2026-10-31 08:40
+Geht mir genauso.
+--- hoang | 2026-11-01 01:35
+Umgesetzt in **1.3.19**: Die Seitenleiste bleibt beim Scrollen stehen; ist sie höher als das Fenster, scrollt sie selbst.
+
+// ── Fehlermeldungen (offen) ──────────────────────────────────────────────────────────────────────────────────────
+
+@thema bug-503-sprache | fehlermeldungen | Fehler | «Vorübergehend nicht verfügbar» erscheint auf Deutsch, auch auf französischen Seiten
+@felder version=1.3.17; browser=Firefox
+--- claire | 2026-10-31 20:35
+Bei einem Theme-Fehler zeigt eine französische Seite «Vorübergehend nicht verfügbar» auf Deutsch. Für unsere Besucher in der Romandie ist das verwirrend.
+--- hoang | 2026-10-31 20:50
+Danke, Claire, bekannt: Die Seite ist seit 1.3.17 neu und im Moment nur deutsch. Kommt mit einer der nächsten Versionen in allen vier Sprachen.
+
+@thema bug-galerie-safari | fehlermeldungen | Fehler | Galerie: Bildunterschriften werden in Safari abgeschnitten
+@felder version=1.3.9; browser=Safari
+--- stefan | 2026-10-29 21:30
+In der Galerie werden lange Bildunterschriften in Safari nach der zweiten Zeile abgeschnitten, ohne «…». In Chrome steht alles da.
+--- nina | 2026-10-29 22:05
+Kann ich auf dem iPad bestätigen, gleiches Theme.
+--- hoang | 2026-10-30 08:45
+Danke euch, nachgestellt. Es liegt an einer CSS-Eigenschaft, die Safari anders auslegt. Kommt in Ordnung.
+
+@thema bug-word-tabellen | fehlermeldungen | Fehler | Einfügen aus Word: Tabellen verlieren ihre Rahmen
+@felder version=1.3.10; browser=Edge
+--- lea | 2026-10-30 09:10
+Wenn ich eine Tabelle aus Word einfüge, kommen Inhalt und Zeilen mit, aber alle Rahmen und Farben sind weg.
+--- hoang | 2026-10-30 10:25
+Das ist Absicht: Basalto übernimmt den Inhalt der Tabelle, die Gestaltung kommt vom Theme — sonst sähe jede eingefügte Tabelle anders aus. Wären Ihnen Rahmen in Ihrem Theme grundsätzlich lieber? Das liesse sich im Theme einstellen.
+--- lea | 2026-10-30 11:18
+Ah, das ergibt Sinn. Dann frage ich unsere Gestalterin, ob sie im Theme dezente Linien setzt.
+
+@thema bug-gif-profil | fehlermeldungen | Fehler | Profilbild: animiertes GIF steht still
+@felder version=1.3.8; browser=Chrome
+--- kevin | 2026-10-28 23:50
+Mein animiertes GIF als Profilbild bewegt sich nicht mehr, nur das erste Bild ist zu sehen.
+--- hoang | 2026-10-29 08:20
+Profilbilder rechnet Basalto in WebP um, damit sie klein bleiben — dabei geht die Animation verloren. Ich überlege, ob animierte Bilder erhalten bleiben sollen. Wie wichtig ist euch das?
+--- fabian | 2026-10-29 09:10
+Ehrlich gesagt: Ich bin froh, wenn sich im Forum nicht überall etwas bewegt 😅
+--- kevin | 2026-10-29 12:40
+Fair. Dann nehme ich ein ruhiges Bild.
+
+// ── Erledigte Fehlermeldungen ────────────────────────────────────────────────────────────────────────────────────
+
+@thema slug-umlaute | erledigte-fehlermeldungen | Behoben | Umlaute im Slug werden entfernt statt umgeschrieben
+--- claire | 2026-08-12 18:20
+Aus dem Titel «Über uns» wird der Slug `ber-uns`. Das Ü verschwindet einfach.
+--- hoang | 2026-08-13 09:15
+Danke! Umlaute sollen umgeschrieben werden: ü zu ue, ä zu ae, ö zu oe — also `ueber-uns`.
+--- hoang | 2026-08-14 17:25
+Behoben in **0.8.1**.
+
+@thema exif-drehung | erledigte-fehlermeldungen | Behoben | Hochformat-Fotos liegen quer
+--- stefan | 2026-09-07 20:10
+Fotos vom Handy im Hochformat liegen nach dem Hochladen quer.
+--- daniel | 2026-09-07 21:00
+Klingt nach der Drehung in den EXIF-Daten. Die Kamera speichert das Bild quer und schreibt nur dazu, wie es gedreht werden soll.
+--- hoang | 2026-09-10 16:40
+Genau so, danke Daniel. Behoben in **0.8.4**: Basalto dreht das Bild beim Hochladen richtig.
+--- stefan | 2026-09-10 18:15
+Funktioniert, auch mit Fotos vom iPhone.
+
+@thema guillemets-vorschau | erledigte-fehlermeldungen | Behoben | Guillemets im Titel stören die Vorschau
+--- anna | 2026-09-17 10:30
+Wenn der Titel Guillemets enthält, etwa «Benvenuti», zeigt die Vorschau ein leeres Fenster.
+--- hoang | 2026-09-17 15:20
+Danke, nachgestellt — die Vorschau hat den Titel falsch maskiert.
+--- hoang | 2026-09-22 11:10
+Behoben in **0.9.1**.
+
+@thema bug-installer-404 | erledigte-fehlermeldungen | Behoben | Web-Installer: Der Link nach der Installation führt auf 404
+--- jonas | 2026-10-27 19:30
+Nach «Installieren» leitet der Web-Installer auf die neue Website weiter — dort steht aber 404. Ein paar Sekunden später geht dieselbe Adresse.
+--- hoang | 2026-10-27 20:15
+Behoben in **1.3.5**. LiteSpeed liest eine ergänzte `.htaccess` mit etwas Verzögerung. Der Installer leitet jetzt erst weiter, wenn die neue Installation antwortet.
+--- jonas | 2026-10-27 20:40
+Schnell! Danke.
+
+@thema bug-demo-bilder | erledigte-fehlermeldungen | Behoben | Demo aus dem Web-Installer zeigt keine Bilder
+--- luca | 2026-10-27 20:20
+Auf demo.basaltocms.com fehlen alle Bilder und das CSS der Beispielinhalte.
+--- hoang | 2026-10-27 20:55
+Behoben in **1.3.6**. Der Web-Installer veröffentlichte nur das gebaute Frontend, nicht die Dateien der Demo.
+
+@thema bug-zertifikat | erledigte-fehlermeldungen | Behoben | Schaufenster ohne gültiges Zertifikat
+--- nina | 2026-10-30 14:15
+Das Schaufenster meines Themes ist erreichbar, aber der Browser meldet ein ungültiges Zertifikat.
+--- hoang | 2026-10-30 14:45
+Behoben in **1.3.12**. cPanel legt mit jeder Unterdomain sofort ein selbstsigniertes Zertifikat an. Basalto hielt es für gültig und fragte gar nicht erst bei Let's Encrypt an. Jetzt zählen selbstsignierte nicht mehr.
+--- nina | 2026-10-30 15:30
+Jetzt mit Schloss. Danke!
+
+@thema bug-managed | erledigte-fehlermeldungen | Behoben | Kauf der Lizenz bricht ab: «managed payments»
+--- michael | 2026-10-30 21:30
+Beim Kauf einer Site-Lizenz mit Karte kommt statt des Bezahlfensters eine Fehlermeldung.
+--- hoang | 2026-10-30 22:25
+Behoben in **1.3.13**. Neue Stripe-Konten haben «Managed Payments» standardmässig an und lehnen damit Sitzungen ohne Steuercode ab. Basalto schaltet es jetzt je Kauf aus. Bitte nochmals versuchen.
+--- michael | 2026-10-30 22:50
+Hat geklappt, der Schlüssel liegt im Kundenkonto.
+
+@thema bug-connect | erledigte-fehlermeldungen | Behoben | «Mit Stripe verbinden»: «Stripe ist gerade nicht erreichbar»
+--- raphael | 2026-10-30 22:45
+Im Autorenkonto bekomme ich bei «Mit Stripe verbinden» immer «Stripe ist gerade nicht erreichbar».
+--- hoang | 2026-10-30 23:10
+Behoben in **1.3.14**, zwei Ursachen: Stripe schickt manchmal einen Hinweis in der Antwort mit, den Basalto als Fehler behandelte; und Stripe lehnte die Website-Adresse des Autorenprofils ab. Das Konto entsteht jetzt auch ohne sie.
+--- raphael | 2026-10-30 23:35
+Verbunden. Danke für den Einsatz um diese Zeit!
+--- hoang | 2026-10-31 12:40
+Seit **1.3.15** unterscheidet die Meldung auch zwischen «Stripe hat die Anfrage abgelehnt» und «nicht erreichbar».
+
+@thema bug-spamschutz | erledigte-fehlermeldungen | Behoben | Spamschutz dreht sich endlos
+--- ursula | 2026-10-31 09:30
+Beim Kontaktformular auf meinem alten Tablet dreht sich unter dem Formular ein Kreis, und ich kann nicht absenden.
+--- hoang | 2026-10-31 12:30
+Behoben in **1.3.15**. Ältere Browser haben die Rechenfunktion nicht, die der Spamschutz braucht; dann erscheint jetzt eine kleine Rechenfrage statt des Kreises.
+--- ursula | 2026-10-31 14:00
+Jetzt kann ich absenden. 3 + 4 habe ich gerade noch geschafft 😉
+
+@thema bug-zeilenumbruch | erledigte-fehlermeldungen | Behoben | Adresse erscheint mit «n» statt Zeilenumbrüchen
+--- jasmin | 2026-10-31 11:10
+In Tavola steht unsere Adresse in einer Zeile, mit einem «n» an jeder Stelle, wo ein Umbruch hingehört: «Ristorante al LagonSeestrasse 12n8820 Wädenswil».
+--- hoang | 2026-10-31 12:35
+Behoben in **1.3.15**. Lava kannte `\n` in Zeichenketten der Startinhalte nicht. Mehr dazu unter [Zeilenumbrüche und Tabulatoren](@thema:lava-escape).
+--- hoang | 2026-10-31 15:53
+Nachtrag: Wer nach dem Update noch das «n» sieht, findet die Erklärung [hier](@thema:bug-themecache).
+
+@thema bug-themecache | erledigte-fehlermeldungen | Behoben | Nach dem Update steht die Adresse immer noch mit «n» da
+--- jasmin | 2026-10-31 13:20
+Update ist eingespielt, aber die Adresse steht immer noch mit «n» da.
+--- hoang | 2026-10-31 15:44
+Behoben in **1.3.16**. Basalto übersetzt jedes Theme einmal und legt das Ergebnis in den Cache. Der Schlüssel dafür kannte den Stand des Themes, aber nicht den Stand von Basalto — nach einem Update las die Site bis zu 30 Tage die alte Übersetzung. Jetzt gehört der Stand von Basalto zum Schlüssel.
+--- jasmin | 2026-10-31 16:10
+Jetzt stimmt alles. Danke!
+
+@thema bug-kurzbeschreibung | erledigte-fehlermeldungen | Behoben | Kurzbeschreibung im Marktplatz endet mitten im Wort
+--- raphael | 2026-10-31 13:55
+Mein Theme steht im Katalog mit einer Kurzbeschreibung, die mitten im Wort aufhört. Ich hatte beim Einreichen keine eigene angegeben.
+--- hoang | 2026-10-31 15:47
+Behoben in **1.3.16**. Ohne eigene Kurzbeschreibung kürzt Basalto die Beschreibung aus dem Paket jetzt nach dem letzten ganzen Satz, sonst am Wortende mit «…». Tipp: Eine eigene Kurzbeschreibung ist trotzdem besser.
+
+@thema bug-ansehen | erledigte-fehlermeldungen | Behoben | Typ aus dem Theme: «Ansehen» reagiert nicht
+--- fabian | 2026-10-31 14:50
+Unter Einrichtung › Typen lässt sich bei einem Typ aus dem Theme kein Feld aufklappen — «Ansehen» tut nichts.
+--- hoang | 2026-10-31 15:41
+Behoben in **1.3.16**. Die Felder lagen in einem gesperrten Bereich, und der sperrte auch die Knöpfe zum Aufklappen. Jetzt sperrt sich jedes Feld selbst.
+
+@thema bug-renderzeit | erledigte-fehlermeldungen | Behoben | Fehler 500 bei vielen Abrufen: «Renderzeit über 2.0 s»
+--- daniel | 2026-10-31 16:05
+Bei einem Kunden stehen gehäuft solche Fehler im Log, und Besucher bekamen einen Fehler 500:
+
+```plaintext
+production.ERROR: Grenze erreicht: Renderzeit über 2.0 s (Zeile 5)
+```
+
+Immer in Schüben, wenn ein Crawler viele Seiten auf einmal holt.
+--- hoang | 2026-10-31 20:05
+Behoben in **1.3.17**. Die Logik eines Themes darf höchstens 2 Sekunden rechnen — gemessen wurde aber die Uhrzeit, inklusive Warten auf die CPU des geteilten Servers. Jetzt zählt die **Rechenzeit**, und bei einem Theme-Fehler sehen Besucher eine 503-Seite statt eines 500. Mehr unter [Grenzen der Logik](@thema:lava-grenzen).
+--- daniel | 2026-10-31 20:30
+Rechenzeit statt Wanduhr, genau wie `max_execution_time` von PHP. Danke!
+
+@thema bug-slug | erledigte-fehlermeldungen | Behoben | Startseite: «1 Feld zu prüfen», die Änderung geht verloren
+--- thomas | 2026-10-31 23:58
+In der Startseite einen Wert geändert, «Als neuen Entwurf speichern» — oben steht «1 Feld zu prüfen», markiert ist aber nichts. Nach einem Wechsel der Sprache steht wieder der alte Wert da.
+--- hoang | 2026-11-01 01:40
+Behoben in **1.3.19**. Die Startseite aus den Startinhalten trägt in der Standardsprache den Slug `/`, und das Speichern prüfte den Slug auch dann, wenn er sich nicht geändert hatte. Jetzt wird nur ein geänderter Slug geprüft. Die verlorene Änderung bitte nach dem Update nochmals machen.
+
+// ── Themes und Lava ──────────────────────────────────────────────────────────────────────────────────────────────
+
+@thema lava-schleife | themes-und-module | Gelöst | Lava: die neuesten Beiträge auf der Startseite
+--- fabian | 2026-08-13 19:40
+Ich baue mein erstes Theme und möchte auf der Startseite die drei neuesten Blogbeiträge zeigen. Wie komme ich in Lava an die Beiträge?
+--- luca | 2026-08-13 21:05 | beste
+Mit `entries()`:
+
+```lava
+{% each entries("post", 3) as post %}
+  <article>
+    <a href="{{ post.url }}">{{ post.title }}</a>
+    <p>{{ post.intro }}</p>
+  </article>
+{% end %}
+```
+
+Jeder Eintrag bringt unter anderem `url`, `title`, `date` und `intro` mit.
+--- fabian | 2026-08-13 21:40
+So einfach. Danke! Und `basalto:check` hat mir gleich gesagt, dass ich ein `{% end %}` vergessen hatte.
+
+@thema schriften | themes-und-module | Gelöst | Eigene Schriften im Theme
+--- nina | 2026-08-18 10:15
+Ich möchte im Theme eine Schrift verwenden, die nicht auf jedem Rechner ist. Von Google Fonts laden möchte ich wegen des Datenschutzes nicht.
+--- hoang | 2026-08-18 14:30 | beste
+Richtig so. Legen Sie die Schriftdateien (WOFF2) in den Ordner `assets/fonts` Ihres Themes und verwenden Sie sie in `design` und im CSS. Basalto liefert sie dann von Ihrer eigenen Domain aus — ohne Fremdressource.
+--- nina | 2026-08-18 15:10
+Perfekt. Lizenz der Schrift lege ich als Textdatei dazu.
+
+@thema dunkel-im-theme | themes-und-module | Gelöst | Dunkle Darstellung im eigenen Theme
+--- claire | 2026-09-01 17:20
+Wie bekommt mein Theme eine dunkle Darstellung? Muss ich das ganze CSS doppelt schreiben?
+--- hoang | 2026-09-01 19:00 | beste
+Nein. Eine Farbe in `design` kann einen zweiten Wert für dunkel tragen:
+
+```lava
+design {
+  color text: #23262b dark #ebe8e3
+  color accent: #3b1f2b dark #e3b98a
+}
+```
+
+Besucher wählen die Darstellung mit `{% appearance %}`. Ohne Wahl ist die Seite hell. Die Prüfung rechnet die Kontraste auch für dunkel.
+--- claire | 2026-09-01 19:45
+Ah, élégant! Merci.
+
+@thema kopfzeile-farbe | themes-und-module | Gelöst | Wo ändere ich die Farbe der Kopfzeile?
+--- petra | 2026-10-01 20:00
+Unsere Kopfzeile ist dunkelblau, der Verein hat aber Grün als Farbe. Muss ich dafür ins Theme?
+--- nina | 2026-10-01 21:10 | beste
+Meistens nicht: Unter **Einrichtung › Design** lassen sich die Farben des Themes überschreiben, ohne Code. Wenn Ihr Theme Farbvarianten hat, gibt es dort vielleicht schon ein passendes Grün.
+--- petra | 2026-10-02 07:30
+Gefunden, und schon grün. Danke, Nina!
+
+@thema schleifen-grenze | themes-und-module | Gelöst | «Grenze erreicht: mehr als 10000 Schleifendurchläufe»
+--- kevin | 2026-10-05 01:10
+Mein Theme zeigt plötzlich «Grenze erreicht: mehr als 10000 Schleifendurchläufe». Dabei habe ich nur 200 Produkte.
+--- fabian | 2026-10-05 08:35 | beste
+Wetten, es ist eine Schleife in einer Schleife? 200 Produkte mal 200 Kategorien-Vergleiche sind schon 40 000. Hol die Kategorien vorher einmal ab, oder begrenze `entries()` mit der Anzahl.
+--- kevin | 2026-10-05 12:20
+Erwischt. Innen lief nochmals die ganze Liste. Jetzt läuft es, und viel schneller.
+
+@thema eigenes-theme | themes-und-module | - | Ein eigenes Theme: wo anfangen?
+--- hoang | 2026-10-28 16:10
+Der schnellste Weg zu einem eigenen Theme ist eine Kopie:
+
+1. **Einrichtung › Design**, in der Theme-Bibliothek beim mitgelieferten «Starter» auf **«Kopie anlegen»**.
+2. Bei der Kopie **«Bearbeiten»** — das öffnet den Theme-Editor.
+3. Ändern, prüfen lassen, zur Freigabe einreichen. Das Original bleibt unverändert.
+
+Im Terminal prüft `php artisan basalto:check` ein Theme und zeigt die Stationen als «rote Linie» von A bis Z. Weiter mit [Themes](/doku/entwickler-themes) und [Lava](/doku/entwickler-lava).
+--- kevin | 2026-10-28 18:45
+Danke, genau so habe ich angefangen. Die Kopie ist der beste Tipp — man kann nichts kaputt machen.
+
+@thema theme-paket | themes-und-module | Gelöst | Theme-Paket für den Marktplatz: was gehört hinein?
+--- raphael | 2026-10-28 13:00
+Ich möchte mein erstes Theme im Marktplatz anbieten. Welche Dateien gehören ins Paket, und wie schnüre ich es?
+--- hoang | 2026-10-28 15:20 | beste
+Ins Paket gehören `theme.json` (Name, Beschreibung, Version, Lizenz), `theme.lava`, der Ordner `assets` mit CSS, Bildern und Schriften und auf Wunsch `seed.lava` mit Startinhalten. PHP-Dateien weist die Prüfung ab. Schnüren können Sie es mit:
+
+```bash
+php artisan basalto:theme-pack mein-theme
+```
+
+Oder Sie laden es in der Theme-Bibliothek mit «Als Paket laden» herunter.
+--- nina | 2026-10-28 16:40
+Aus Erfahrung: Startinhalte unbedingt mitgeben. Im Schaufenster sieht ein Theme ohne Inhalte leer und traurig aus.
+--- raphael | 2026-10-28 17:15
+Danke euch beiden. Startinhalte schreibe ich heute Abend.
+
+@thema palette | themes-und-module | - | Farbvarianten mit palette
+--- hoang | 2026-10-29 17:30
+Seit [1.3.9](@thema:rel-139) kann ein Theme in `design` mehrere Farbvarianten mitbringen:
+
+```lava
+design {
+  color accent: #3b1f2b dark #e3b98a
+  palette salbei {
+    label: "Salbei"  label.en: "Sage"
+    color accent: #23402f dark #a9cf9a
+  }
+}
+```
+
+Jede Zeile der Variante ersetzt die gleichnamige Zeile in `design` ganz, samt dunklem Wert. Farben, die die Variante nicht nennt, bleiben wie im Theme. Die Prüfung rechnet die Kontraste für jede Variante.
+--- nina | 2026-10-29 19:30
+Drei Varianten eingebaut, die Prüfung hat mir bei einer gleich einen zu schwachen Kontrast angezeigt. Genau so muss es sein.
+
+@thema lava-escape | themes-und-module | - | Zeilenumbrüche und Tabulatoren in Zeichenketten: \n und \t
+--- hoang | 2026-10-31 12:28
+Ab 1.3.15 kennen Zeichenketten in `theme.lava` und in den Startinhalten `\n` für einen Zeilenumbruch und `\t` für einen Tabulator:
+
+```lava
+address: "Ristorante al Lago\nSeestrasse 12\n8820 Wädenswil"
+```
+
+Ein Anführungszeichen schreiben Sie als `\"`, einen umgekehrten Schrägstrich als `\\`.
+
+@thema lava-grenzen | themes-und-module | - | Grenzen der Logik: 10 000 Durchläufe, 2 Sekunden Rechenzeit, Tiefe 8
+--- hoang | 2026-10-31 20:00
+Beim Rendern einer Seite gelten:
+
+- höchstens **10 000 Schleifendurchläufe** (auch `range()` liefert höchstens 10 000 Elemente)
+- höchstens **2 Sekunden Rechenzeit** — seit 1.3.17 gezählt ab dem ersten Lava-Lauf
+- Verschachtelung bis **Tiefe 8**
+
+In der Praxis trifft man die Grenzen kaum — wenn doch, ist es fast immer eine Schleife in einer Schleife, siehe [dieses Beispiel](@thema:schleifen-grenze).
+--- fabian | 2026-10-31 20:40
+Gut, dass die Zeit jetzt Rechenzeit ist. Auf meinem Billig-Hosting war das abends manchmal knapp.
+
+// ── Module und Plugins ───────────────────────────────────────────────────────────────────────────────────────────
+
+@thema erstes-plugin | module-und-plugins | Gelöst | Mein erstes Plugin: wo fange ich an?
+--- oliver | 2026-08-29 09:30
+Ich möchte ein Plugin bauen, das einen Block «Karte» mitbringt. Wie meldet sich ein Plugin bei Basalto an?
+--- hoang | 2026-08-29 14:15 | beste
+Ein Plugin ist ein Composer-Paket mit einem Service Provider. In der `composer.json` stehen unter `extra.basalto` Modul, Name und Kategorie; Blöcke bringt es als Lava mit. Die Einzelheiten stehen unter [Erweiterungen](/doku/entwickler-erweiterungen).
+--- oliver | 2026-08-29 16:50
+Danke, ich habe ein Gerüst. Die Lava-Seite des Blocks ist erstaunlich kurz.
+
+@thema webhook-formular | module-und-plugins | Gelöst | Webhook bei neuen Formulareingängen
+--- tobias | 2026-09-24 08:15
+Ich möchte Eingänge aus einem Formular direkt an unser CRM schicken. Muss ich dafür ein Plugin schreiben?
+--- hoang | 2026-09-24 11:30 | beste
+Nein: Formulare in Lava haben die Eigenschaft `webhook`. Tragen Sie die Adresse Ihres CRM ein, dann schickt Basalto jeden Eingang als JSON dorthin, zusätzlich zur Mail.
+--- tobias | 2026-09-24 13:05
+Noch besser. Läuft schon.
+
+@thema plugin-pruefung | module-und-plugins | - | Ein Plugin in den Marktplatz bringen: was die Prüfung verlangt
+--- hoang | 2026-10-30 16:20
+Jede Einreichung läuft zuerst durch eine automatische Prüfung:
+
+- Composer-Paket mit Autoload nach PSR-4 und den Angaben unter `extra.basalto`
+- kein Start von Prozessen, kein `eval`, keine Backticks
+- Dateien über das Dateisystem von Laravel schreiben
+- keine Syntaxfehler, kein ungültiges Lava, keine übergrossen Pakete
+
+Danach schaut ein Mensch hin: Freigegeben wird erst nach einem Test in einer Wegwerf-Installation. Freigegebene Pakete werden signiert.
+--- oliver | 2026-10-30 17:45
+Gut, dass auch ein Mensch hinschaut. Ich reiche mein Karten-Plugin nächste Woche ein.
+
+@thema themes-ohne-php | module-und-plugins | - | Warum Themes kein PHP enthalten
+--- hoang | 2026-10-30 16:45
+Ein Theme ist **Daten**, kein Programm. Lava kann nur, was Basalto ihm erlaubt, und hat feste Grenzen. Darum dürfen Themes aus dem Marktplatz direkt in einem Schaufenster laufen.
+
+Was mehr braucht als Darstellung — eigene Felder, Schnittstellen, Hintergrundarbeiten — gehört in ein **Plugin**.
+--- tobias | 2026-10-30 18:20
+Sehr vernünftig. Bei anderen Systemen sind Themes oft das grösste Sicherheitsloch.
+
+// ── Entwickler-Doku ──────────────────────────────────────────────────────────────────────────────────────────────
+
+@thema doku-ueberblick | entwickler-doku | - | Wo finde ich die Entwickler-Doku?
+--- hoang | 2026-10-28 10:15
+Die Entwickler-Doku liegt unter [/doku/entwickler](/doku/entwickler), in vier Sprachen:
+
+- [Lava](/doku/entwickler-lava) — die Sprache der Themes, mit Tags, Filtern und Funktionen
+- [Themes](/doku/entwickler-themes) und [Erweiterungen](/doku/entwickler-erweiterungen)
+- [REST-API](/doku/entwickler-api) und [Sprachdienst](/doku/entwickler-sprachdienst)
+--- tobias | 2026-10-28 12:10
+Danke! Was mir noch fehlt: ein komplettes Beispiel-Plugin mit Migration und Einstellungsseite.
+--- hoang | 2026-10-28 13:30
+Notiert. Ich ergänze die Doku um ein Beispiel-Plugin mit Migration und Einstellungsseite, Schritt für Schritt.
+
+@thema doku-lsp | entwickler-doku | - | Lava im eigenen Editor: der Sprachdienst
+--- hoang | 2026-10-28 10:40
+Wer Themes in VS Code oder PhpStorm schreibt, bekommt dort dieselbe Hilfe wie im Theme-Editor:
+
+```bash
+php artisan basalto:lsp
+```
+
+Befunde beim Tippen, Vervollständigung, Sprung zur Definition und Erklärungen beim Darüberfahren.
+--- marco | 2026-10-28 21:15
+Läuft in PhpStorm. Der Sprung zur Definition von Blöcken spart mir viel Sucherei.
+
+@thema api-token | entwickler-doku | - | REST-API: Wie lege ich ein Token an?
+--- tobias | 2026-10-29 11:00
+Ich will Inhalte aus unserem CRM in Basalto schreiben. Wo bekomme ich ein Token für die API?
+--- hoang | 2026-10-29 11:20
+Im Backend unter Ihrem Profil › Reiter **«API-Tokens»**: Name, Site und Fähigkeiten wählen (`read`, `write`), auf Wunsch mit Ablaufdatum. Das Token erscheint genau einmal. Jedes Token gilt für genau eine Site, mit denselben Rechten wie im Backend; 120 Anfragen je Minute.
+--- tobias | 2026-10-29 12:05
+Gefunden, und der erste Eintrag ist schon drin. Dass auch das Vier-Augen-Prinzip gilt, gefällt mir.
+
+// ── Off-Topic ────────────────────────────────────────────────────────────────────────────────────────────────────
+
+@thema ot-name | off-topic | - | Warum heisst es «Basalto»?
+--- hoang | 2026-08-01 21:10
+Basalt entsteht, wenn Lava abkühlt — und bricht dabei oft in sechseckige Säulen. Daher das Sechseck im «o» des Logos und der Leitsatz «Aus einem Guss.». Lava heisst auch die Sprache der Themes: noch flüssig, solange man daran arbeitet.
+--- luca | 2026-08-01 22:30
+Ich habe das Sechseck erst jetzt bemerkt. Schön!
+--- marco | 2026-08-04 23:10
+Und auf Italienisch klingt «Basalto» sowieso gut.
+
+@thema ot-kaffee | off-topic | - | Espresso oder Tee beim Programmieren?
+--- marco | 2026-08-08 22:30
+Ernsthafte Frage für ein ernsthaftes Forum: Was trinkt ihr beim Programmieren? Bei mir: Espresso. Viel Espresso.
+--- daniel | 2026-08-10 22:40
+Grüntee. Wer Server betreut, braucht ruhige Hände.
+--- fabian | 2026-08-13 23:15
+Mate. Student halt.
+--- nina | 2026-08-18 21:30
+Rooibos und eine Kerze. Beim Gestalten muss es gemütlich sein.
+--- hoang | 2026-08-19 07:20
+Espresso am Morgen, danach Wasser. Und an langen Abenden vor einer Version doch wieder Espresso.
+
+@thema ot-lavalampe | off-topic | - | Lava-Lampe als Maskottchen?
+--- fabian | 2026-09-14 18:20
+Ich finde, Basalto braucht ein Maskottchen. Vorschlag: eine Lava-Lampe mit sechseckigem Fuss.
+--- nina | 2026-09-14 20:45
+Ich habe kurz skizziert: Mit Sechseck-Fuss sieht sie aus wie ein kleiner Leuchtturm. Gefällt mir!
+--- kevin | 2026-10-03 01:30
+Ich hätte gern einen Aufkleber davon für den Laptop.
+--- hoang | 2026-10-03 09:05
+Ich sage nicht nein zu Aufklebern. Wenn Nina die Skizze fertig macht, lasse ich ein paar drucken.
+
+@thema ot-island | off-topic | - | Ferienfotos: Basaltsäulen in Island
+--- stefan | 2026-09-27 19:00
+Gerade zurück aus Island. An der Reynisfjara stehen Basaltsäulen, so regelmässig, als hätte sie jemand gebaut. Ich musste an dieses Forum denken.
+--- hoang | 2026-09-27 21:15
+Genau diese Säulen hatte ich beim Logo im Kopf. Schöne Ferien gehabt?
+--- stefan | 2026-09-28 08:30
+Kalt, nass, wunderbar. Die Fotos kommen auf meine Website — mit Basalto natürlich.
+
+@thema ot-katze | off-topic | - | Meine Katze hat einen Block gelöscht
+--- kevin | 2026-10-04 02:15
+Ich war kurz in der Küche. Als ich zurückkam, lag die Katze auf der Tastatur und ein ganzer Block war weg.
+--- lea | 2026-10-04 09:20
+Herrlich 😂 Zum Glück gibt es Fassungen — einfach die vorige wiederherstellen.
+--- kevin | 2026-10-04 12:40
+Hat geklappt. Die Katze hat jetzt Hausverbot im Arbeitszimmer.
+--- ursula | 2026-10-07 11:00
+Meine Katze schläft lieber auf dem warmen Laptop. Seit ich das weiss, klappe ich ihn zu.
+
+@thema ot-tastatur | off-topic | - | Welche Tastatur benutzt ihr?
+--- daniel | 2026-10-11 10:30
+Mechanisch, leise Schalter, Schweizer Layout. Und ihr?
+--- tobias | 2026-10-11 12:45
+Deutsches Layout. Wenn ich bei Kunden in der Schweiz tippe, finde ich nie das ß — gibt es ja auch nicht.
+--- claire | 2026-10-11 14:20
+Schweizer Layout, aber französisch. Die Umlaute tippe ich mit der Umschalttaste und Akzent.
+--- marco | 2026-10-12 09:05
+Laptop-Tastatur. Ich bin Freelancer, ich arbeite überall.
+
+@thema ot-turnfest | off-topic | - | Website fürs Turnfest in zwei Stunden
+--- petra | 2026-10-17 21:00
+Ich muss das einfach erzählen: Ich habe heute für unser Turnfest eine ganze Website gebaut — Programm, Anmeldung, Sponsoren. In zwei Stunden. Vor einem Jahr hätte ich dafür jemanden bezahlen müssen.
+--- luca | 2026-10-17 22:10
+Grossartig, Petra! Zeig mal den Link, wenn sie online ist.
+--- thomas | 2026-10-18 08:30
+Respekt! Ich bin bei meinen zehn Seiten immer noch am Texten.
+
+@thema ot-danke | off-topic | - | Danke an alle hier
+--- ursula | 2026-10-20 16:00
+Ich wollte einfach Danke sagen. Ich hatte grosse Angst vor dem Computerkram, und hier hat man mir immer freundlich geholfen. Die ersten zwei Kapitel unserer Familienchronik sind jetzt online — nur für die Familie, wie besprochen.
+--- thomas | 2026-10-20 17:15
+Das freut mich sehr, Ursula. Bei mir ging es ähnlich.
+--- hoang | 2026-10-20 20:30
+Danke, Ursula — solche Beiträge sind der Grund, warum ich das hier mache.
+
+@thema ot-nusstorte | off-topic | - | Bündner Nusstorte gegen Update-Stress
+--- jonas | 2026-10-22 07:40
+Bei mir gibt es vor jedem grösseren Update ein Stück Bündner Nusstorte. Hat bisher immer geholfen. Hat jemand ähnliche Rituale?
+--- sandra | 2026-10-22 08:50
+Wir machen Updates nie am Freitagnachmittag. Das ist unser Ritual.
+--- daniel | 2026-10-22 10:15
+Vorher eine Sicherung. Das ist kein Ritual, das ist Religion.
+--- jonas | 2026-10-22 11:00
+Daniel hat recht. Die Nusstorte gibt es trotzdem.
+
+@thema ot-winterthur | off-topic | - | Gebaut in Winterthur
+--- hoang | 2026-10-27 22:15
+Basalto entsteht in Winterthur. Dahinter steht Nguyen Development, mein Einzelunternehmen. Die Server stehen in der Schweiz.
+
+Wer aus der Gegend ist und Basalto einsetzt: Ich freue mich, davon zu hören.
+--- thomas | 2026-10-28 07:40
+Ebenfalls aus Winterthur. Ich lade gern auf einen Kaffee in die Altstadt ein.
+--- reto | 2026-10-28 08:20
+Grüsse aus dem Urnerland — etwas weiter weg, aber gleiche Begeisterung.
+
+@thema ot-halloween | off-topic | - | Halloween-Theme?
+--- laura | 2026-10-31 18:00
+Heute ist Halloween. Gibt es irgendwo ein schaurig-schönes Theme? Unsere Band spielt heute Abend und die Website ist so … ernst.
+--- kevin | 2026-10-31 18:35
+Dunkelmodus an, Akzentfarbe Kürbis-Orange. Fertig ist das Halloween-Theme 🎃
+--- nina | 2026-10-31 19:10
+Mit Farbvarianten ginge das sogar sauber: eine Variante «Kürbis», nur für heute. Morgen wieder zurück.
+--- laura | 2026-10-31 19:45
+Kürbis-Variante gebaut. Die Band ist begeistert. Danke!

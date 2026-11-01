@@ -203,8 +203,8 @@ final class ForumTestdata
         app(Counters::class)->all($site);
     }
 
-    /** Die Seite der Community, wenn es noch keine gibt — mit fester UUID (Prüfsumme der Demo). */
-    private function page(TestdataRun $run): void
+    /** Die Seite der Community, wenn es noch keine gibt — mit fester UUID (Prüfsumme der Demo); auch für die Forum-Geschichte. */
+    public function page(TestdataRun $run): void
     {
         $site = $run->site;
         if (app(Mounts::class)->entryFor($site, Forum::MOUNT) !== null) {

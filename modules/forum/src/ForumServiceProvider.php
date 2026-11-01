@@ -20,6 +20,7 @@ use Basalto\Core\Community\VisitorGroup;
 use Basalto\Core\Community\VisitorPermission;
 use Basalto\Core\Community\VisitorPermissions;
 use Basalto\Core\Content\RichText;
+use Basalto\Core\Demo\DemoMode;
 use Basalto\Core\Extranet\Extranet;
 use Basalto\Core\Extranet\ExtranetRegistry;
 use Basalto\Core\FrontendAccounts\Customer;
@@ -65,6 +66,7 @@ use Basalto\Modules\Forum\Models\Post;
 use Basalto\Modules\Forum\Models\Thread;
 use Basalto\Modules\Forum\Privacy\ForumPersonData;
 use Basalto\Modules\Forum\Statistics\CommunityStatistics;
+use Basalto\Modules\Forum\Testdata\ForumStoryTestdata;
 use Basalto\Modules\Forum\Testdata\ForumTestdata;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -176,6 +178,10 @@ final class ForumServiceProvider extends ServiceProvider
         // Testdaten (basalto:testdaten): Foren wie bei WoltLab mit vielen Themen, Moderation, Rängen und Hinweisen
         app(Testdata::class)->register(ForumTestdata::KEY, 'Forum', 40, static fn (Site $site): bool => app(Backend::class)->moduleEnabled('forum', $site),
             static fn (TestdataRun $run) => app(ForumTestdata::class)->seed($run), static fn (Site $site) => app(ForumTestdata::class)->remove($site));
+        // Forum-Geschichte: ein gelebtes Forum aus forum-geschichte.txt — nie in der Demo (sie bleibt, wie sie ist)
+        app(Testdata::class)->register(ForumStoryTestdata::KEY, 'Forum-Geschichte', 45, static fn (Site $site): bool => ! DemoMode::enabled()
+            && app(Backend::class)->moduleEnabled('forum', $site),
+            static fn (TestdataRun $run) => app(ForumStoryTestdata::class)->seed($run), static fn (Site $site) => app(ForumStoryTestdata::class)->remove($site));
         if ($this->app->runningInConsole()) {
             $this->commands([ForumRecountCommand::class, ForumSeedCommand::class, ForumBenchmarkCommand::class]);
         }
