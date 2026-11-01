@@ -11,7 +11,6 @@ use Basalto\Modules\Forum\Forum;
 use Basalto\Modules\Forum\Models\Poll;
 use Basalto\Modules\Forum\Models\Post;
 use Illuminate\Contracts\Support\MessageBag;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -94,10 +93,7 @@ final class Activity
 
     private static function date(\DateTimeInterface $date, string $lang): string
     {
-        $local = Carbon::instance($date);
-        $local->locale($lang);
-
-        return $local->isoFormat(Markup::dayFormat($lang, true));
+        return Markup::local($date, $lang)->isoFormat(Markup::dayFormat($lang, true));
     }
 
     /**

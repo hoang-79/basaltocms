@@ -185,7 +185,7 @@ final class AccountHub
             $hour >= 11 && $hour < 18 => $page->t('Guten Tag, :name.', ['name' => $name]),
             default => $page->t('Guten Abend, :name.', ['name' => $name]),
         };
-        $created = $customer?->created_at === null ? null : Carbon::instance($customer->created_at);
+        $created = $customer?->created_at === null ? null : Carbon::instance($customer->created_at)->setTimezone($page->site->timezone ?: (string) config('app.timezone'));
         $created?->locale($page->lang);
         $since = $created === null ? '' : ' · '.$page->t('Konto seit :date', ['date' => $created->isoFormat('MMMM YYYY')]);
         $actions = [];
@@ -253,7 +253,8 @@ final class AccountHub
         usort($events, static fn (AreaEvent $a, AreaEvent $b): int => $b->at->getTimestamp() <=> $a->at->getTimestamp());
         $items = '';
         foreach (array_slice($events, 0, 5) as $event) {
-            $at = Carbon::instance($event->at);
+            // In der Zeitzone der Site, wie die Daten im Datenschutz-Bereich (TB 94)
+            $at = Carbon::instance($event->at)->setTimezone($page->site->timezone ?: (string) config('app.timezone'));
             $at->locale($page->lang);
             $text = $event->href === null ? Html::e($event->text) : sprintf('<a href="%s">%s</a>', Html::e($event->href), Html::e($event->text));
             $items .= sprintf('<li%s><span class="konto-sechseck konto-sechseck--klein%s" aria-hidden="true">%s</span><div><p>%s</p><time datetime="%s" title="%s">%s</time></div></li>',

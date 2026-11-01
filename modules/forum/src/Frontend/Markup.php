@@ -6,6 +6,7 @@ namespace Basalto\Modules\Forum\Frontend;
 
 use Basalto\Core\Community\CommunityProfile;
 use Basalto\Core\Community\CommunityRank;
+use Basalto\Core\Sites\CurrentSite;
 use DateTimeInterface;
 use Illuminate\Support\Carbon;
 
@@ -64,13 +65,12 @@ final class Markup
             return '';
         }
         $time = Carbon::instance($time);
-        $local = $time->copy();
-        $local->locale($lang);
+        $local = self::local($time, $lang);
         $minutes = (int) $time->diffInMinutes(now(), true);
         $label = $time->isPast() && $minutes < 60 ? trans_choice('vor :count Minute|vor :count Minuten', max(1, $minutes), ['count' => max(1, $minutes)], $lang)
             : ($time->isPast() && $minutes < 360 ? trans_choice('vor :count Stunde|vor :count Stunden', intdiv($minutes, 60), ['count' => intdiv($minutes, 60)], $lang)
-            : ($time->isToday() ? __('heute, :zeit', ['zeit' => $local->isoFormat('HH:mm')], $lang)
-            : ($time->isYesterday() ? __('gestern, :zeit', ['zeit' => $local->isoFormat('HH:mm')], $lang) : $local->isoFormat(self::dayFormat($lang, false)))));
+            : ($local->isToday() ? __('heute, :zeit', ['zeit' => $local->isoFormat('HH:mm')], $lang)
+            : ($local->isYesterday() ? __('gestern, :zeit', ['zeit' => $local->isoFormat('HH:mm')], $lang) : $local->isoFormat(self::dayFormat($lang, false)))));
 
         return sprintf('<time datetime="%s" title="%s">%s</time>', self::e($time->toIso8601String()), self::e($local->isoFormat('LLLL')), self::e($label));
     }
@@ -78,10 +78,20 @@ final class Markup
     /** Ein Datum mit Uhrzeit als Text (für Sperren: «bis 30. Okt. 2026, 14:00»). */
     public static function date(DateTimeInterface $time, string $lang): string
     {
-        $local = Carbon::instance($time)->copy();
+        return self::local($time, $lang)->isoFormat(self::dayFormat($lang, true).', HH:mm');
+    }
+
+    /**
+     * Ein Zeitpunkt in der Zeitzone der Site (TB 94): Gespeichert ist UTC; Uhrzeit, «heute» und «gestern» gelten dort, wo
+     * die Site steht — sonst stand ein Beitrag von 18:00 Uhr in Winterthur als «17:00» da.
+     */
+    public static function local(DateTimeInterface $time, string $lang): Carbon
+    {
+        $zone = app(CurrentSite::class)->get()?->timezone;
+        $local = Carbon::instance($time)->copy()->setTimezone(is_string($zone) && $zone !== '' ? $zone : (string) config('app.timezone', 'UTC'));
         $local->locale($lang);
 
-        return $local->isoFormat(self::dayFormat($lang, true).', HH:mm');
+        return $local;
     }
 
     /**

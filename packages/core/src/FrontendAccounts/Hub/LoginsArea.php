@@ -86,7 +86,7 @@ final class LoginsArea implements AccountArea
         }
         $rows = '';
         foreach ($this->passkeys as $passkey) {
-            $created = $passkey->created_at === null ? null : Carbon::instance($passkey->created_at);
+            $created = $passkey->created_at === null ? null : Carbon::instance($passkey->created_at)->setTimezone($page->site->timezone ?: (string) config('app.timezone'));
             $created?->locale($page->lang);
             $used = $passkey->last_used_at === null ? null : Carbon::instance($passkey->last_used_at);
             $used?->locale($page->lang);

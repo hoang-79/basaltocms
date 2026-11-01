@@ -15,7 +15,6 @@ use Basalto\Modules\Forum\Frontend\People;
 use Basalto\Modules\Forum\Models\Node;
 use Basalto\Modules\Forum\Models\Post;
 use Basalto\Modules\Forum\Models\Thread;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -92,9 +91,7 @@ final class ForumSearch
             $post = $b['post'];
             $when = '';
             if ($post->created_at !== null) {
-                $day = Carbon::instance($post->created_at)->copy();
-                $day->locale($locale);
-                $when = ' · '.$day->isoFormat(Markup::dayFormat($locale, false));
+                $when = ' · '.Markup::local($post->created_at, $locale)->isoFormat(Markup::dayFormat($locale, false));
             }
             $hits[$threadId] = ['excerpt' => SiteSearch::excerpt($b['text'], $query),
                 'meta' => $people->name($post->customer_id, $locale).' · '.__('Beitrag :number', ['number' => $b['number']], $locale).$when]
