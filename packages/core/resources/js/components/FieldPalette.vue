@@ -118,9 +118,7 @@ const groupButton = (active: boolean): string =>
                 @click="group = ''"
             >
                 {{ $t('Alle') }}
-                <span class="font-mono text-[10.5px] opacity-70">{{
-                    items.length
-                }}</span>
+                <span class="font-mono text-[10.5px]">{{ items.length }}</span>
             </button>
             <button
                 v-for="g in groups"
@@ -137,9 +135,7 @@ const groupButton = (active: boolean): string =>
                 @click="group = group === g.key ? '' : g.key"
             >
                 {{ groupLabel(g.key) }}
-                <span class="font-mono text-[10.5px] opacity-70">{{
-                    g.count
-                }}</span>
+                <span class="font-mono text-[10.5px]">{{ g.count }}</span>
             </button>
         </nav>
         <div class="scroll-y max-h-[26rem] min-w-0 overflow-y-auto p-3">

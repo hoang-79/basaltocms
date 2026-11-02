@@ -274,7 +274,7 @@ onBeforeUnmount(() => {
                     v-for="d in ['desktop', 'mobile'] as const"
                     :key="d"
                     type="button"
-                    class="rounded px-1.5 py-0.5 text-[11px]"
+                    class="inline-flex min-h-6 items-center rounded px-1.5 text-[11px]"
                     :class="
                         device === d
                             ? 'bg-basalt text-paper'
@@ -287,7 +287,7 @@ onBeforeUnmount(() => {
                 </button>
                 <button
                     type="button"
-                    class="rounded px-1.5 py-0.5 text-[13px] text-basalt-light hover:text-basalt"
+                    class="inline-flex min-h-6 min-w-6 items-center justify-center rounded px-1 text-[13px] text-basalt-light hover:text-basalt"
                     :aria-label="
                         collapsed ? $t('Aufklappen') : $t('Einklappen')
                     "
@@ -298,7 +298,7 @@ onBeforeUnmount(() => {
                 </button>
                 <button
                     type="button"
-                    class="rounded px-1.5 py-0.5 text-[15px] leading-none text-basalt-light hover:text-basalt"
+                    class="inline-flex min-h-6 min-w-6 items-center justify-center rounded px-1 text-[15px] leading-none text-basalt-light hover:text-basalt"
                     :aria-label="$t('Vorschau schliessen')"
                     @click="emit('close')"
                 >

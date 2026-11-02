@@ -201,7 +201,7 @@ const groupButton = (active: boolean): string =>
                     @click="group = ''"
                 >
                     {{ $t('Alle') }}
-                    <span class="font-mono text-[10.5px] opacity-70">{{
+                    <span class="font-mono text-[10.5px]">{{
                         items.length + reuse.length
                     }}</span>
                 </button>
@@ -220,9 +220,7 @@ const groupButton = (active: boolean): string =>
                     @click="group = group === g.key ? '' : g.key"
                 >
                     {{ g.label }}
-                    <span class="font-mono text-[10.5px] opacity-70">{{
-                        g.count
-                    }}</span>
+                    <span class="font-mono text-[10.5px]">{{ g.count }}</span>
                 </button>
             </nav>
 

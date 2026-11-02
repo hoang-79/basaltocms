@@ -44,9 +44,13 @@ final class AssetStore implements Source
         return $paths;
     }
 
+    /** Unabhängig von der Reihenfolge der Schlüssel: MySQL ordnet sie in der JSON-Spalte um, das Modell im Speicher nicht. */
     public function fingerprint(): string
     {
-        return hash('xxh128', (string) json_encode($this->theme->assets ?? []));
+        $assets = $this->theme->assets ?? [];
+        ksort($assets);
+
+        return hash('xxh128', (string) json_encode($assets));
     }
 
     /** Prüfsumme, unter der die Datei ausgeliefert wird — aus dem Verzeichnis, ohne Lesen. */

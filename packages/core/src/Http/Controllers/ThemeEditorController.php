@@ -65,7 +65,7 @@ final class ThemeEditorController
             'active_theme' => $activeName,
             'replaces_folder' => $own !== null && ThemeLibrary::hasFolder($own->name),
             'library' => $this->library->all($site)->map(static fn (SiteTheme $t): array => ['name' => $t->name, 'label' => $t->label ?? $t->name, 'active' => $t->name === $activeName])->values()->all(),
-            'assets' => $own === null ? [] : array_map(static fn (string $p, array $a): array => ['path' => $p, 'size' => $a['size']], array_keys($own->assets ?? []), array_values($own->assets ?? [])),
+            'assets' => $own === null ? [] : self::assetList($own->assets ?? []),
             'asset_types' => ThemeLibrary::BINARY,
             'files' => array_map(static fn (string $p): array => [
                 'path' => $p,
@@ -349,5 +349,18 @@ final class ThemeEditorController
     private function user(Request $request): Authenticatable
     {
         return $request->user() ?? abort(403);
+    }
+
+    /**
+     * Bilder und Schriften nach Pfad — MySQL gibt die Schlüssel der JSON-Spalte in eigener Ordnung zurück.
+     *
+     * @param  array<string, array{hash: string, size: int}>  $assets
+     * @return list<array{path: string, size: int}>
+     */
+    private static function assetList(array $assets): array
+    {
+        ksort($assets);
+
+        return array_map(static fn (string $p, array $a): array => ['path' => $p, 'size' => $a['size']], array_keys($assets), array_values($assets));
     }
 }

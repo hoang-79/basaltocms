@@ -44,7 +44,7 @@ final class Consent
             '<div class="basalto-cookies__kategorie"><div><p class="basalto-cookies__name">%s</p><p class="basalto-cookies__text">%s</p></div>'
             .'<button type="button" role="switch" aria-checked="false" class="basalto-cookies__schalter" data-kategorie="%s" aria-label="%s"><span></span></button></div>',
             $t($name), $t($text), $key, $t($name));
-        $more = $privacyUrl === null ? '' : sprintf(' <a href="%s">%s</a>', $e($privacyUrl), $t('Mehr erfahren'));
+        $more = $privacyUrl === null ? '' : sprintf(' <a href="%s">%s</a>', $e($privacyUrl), $t('Zur Datenschutzerklärung'));
 
         return '<style id="basalto-cookies-stil">'.self::CSS.'</style>'
             .sprintf('<div class="basalto-cookies" data-cookie-banner hidden><div class="basalto-cookies__grund"></div><div class="basalto-cookies__rahmen" role="dialog" aria-modal="true" aria-labelledby="basalto-cookies-titel">'
