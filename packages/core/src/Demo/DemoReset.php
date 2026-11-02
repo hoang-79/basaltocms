@@ -54,9 +54,7 @@ final class DemoReset
     /** @return array{site: string, counts: array<string, int>, fingerprint: string} */
     public function run(): array
     {
-        if (! DemoMode::enabled()) {
-            throw new RuntimeException('Die Demo lässt sich nur im Demo-Modus neu aufsetzen (BASALTO_DEMO=true).');
-        }
+        self::requireDemoMode();
         $disk = Storage::disk();
         $handle = (string) config('basalto.demo.site', 'demo');
         if (! self::diskBelongsToDemo($disk, $handle)) {
@@ -75,6 +73,20 @@ final class DemoReset
         }
         $disk->put(self::MARKER, 'Ablage der Basalto-Demo: basalto:demo-reset darf sie leeren.');
 
+        return $this->seed();
+    }
+
+    /**
+     * Den Bestand der Demo einspielen — in eine frisch migrierte, leere Datenbank. run() ruft es nach dem Neuaufsetzen;
+     * die Tests der Funktionsschau rufen es direkt, ohne das Schema neu zu bauen (auf MariaDB kostet das jedes Mal eine
+     * halbe Minute).
+     *
+     * @return array{site: string, counts: array<string, int>, fingerprint: string}
+     */
+    public function seed(): array
+    {
+        self::requireDemoMode();
+        $handle = (string) config('basalto.demo.site', 'demo');
         $account = Account::installation('Basalto Demo');
         $site = Site::query()->create(['account_id' => $account->id, 'handle' => $handle, 'name' => 'Basalto Demo', 'default_locale' => 'de', 'timezone' => 'Europe/Zurich', 'theme' => (string) config('basalto.demo.theme', 'starter')]);
         foreach (['de', 'en', 'fr', 'it'] as $i => $locale) {
@@ -124,6 +136,13 @@ final class DemoReset
         $this->pages->forget();
 
         return ['site' => $handle, 'counts' => self::counts(), 'fingerprint' => self::fingerprint()];
+    }
+
+    private static function requireDemoMode(): void
+    {
+        if (! DemoMode::enabled()) {
+            throw new RuntimeException('Die Demo lässt sich nur im Demo-Modus neu aufsetzen (BASALTO_DEMO=true).');
+        }
     }
 
     /**
