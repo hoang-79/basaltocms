@@ -14,7 +14,7 @@ import {
     indentLabel,
     tidyChanges,
 } from './codeFormat';
-import { kindOf, languageFor, languageNow } from './codeLanguage';
+import { kindOf, languageFor } from './codeLanguage';
 import type { CodeKind } from './codeLanguage';
 import { codeTools } from './codeToolbar';
 import { lava } from './lavaLanguage';
@@ -22,7 +22,7 @@ import { shortcut } from './richtext/toolbar';
 
 /** TB 97: Formatieren, Sprache je Datei, Hervorhebung von Lava und die Kürzel des grossen Code-Editors. */
 async function formatted(text: string, path: string): Promise<string> {
-    const extension: Extension = await languageFor(path);
+    const extension: Extension = languageFor(path);
     const state = EditorState.create({
         doc: text,
         extensions: [extension, indentUnit.of(indentFor(kindOf(path), text))],
@@ -84,7 +84,7 @@ describe('Einklappen in Lava', () => {
     it('klappt einen Block von «{» bis vor die passende «}» ein, auch mit Kommentar hinter der Klammer', () => {
         const state = EditorState.create({
             doc: 'site x { # Kopf\n  name: "a"\n  nav {\n    item: b\n  }\n}\n',
-            extensions: [languageNow('theme.lava') ?? []],
+            extensions: [languageFor('theme.lava')],
         });
         ensureSyntaxTree(state, state.doc.length, 1000);
         const first = state.doc.line(1);

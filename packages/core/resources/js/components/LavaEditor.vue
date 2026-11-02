@@ -42,7 +42,7 @@ import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { postJson } from '../http';
 import { t } from '../i18n';
 import { formatChanges, formattable, indentFor } from './codeFormat';
-import { kindOf, languageFor, languageNow } from './codeLanguage';
+import { kindOf, languageFor } from './codeLanguage';
 import {
     completionType,
     plainMarkdown,
@@ -391,22 +391,18 @@ function editing(): Extension[] {
     ];
 }
 
-/** Die Sprache der Datei setzen — Lava sofort, andere nach dem Nachladen ihres Pakets. */
-async function loadLanguage(): Promise<void> {
-    const path = props.path;
-    const extension = await languageFor(path);
-    if (view && path === props.path) {
-        view.dispatch({
-            effects: [
-                language.reconfigure(extension),
-                indentation.reconfigure(
-                    indentUnit.of(
-                        indentFor(kindOf(path), view.state.doc.toString()),
-                    ),
+/** Sprache und Einrückung der Datei setzen (beim Wechsel der Datei). */
+function applyLanguage(): void {
+    view?.dispatch({
+        effects: [
+            language.reconfigure(languageFor(props.path)),
+            indentation.reconfigure(
+                indentUnit.of(
+                    indentFor(kindOf(props.path), view.state.doc.toString()),
                 ),
-            ],
-        });
-    }
+            ),
+        ],
+    });
 }
 
 onMounted(() => {
@@ -426,7 +422,7 @@ onMounted(() => {
                 highlightActiveLine(),
                 highlightSelectionMatches(),
                 syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
-                language.of(languageNow(props.path) ?? []),
+                language.of(languageFor(props.path)),
                 indentation.of(
                     indentUnit.of(
                         indentFor(kindOf(props.path), props.modelValue),
@@ -459,12 +455,11 @@ onMounted(() => {
             ],
         }),
     });
-    void loadLanguage();
 });
 
 watch(
     () => props.path,
-    () => void loadLanguage(),
+    () => applyLanguage(),
 );
 
 watch(

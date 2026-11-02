@@ -1,3 +1,7 @@
+import { css } from '@codemirror/lang-css';
+import { html } from '@codemirror/lang-html';
+import { javascript } from '@codemirror/lang-javascript';
+import { json } from '@codemirror/lang-json';
 import { foldService, matchBrackets } from '@codemirror/language';
 import type { Extension } from '@codemirror/state';
 import { t } from '../i18n';
@@ -5,8 +9,10 @@ import { lava } from './lavaLanguage';
 
 /**
  * Sprache je Datei des Theme-Editors (TB 97): Lava selbst, dazu CSS, HTML (auch Teile `.lava.html` und SVG), JSON
- * und JavaScript über die CodeMirror-Pakete — erst geladen, wenn eine solche Datei offen ist. Markdown und Text bleiben
- * ohne Hervorhebung.
+ * und JavaScript über die CodeMirror-Pakete. Fest eingebunden, nicht nachgeladen: Ein dynamischer Import aus
+ * node_modules schreibt beim Release-Bau (node_modules verlinkt) den Pfad des Rechners ins öffentliche Vite-Manifest
+ * (v1.3.23, vom Geheimnis-Scan gestoppt). Die Pakete landen so im Bündel der Seite Theme-Editor. Markdown und Text
+ * bleiben ohne Hervorhebung.
  */
 export type CodeKind = 'lava' | 'css' | 'html' | 'svg' | 'json' | 'js' | 'text';
 
@@ -62,27 +68,20 @@ const lavaFolding = foldService.of((state, lineStart, lineEnd) => {
     return { from: line.from + brace + 1, to: match.end.from };
 });
 
-/** Lava sofort (ohne Nachladen), damit der Text nicht erst ungefärbt erscheint; andere Sprachen: null. */
-export function languageNow(path: string): Extension | null {
-    return kindOf(path) === 'lava' ? [lava, lavaFolding] : null;
-}
-
 /** Die Erweiterungen der Sprache einer Datei (Hervorhebung, Einrückung, Einklappen, Kommentarzeichen). */
-export async function languageFor(path: string): Promise<Extension> {
+export function languageFor(path: string): Extension {
     switch (kindOf(path)) {
         case 'lava':
-            return languageNow(path) ?? [];
+            return [lava, lavaFolding];
         case 'css':
-            return (await import('@codemirror/lang-css')).css();
+            return css();
         case 'html':
         case 'svg':
-            return (await import('@codemirror/lang-html')).html({
-                autoCloseTags: true,
-            });
+            return html({ autoCloseTags: true });
         case 'json':
-            return (await import('@codemirror/lang-json')).json();
+            return json();
         case 'js':
-            return (await import('@codemirror/lang-javascript')).javascript();
+            return javascript();
         default:
             return [];
     }
