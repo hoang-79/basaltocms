@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { Head, Link, router, useForm, usePage } from '@inertiajs/vue3';
-import { computed, onBeforeUnmount, ref, watch } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { AUTOSAVE_HEADER } from '../components/autosave';
 import Button from '../components/Button.vue';
 import Card from '../components/Card.vue';
+import CodeWorkbench from '../components/CodeWorkbench.vue';
 import LavaEditor from '../components/LavaEditor.vue';
 import {
     findingsText,
@@ -252,7 +253,49 @@ function deleteAsset(): void {
     }
 }
 
+/*
+ * TB 97: Bearbeitet wird im grossen Editor (Dialog über fast den ganzen Bildschirm); auf der Seite steht der Text
+ * als Vorschau — ein Klick hinein oder Enter öffnet den Editor an dieser Zeile, ebenso ein Befund und der Sprung zur
+ * Definition in einer anderen Datei (Anker #zeile-N).
+ */
+const workbenchOpen = ref(false);
+const workbenchLine = ref<number | null>(null);
+function openWorkbench(line: number | null = null): void {
+    if (!props.file.editable) {
+        return;
+    }
+    workbenchLine.value = line;
+    workbenchOpen.value = true;
+}
+onMounted(() => {
+    const anchor = /^#zeile-(\d+)$/.exec(window.location.hash);
+    if (anchor) {
+        openWorkbench(Number(anchor[1]));
+    }
+});
+const saveState = computed(() => {
+    if (saving.value) {
+        return t('Speichert …');
+    }
+    if (saveError.value) {
+        return t('Nicht gespeichert — erst fehlerfrei');
+    }
+    if (dirty.value && fileErrors.value.length > 0) {
+        return t('Nicht gespeichert — Fehler in dieser Datei');
+    }
+    if (dirty.value) {
+        return t('Speichert nach einer Pause in den Entwurf');
+    }
+
+    return t('Im Entwurf gespeichert');
+});
+
 function goToDefinition(target: { file: string; line: number }): void {
+    if (target.file === props.file.path) {
+        openWorkbench(target.line);
+
+        return;
+    }
     router.visit(`${fileUrl(target.file)}#zeile-${target.line}`);
 }
 
@@ -463,6 +506,21 @@ const languageUrl = computed(() => withTheme(props.urls.language));
                 <span v-if="dirty" class="text-basalt-light"
                     >· {{ $t('ungespeichert') }}</span
                 >
+                <Button
+                    v-if="file.editable"
+                    variant="secondary"
+                    size="sm"
+                    class="ml-auto"
+                    @click="openWorkbench()"
+                    >{{ $t('Im grossen Editor bearbeiten') }}</Button
+                >
+            </p>
+            <p v-if="file.editable" class="mb-2 text-[12px] text-basalt-light">
+                {{
+                    $t(
+                        'Klicken Sie in den Text, um ihn im grossen Editor zu bearbeiten — mit Werkzeugleiste, Formatieren und Suchen.',
+                    )
+                }}
             </p>
             <LavaEditor
                 v-if="file.editable"
@@ -471,8 +529,30 @@ const languageUrl = computed(() => withTheme(props.urls.language));
                 :path="file.path"
                 :language-url="languageUrl"
                 :label="$t('Quelltext :path', { path: file.path })"
+                preview
+                @findings="findings = $event"
+                @open="openWorkbench"
+            />
+            <CodeWorkbench
+                v-if="file.editable"
+                v-model="text"
+                :open="workbenchOpen"
+                :path="file.path"
+                :language-url="languageUrl"
+                :subtitle="
+                    $t(
+                        'Theme «:theme» · Änderungen speichern sich selbst im Entwurf.',
+                        {
+                            theme: theme_label ?? theme,
+                        },
+                    )
+                "
+                :save-state="saveState"
+                :findings="findings"
+                :line="workbenchLine"
                 @findings="findings = $event"
                 @definition="goToDefinition"
+                @close="workbenchOpen = false"
             />
             <Notice v-else tone="grey">{{
                 $t(
@@ -519,7 +599,7 @@ const languageUrl = computed(() => withTheme(props.urls.language));
                         v-if="f.file === file.path"
                         type="button"
                         class="font-mono text-[12.5px] underline"
-                        @click="editor?.goToLine(f.line)"
+                        @click="openWorkbench(f.line)"
                     >
                         {{ f.file }}:{{ f.line }}:{{ f.column }}
                     </button>

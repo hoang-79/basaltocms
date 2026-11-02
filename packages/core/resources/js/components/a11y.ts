@@ -5,7 +5,7 @@ import type { Directive } from 'vue';
  *
  * - `vDialog` gibt einem Dialog das Verhalten, das man von ihm erwartet: Der Fokus geht beim Öffnen hinein (erstes
  *   Eingabefeld, sonst erstes Bedienelement, sonst der Dialog selbst), Escape schliesst, Tab bleibt im Dialog (nur
- *   modal), und beim Schliessen kehrt der Fokus dorthin zurück, wo er vorher war — ausser er ist inzwischen bewusst
+ *   modal) — beides nur, wenn kein Bedienelement die Taste schon verarbeitet hat —, und beim Schliessen kehrt der Fokus dorthin zurück, wo er vorher war — ausser er ist inzwischen bewusst
  *   woanders hingewandert (z. B. zurück in den Editor).
  * - `nextTabKey` rechnet die Pfeiltasten einer Reiterleiste (APG «Tabs»: ← → Pos1 Ende, ringsum).
  */
@@ -108,6 +108,11 @@ export const vDialog: Directive<HTMLElement, DialogOptions> = {
             previous: document.activeElement as HTMLElement | null,
             options: binding.value,
             onKey: (event) => {
+                // Hat ein Bedienelement im Dialog die Taste schon genommen (Code-Editor: Escape schliesst die Suche,
+                // Tab rückt ein; Auswahllisten), bleibt sie dort
+                if (event.defaultPrevented) {
+                    return;
+                }
                 if (event.key === 'Escape') {
                     event.stopPropagation();
                     closeOf(state.options)();

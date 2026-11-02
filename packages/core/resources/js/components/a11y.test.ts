@@ -146,6 +146,29 @@ describe('v-dialog', () => {
         expect(document.activeElement?.id).toBe('ausloeser');
     });
 
+    it('lässt Escape und Tab dem Bedienelement, das sie schon verarbeitet hat (Code-Editor im Dialog)', async () => {
+        const { open, close } = mount((c) => c);
+        open.value = true;
+        await nextTick();
+        const feld = document.getElementById('feld');
+        feld?.addEventListener('keydown', (event) => event.preventDefault());
+
+        feld?.dispatchEvent(
+            new KeyboardEvent('keydown', {
+                key: 'Escape',
+                bubbles: true,
+                cancelable: true,
+            }),
+        );
+        await nextTick();
+        expect(close).not.toHaveBeenCalled();
+        expect(document.getElementById('dialog')).not.toBeNull();
+
+        // Das Feld ist das letzte Element: ohne die Ausnahme ginge Tab zum ersten zurück
+        feld?.dispatchEvent(tab());
+        expect(document.activeElement?.id).toBe('feld');
+    });
+
     it('lässt Tab aus einem nicht modalen Feld hinaus', async () => {
         const { open } = mount((c) => ({ close: c, modal: false }));
         open.value = true;

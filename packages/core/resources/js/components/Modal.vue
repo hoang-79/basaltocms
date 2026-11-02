@@ -7,6 +7,7 @@ import { vDialog } from './a11y';
  * `body` — das Ziel gibt es auf jeder Seite. Fokus, Escape und Tab-Falle über `v-dialog` (WCAG 2.1.2, 2.4.3):
  * Der Fokus geht hinein (Eingabefeld, sonst erstes Bedienelement), Escape und Klick daneben schliessen, beim
  * Schliessen kehrt er zum auslösenden Knopf zurück. Titel und Untertitel benennen und beschreiben den Dialog.
+ * `full`: fast der ganze Bildschirm, der Inhalt ohne Rand und ohne eigenes Scrollen (der grosse Code-Editor, TB 97).
  */
 const props = withDefaults(
     defineProps<{
@@ -14,8 +15,9 @@ const props = withDefaults(
         title: string;
         subtitle?: string;
         wide?: boolean;
+        full?: boolean;
     }>(),
-    { subtitle: '', wide: true },
+    { subtitle: '', wide: true, full: false },
 );
 const emit = defineEmits<{ (e: 'close'): void }>();
 const id = useId();
@@ -42,7 +44,8 @@ onBeforeUnmount(() => {
         >
             <div
                 v-if="open"
-                class="fixed inset-0 z-40 flex items-start justify-center bg-basalt/35 p-3 backdrop-blur-sm md:p-8"
+                class="fixed inset-0 z-40 flex items-start justify-center bg-basalt/35 backdrop-blur-sm"
+                :class="full ? 'p-2 md:p-4' : 'p-3 md:p-8'"
                 @mousedown.self="emit('close')"
             >
                 <div
@@ -52,7 +55,13 @@ onBeforeUnmount(() => {
                     :aria-labelledby="`${id}-title`"
                     :aria-describedby="subtitle ? `${id}-subtitle` : undefined"
                     class="flex max-h-full w-full flex-col overflow-hidden rounded-xl border border-ash-light bg-white shadow-2xl"
-                    :class="wide ? 'max-w-4xl' : 'max-w-lg'"
+                    :class="
+                        full
+                            ? 'h-full max-w-[1800px]'
+                            : wide
+                              ? 'max-w-4xl'
+                              : 'max-w-lg'
+                    "
                 >
                     <!-- div statt header/footer: im Dialog an body wären es zweite Landmarken «banner»/«contentinfo» -->
                     <div
@@ -83,6 +92,13 @@ onBeforeUnmount(() => {
                         </button>
                     </div>
                     <div
+                        v-if="full"
+                        class="flex min-h-0 flex-1 flex-col overflow-hidden"
+                    >
+                        <slot />
+                    </div>
+                    <div
+                        v-else
                         class="scroll-y min-h-0 flex-1 overflow-y-auto px-4 py-3"
                     >
                         <slot />

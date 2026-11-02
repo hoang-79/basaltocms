@@ -198,8 +198,26 @@ Dans le journal : `theme.add`, `theme.copy`, `theme.remove`, `theme.hide`, `them
 | **Exporter**, **Importer** | paquet du thème avec ses images ; une importation arrive sous forme de brouillons (texte) et immédiatement (images) |
 | **Retour au dossier** | uniquement pour un thème propre portant le nom d’un dossier : le site affiche de nouveau le dossier, le thème propre reste dans la bibliothèque sous `<name>-eigen` avec ses brouillons et ses versions |
 
-L’éditeur de code est CodeMirror 6 avec coloration Lava et le même serveur de langage que dans VS Code — constats après chaque
-pause, suggestions avec Ctrl+Espace, explication au survol, F12 pour la définition (voir
+Sur la page, le code s’affiche en aperçu. Un clic dedans (ou Entrée) l’ouvre à cette ligne dans le **grand
+éditeur** : une boîte de dialogue qui couvre presque tout l’écran, l’arrière-plan flouté. Un clic sur un constat ou le
+bouton « Modifier dans le grand éditeur » l’ouvre aussi. Comme la page, il enregistre de lui-même dans le brouillon ;
+Échap ou « Terminé » le ferme.
+
+- **Barre d’outils :** annuler, rétablir, rechercher et remplacer (⌘F), aller à la ligne (⌘⌥G), formater (⇧⌥F),
+  indenter, désindenter, commenter/décommenter (⌘/), tout replier et tout déplier, retour à la ligne (⌥Z), police plus
+  petite et plus grande, vérifier maintenant, constat suivant (F8) et l’aperçu « Raccourcis clavier ». Sous Windows et
+  Linux, Ctrl remplace ⌘ et Alt remplace ⌥.
+- **Couleurs par fichier :** Lava, CSS, HTML (y compris les parties `.lava.html`), SVG, JSON et JavaScript ; Markdown
+  et texte sans.
+- **Formater** réordonne l’indentation de Lava, CSS et JavaScript — l’intérieur des commentaires de bloc et le balisage
+  dans Lava restent tels quels. Le JSON est entièrement réécrit. HTML et SVG sont seulement nettoyés, car certaines
+  parties des thèmes sont des modèles Lava et non du HTML pur. Partout, les espaces en fin de ligne disparaissent et le
+  fichier se termine par exactement un saut de ligne. L’indentation suit le fichier (la barre d’état l’indique, p. ex.
+  « 4 espaces ») ; Lava utilise toujours deux espaces.
+- **Barre d’état :** ligne et colonne, langage, indentation, constats de ce fichier et état de l’enregistrement.
+
+S’y ajoute le serveur de langage comme dans VS Code — constats après chaque pause, suggestions avec Ctrl+Espace,
+explication au survol, F12 pour la définition, aussi dans un autre fichier (voir
 [Serveur de langage pour Lava](sprachdienst.md)).
 
 > Encore en suspens : les brouillons CSS n’apparaissent dans l’aperçu qu’après la publication, car les assets du thème lisent la

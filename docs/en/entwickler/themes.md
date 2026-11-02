@@ -199,9 +199,24 @@ on the right.
 | **Export**, **Import** | package of the theme with images; an import arrives as drafts (text) and immediately (images) |
 | **Back to the folder** | only for an own theme named like a folder: the site shows the folder again, the own theme stays in the library as `<name>-eigen` with its drafts and versions |
 
-The code editor is CodeMirror 6 with Lava highlighting and the same language server as in VS Code — findings after every
-pause, suggestions with Ctrl+Space, explanations on hover, F12 to go to the definition (see
-[Language server for Lava](sprachdienst.md)).
+On the page, the code is shown as a preview. Clicking into it (or pressing Enter) opens it at that line in the **large
+editor**: a dialog covering almost the whole screen, with the background blurred. A click on a finding or the button
+“Edit in the large editor” opens it as well. Like the page, it saves to the draft by itself; Escape or “Done” closes
+it.
+
+- **Toolbar:** undo, redo, find and replace (⌘F), go to line (⌘⌥G), format (⇧⌥F), indent, outdent, toggle comment
+  (⌘/), fold and unfold all, wrap lines (⌥Z), smaller and larger font, check now, next finding (F8) and the
+  “Keyboard shortcuts” overview. On Windows and Linux, Ctrl replaces ⌘ and Alt replaces ⌥.
+- **Colours per file:** Lava, CSS, HTML (including `.lava.html` parts), SVG, JSON and JavaScript; Markdown and text
+  without.
+- **Format** re-orders the indentation of Lava, CSS and JavaScript — the inside of block comments and the markup in
+  Lava stay as they are. JSON is rewritten completely. HTML and SVG are only tidied, because parts of themes are Lava
+  templates rather than pure HTML. Everywhere, spaces at line ends are removed and the file ends with exactly one line
+  break. Indentation follows the file (the status bar names it, e.g. “4 spaces”); Lava always uses two spaces.
+- **Status bar:** line and column, language, indentation, findings of this file and the saving state.
+
+On top comes the language server as in VS Code — findings after every pause, suggestions with Ctrl+Space,
+explanations on hover, F12 to the definition, also in another file (see [Language server for Lava](sprachdienst.md)).
 
 > Still open: CSS drafts only appear in the preview after publishing, because the theme assets read the live version.
 

@@ -25,21 +25,24 @@ export type Tool = {
 /** Eine Reihe der Toolbar: Gruppen aus Werkzeugen oder den Auswahlfeldern Absatzformat und Codesprache. */
 export type ToolbarItem = Tool | { key: 'format' } | { key: 'codeLanguage' };
 
-const isMac =
+export const isMac =
     typeof navigator !== 'undefined' &&
     /Mac|iPhone|iPad/.test(navigator.platform);
-const alt = isMac ? '⌥' : 'Alt+';
+/**
+ * Das Kürzel für den Tooltip: «⌘B» auf dem Mac, «Strg+B» sonst. Tasten mit «+» getrennt; «Mod» ist ⌘ bzw. Strg,
+ * «Ctrl» die Control-Taste auch auf dem Mac (⌃), «Alt» ⌥ bzw. Alt.
+ */
+export function shortcut(keys: string, mac: boolean = isMac): string {
+    const names: Record<string, string> = mac
+        ? { Mod: '⌘', Ctrl: '⌃', Alt: '⌥' }
+        : { Mod: t('Strg'), Ctrl: t('Strg'), Alt: 'Alt' };
+    const parts = keys.split('+').map((key) => names[key] ?? key);
 
-/** Das Kürzel für den Tooltip: «⌘B» auf dem Mac, «Strg+B» sonst. */
-export function shortcut(keys: string): string {
-    return keys
-        .replace('Mod', isMac ? '⌘' : t('Strg+'))
-        .replace('Alt', alt)
-        .replace(/\+(?=[^+])/g, isMac ? '' : '+')
-        .replace(/⇧\+/g, '⇧');
+    return parts.join(mac ? '' : '+');
 }
 
-const icons = {
+/** Strichpfade der Symbole (16 px) — auch die Werkzeugleiste des Code-Editors nimmt sie. */
+export const icons = {
     undo: 'M6 4 2.5 7.5 6 11 M2.5 7.5H10a3.5 3.5 0 0 1 0 7H7',
     redo: 'M10 4l3.5 3.5L10 11 M13.5 7.5H6a3.5 3.5 0 0 0 0 7h3',
     bold: 'M4.5 2.5h4.8a2.6 2.6 0 0 1 0 5.2H4.5zM4.5 7.7h5.6a2.9 2.9 0 0 1 0 5.8H4.5z',

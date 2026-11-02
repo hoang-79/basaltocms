@@ -200,9 +200,24 @@ a destra.
 | **Esporta**, **Importa** | pacchetto del tema con immagini; un’importazione arriva come bozze (testo) e subito (immagini) |
 | **Torna alla cartella** | solo per un tema proprio con il nome di una cartella: il sito mostra di nuovo la cartella, il tema proprio resta nella libreria come `<name>-eigen` con bozze e versioni |
 
-L’editor di codice è CodeMirror 6 con evidenziazione di Lava e lo stesso language server di VS Code — segnalazioni dopo
-ogni pausa, suggerimenti con Ctrl+Spazio, spiegazione al passaggio del mouse, F12 per la definizione (vedere
-[Language server per Lava](sprachdienst.md)).
+Sulla pagina il codice è un’anteprima. Un clic al suo interno (o Invio) lo apre a quella riga nell’**editor
+grande**: una finestra di dialogo che copre quasi tutto lo schermo, con lo sfondo sfocato. Lo aprono anche un clic su
+una segnalazione o il pulsante «Modifica nell’editor grande». Come la pagina, salva da solo nella bozza; Esc o «Fatto»
+lo chiude.
+
+- **Barra degli strumenti:** annulla, ripeti, trova e sostituisci (⌘F), vai alla riga (⌘⌥G), formatta (⇧⌥F), aumenta
+  e riduci rientro, attiva/disattiva commento (⌘/), comprimi ed espandi tutto, a capo automatico (⌥Z), carattere più
+  piccolo e più grande, verifica ora, segnalazione successiva (F8) e la panoramica «Scorciatoie da tastiera». Su
+  Windows e Linux Ctrl sostituisce ⌘ e Alt sostituisce ⌥.
+- **Colori per file:** Lava, CSS, HTML (anche le parti `.lava.html`), SVG, JSON e JavaScript; Markdown e testo senza.
+- **Formatta** riordina il rientro di Lava, CSS e JavaScript — l’interno dei commenti a blocco e il markup in Lava
+  restano invariati. Il JSON viene riscritto per intero. HTML e SVG vengono solo riordinati, perché parti dei temi sono
+  modelli Lava e non HTML puro. Ovunque spariscono gli spazi a fine riga e il file termina con esattamente un a capo.
+  Il rientro segue il file (la barra di stato lo indica, p. es. «4 spazi»); Lava usa sempre due spazi.
+- **Barra di stato:** riga e colonna, linguaggio, rientro, segnalazioni di questo file e stato del salvataggio.
+
+In più il language server come in VS Code — segnalazioni dopo ogni pausa, suggerimenti con Ctrl+Spazio, spiegazione
+al passaggio del mouse, F12 per la definizione, anche in un altro file (vedere [Language server per Lava](sprachdienst.md)).
 
 > Ancora in sospeso: le bozze CSS compaiono nell’anteprima solo dopo la pubblicazione, perché gli asset del tema
 > leggono la versione online.

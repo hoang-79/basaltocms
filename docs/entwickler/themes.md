@@ -197,9 +197,25 @@ rechts.
 | **Exportieren**, **Importieren** | Paket des Themes mit Bildern; ein Import kommt als Entwürfe (Text) und sofort (Bilder) |
 | **Zurück zum Ordner** | nur bei einem eigenen Theme mit dem Namen eines Ordners: die Site zeigt wieder den Ordner, das eigene Theme bleibt unter `<name>-eigen` mit Entwürfen und Fassungen in der Bibliothek |
 
-Der Code-Editor ist CodeMirror 6 mit Lava-Hervorhebung und demselben Sprachdienst wie in VS Code — Befunde nach jeder
-Pause, Vorschläge mit Ctrl+Leertaste, Erklärung beim Darüberfahren, F12 zur Definition (siehe
-[Sprachdienst für Lava](sprachdienst.md)).
+Auf der Seite steht der Code als Vorschau. Ein Klick hinein (oder Enter) öffnet ihn an dieser Zeile im **grossen
+Editor**: ein Dialog fast über den ganzen Bildschirm, der Hintergrund unscharf. Ebenso öffnet ihn ein Klick auf einen
+Befund oder der Knopf «Im grossen Editor bearbeiten». Er speichert wie die Seite von selbst in den Entwurf; Escape
+oder «Fertig» schliesst ihn.
+
+- **Werkzeugleiste:** Rückgängig, Wiederholen, Suchen und ersetzen (⌘F), Gehe zu Zeile (⌘⌥G), Formatieren (⇧⌥F),
+  Einrücken, Ausrücken, Kommentar ein/aus (⌘/), Alles ein- und ausklappen, Zeilen umbrechen (⌥Z), Schrift kleiner
+  und grösser, Jetzt prüfen, Nächster Befund (F8) und die Übersicht «Tastenkürzel». Unter Windows und Linux steht
+  Strg statt ⌘ und Alt statt ⌥.
+- **Farben je Datei:** Lava, CSS, HTML (auch Teile `.lava.html`), SVG, JSON und JavaScript; Markdown und Text ohne.
+- **Formatieren** ordnet bei Lava, CSS und JavaScript die Einrückung neu — das Innere von Block-Kommentaren und das
+  Markup in Lava bleiben stehen. JSON wird ganz neu geschrieben. HTML und SVG werden nur aufgeräumt, weil Teile der
+  Themes Lava-Vorlagen sind und kein reines HTML. Überall fallen Leerzeichen am Zeilenende weg, und die Datei endet
+  mit genau einem Zeilenumbruch. Eingerückt wird wie in der Datei (die Statuszeile nennt es, etwa «4 Leerzeichen»),
+  Lava immer mit zwei Leerzeichen.
+- **Statuszeile:** Zeile und Spalte, Sprache, Einrückung, Befunde dieser Datei und der Stand des Speicherns.
+
+Dazu der Sprachdienst wie in VS Code — Befunde nach jeder Pause, Vorschläge mit Ctrl+Leertaste, Erklärung beim
+Darüberfahren, F12 zur Definition, auch in einer anderen Datei (siehe [Sprachdienst für Lava](sprachdienst.md)).
 
 > Noch offen: CSS-Entwürfe erscheinen in der Vorschau erst nach dem Veröffentlichen, weil die Theme-Assets die
 > Live-Fassung lesen.
