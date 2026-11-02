@@ -130,6 +130,21 @@ The header counts “N awaiting review · N approved · N scheduled”. At the t
 
 **“Review”** appears for versions submitted by other people; for all others the button is called “View”. If nothing is waiting, it says “Nothing awaiting approval”, for a filter without matches “Nothing in this filter”. The number on the “Approval” menu item counts what is waiting for review.
 
+### Several versions at once
+
+Tick the boxes in front of the versions — or use the box at the top left (“Select all in the list”) to select everything the filter currently shows. Next to it, “N selected:” offers four buttons:
+
+| Button | What happens |
+| --- | --- |
+| **Approve** | approves the selected versions that are in review; the others stay as they are |
+| **Approve and publish** | puts all selected versions live at once, approving those in review first. If none of them is in review, the button is called “Publish”. |
+| **Schedule …** | one date and time for all selected versions (preset: tomorrow 08:00, in the site’s time zone); versions in review are approved first, scheduled ones are rescheduled |
+| **Reject …** | one comment for all selected versions in review; it then appears on each draft |
+
+Each version is checked on its own, by the same rules as one at a time: role, four-eyes principle, required languages, slug and alt text. What succeeds is reported in the line at the top, for example “3 versions are live.”. What does not work stays as it was and is listed with its reason under “N versions skipped” — one line per version, such as “Prices” (DE): Your role does not allow this. If publishing fails after approving, the version stays approved (“approved, but not published — …”): fix the reason and publish it afterwards.
+
+The buttons are shown to anyone who may edit in the “Approval and publishing” area.
+
 ## Bringing back an older version
 
 In the list of versions on the approval page, **“Restore”** creates a new draft from an older version. The live version stays until this draft has gone through the process.
@@ -143,7 +158,7 @@ The version is waiting in “Approval”. Whoever may approve sees it there and 
 Simply edit it in the editor. A new draft is created; the live version stays online until the correction has been approved and published.
 
 **Can I approve and publish in one step?**
-No, these are two steps: first “Approve”, then “Publish” or “Schedule publication”.
+On the approval page of a version these are two steps: first “Approve”, then “Publish” or “Schedule publication”. In the “Approval” list it is one step: select the versions, then “Approve and publish” or “Schedule …” — see [Several versions at once](#several-versions-at-once).
 
 ## Next
 

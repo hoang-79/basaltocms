@@ -130,6 +130,21 @@ L’intestazione conta «N in attesa di verifica · N approvate · N pianificate
 
 **«Verifica»** compare per le versioni inviate da altre persone; per tutte le altre il pulsante si chiama «Visualizza». Se non c’è nulla in attesa, compare «Nulla in attesa di approvazione», con un filtro senza risultati «Nulla in questo filtro». Il numero accanto alla voce di menu «Approvazione» conta ciò che è in attesa di verifica.
 
+### Più versioni insieme
+
+Metta la spunta davanti alle versioni — oppure, con la casella in alto a sinistra («Seleziona tutto nell’elenco»), selezioni tutto ciò che il filtro mostra. Accanto, «N selezionati:» offre quattro pulsanti:
+
+| Pulsante | Che cosa succede |
+| --- | --- |
+| **Approva** | approva le versioni selezionate che sono in verifica; le altre restano come sono |
+| **Approva e pubblica** | mette subito online tutte le versioni selezionate e approva prima quelle in verifica. Se nessuna è in verifica, il pulsante si chiama «Pubblica». |
+| **Pianifica …** | una data e un’ora per tutte le versioni selezionate (preimpostato: domani alle 08:00, nel fuso orario del sito); le versioni in verifica vengono prima approvate, quelle pianificate ripianificate |
+| **Respingi …** | un commento per tutte le versioni selezionate in verifica; compare poi su ogni bozza |
+
+Ogni versione viene verificata da sola, con le stesse regole di quando si procede una per una: ruolo, principio dei quattro occhi, lingue obbligatorie, slug e testo alternativo. Ciò che riesce viene segnalato dalla riga in alto, per esempio «3 versioni sono online.». Ciò che non va resta com’era e compare con il motivo sotto «N versioni saltate» — una riga per versione, come «Prezzi» (DE): Il Suo ruolo non lo consente. Se dopo l’approvazione la pubblicazione non riesce, la versione resta approvata («approvata, ma non pubblicata — …»): elimini la causa e la pubblichi in seguito.
+
+I pulsanti li vede chi può modificare nell’area «Approvazione e pubblicazione».
+
 ## Recuperare una versione più vecchia
 
 Nell’elenco delle versioni della pagina di approvazione, **«Ripristina»** crea da una versione più vecchia una nuova bozza. La versione online resta finché questa bozza non ha completato il percorso.
@@ -143,7 +158,7 @@ La versione è in attesa in «Approvazione». Chi può approvare la vede lì e c
 La modifichi semplicemente nell’editor. Nasce una nuova bozza, la versione online resta online finché la correzione non è approvata e pubblicata.
 
 **Posso approvare e pubblicare in un solo passo?**
-No, sono due passi: prima «Approva», poi «Pubblica» oppure «Pianifica pubblicazione».
+Nella pagina di approvazione di una versione sono due passi: prima «Approva», poi «Pubblica» oppure «Pianifica pubblicazione». Nell’elenco «Approvazione» basta uno: selezioni le versioni, poi «Approva e pubblica» oppure «Pianifica …» — vedi [Più versioni insieme](#più-versioni-insieme).
 
 ## Per continuare
 

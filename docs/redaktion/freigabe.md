@@ -130,6 +130,21 @@ Die Kopfzeile zählt «N warten auf Prüfung · N freigegeben · N geplant». Ob
 
 **«Prüfen»** steht bei eingereichten Fassungen anderer Personen; bei allen übrigen heisst der Knopf «Ansehen». Wartet nichts, steht dort «Nichts wartet auf Freigabe», bei einem Filter ohne Treffer «Nichts in diesem Filter». Die Zahl am Menüpunkt «Freigabe» zählt, was auf Prüfung wartet.
 
+### Mehrere Fassungen auf einmal
+
+Setzen Sie die Häkchen vor den Fassungen — oder wählen Sie mit dem Kästchen oben links («Alle in der Liste wählen») alle, die der Filter gerade zeigt. Daneben steht «N ausgewählt:» mit vier Knöpfen:
+
+| Knopf | Was geschieht |
+| --- | --- |
+| **Freigeben** | gibt die gewählten Fassungen in Prüfung frei; die übrigen bleiben, wie sie sind |
+| **Freigeben und veröffentlichen** | stellt alle gewählten sofort live und gibt Fassungen in Prüfung dabei zuerst frei. Ist keine in Prüfung dabei, heisst der Knopf «Veröffentlichen». |
+| **Planen …** | ein Datum und eine Zeit für alle gewählten (vorbelegt: morgen 08:00, in der Zeitzone der Site); Fassungen in Prüfung werden zuerst freigegeben, geplante umgeplant |
+| **Zurückweisen …** | ein Kommentar für alle gewählten Fassungen in Prüfung; er steht danach an jedem Entwurf |
+
+Geprüft wird jede Fassung für sich, nach denselben Regeln wie einzeln: Rolle, Vier-Augen-Prinzip, Pflichtsprachen, Slug und Alt-Text. Was gelingt, meldet die Zeile oben, etwa «3 Fassungen sind live.». Was nicht geht, bleibt, wie es war, und steht mit dem Grund im Hinweis «N Fassungen übersprungen» — je Fassung eine Zeile wie «Preise» (DE): Ihre Rolle erlaubt das nicht. Scheitert nach dem Freigeben das Veröffentlichen, bleibt die Fassung freigegeben («freigegeben, aber nicht veröffentlicht — …»): Beheben Sie den Grund und veröffentlichen Sie sie danach.
+
+Die Knöpfe sieht, wer im Bereich «Freigabe und Veröffentlichen» bearbeiten darf.
+
 ## Ältere Fassung zurückholen
 
 In der Liste der Fassungen auf der Freigabeseite legt **«Wiederherstellen»** aus einer älteren Fassung einen neuen Entwurf an. Die live Fassung bleibt, bis dieser Entwurf den Ablauf durchlaufen hat.
@@ -143,7 +158,7 @@ Die Fassung wartet in «Freigabe». Wer freigeben darf, sieht sie dort und als A
 Bearbeiten Sie sie einfach im Editor. Es entsteht ein neuer Entwurf, die live Fassung bleibt online, bis die Korrektur freigegeben und veröffentlicht ist.
 
 **Kann ich freigeben und veröffentlichen in einem Schritt?**
-Nein, das sind zwei Schritte: erst «Freigeben», dann «Veröffentlichen» oder «Veröffentlichung planen».
+Auf der Freigabeseite einer Fassung sind es zwei Schritte: erst «Freigeben», dann «Veröffentlichen» oder «Veröffentlichung planen». In der Liste «Freigabe» geht es in einem: Fassungen wählen, dann «Freigeben und veröffentlichen» oder «Planen …» — siehe [Mehrere Fassungen auf einmal](#mehrere-fassungen-auf-einmal).
 
 ## Weiter
 

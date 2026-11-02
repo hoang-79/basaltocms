@@ -293,6 +293,7 @@ app(Backend::class)->routes(static function (): void {
     Route::post('betrieb/jobs/{uuid}/retry', [OperationsController::class, 'retry'])->whereUuid('uuid')->name('operations.jobs.retry');
     Route::delete('betrieb/jobs/{uuid}', [OperationsController::class, 'forget'])->whereUuid('uuid')->name('operations.jobs.forget');
     Route::get('entries/{entry}/{locale}/freigabe', [WorkflowController::class, 'show'])->name('entries.review');
+    Route::post('freigabe/sammelaktion', [WorkflowController::class, 'bulk'])->name('reviews.bulk');
     Route::post('entries/{entry}/{locale}/workflow/{action}', [WorkflowController::class, 'transition'])->whereIn('action', ['withdraw', 'approve', 'reject', 'schedule', 'unschedule', 'publish', 'unpublish'])->name('entries.workflow');
     Route::get('uebersetzung', [TranslationController::class, 'index'])->name('translations.index');
     Route::get('entries/{entry}/{locale}/uebersetzen', [TranslationController::class, 'edit'])->name('entries.translation');

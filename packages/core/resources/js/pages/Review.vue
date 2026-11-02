@@ -13,7 +13,13 @@ import PageHeader from '../components/PageHeader.vue';
 import StatusHex from '../components/StatusHex.vue';
 import WorkflowLine from '../components/WorkflowLine.vue';
 import { t, tc } from '../i18n';
-import { heartbeat as heartbeatText, pathOf, versionStatus } from '../support';
+import {
+    heartbeat as heartbeatText,
+    pathOf,
+    siteTimezoneHelp,
+    tomorrowIn,
+    versionStatus,
+} from '../support';
 import type { BackendProps } from '../types';
 import type {
     RequiredLocale,
@@ -255,18 +261,6 @@ function unpublish(): void {
 
 /* ── Planen in der Zeitzone der Site ── */
 
-/** Morgen in der Zeitzone der Site als «YYYY-MM-DD». */
-function tomorrowIn(timezone: string): string {
-    const date = new Date(Date.now() + 24 * 60 * 60 * 1000);
-    try {
-        return new Intl.DateTimeFormat('en-CA', { timeZone: timezone }).format(
-            date,
-        );
-    } catch {
-        return date.toISOString().slice(0, 10);
-    }
-}
-
 const scheduleDate = ref(
     props.version?.scheduled_date ?? tomorrowIn(props.site?.timezone ?? 'UTC'),
 );
@@ -274,28 +268,9 @@ const scheduleTime = ref(props.version?.scheduled_time ?? '08:00');
 const showPlanning = computed(
     () => actions.value.schedule || props.stage === 'scheduled',
 );
-const browserTimezone = (() => {
-    try {
-        return Intl.DateTimeFormat().resolvedOptions().timeZone;
-    } catch {
-        return null;
-    }
-})();
-const timezoneHelp = computed(() => {
-    const site = props.site?.timezone ?? 'UTC';
-    if (!browserTimezone) {
-        return t('Zeitzone der Site (:timezone).', { timezone: site });
-    }
-
-    return browserTimezone === site
-        ? t('Zeitzone der Site. Ihre Zeitzone (:timezone) ist dieselbe.', {
-              timezone: browserTimezone,
-          })
-        : t(
-              'Zeitzone der Site (:site). Achtung: Ihre Zeitzone ist :timezone.',
-              { site, timezone: browserTimezone },
-          );
-});
+const timezoneHelp = computed(() =>
+    siteTimezoneHelp(props.site?.timezone ?? 'UTC'),
+);
 const pulse = computed(() => ({
     text: heartbeatText(props.heartbeat?.age_seconds ?? null).text,
     ok: props.heartbeat?.ok ?? false,

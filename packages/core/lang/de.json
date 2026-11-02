@@ -62,5 +62,10 @@
     ":count Aufruf ohne Einwilligung — anonym gezählt, ohne Besucher und Sitzung.|:count Aufrufe ohne Einwilligung — anonym gezählt, ohne Besucher und Sitzung.": ":count Aufruf ohne Einwilligung — anonym gezählt, ohne Besucher und Sitzung.|:count Aufrufe ohne Einwilligung — anonym gezählt, ohne Besucher und Sitzung.",
     ":count offenes Anliegen|:count offene Anliegen": ":count offenes Anliegen|:count offene Anliegen",
     "Neuer Code in :count Sekunde|Neuer Code in :count Sekunden": "Neuer Code in :count Sekunde|Neuer Code in :count Sekunden",
-    "Bitte warten Sie noch :count Sekunde.|Bitte warten Sie noch :count Sekunden.": "Bitte warten Sie noch :count Sekunde.|Bitte warten Sie noch :count Sekunden."
+    "Bitte warten Sie noch :count Sekunde.|Bitte warten Sie noch :count Sekunden.": "Bitte warten Sie noch :count Sekunde.|Bitte warten Sie noch :count Sekunden.",
+    ":count Fassung steht nicht mehr in der Freigabe.|:count Fassungen stehen nicht mehr in der Freigabe.": ":count Fassung steht nicht mehr in der Freigabe.|:count Fassungen stehen nicht mehr in der Freigabe.",
+    ":count Fassung freigegeben.|:count Fassungen freigegeben.": ":count Fassung freigegeben.|:count Fassungen freigegeben.",
+    ":count Fassung ist live.|:count Fassungen sind live.": ":count Fassung ist live.|:count Fassungen sind live.",
+    ":count Fassung geplant für :moment.|:count Fassungen geplant für :moment.": ":count Fassung geplant für :moment.|:count Fassungen geplant für :moment.",
+    ":count Fassung zurückgewiesen — der Kommentar steht am Entwurf.|:count Fassungen zurückgewiesen — der Kommentar steht am Entwurf.": ":count Fassung zurückgewiesen — der Kommentar steht am Entwurf.|:count Fassungen zurückgewiesen — der Kommentar steht am Entwurf."
 }

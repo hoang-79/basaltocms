@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Basalto\Core\Http\Controllers;
 
+use Basalto\Core\Access\Level;
 use Basalto\Core\Backend\Dates;
 use Basalto\Core\Content\EntryStatus;
 use Basalto\Core\Content\ThemeSchema;
@@ -25,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -33,7 +35,7 @@ use Inertia\Response;
  * Freigabe (M-08, M-09, Mockup 13): eine Sprachfassung durch das Statusmodell führen — Einreichen, Zurückziehen,
  * Freigeben (Vier-Augen), Zurückweisen mit Kommentar, Planen in der Zeitzone der Site, Planung aufheben, Veröffentlichen,
  * Offline nehmen; dazu Diff gegen die live Fassung, Pflichtsprachen, Fassungen mit Vergleich. Die Liste «Freigabe»
- * zeigt, was wartet.
+ * zeigt, was wartet, und führt mehrere Fassungen auf einmal weiter (TB 95).
  */
 final class WorkflowController
 {
@@ -69,8 +71,108 @@ final class WorkflowController
         }
 
         return Inertia::render('core::Reviews/Index', [
-            'rows' => $rows, 'counts' => $counts, 'filters' => ['status' => $status], 'urls' => ['index' => route('basalto.reviews.index')],
+            'rows' => $rows, 'counts' => $counts, 'filters' => ['status' => $status], 'site' => ['timezone' => $site->timezone],
+            'skipped' => array_values(array_map('strval', (array) $request->session()->get('reviews_skipped', []))),
+            // Die Sammelaktion verlangt «Freigabe» mit Stufe Bearbeiten — wer nur ansieht, bekommt keine Leiste
+            'urls' => ['index' => route('basalto.reviews.index'), 'bulk' => Gate::allows('area', [$site, 'approval', Level::Edit]) ? route('basalto.reviews.bulk') : null],
         ]);
+    }
+
+    /**
+     * Mehrere Fassungen auf einmal (TB 95): Freigeben, Freigeben und veröffentlichen, Planen oder Zurückweisen — je
+     * Fassung mit denselben Rechten und Regeln wie einzeln (Rolle, Vier-Augen, Pflichtsprachen, Alt-Text). Fassungen in
+     * Prüfung werden fürs Veröffentlichen und Planen zuerst freigegeben, geplante umgeplant. Was nicht geht, steht mit
+     * Grund in der Liste; scheitert nach dem Freigeben das Veröffentlichen, bleibt die Fassung freigegeben.
+     */
+    public function bulk(Request $request): RedirectResponse
+    {
+        $site = $this->current->require();
+        $data = $request->validate([
+            'action' => ['required', 'in:approve,publish,schedule,reject'],
+            'versions' => ['required', 'array', 'min:1', 'max:200'],
+            'versions.*' => ['integer'],
+            'comment' => ['nullable', 'required_if:action,reject', 'string', 'max:2000'],
+            'date' => ['nullable', 'required_if:action,schedule', 'date_format:Y-m-d'],
+            'time' => ['nullable', 'required_if:action,schedule', 'date_format:H:i'],
+        ], ['comment.required_if' => __('Sagen Sie, was fehlt — der Kommentar steht danach am Entwurf.')], ['date' => __('Datum'), 'time' => __('Zeit')]);
+        $action = (string) $data['action'];
+        $at = null;
+        if ($action === 'schedule') {
+            $at = CarbonImmutable::createFromFormat('Y-m-d H:i', $data['date'].' '.$data['time'], $site->timezone);
+            if ($at === null || $at->isPast()) {
+                return back()->withErrors(['date' => __('Der Zeitpunkt liegt in der Vergangenheit — für sofort «Veröffentlichen».')]);
+            }
+            $at = $at->utc();
+        }
+        $user = $request->user();
+        $userId = (int) $user?->getAuthIdentifier();
+        $comment = trim((string) ($data['comment'] ?? ''));
+        $ids = array_values(array_unique(array_map('intval', (array) $data['versions'])));
+        $versions = EntryVersion::query()->whereIn('id', $ids)
+            ->whereIn('status', [EntryStatus::InReview->value, EntryStatus::Approved->value, EntryStatus::Scheduled->value])
+            ->whereHas('entry', static fn ($q) => $q->withoutGlobalScope(SiteScope::class)->where('site_id', $site->id))
+            ->with('entry')->orderBy('id')->get();
+        $done = 0;
+        $skipped = [];
+        $partial = match ($action) {
+            'publish' => __('freigegeben, aber nicht veröffentlicht').' — ',
+            'schedule' => __('freigegeben, aber nicht geplant').' — ',
+            default => '',
+        };
+        foreach ($versions as $version) {
+            $name = sprintf('«%s» (%s)', $version->title, strtoupper($version->locale));
+            $abilities = match (true) {
+                $action === 'approve', $action === 'reject' => ['approve'],
+                $version->status === EntryStatus::InReview => ['approve', 'publish'],
+                default => ['publish'],
+            };
+            foreach ($abilities as $ability) {
+                if (Gate::forUser($user)->denies($ability, $version->entry)) {
+                    $skipped[] = $name.': '.__('Ihre Rolle erlaubt das nicht.');
+
+                    continue 2;
+                }
+            }
+            $prefix = '';
+            try {
+                if ($action === 'reject') {
+                    $version->reject($userId, $comment);
+                } else {
+                    if ($version->status === EntryStatus::InReview) {
+                        $version->approve($userId);
+                        $prefix = $partial;
+                    }
+                    if ($action === 'publish') {
+                        $version->publish();
+                    } elseif ($action === 'schedule') {
+                        DB::transaction(static function () use ($version, $at): void {
+                            if ($version->status === EntryStatus::Scheduled) {
+                                $version->unschedule();
+                            }
+                            $version->schedule($at ?? CarbonImmutable::now());
+                        });
+                    }
+                }
+                $done++;
+            } catch (WorkflowException $e) {
+                // Die Freigabe ist geschehen (und gemeldet) — sie bleibt; nur der zweite Schritt fehlt
+                $version->refresh();
+                $skipped[] = $name.': '.$prefix.$e->getMessage();
+            }
+        }
+        $missing = count($ids) - $versions->count();
+        if ($missing > 0) {
+            $skipped[] = trans_choice(':count Fassung steht nicht mehr in der Freigabe.|:count Fassungen stehen nicht mehr in der Freigabe.', $missing, ['count' => $missing]);
+        }
+        $message = match ($action) {
+            'approve' => trans_choice(':count Fassung freigegeben.|:count Fassungen freigegeben.', $done, ['count' => $done]),
+            'publish' => trans_choice(':count Fassung ist live.|:count Fassungen sind live.', $done, ['count' => $done]),
+            'schedule' => trans_choice(':count Fassung geplant für :moment.|:count Fassungen geplant für :moment.', $done, ['count' => $done, 'moment' => $this->moment($at ?? CarbonImmutable::now(), $site)]),
+            default => trans_choice(':count Fassung zurückgewiesen — der Kommentar steht am Entwurf.|:count Fassungen zurückgewiesen — der Kommentar steht am Entwurf.', $done, ['count' => $done]),
+        };
+        $redirect = back();
+
+        return $done > 0 ? $redirect->with('status', $message)->with('reviews_skipped', $skipped) : $redirect->with('reviews_skipped', $skipped);
     }
 
     public function show(Request $request, Entry $entry, string $locale): Response|RedirectResponse

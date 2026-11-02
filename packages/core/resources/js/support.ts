@@ -229,3 +229,37 @@ export function activeStation(
 
     return best?.letter ?? null;
 }
+
+/** Morgen in einer Zeitzone als «YYYY-MM-DD» — Vorgabe fürs Planen in der Zeitzone der Site. */
+export function tomorrowIn(timezone: string): string {
+    const date = new Date(Date.now() + 24 * 60 * 60 * 1000);
+    try {
+        return new Intl.DateTimeFormat('en-CA', { timeZone: timezone }).format(
+            date,
+        );
+    } catch {
+        return date.toISOString().slice(0, 10);
+    }
+}
+
+/** Hinweis unter Datum und Zeit: Es gilt die Zeitzone der Site — mit Warnung, wenn der Browser in einer anderen steht. */
+export function siteTimezoneHelp(site: string): string {
+    let browser: string | null = null;
+    try {
+        browser = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    } catch {
+        browser = null;
+    }
+    if (!browser) {
+        return t('Zeitzone der Site (:timezone).', { timezone: site });
+    }
+
+    return browser === site
+        ? t('Zeitzone der Site. Ihre Zeitzone (:timezone) ist dieselbe.', {
+              timezone: browser,
+          })
+        : t(
+              'Zeitzone der Site (:site). Achtung: Ihre Zeitzone ist :timezone.',
+              { site, timezone: browser },
+          );
+}

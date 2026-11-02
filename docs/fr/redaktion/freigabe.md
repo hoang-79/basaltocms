@@ -130,6 +130,21 @@ L’en-tête compte « N en attente de vérification · N validées · N planifi
 
 **« Vérifier »** figure pour les versions soumises par d’autres personnes ; pour toutes les autres, le bouton s’appelle « Voir ». Si rien n’attend, la mention est « Rien en attente de validation », et pour un filtre sans résultat « Rien dans ce filtre ». Le nombre sur l’entrée de menu « Validation » compte ce qui attend une vérification.
 
+### Plusieurs versions à la fois
+
+Cochez les cases devant les versions — ou, avec la case en haut à gauche (« Tout sélectionner dans la liste »), sélectionnez tout ce que le filtre affiche. À côté, « N sélectionnés : » propose quatre boutons :
+
+| Bouton | Ce qui se passe |
+| --- | --- |
+| **Valider** | valide les versions sélectionnées qui sont en vérification ; les autres restent telles quelles |
+| **Valider et publier** | met en ligne immédiatement toutes les versions sélectionnées et valide d’abord celles en vérification. Si aucune n’est en vérification, le bouton s’appelle « Publier ». |
+| **Planifier …** | une date et une heure pour toutes les versions sélectionnées (préréglage : demain 08:00, dans le fuseau horaire du site) ; les versions en vérification sont d’abord validées, les versions planifiées replanifiées |
+| **Refuser …** | un commentaire pour toutes les versions sélectionnées en vérification ; il figure ensuite sur chaque brouillon |
+
+Chaque version est vérifiée séparément, selon les mêmes règles qu’une à une : rôle, principe des quatre yeux, langues obligatoires, slug et texte alternatif. Ce qui réussit est annoncé par la ligne en haut, par exemple « 3 versions sont en ligne. ». Ce qui ne fonctionne pas reste tel quel et figure avec sa raison sous « N versions ignorées » — une ligne par version, comme « Tarifs » (DE) : Votre rôle ne le permet pas. Si la publication échoue après la validation, la version reste validée (« validée, mais pas publiée — … ») : corrigez la cause, puis publiez-la.
+
+Les boutons s’affichent pour toute personne qui peut modifier dans le domaine « Validation et publication ».
+
 ## Récupérer une version plus ancienne
 
 Dans la liste des versions de la page de validation, **« Restaurer »** crée un nouveau brouillon à partir d’une version plus ancienne. La version en ligne reste jusqu’à ce que ce brouillon ait suivi le déroulement.
@@ -143,7 +158,7 @@ La version attend dans « Validation ». Qui peut valider la voit là et comme t
 Modifiez-la simplement dans l’éditeur. Un nouveau brouillon est créé ; la version en ligne reste en ligne jusqu’à ce que la correction soit validée et publiée.
 
 **Puis-je valider et publier en une seule étape ?**
-Non, ce sont deux étapes : d’abord « Valider », puis « Publier » ou « Planifier la publication ».
+Sur la page de validation d’une version, ce sont deux étapes : d’abord « Valider », puis « Publier » ou « Planifier la publication ». Dans la liste « Validation », une seule suffit : sélectionnez les versions, puis « Valider et publier » ou « Planifier … » — voir [Plusieurs versions à la fois](#plusieurs-versions-à-la-fois).
 
 ## Pour continuer
 
