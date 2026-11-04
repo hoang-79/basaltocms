@@ -74,6 +74,9 @@ final class SiteExporter
         'licenses' => 'Verkaufte Lizenzen des Moduls Lizenzverkauf — Schlüssel sind an Kunden und Zahlungen gebunden, nicht an die Site',
         'license_orders' => 'Bestellungen des Moduls Lizenzverkauf — Buchhaltung der Quellinstallation (Aufbewahrungspflicht), nicht übertragbar',
         'license_invoices' => 'Rechnungen des Moduls Lizenzverkauf — Nummern fortlaufend je Installation, Aufbewahrungspflicht, nicht übertragbar',
+        // CR-018 TB 103: Zahlungen der Site über ihr Stripe-Konto
+        'site_payment_settings' => 'Stripe-Konto der Site — geheimer Schlüssel verschlüsselt mit dem APP_KEY der Quellinstallation; in der Zielinstallation neu verbinden',
+        'payments' => 'Zahlungen der Site — Buchhaltung mit Personendaten der Quellinstallation, gehören zum Stripe-Konto, nicht zur Site-Vorlage',
         // TB 11 Scheibe 2: Modul Marktplatz — Geschäfts- und Personendaten von basaltocms.com, keine Inhalte der Site
         'marketplace_authors' => 'Autorenprofile des Moduls Marktplatz — hängen an Kundenkonten (nicht exportiert), Personendaten',
         'marketplace_tokens' => 'Composer-Tokens des Moduls Marktplatz — Geheimnisse je Kundenkonto, in der Zielinstallation neu erzeugen',

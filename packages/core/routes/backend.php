@@ -29,6 +29,7 @@ use Basalto\Core\Http\Controllers\NotificationController;
 use Basalto\Core\Http\Controllers\OperationsController;
 use Basalto\Core\Http\Controllers\PageController;
 use Basalto\Core\Http\Controllers\PasskeyController;
+use Basalto\Core\Http\Controllers\PaymentSettingsController;
 use Basalto\Core\Http\Controllers\PresenceController;
 use Basalto\Core\Http\Controllers\PrivacyRequestsController;
 use Basalto\Core\Http\Controllers\ProfileController;
@@ -222,6 +223,10 @@ app(Backend::class)->routes(static function (): void {
     Route::get('datenschutz', [PrivacyRequestsController::class, 'index'])->name('privacy.requests.index');
     Route::post('datenschutz/{privacyRequest}/erledigen', [PrivacyRequestsController::class, 'answer'])->whereNumber('privacyRequest')->name('privacy.requests.answer');
     Route::get('activity/export', [ActivityController::class, 'export'])->name('activity.export');
+    // CR-018 TB 103: Stripe-Konto der Site für Plugins und die Liste der Zahlungen
+    Route::get('zahlungen', [PaymentSettingsController::class, 'index'])->name('payments');
+    Route::put('zahlungen', [PaymentSettingsController::class, 'update'])->name('payments.update');
+    Route::delete('zahlungen', [PaymentSettingsController::class, 'destroy'])->name('payments.destroy');
     Route::get('lizenz', [LicenseController::class, 'show'])->name('license');
     Route::post('lizenz/pruefen', [LicenseController::class, 'check'])->name('license.check');
     Route::put('lizenz', [LicenseController::class, 'store'])->name('license.store');

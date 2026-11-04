@@ -200,6 +200,7 @@ const numeric = (type: string): boolean =>
                         numeric(c.type) ? 'text-right tabular-nums' : '',
                         c.type === 'mono' ? 'font-mono text-[12.5px]' : '',
                         c.type === 'date' ? 'md:whitespace-nowrap' : '',
+                        c.type === 'money' ? 'whitespace-nowrap' : '',
                     ]"
                 >
                     <template v-if="row.cells[c.key]">

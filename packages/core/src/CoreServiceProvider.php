@@ -94,6 +94,9 @@ use Basalto\Core\Notifications\CoreNotifications;
 use Basalto\Core\Notifications\NotificationTypes;
 use Basalto\Core\Operations\Health;
 use Basalto\Core\Operations\MonitoringSetup;
+use Basalto\Core\Payments\CheckoutGateway;
+use Basalto\Core\Payments\SitePayments;
+use Basalto\Core\Payments\StripeCheckoutGateway;
 use Basalto\Core\Plugins\PluginLoader;
 use Basalto\Core\Policies\EntryPolicy;
 use Basalto\Core\Policies\MediaPolicy;
@@ -196,6 +199,8 @@ final class CoreServiceProvider extends ServiceProvider
         $this->app->singleton(Pages::class);
         $this->app->singleton(ContentTypes::class);
         $this->app->bind(CommandRunner::class, ProcessRunner::class);
+        // CR-018 TB 103: Zahlungen einer Site über ihr eigenes Stripe-Konto
+        $this->app->bind(CheckoutGateway::class, StripeCheckoutGateway::class);
         // CR-017: Hosting-Panel und Let's Encrypt — gebunden, damit Tests Attrappen einsetzen können
         $this->app->bind(Cpanel::class, static fn ($app): Cpanel => Cpanel::fromConfig($app->make(CommandRunner::class)));
         $this->app->bind(AcmeClient::class, static fn (): AcmeClient => AcmeClient::fromConfig());
@@ -356,6 +361,9 @@ final class CoreServiceProvider extends ServiceProvider
                 $schedule->command('basalto:hostnamen')->everyMinute()->when(static fn (): bool => Hostnames::due()->exists())->withoutOverlapping(15)->onOneServer();
             }
             $schedule->command('basalto:license')->hourly()->onOneServer();
+            // CR-018 TB 103: offene Zahlungen bei Stripe nachfragen — wer das Fenster nach dem Bezahlen schliesst, verpasst nichts
+            $schedule->call(static fn (): int => app(SitePayments::class)->reconcile())->everyFiveMinutes()->name('basalto:zahlungen-abgleichen')
+                ->when(static fn (): bool => SitePayments::anyOpen())->withoutOverlapping(10)->onOneServer();
             // CR-007 (U-11): täglich prüfen, ob es Updates gibt — die Verwaltung erfährt es einmal je neuem Stand
             if ((bool) config('basalto.updates.check_daily', true) && ! Saas::enabled()) {
                 $schedule->command('basalto:update --benachrichtigen')->dailyAt('04:10')->onOneServer();
@@ -444,6 +452,8 @@ final class CoreServiceProvider extends ServiceProvider
         $backend->menu('Datenschutz', 'basalto.privacy.requests.index', 48, Backend::MODE_ADMIN, icon: 'user');
         $backend->count('basalto.privacy.requests.index', static fn (Site $site): int => PrivacyRequest::query()->withoutGlobalScopes()->where('site_id', $site->id)->where('status', PrivacyRequest::OPEN)->count());
         $backend->menu('basalto::backend.operations', 'basalto.operations', 47, Backend::MODE_ADMIN, icon: 'activity');
+        // CR-018 TB 103: das Stripe-Konto der Site für Plugins (Anzahlung, Gutscheine) und die Liste der Zahlungen
+        $backend->menu('Zahlungen', 'basalto.payments', 44, Backend::MODE_ADMIN, icon: 'license');
         $backend->menu('basalto::backend.activity', 'basalto.activity.index', 50, Backend::MODE_ADMIN, icon: 'activity');
         $backend->menu('basalto::backend.passkeys', 'basalto.passkeys', 90, Backend::MODE_ADMIN, icon: 'user');
 

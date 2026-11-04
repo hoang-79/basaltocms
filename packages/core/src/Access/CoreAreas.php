@@ -30,7 +30,9 @@ final class CoreAreas
             // TB 54: Statistik der Website
             ->register('statistics', 'Statistik', Areas::ADMIN)
             // CR-011 TB 61: Anliegen zum Datenschutz aus dem Kundenkonto
-            ->register('privacy', 'Datenschutz-Anliegen', Areas::ADMIN);
+            ->register('privacy', 'Datenschutz-Anliegen', Areas::ADMIN)
+            // CR-018 TB 103: Stripe-Konto der Site und Zahlungen
+            ->register('payments', 'Zahlungen', Areas::ADMIN);
 
         // Inhalte
         $areas->map('basalto.pages.', 'pages')
@@ -73,6 +75,7 @@ final class CoreAreas
             ->map('basalto.modules', 'settings')
             ->map('basalto.sites.', 'settings')
             ->map('basalto.license', 'license')
+            ->map('basalto.payments', 'payments')
             ->map('basalto.operations', 'operations')
             // CR-007: prüfen heisst ansehen, einspielen verlangt «alles»
             ->map('basalto.updates', 'updates')

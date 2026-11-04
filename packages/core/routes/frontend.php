@@ -11,6 +11,7 @@ use Basalto\Core\Http\Controllers\FrontendController;
 use Basalto\Core\Http\Controllers\FrontendEditorController;
 use Basalto\Core\Http\Controllers\LegalController;
 use Basalto\Core\Http\Controllers\LiveController;
+use Basalto\Core\Http\Controllers\PaymentReturnController;
 use Basalto\Core\Http\Controllers\ProofOfWorkController;
 use Basalto\Core\Http\Controllers\ThemeAssetController;
 use Basalto\Core\Http\Controllers\UpController;
@@ -41,6 +42,10 @@ Route::middleware(['web', 'basalto.site'])->withoutMiddleware(PreventRequestForg
     Route::get('_kuendigen/zuruecknehmen/{cancellation}', [CancellationController::class, 'confirmRevoke'])->whereNumber('cancellation')->middleware('signed:relative')->name('basalto.cancel.revoke');
     Route::post('_kuendigen/zuruecknehmen/{cancellation}', [CancellationController::class, 'revoke'])->whereNumber('cancellation')->middleware('signed:relative')->name('basalto.cancel.revoke.store');
 });
+
+// CR-018 TB 103: Rückkehr aus dem Stripe-Checkout — fragt den Stand ab und leitet weiter auf die Seite des Moduls
+Route::get('_zahlung/{payment}/{token}', PaymentReturnController::class)->whereNumber('payment')->where('token', '[A-Za-z0-9]{40}')
+    ->middleware(['web', 'basalto.site', 'throttle:30,1'])->name('basalto.payment.return');
 
 // CR-008: Live-Aktualisierung — ohne Sitzung und Cookies (keine Schreibzugriffe je Abfrage), begrenzt je Adresse
 Route::get('_live', LiveController::class)->middleware('throttle:basalto-live')->name('basalto.live');

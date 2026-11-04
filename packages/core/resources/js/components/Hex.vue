@@ -79,6 +79,9 @@ const icons: Record<string, string> = {
     // CR-018 (TB 101): für Plugins — Veranstaltungen und Karte
     calendar: 'M2.5 3.5h11v10h-11z M2.5 6.5h11 M5.5 2v3 M10.5 2v3',
     pin: 'M8 14.5S3.5 10 3.5 6.5a4.5 4.5 0 0 1 9 0C12.5 10 8 14.5 8 14.5z M8 5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z',
+    // CR-018 (TB 102): Stellen und Link-Prüfer
+    briefcase: 'M2 5.5h12v8H2z M5.5 5.5V3.5h5v2 M2 9h12',
+    link: 'M6.5 9.5a2.5 2.5 0 0 0 3.5 0l2.5-2.5a2.5 2.5 0 0 0-3.5-3.5L8 4.5 M9.5 6.5a2.5 2.5 0 0 0-3.5 0L3.5 9a2.5 2.5 0 0 0 3.5 3.5L8 11.5',
 };
 
 const path = computed(() => (props.icon ? icons[props.icon] : undefined));
