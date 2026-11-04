@@ -4709,5 +4709,8 @@
     "In composer.json fehlt die Version.": "La version manque dans composer.json.",
     "Kein Benutzer mit :email.": "Aucun utilisateur avec :email.",
     "installiert": "installé",
-    "Die Tabellen des Plugins liessen sich nicht löschen: :message": "Impossible de supprimer les tables du plugin : :message"
+    "Die Tabellen des Plugins liessen sich nicht löschen: :message": "Impossible de supprimer les tables du plugin : :message",
+    "Bild :n von :count": "Image :n sur :count",
+    "Vorheriges Bild": "Image précédente",
+    "Nächstes Bild": "Image suivante"
 }
