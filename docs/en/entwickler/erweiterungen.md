@@ -168,8 +168,8 @@ final class HelloController
 
 The core builds the pages of all bundled modules into its bundle: `packages/core/resources/js/backend.ts` looks for
 `modules/<namespace>/resources/js/pages/<Page>.vue`. The namespace must therefore match the folder name under
-`modules/`. A separate build for third-party plugins (`resources/dist` with a manifest via `vite()`) is still
-open.
+`modules/`. Third-party plugins therefore ship no Vue pages of their own: they describe their administration in PHP
+and the core draws it — see [Backend pages from a description](#backend-pages-from-a-description).
 
 ### Switchable per site
 
@@ -183,6 +183,106 @@ abort_if($site === null || ! $this->backend->moduleEnabled('comments', $site), 4
 ```
 
 When switched off, the data remains stored.
+
+## Backend pages from a description
+
+A plugin builds its administration without shipping any JavaScript: the controller returns a description of the page
+(`Basalto\Core\Backend\Schema\AdminPage`), and the core draws it with its own components — key figures, notices,
+text, lists, forms, buttons. Every page thus looks like the rest of the backend, works with keyboard and screen reader
+and stays valid when the core is updated. Validation and saving remain ordinary Laravel code.
+
+```php
+use Basalto\Core\Backend\Schema\{Action, AdminPage, Column, Form, FormField, Row, Stat, Table};
+
+public function index(Request $request): AdminPage
+{
+    $q = trim((string) $request->query('q', ''));
+    $notes = Note::query()->when($q !== '', fn ($query) => $query->whereLike('text', '%'.$q.'%'))
+        ->orderByDesc('id')->paginate(20)->withQueryString();
+
+    return AdminPage::make(__('Notizen'))
+        ->crumb(__('Beispiel › Notizen'))
+        ->stats([Stat::make(__('Notizen'), Note::query()->count())])
+        ->form(Form::make(route('basalto.example.notes.store'))->title(__('Neue Notiz'))->submit(__('Anlegen'))
+            ->fields([FormField::textarea('text', __('Text'))->required()->rows(3)]))
+        ->table(Table::make('notizen')
+            ->columns([Column::text('text', __('Text')), Column::date('created', __('Angelegt'))])
+            ->rows($notes->items(), fn (Note $note): Row => Row::make($note->id)
+                ->cell('text', $note->text)
+                ->cell('created', $this->dates->dateTime($note->created_at))
+                ->url(route('basalto.example.notes.edit', ['note' => $note->id]))
+                ->action(Action::delete(__('Löschen'), route('basalto.example.notes.destroy', ['note' => $note->id]))
+                    ->confirm(__('Diese Notiz löschen?'))->variant('danger')))
+            ->search($q, __('Notizen durchsuchen'))
+            ->paginate($notes)
+            ->bulk(Action::bulk('delete', __('Löschen'), route('basalto.example.notes.bulk'))->confirm(__('Die gewählten Notizen löschen?')))
+            ->empty(__('Noch keine Notizen'), __('Legen Sie oben die erste an.')));
+}
+```
+
+The complete example with editing, deleting and a bulk action is in the example module
+(`modules/example/src/Http/Controllers/NotesController.php`, page `/admin/example/notizen`).
+
+| Component | Call | Purpose |
+| --- | --- | --- |
+| `AdminPage` | `make($title)`, `crumb()`, `lead()`, `action()`, `stats()`, `notice($text, $tone, $title)`, `text($text, $title)`, `table()`, `form()` | The page; sections appear in the order of the calls |
+| `Stat` | `make($label, $value)`, `hint()`, `tone()` | Key figure at the top of the page; tone `neutral`, `success`, `warning`, `danger` |
+| `Table` | `make($key)`, `title()`, `columns()`, `rows($items, fn)`, `search($value, $placeholder, $param)`, `filter()`, `paginate($paginator)`, `bulk(...)`, `empty($title, $text)` | List with search, filters, pages and bulk actions |
+| `Column` | `text`, `mono`, `number`, `money`, `date`, `badge`, `link` | Column; `number` and `money` are right-aligned |
+| `Row` | `make($id)`, `cell()`, `badge($key, $text, $tone)`, `link($key, $text, $url)`, `url()`, `action()` | Row; with `url()` the first column becomes a link to the record |
+| `Filter` | `make($param, $label, $value)`, `option($value, $label, $count)` | Choice above the list, as a query parameter in the address |
+| `Form` | `make($url, $method)`, `title()`, `fields()`, `values()`, `autosave()`, `submit()` | Form; with `autosave()` it saves itself after every pause, otherwise with the button |
+| `FormField` | `text`, `email`, `url`, `number`, `password`, `textarea`, `select($name, $label, $choices)`, `checkbox`, `date`, `time`, `datetime`, `color`, `richtext`, `file($name, $label, $accept)`; plus `help()`, `placeholder()`, `required()`, `min()`, `max()`, `step()`, `rows()`, `mono()`, `onLeave()`, `half()` | Field; with autosave, `password` is only saved when the field is left |
+| `Action` | `link`, `post`, `put`, `delete`, `bulk($key, $label, $url)`; plus `confirm($question)`, `variant()`, `with($data)` | Button; with `confirm()` the core asks first |
+
+What matters:
+
+- **Pass translated texts.** The description contains finished texts; use `__()` with the keys from the plugin's
+  `lang/` (DE, EN, FR, IT).
+- **Errors at the field:** the controller validates as usual (`$request->validate()`); the core shows the messages at
+  the matching field. Confirmations go back as `back()->with('status', …)`.
+- **Bulk actions** send `action` (the key from `Action::bulk`) and `ids` to the given address — the controller checks
+  both and reports how many entries were affected.
+- **Autosave** (`Form::autosave()`) is meant for existing records: after a pause the core sends the fields with the
+  form's method (usually `put`) and shows at the field that it has been saved. Use a form with a button for creating.
+- **Rights** apply as for every route ([Areas and rights](#areas-and-rights)); the controller leaves out buttons a user
+  may not use.
+
+## Mounted pages: a page belongs to the module
+
+A module can take over a page of the page tree together with every address below it — this is how the forum and the
+“Events” plugin work. The editors create the page and choose the module under “Mount a module” in the “Expert” tab;
+title, breadcrumbs, metadata and layout still come from the page and the theme.
+
+```php
+use Basalto\Core\Community\{MountHandler, MountRequest, MountResult, Mounts};
+
+// boot() — handle, label in the choice, handler, module
+app(Mounts::class)->register('events', 'Veranstaltungen', EventsMount::class, 'events');
+
+final class EventsMount implements MountHandler
+{
+    public function handle(MountRequest $request): MountResult
+    {
+        return match ($request->segments) {
+            [] => MountResult::page('<section>…</section>', head: '<link rel="alternate" …>'),
+            ['kalender.ics'] => MountResult::raw($ics, 'text/calendar; charset=utf-8'),
+            default => MountResult::notFound(),
+        };
+    }
+}
+```
+
+`MountRequest` gives the site, language, the page, its address (`base`) and the path parts below it (`segments`);
+`url('archiv')` builds an address below the page. `MountResult::page()` puts markup in place of the introduction (with
+title, further breadcrumbs, description, `head` for structured data), `raw()` answers without layout (feeds,
+calendars), plus `redirect()` and `notFound()`. If the module is off for the site, the page is an ordinary page and the
+addresses below it answer 404. The output centres itself (`width: min(100% - 2rem, …)`, `margin: auto`), because themes
+do not frame the introduction area.
+
+With `community: true` (only the forum), profiles and conversations also live below the page — a module without a
+community leaves it out. Answers for guests come from the page cache: after a change to the module’s data, call
+`app(PageCache::class)->invalidate($site->id)`.
 
 ## Extending Lava: the registry
 
@@ -206,7 +306,7 @@ $this->app->extend(Registry::class, static function (Registry $registry): Regist
 | `tag` | `tag(string $name, Closure $fn): self` — `fn (array $args, array $named, Context $ctx): string` | `{% comments.list per: 20 %}` |
 | `fieldType` | `fieldType(string $name, array $options = []): self` | `field preis: example.price` |
 | `property` | `property(string $keyword, string $name): self` | Additional property, e.g. `property('type', 'example.sku')` → `example.sku:` in a `type` |
-| `part` | `part(string $name, string $label, array $settings, Closure $render): self` — `fn (array $settings, array $vars, string $lang): string` | Lava part `part warenkorb: shop.cart { … }` |
+| `part` | `part(string $name, string $label, array $settings, Closure $render): self` — `fn (array $settings, array $vars, string $lang): string` | Lava part `part warenkorb: shop.cart { … }` — settings as a list or with their label in the layout editor: `['per' => 'Anzahl', 'heading' => 'Überschrift']` |
 
 Notes:
 
@@ -305,6 +405,54 @@ the site’s backend editors see them. A module’s own lists ask `app(PageAcces
 **afterwards** — so a module still finds its data via the account’s email when deleting; it does not have to anonymise
 the account.
 
+## Installed without Composer
+
+Installations from the web installer have no Composer: there, Basalto installs plugins from the marketplace itself
+([Installing a plugin](../marktplatz/installieren.md#installing-a-plugin)). For this to work, a plugin needs:
+
+- **`composer.json`** at the root with `type: basalto-plugin`, `extra.basalto.module` (handle) and
+  `extra.laravel.providers`. Classes only via `autoload.psr-4` (plus `autoload.files` if needed) — the loader does not
+  know `classmap`.
+- **No libraries of its own.** Whatever `require` names must already be in the installation, in a matching version —
+  such as `laravel/framework`, `dompdf/dompdf`, `sprain/swiss-qr-bill`, `league/flysystem-aws-s3-v3`, the bundled
+  modules. Basalto checks `require.basalto/core` (e.g. `^1.3`) against the running version; if something does not fit,
+  it does not install and names the reason. The marketplace checks the same rules on submission.
+- **Migrations under `database/migrations`**, registered with `loadMigrationsFrom()`: when removing with “Also delete the
+  data”, Basalto resets exactly this folder. Migrations therefore need a `down()`.
+- **No Vue pages of its own:** the core bundle only knows the bundled modules. A plugin's administration is built
+  from [Backend pages from a description](#backend-pages-from-a-description).
+- **Nothing risky at start-up:** Basalto registers the plugin in the running request, migrates and then checks whether
+  the site still starts in a fresh process (`/up/live`). If a provider throws at start-up, the plugin stays off; if it
+  throws later in a request, only the plugin is missing and the administration shows the reason.
+
+- **PHPStan without Larastan:** the marketplace check analyses the code with PHPStan level 5, but without the Laravel
+  extension. Write Eloquent queries as statements (`$query->where(…);` and then `$query->get()`) instead of long
+  chains, and call a method of your own instead of scopes (`scopeVisible()`) — otherwise the check reports forwarded
+  methods as unknown.
+
+Basalto stores the plugin under `storage/app/plugins/<vendor>/<package>` and keeps the list
+`storage/app/plugins/plugins.php` itself; from it, the core registers the PSR-4 paths with the autoloader at start-up
+and registers the providers.
+
+**While developing**, put the plugin into a Git working copy of Basalto under `plugins/<name>/`: there Basalto loads
+it at start-up with the same rules as an installed one — in development and in the tests (can be switched off with
+`BASALTO_PLUGINS_WORKSHOP=false`). A release never contains the `plugins/` folder.
+
+**Try it out yourself** — in an installation from the web installer, with the ZIP you want to submit:
+
+```sh
+php artisan basalto:plugin install --archiv=path/to/plugin.zip
+php artisan basalto:plugin check vendor/package
+php artisan basalto:plugin remove vendor/package --daten-loeschen
+```
+
+`--archiv` installs without the catalogue and without the marketplace signature, otherwise as in the backend (form,
+compatibility, backup, migrations, start probe). `check` calls every GET page of the plugin without required
+parameters — signed in as the owner of the default site, with `--benutzer=<e-mail>` as someone else — and fails as soon
+as a page answers with a server error (`--json` for machine-readable output). After removing with `--daten-loeschen`, no
+table of the plugin may be left. The marketplace takes exactly these steps in the **trial run** in its sandbox before
+it approves a plugin.
+
 ## Obligations of an extension
 
 What every extension must observe:
@@ -312,12 +460,15 @@ What every extension must observe:
 1. **Site scope** on every table containing a site's content: column `site_id` and, in the model, the trait
    `Basalto\Core\Sites\BelongsToSite` (global scope on the current site, `site_id` on creation) — plus a test that
    a second site sees nothing.
-2. **Translations** for the interface (DE, EN, IT, FR) under `lang/`; menu labels are translation keys.
+2. **Translations** for the interface (DE, EN, IT, FR) under `lang/`; menu labels are translation keys. The JSON
+   translations of all modules apply together: include only your own keys — a key the core already translates (such as
+   “Ort” or “Stand”) would be overwritten for the whole backend.
 3. **Migrations** in the package (`loadMigrationsFrom`), never in the core.
 4. **Personal data** connected to `basalto.person-data` and, if there are retention periods, to `basalto.cleanup`.
-5. **Export:** every table with `site_id` must be included in the site export or excluded with a reason — otherwise a
-   test in the core fails. An interface through which modules export their tables themselves is still open; until
-   then, the reason is given in `Basalto\Core\Transfer\SiteExporter::EXCLUDED` (as with the comments module).
+5. **Export:** every table with `site_id` goes along with the site export or stays behind with a reason — otherwise a
+   test in the core fails. In the provider’s `boot()`: `app(ModuleTables::class)->export('events')` for a simple table
+   (its rows refer to other data only through `site_id`; the import creates them for the new site if the module is
+   installed there) or `app(ModuleTables::class)->exclude('table', 'reason')` (`Basalto\Core\Transfer\ModuleTables`).
 
 ## Next
 

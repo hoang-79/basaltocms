@@ -204,8 +204,38 @@ export function partNameFor(
 /** Einstellungen eines Teils, die zuerst stehen — der Rest unter «Weitere Möglichkeiten». */
 export const PRIMARY_SETTINGS = ['source', 'label', 'per', 'moderation'];
 
-/** Ein Satz je Einstellung eines Teils. */
-export function settingHelp(setting: string): string {
+/**
+ * Die Einstellungen eines Teils in Reihenfolge, die ersten `primary` sofort sichtbar. Beschriftet ein Modul seine
+ * Einstellungen selbst (CR-018, TB 101) und sind es höchstens vier, stehen alle oben — in der Reihenfolge des Moduls,
+ * wie bei Blöcken mit bis zu vier Feldern.
+ */
+export function orderSettings(
+    settings: string[],
+    labels: Record<string, string> = {},
+): { ordered: string[]; primary: number } {
+    if (Object.keys(labels).length > 0 && settings.length <= 4) {
+        return { ordered: [...settings], primary: settings.length };
+    }
+    const first = settings.filter((x) => PRIMARY_SETTINGS.includes(x));
+
+    return {
+        ordered: [
+            ...first,
+            ...settings.filter((x) => !PRIMARY_SETTINGS.includes(x)),
+        ],
+        primary: first.length,
+    };
+}
+
+/** Ein Satz je Einstellung eines Teils — nicht für Einstellungen, die ein Modul selbst beschriftet (eigene Bedeutung). */
+export function settingHelp(
+    setting: string,
+    labels: Record<string, string> = {},
+): string {
+    if (setting in labels) {
+        return '';
+    }
+
     return (
         {
             source: t(

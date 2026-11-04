@@ -7,6 +7,8 @@ namespace Basalto\Core\Http\Controllers;
 use Basalto\Core\Marketplace\MarketplaceClient;
 use Basalto\Core\Models\Account;
 use Basalto\Core\Models\Site;
+use Basalto\Core\Plugins\PluginInstaller;
+use Basalto\Core\Plugins\PluginLoader;
 use Basalto\Core\Saas\Saas;
 use Basalto\Core\Settings\Settings;
 use Basalto\Core\Sites\CurrentSite;
@@ -27,6 +29,7 @@ use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
+use RuntimeException;
 
 /**
  * Einstellungen › Updates (CR-007): was aktuell ist und was nicht — Kern, mitgelieferte Module, Plugins, Themes —
@@ -54,6 +57,8 @@ final class UpdatesController
             'installation' => [
                 'mode' => $mode, 'version' => $installation->version(), 'known' => $installation->knowsVersion(), 'saas' => $saas,
                 'problems' => $saas ? [] : $installation->problems(),
+                // CR-018: Im Backend installierte Plugins brauchen keinen eigenen Prozess — eigene, kürzere Liste
+                'plugin_problems' => $saas ? [] : app(PluginInstaller::class)->problems(),
                 'modules' => $installation->bundledModules(),
                 'commands' => match ($mode) {
                     'git' => "git pull\ncomposer install --no-dev\nphp artisan migrate --force\nphp artisan vendor:publish --tag=basalto-assets --force\nphp artisan optimize:clear",
@@ -93,6 +98,21 @@ final class UpdatesController
     public function plugin(Request $request): RedirectResponse
     {
         $name = (string) $request->validate(['name' => ['required', 'string', 'max:214', 'regex:#^[a-z0-9]([_.-]?[a-z0-9]+)*/[a-z0-9]([_.-]?[a-z0-9]+)*$#']])['name'];
+        // CR-018: Im Backend installierte Plugins aktualisiert der Installer gleich in dieser Anfrage (kein proc_open nötig)
+        if (array_key_exists($name, app(PluginLoader::class)->all())) {
+            $site = $this->current->require();
+            abort_if(self::customerOfSaas($site), 404);
+            Gate::authorize('update', $site);
+            $user = $request->user();
+            try {
+                $message = app(PluginInstaller::class)->update($name, $user instanceof Authenticatable ? (string) ($user->getAttribute('name') ?? '') : null);
+            } catch (RuntimeException $e) {
+                return back()->withErrors(['update' => $e->getMessage()]);
+            }
+            $this->check->forget();
+
+            return back()->with('status', $message);
+        }
 
         return $this->start($request, ['--plugin' => $name]);
     }

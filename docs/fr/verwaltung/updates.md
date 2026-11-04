@@ -55,7 +55,12 @@ ne publiez qu’ensuite. Un thème payant exige l’e-mail et le jeton de votre 
 ## Plugins
 
 Basalto installe les plugins du Marketplace exactement comme le noyau : archive signée, sauvegarde, remplacement, migrations,
-retour en arrière. Il faut pour cela l’e-mail et le jeton de votre compte client chez l’éditeur (comme pour Composer).
+retour en arrière. Il faut pour cela l’e-mail et le jeton de votre compte client chez l’éditeur — connecté sous
+**Administration › Modules › Marketplace** ([Installer un plugin](../marktplatz/installieren.md#installer-un-plugin)).
+
+Les plugins que Basalto a installés dans le back-office sont mis à jour dès le clic, sans mode maintenance et aussi chez
+les hébergeurs qui n’autorisent pas de processus séparés. Si le site ne démarre pas avec la nouvelle version, l’ancienne
+revient.
 
 ## Si « Installer » manque
 

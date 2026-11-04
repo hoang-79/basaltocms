@@ -7,6 +7,8 @@ namespace Basalto\Core\Console;
 use Basalto\Core\Activity\Recorder;
 use Basalto\Core\Notifications\Notify;
 use Basalto\Core\Notifications\Recipients;
+use Basalto\Core\Plugins\PluginInstaller;
+use Basalto\Core\Plugins\PluginLoader;
 use Basalto\Core\Saas\Saas;
 use Basalto\Core\Settings\Settings;
 use Basalto\Core\Updates\CoreUpdater;
@@ -36,6 +38,19 @@ final class UpdateCommand extends Command
     {
         $by = $this->option('von') ? (string) $this->option('von') : null;
         $bypass = $this->option('freipass') ? (string) $this->option('freipass') : null;
+        // CR-018: Ein im Backend installiertes Plugin aktualisiert der Installer — ohne eigenen Prozess, ohne vendor
+        if ($this->option('plugin') && array_key_exists((string) $this->option('plugin'), app(PluginLoader::class)->all())) {
+            try {
+                $this->info(app(PluginInstaller::class)->update((string) $this->option('plugin'), $by));
+            } catch (RuntimeException $e) {
+                $this->error($e->getMessage());
+
+                return self::FAILURE;
+            }
+            $check->forget();
+
+            return self::SUCCESS;
+        }
         if ($this->option('kern') || $this->option('plugin')) {
             try {
                 $updater = $this->option('kern') ? app(CoreUpdater::class) : app(PluginUpdater::class)->for((string) $this->option('plugin'));

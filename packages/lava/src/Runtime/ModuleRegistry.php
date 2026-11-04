@@ -47,8 +47,10 @@ final class ModuleRegistry
 
     /**
      * Eine Art von Lava-Teil des Moduls, z. B. part('shop.cart', 'Warenkorb', ['source'], fn (array $settings, array $vars, string $lang): string => …).
+     * Eigene Einstellungen bekommen ihre Beschriftung im Layout-Editor als Name => Übersetzungsschlüssel, z. B.
+     * ['address' => 'Adresse', 'zoom' => 'Zoomstufe'] — sonst stehen sie dort, wie sie heissen.
      *
-     * @param  list<string>  $settings
+     * @param  array<int|string, string>  $settings
      */
     public function part(string $name, string $label, array $settings, Closure $render): self
     {

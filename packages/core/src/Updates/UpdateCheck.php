@@ -7,6 +7,7 @@ namespace Basalto\Core\Updates;
 use Basalto\Core\License\LicenseStatus;
 use Basalto\Core\Marketplace\MarketplaceClient;
 use Basalto\Core\Models\SiteTheme;
+use Basalto\Core\Plugins\PluginLoader;
 use Illuminate\Support\Facades\Cache;
 use RuntimeException;
 
@@ -17,7 +18,7 @@ use RuntimeException;
  *
  * @phpstan-import-type Release from ReleaseManifest
  *
- * @phpstan-type Item array{name: string, title: string, installed: string|null, available: string|null, newer: bool}
+ * @phpstan-type Item array{name: string, title: string, installed: string|null, available: string|null, newer: bool, backend: bool}
  * @phpstan-type ThemeItem array{site_id: int, site: string, theme: string, name: string, installed: string|null, available: string|null, newer: bool}
  * @phpstan-type Result array{checked_at: string, source: string, stage: string, error: string|null, marketplace_error: string|null, core: array{installed: string, known: bool, available: string|null, newer: bool, size: int|null, notes: list<array{version: string, date: string|null, notes: string}>}, plugins: list<Item>, themes: list<ThemeItem>, updates_until: string|null, updates_expired: bool, count: int}
  */
@@ -57,10 +58,12 @@ final class UpdateCheck
             $latest[$entry['kind'].':'.$entry['name']] = $entry;
         }
         $plugins = [];
+        // CR-018: im Backend installiert — die aktualisiert der Installer ohne eigenen Prozess
+        $backend = app(PluginLoader::class)->all();
         foreach ($installation->plugins() as $name => $version) {
             $entry = $latest['plugin:'.$name] ?? null;
             $plugins[] = ['name' => $name, 'title' => $entry['title'] ?? $name, 'installed' => $version !== '' ? $version : null, 'available' => $entry['version'] ?? null,
-                'newer' => $entry !== null && Versions::newer($entry['version'], $version)];
+                'newer' => $entry !== null && Versions::newer($entry['version'], $version), 'backend' => array_key_exists($name, $backend)];
         }
         $themes = [];
         foreach (SiteTheme::query()->withoutGlobalScopes()->with('site')->where('origin', 'marktplatz')->whereNotNull('origin_name')->orderBy('site_id')->orderBy('name')->get() as $theme) {

@@ -22,22 +22,24 @@ final class Mounts
     public const CONFIG = 'basalto.mounts';
 
     /**
-     * Beim Booten des Moduls aufrufen.
+     * Beim Booten des Moduls aufrufen. `community`: Unter dieser Seite leben auch Profile und Konversationen (das
+     * Forum); andere Einhängeseiten (etwa Veranstaltungen, CR-018) beantworten nur ihre eigenen Pfade.
      *
      * @param  class-string<MountHandler>  $handler
      */
-    public function register(string $handle, string $label, string $handler, ?string $module = null): void
+    public function register(string $handle, string $label, string $handler, ?string $module = null, bool $community = false): void
     {
-        config()->set(self::CONFIG.'.'.$handle, ['label' => $label, 'handler' => $handler, 'module' => $module ?? $handle]);
+        config()->set(self::CONFIG.'.'.$handle, ['label' => $label, 'handler' => $handler, 'module' => $module ?? $handle, 'community' => $community]);
     }
 
-    /** @return array<string, array{label: string, handler: class-string<MountHandler>, module: string}> */
+    /** @return array<string, array{label: string, handler: class-string<MountHandler>, module: string, community: bool}> */
     public function all(): array
     {
         $out = [];
         foreach ((array) config(self::CONFIG, []) as $handle => $mount) {
             if (is_string($handle) && is_array($mount) && is_string($mount['handler'] ?? null) && is_a($mount['handler'], MountHandler::class, true)) {
-                $out[$handle] = ['label' => (string) ($mount['label'] ?? $handle), 'handler' => $mount['handler'], 'module' => (string) ($mount['module'] ?? $handle)];
+                $out[$handle] = ['label' => (string) ($mount['label'] ?? $handle), 'handler' => $mount['handler'], 'module' => (string) ($mount['module'] ?? $handle),
+                    'community' => ($mount['community'] ?? false) === true];
             }
         }
 
@@ -99,12 +101,12 @@ final class Mounts
     }
 
     /**
-     * Die Adresse der Community einer Site (TB 40) — die Seite des ersten Einhängepunkts, der dort hängt; unter ihr
-     * leben Profile und Konversationen. Ohne Schrägstrich am Ende, null ohne Community.
+     * Die Adresse der Community einer Site (TB 40) — die Seite des ersten Einhängepunkts mit `community`, der dort hängt;
+     * unter ihr leben Profile und Konversationen. Ohne Schrägstrich am Ende, null ohne Community.
      */
     public function baseFor(Site $site, ?string $locale = null): ?string
     {
-        foreach ($this->handles() as $handle) {
+        foreach (array_keys(array_filter($this->all(), static fn (array $mount): bool => $mount['community'])) as $handle) {
             $entry = $this->entryFor($site, $handle);
             $url = $entry === null ? null : app(Pages::class)->urlOf($entry, $locale ?? $site->default_locale);
             if ($url !== null) {

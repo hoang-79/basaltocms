@@ -103,7 +103,7 @@ final class ForumServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom($root.'/database/migrations');
 
         CustomerAuth::useFor('forum');
-        app(Mounts::class)->register(Forum::MOUNT, 'Forum', ForumMount::class, 'forum');
+        app(Mounts::class)->register(Forum::MOUNT, 'Forum', ForumMount::class, 'forum', community: true);
         $yes = VisitorPermission::YES;
         app(VisitorPermissions::class)
             ->define(Forum::VIEW, 'Forum sehen', 'Forum', [VisitorGroup::EVERYONE => $yes], Forum::SUBJECT, 'Das Forum erscheint in der Übersicht.')

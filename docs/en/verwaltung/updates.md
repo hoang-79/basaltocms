@@ -55,7 +55,12 @@ then. A paid theme needs the e-mail and token of your customer account with the 
 ## Plugins
 
 Basalto installs plugins from the marketplace just like the core: signed archive, backup, swap, migrations, way back.
-This needs the e-mail and token of your customer account with the vendor (as for Composer).
+This needs the e-mail and token of your customer account with the vendor — connected under **Administration › Modules ›
+Marketplace** ([Installing a plugin](../marktplatz/installieren.md#installing-a-plugin)).
+
+Plugins that Basalto installed in the back end are updated right away on click, without maintenance mode and also on
+hosting that allows no separate processes. If the site does not start with the new version, the old version comes
+back.
 
 ## If “install” is missing
 

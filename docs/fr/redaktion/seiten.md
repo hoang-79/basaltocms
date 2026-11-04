@@ -238,6 +238,10 @@ d’abord (jusqu’à 200), avec le nombre, le premier et le dernier accès et l
 - **« Créer une redirection »** — saisissez la cible ; la ligne est ainsi réglée.
 - **« Écarter »** — retire la ligne. Si l’adresse est de nouveau appelée, elle est recomptée.
 
+Les adresses qui commencent par un point (par exemple `/.env` ou `/.git/config`) ne sont pas comptées : ces appels
+viennent de programmes qui cherchent des fichiers exposés ou du contrôle après l’installation — une redirection n’a
+jamais de sens pour elles.
+
 Les adresses sans nouvel accès sont supprimées par un nettoyage nocturne après 90 jours (le délai peut être modifié sous « Administration ›
 Paramètres », groupe « Conservation »). S’il y a des accès 404 ouverts, une tâche correspondante apparaît dans l’« Aperçu général ».
 

@@ -402,6 +402,8 @@ final class SiteImporter
                 'webhook_error' => $row['webhook_error'] ?? null, 'created_at' => $row['created_at'] ?? $now, 'updated_at' => $row['updated_at'] ?? $now]);
         }
         $counts['submissions'] = count(self::rows($payload, 'submissions'));
+        // CR-018 (TB 101): einfache Tabellen von Modulen und Plugins — nur, wo das Modul hier installiert ist
+        $counts['module_rows'] = app(ModuleTables::class)->import(is_array($payload['module_tables'] ?? null) ? $payload['module_tables'] : [], $siteId, $notes);
 
         // Dateien zuletzt — jede geschriebene wird gemerkt, damit ein Fehler sie wieder entfernt
         $counts['files'] = $this->copy($reader, $disk, $mediaFiles, $written) + $this->copy($reader, Storage::disk('local'), $submissionFiles, $written);

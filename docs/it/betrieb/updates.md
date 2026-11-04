@@ -30,8 +30,13 @@ php artisan basalto:update --plugin=anbieter/paket
 - **Fonte:** `BASALTO_UPDATES_URL`, altrimenti basaltocms.com.
 - **Controllo giornaliero:** alle 04:10 lo scheduler richiama `basalto:update --benachrichtigen` (si disattiva con
   `BASALTO_UPDATES_CHECK=false`).
-- **Plugin:** servono l’e-mail e il token dell’account cliente (`auth.json` oppure `BASALTO_MARKETPLACE_EMAIL` e
-  `BASALTO_MARKETPLACE_TOKEN`).
+- **Plugin:** servono l’e-mail e il token dell’account cliente (`BASALTO_MARKETPLACE_EMAIL` e
+  `BASALTO_MARKETPLACE_TOKEN`, altrimenti l’account collegato in Amministrazione › Moduli, altrimenti `auth.json`).
+- **Plugin dal backend:** Basalto li deposita in `storage/app/plugins/<produttore>/<pacchetto>` (altrove con
+  `BASALTO_PLUGINS_PATH`) — fuori da `vendor`, così un aggiornamento del nucleo non li sostituisce. L’elenco
+  `storage/app/plugins/plugins.php` lo tiene Basalto stesso. Da riga di comando:
+  `php artisan basalto:plugin install|update|enable|disable|remove|list <produttore/pacchetto>` (`remove` con
+  `--daten-loeschen` elimina anche le tabelle).
 
 Prima di un salto importante conviene comunque un proprio backup con prova di ripristino ([Backup](backup.md)).
 

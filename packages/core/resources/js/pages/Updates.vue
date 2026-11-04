@@ -21,6 +21,8 @@ type Item = {
     installed: string | null;
     available: string | null;
     newer: boolean;
+    /** CR-018: im Backend installiert (ohne Composer) */
+    backend?: boolean;
 };
 type ThemeItem = Item & { site_id: number; site: string; theme: string };
 type Note = { version: string; date: string | null; notes: string };
@@ -68,6 +70,7 @@ const props = defineProps<{
         known: boolean;
         saas: boolean;
         problems: string[];
+        plugin_problems?: string[];
         modules: { handle: string; label: string }[];
         commands: string;
     };
@@ -103,6 +106,14 @@ const canRun = computed(
         props.can_apply &&
         props.installation.mode === 'archiv' &&
         props.installation.problems.length === 0 &&
+        !running.value,
+);
+/** CR-018: Im Backend installierte Plugins aktualisiert Basalto ohne eigenen Prozess — dafür genügt weniger. */
+const canRunPlugins = computed(
+    () =>
+        props.can_apply &&
+        props.installation.mode === 'archiv' &&
+        (props.installation.plugin_problems ?? []).length === 0 &&
         !running.value,
 );
 
@@ -513,7 +524,10 @@ const stateLabel = computed(() =>
                                 v-if="p.newer"
                                 size="sm"
                                 variant="secondary"
-                                :disabled="!canRun || busy"
+                                :disabled="
+                                    !(p.backend ? canRunPlugins : canRun) ||
+                                    busy
+                                "
                                 @click="post(urls.plugin, { name: p.name })"
                                 >{{ $t('Aktualisieren') }}</Button
                             >

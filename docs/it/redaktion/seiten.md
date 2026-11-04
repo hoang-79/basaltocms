@@ -238,6 +238,10 @@ prima (fino a 200), con numero, primo e ultimo accesso e la pagina da cui proven
 - **«Crea reindirizzamento»** — inserisca la destinazione; la riga è così sbrigata.
 - **«Scarta»** — rimuove la riga. Se l’indirizzo viene richiamato di nuovo, viene ricontato.
 
+Gli indirizzi che iniziano con un punto (per esempio `/.env` o `/.git/config`) non vengono contati: queste richieste
+provengono da programmi che cercano file esposti o dal controllo dopo l’installazione — un reindirizzamento non ha mai
+senso.
+
 Gli indirizzi senza nuovi accessi li elimina una pulizia notturna dopo 90 giorni (il termine si può modificare in «Amministrazione ›
 Impostazioni», gruppo «Conservazione»). Se ci sono accessi 404 aperti, nella «Panoramica» compare un’attività
 relativa.

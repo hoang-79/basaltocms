@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import type { PartInfo } from '../types';
-import { fillOptions, partNameFor, suggestionsFor } from './fillPalette';
+import {
+    fillOptions,
+    orderSettings,
+    partNameFor,
+    settingHelp,
+    suggestionsFor,
+} from './fillPalette';
 import type { Sources } from './layoutEditor';
 
 const part = (name: string, kind: string): PartInfo =>
@@ -68,5 +74,32 @@ describe('partNameFor', () => {
         expect(partNameFor('nav', 'main', [])).toBe('main_nav');
         expect(partNameFor('nav', 'main', ['main_nav'])).toBe('main_nav_2');
         expect(partNameFor('members.status', '', [])).toBe('members_status');
+    });
+});
+
+describe('Einstellungen eines Teils (TB 101)', () => {
+    it('stellt das Wichtigste des Kerns zuerst', () => {
+        expect(
+            orderSettings(['depth', 'source', 'start', 'label', 'only']),
+        ).toEqual({
+            ordered: ['source', 'label', 'depth', 'start', 'only'],
+            primary: 2,
+        });
+    });
+
+    it('zeigt selbst beschriftete Einstellungen eines Moduls alle und in seiner Reihenfolge', () => {
+        const labels = {
+            address: 'Adresse',
+            label: 'Bezeichnung unter der Karte',
+        };
+        expect(
+            orderSettings(['address', 'label', 'zoom', 'height'], labels),
+        ).toEqual({
+            ordered: ['address', 'label', 'zoom', 'height'],
+            primary: 4,
+        });
+        // Die Hilfe des Kerns zu «label» (Screenreader) gilt dort nicht
+        expect(settingHelp('label', labels)).toBe('');
+        expect(settingHelp('label')).not.toBe('');
     });
 });

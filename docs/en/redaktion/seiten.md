@@ -235,6 +235,9 @@ count, first and last hit and the page they came from.
 - **“Create redirect”** — enter the target; the row is then done.
 - **“Dismiss”** — removes the row. If the address is requested again, it is counted anew.
 
+Addresses that start with a dot (such as `/.env` or `/.git/config`) are not counted: such requests come from programs
+looking for exposed files or from the check after installation — a redirect for them never makes sense.
+
 Addresses without new hits are deleted by a nightly clean-up after 90 days (the period can be changed under
 “Administration › Settings”, group “Retention”). If there are open 404 hits, a task appears on the “Overview”.
 

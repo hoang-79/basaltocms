@@ -85,7 +85,7 @@ Structure and interface as for modules ([Modules and plugins](../entwickler/erwe
     "type": "basalto-plugin",
     "license": "MIT",
     "description": "Karten als Lava-Tag",
-    "require": { "php": "^8.4", "basalto/core": "*" },
+    "require": { "php": "^8.4", "basalto/core": "^1.3" },
     "autoload": { "psr-4": { "Hersteller\\Karten\\": "src/" } },
     "extra": {
         "laravel": { "providers": ["Hersteller\\Karten\\KartenServiceProvider"] },
@@ -104,10 +104,11 @@ Structure and interface as for modules ([Modules and plugins](../entwickler/erwe
 | --- | --- |
 | `name` | valid Composer name `vendor/package`, lower case |
 | `version` | required — the marketplace reads the version from here (`1.2.0`, a leading `v` is allowed) |
-| `type` | `library`, `basalto-plugin` or `basalto-module` |
+| `type` | `basalto-plugin` — only then does Basalto install it in the backend |
 | `extra.basalto` | `module` (handle: a–z, 0–9, `-` and `_`, starting with a letter, at most 40 characters), `name` (display name), `api` = `1` |
-| `extra.laravel.providers` | at least one service provider |
-| `autoload.psr-4` | otherwise a note: classes cannot be loaded |
+| `extra.laravel.providers` | at least one service provider, as a file in the package (path according to `autoload.psr-4`) |
+| `autoload.psr-4` | required — the plugin loader only loads classes this way (plus `autoload.files`); it does not know `autoload.classmap` |
+| `require` | `basalto/core` is required and must match the current version (e.g. `^1.3`; `*` gives a note), `php` the PHP version of Basalto; other libraries only if Basalto ships them, in a matching version — otherwise the check rejects, because Basalto could not install the plugin without Composer ([Installed without Composer](../entwickler/erweiterungen.md#installed-without-composer)). A PHP extension (`ext-…`) that not every installation has gives a note |
 | `license` | if it differs from the licence chosen when submitting, there is a note |
 | `extra.basalto.category` | required: `inhalte`, `formulare`, `shop`, `marketing`, `medien`, `mitglieder`, `anbindung` or `entwicklung` |
 | `extra.basalto.icon` | SVG, PNG or WebP in the package, at most 256 KB — otherwise a note; the catalogue shows the initial letter |
@@ -124,10 +125,10 @@ from the package is executed.
 | Step | Checked | Rejected if |
 | --- | --- | --- |
 | **Package** | readable ZIP, size, paths | over 10 MB packed or 50 MB unpacked, over 2,000 files; **zip slip** (paths with `..`, absolute paths, drive letters, backslashes); symbolic links |
-| **Manifest** | theme: manifest and checksums, Lava compiler; plugin: `composer.json`, `php -l` on every PHP file, blocklist | manifest missing or not matching, compiler errors, syntax errors, forbidden calls, invalid fields |
+| **Manifest** | theme: manifest and checksums, Lava compiler; plugin: `composer.json`, installable without Composer (type, classes, service provider, `require`), `php -l` on every PHP file, blocklist | manifest missing or not matching, compiler errors, syntax errors, forbidden calls, invalid fields, a library Basalto does not ship |
 | **Tests** | themes: the compiler instead of tests; plugins: whether tests are included | — (included tests are never run; the review reads them) |
-| **Quality check** | themes: WCAG 2.2 AA contrast (light and dark, also per colour variant), dark mode, colour variants (`palette`, own badge), third-party resources (`src`, `<link href>`, `url()`, `@import` on foreign servers), weight of the assets, starter content; plugins: PHPStan (level 5, static), write access, tests | — (notes only; the figures appear as badges in the catalogue) |
-| **Sandbox** | we install the submission in a throwaway installation with sample content and try it out | whatever doesn’t work there, with a note |
+| **Quality check** | themes: WCAG 2.2 AA contrast (light and dark, also per colour variant), dark mode, colour variants (`palette`, own badge), third-party resources (`src`, `<link href>`, `url()`, `@import` on foreign servers), weight of the assets, starter content; plugins: PHPStan (level 5, static), write access, tests, installable without Composer | — (notes only; the figures appear as badges in the catalogue) |
+| **Sandbox** | we install the submission in a throwaway installation with sample content and try it out; plugins first go through the **trial run** there: install without Composer, call every page of the plugin, remove with data, install again | a server error on a page of the plugin, tables left after removal (missing `down()`), whatever doesn’t work there, with a note |
 | **Signature** | open until approval | — |
 | **Review** | by hand | reason for rejection |
 
@@ -137,7 +138,12 @@ rejection. Writing past Flysystem (`file_put_contents`, `fopen`, `fwrite`, `unli
 `chmod`, `symlink` and others) results in a **note** — only storage disks are allowed.
 
 **Notes** do not reject, but the review sees them: warnings from the Lava compiler, an incomplete red line, missing
-tests, missing `autoload.psr-4`.
+tests, `basalto/core` with `*`, PHP extensions that not every installation has.
+
+**Try out plugins yourself:** in an installation from the web installer,
+`php artisan basalto:plugin install --archiv=path/to/plugin.zip` installs your plugin from the ZIP file you want to
+submit; `php artisan basalto:plugin check vendor/package` then calls its pages. This is the same route as in the trial
+run ([Installed without Composer](../entwickler/erweiterungen.md#installed-without-composer)).
 
 ## Submitting
 
@@ -172,7 +178,9 @@ After the automatic check we test the submission in a **sandbox** — an install
 with the theme’s starter content or the starter theme. It is deleted afterwards. Only a passed sandbox test allows
 approval; with “failed”, our note appears in the reason for rejection.
 
-In the catalogue every entry carries its **quality check**: the figures of the automatic check and “Sandbox-tested on …”.
+In the catalogue every entry carries its **quality check**: the figures of the automatic check and “Sandbox-tested on …”,
+for plugins also “Installable without Composer” and the result of the trial run (“Installing, … pages and removing
+tried out”).
 Approved themes get a **showcase** — a site with their starter content that visitors try on live.
 
 You receive an email in your language about every decision. On approval, title, texts, licence and preview image of

@@ -6,6 +6,7 @@ namespace Basalto\Core\Updates;
 
 use Basalto\Core\Backend\Backend;
 use Basalto\Core\Core;
+use Basalto\Core\Plugins\PluginLoader;
 use Composer\InstalledVersions;
 use Throwable;
 
@@ -110,14 +111,44 @@ final class Installation
     public function bundledModules(): array
     {
         $out = [];
+        $plugins = $this->pluginModules();
         foreach (app(Backend::class)->modules() as $module) {
-            if ($module['handle'] === 'core') {
+            // Module von Plugins kommen nicht mit dem Kern — die stehen unter «Plugins aus dem Marktplatz»
+            if ($module['handle'] === 'core' || in_array($module['handle'], $plugins, true)) {
                 continue;
             }
             $out[] = ['handle' => (string) $module['handle'], 'label' => (string) __((string) $module['label']), 'enabled_by_default' => (bool) $module['default']];
         }
 
         return $out;
+    }
+
+    /**
+     * Die Modul-Kennungen aller Plugins: im Backend installiert, per Composer (Typ `basalto-plugin`) oder aus der
+     * Werkstatt (`plugins/` im Repo).
+     *
+     * @return list<string>
+     */
+    private function pluginModules(): array
+    {
+        $handles = array_column(app(PluginLoader::class)->all(), 'module');
+        $dirs = glob(base_path('plugins/*'), GLOB_ONLYDIR) ?: [];
+        try {
+            foreach (InstalledVersions::getInstalledPackagesByType('basalto-plugin') as $name) {
+                $dirs[] = (string) InstalledVersions::getInstallPath($name);
+            }
+        } catch (Throwable) {
+            // ohne Composer-Daten: nur die Plugins aus Backend und Werkstatt
+        }
+        foreach ($dirs as $dir) {
+            $composer = json_decode((string) @file_get_contents($dir.'/composer.json'), true);
+            $module = is_array($composer) ? ($composer['extra']['basalto']['module'] ?? null) : null;
+            if (is_string($module) && $module !== '') {
+                $handles[] = $module;
+            }
+        }
+
+        return array_values(array_unique($handles));
     }
 
     /**
@@ -141,6 +172,10 @@ final class Installation
             if (is_string($name) && is_string($version) && array_key_exists($name, $out)) {
                 $out[$name] = $version;
             }
+        }
+        // CR-018: im Backend installiert (ohne Composer)
+        foreach (app(PluginLoader::class)->all() as $name => $record) {
+            $out[$name] = (string) $record['version'];
         }
         ksort($out);
 

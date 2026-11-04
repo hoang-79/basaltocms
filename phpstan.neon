@@ -18,6 +18,3 @@ parameters:
 
     level: 7
 
-    # TB 13 Scheibe 2: alte Namen des Kundenkontos als Alias auf das Frontend-Konto im Kern (class_alias)
-    bootstrapFiles:
-        - modules/licensing/aliases.php

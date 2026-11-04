@@ -171,6 +171,12 @@ app(Backend::class)->routes(static function (): void {
     // TB 24: Anprobe aus dem Katalog — Theme in die Bibliothek holen und mit den eigenen Inhalten ansehen (nur in der Sitzung)
     Route::get('module/marktplatz/anprobe', [ModulesController::class, 'tryOn'])->name('modules.marketplace.try');
     Route::post('module/marktplatz/anprobe', [ModulesController::class, 'startTryOn'])->name('modules.marketplace.try.start');
+    // CR-018 (TB 98): Plugins im Backend installieren, schalten, entfernen — und das Kundenkonto dafür
+    Route::post('module/plugins/installieren', [ModulesController::class, 'installPlugin'])->name('modules.plugins.install');
+    Route::post('module/plugins/schalten', [ModulesController::class, 'togglePlugin'])->name('modules.plugins.toggle');
+    Route::post('module/plugins/entfernen', [ModulesController::class, 'removePlugin'])->name('modules.plugins.remove');
+    Route::put('module/marktplatz/kundenkonto', [ModulesController::class, 'connectAccount'])->name('modules.marketplace.account');
+    Route::delete('module/marktplatz/kundenkonto', [ModulesController::class, 'disconnectAccount'])->name('modules.marketplace.account.destroy');
     Route::get('users', [UserController::class, 'index'])->name('users.index');
     Route::put('users/{user}/role', [UserController::class, 'updateRole'])->whereNumber('user')->name('users.role');
     Route::post('users/{user}/deactivate', [UserController::class, 'deactivate'])->whereNumber('user')->name('users.deactivate');

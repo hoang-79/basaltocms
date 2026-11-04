@@ -1097,6 +1097,8 @@ export type PartKind = {
     label: string;
     origin: string;
     settings: string[];
+    /** Beschriftungen, die das Modul selbst mitgibt (übersetzt) */
+    labels: Record<string, string>;
     enabled: boolean;
     instances: number;
 };

@@ -20,6 +20,11 @@ final class NotFoundLog
 
     public function record(Site $site, string $locale, string $path, ?string $referrer): void
     {
+        // Pfade mit Punkt vorn (/.env, /.git/config) sind nie eine Seite, auf die man umleiten würde: Scanner fragen
+        // sie dauernd ab, und der Web-Installer prüft so, ob .env geschützt ist — sonst begänne jede Site mit einer Aufgabe
+        if (preg_match('#^/(?:[a-z]{2}/)?\.#i', $path) === 1) {
+            return;
+        }
         $path = Str::limit($path, 250, '');
         $query = NotFoundHit::query()->withoutGlobalScope(SiteScope::class)->where('site_id', $site->id);
         $hit = (clone $query)->where('path', $path)->first();

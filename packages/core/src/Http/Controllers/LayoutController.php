@@ -92,6 +92,7 @@ final class LayoutController
         foreach ($kinds as $name => $kind) {
             $module = str_starts_with($kind['origin'], 'Modul ') ? substr($kind['origin'], 6) : null;
             $partKinds[] = ['name' => $name, 'label' => $kind['label'], 'origin' => $kind['origin'], 'settings' => $kind['settings'],
+                'labels' => array_map(static fn (string $label): string => (string) __($label), $kind['labels']),
                 'enabled' => $module === null || $backend->moduleEnabled($module, $site), 'instances' => count(array_filter($parts, static fn (array $p): bool => $p['kind'] === $name))];
         }
 

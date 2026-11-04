@@ -38,7 +38,7 @@ final class Registry
      * Arten von Lava-Teilen (`part name: art { … }`, M-28): Beschriftung, erlaubte Einstellungen, Herkunft und —
      * bei Modulen — die Ausgabe. Die Arten des Kerns rendert der PageRenderer selbst.
      *
-     * @var array<string, array{label: string, settings: list<string>, origin: string, render: Closure|null}>
+     * @var array<string, array{label: string, settings: list<string>, labels: array<string, string>, origin: string, render: Closure|null}>
      */
     private array $parts = [];
 
@@ -198,11 +198,11 @@ final class Registry
     /**
      * Eine Art von Lava-Teil des Kerns (Module über module()->part()).
      *
-     * @param  list<string>  $settings
+     * @param  array<int|string, string>  $settings  Namen der Einstellungen oder Name => Beschriftung (Übersetzungsschlüssel)
      */
     public function part(string $name, string $label, array $settings, ?Closure $render = null): self
     {
-        $this->parts[$this->coreName($name, 'Teil')] = ['label' => $label, 'settings' => $settings, 'origin' => 'Kern', 'render' => $render];
+        $this->parts[$this->coreName($name, 'Teil')] = self::partSpec(['label' => $label, 'settings' => $settings, 'origin' => 'Kern', 'render' => $render]);
 
         return $this;
     }
@@ -212,7 +212,7 @@ final class Registry
         return isset($this->parts[$name]);
     }
 
-    /** @return array<string, array{label: string, settings: list<string>, origin: string, render: Closure|null}> */
+    /** @return array<string, array{label: string, settings: list<string>, labels: array<string, string>, origin: string, render: Closure|null}> */
     public function parts(): array
     {
         return $this->parts;
@@ -357,15 +357,24 @@ final class Registry
         return $name;
     }
 
-    /** @return array{label: string, settings: list<string>, origin: string, render: Closure|null} */
+    /** @return array{label: string, settings: list<string>, labels: array<string, string>, origin: string, render: Closure|null} */
     private static function partSpec(mixed $payload): array
     {
         if (! is_array($payload) || ! is_string($payload['label'] ?? null) || ! is_array($payload['settings'] ?? null)) {
             throw new LogicException('Teil braucht Beschriftung und Einstellungen');
         }
         $render = $payload['render'] ?? null;
+        // Einstellungen als Liste von Namen oder als Name => Beschriftung (CR-018, TB 101: Plugins beschriften ihre eigenen)
+        [$names, $labels] = [[], []];
+        foreach ($payload['settings'] as $key => $value) {
+            if (is_string($key)) {
+                [$names[], $labels[$key]] = [$key, (string) $value];
+            } else {
+                $names[] = (string) $value;
+            }
+        }
 
-        return ['label' => $payload['label'], 'settings' => array_values(array_map(static fn (mixed $s): string => (string) $s, $payload['settings'])),
+        return ['label' => $payload['label'], 'settings' => $names, 'labels' => $labels,
             'origin' => (string) ($payload['origin'] ?? 'Kern'), 'render' => $render instanceof Closure ? $render : null];
     }
 

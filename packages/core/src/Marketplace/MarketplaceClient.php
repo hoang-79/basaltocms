@@ -15,6 +15,7 @@ use Basalto\Core\Vendor;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Http;
 use Throwable;
 
@@ -151,6 +152,11 @@ final class MarketplaceClient
         if (is_string($email) && trim($email) !== '' && is_string($token) && trim($token) !== '') {
             return [trim($email), trim($token)];
         }
+        // CR-018 (TB 98): im Backend verbunden — für Installationen ohne SSH
+        $account = $this->storedAccount();
+        if ($account !== null) {
+            return $account;
+        }
         $file = base_path('auth.json');
         $auth = is_file($file) ? json_decode((string) file_get_contents($file), true) : null;
         $basic = is_array($auth) && is_array($auth['http-basic'][$this->host()] ?? null) ? $auth['http-basic'][$this->host()] : null;
@@ -159,6 +165,83 @@ final class MarketplaceClient
         }
 
         return null;
+    }
+
+    /**
+     * Woher die Zugangsdaten kommen — für die Verwaltung (nie das Token).
+     *
+     * @return array{source: 'config'|'backend'|'auth.json'|null, email: string|null}
+     */
+    public function account(): array
+    {
+        $email = config('basalto.marketplace.email');
+        $token = config('basalto.marketplace.token');
+        if (is_string($email) && trim($email) !== '' && is_string($token) && trim($token) !== '') {
+            return ['source' => 'config', 'email' => trim($email)];
+        }
+        $stored = $this->storedAccount();
+        if ($stored !== null) {
+            return ['source' => 'backend', 'email' => $stored[0]];
+        }
+        $credentials = $this->credentials();
+
+        return $credentials === null ? ['source' => null, 'email' => null] : ['source' => 'auth.json', 'email' => $credentials[0]];
+    }
+
+    /**
+     * Kundenkonto im Backend verbinden (CR-018): erst gegen das Composer-Repository prüfen, dann verschlüsselt (Schlüssel
+     * der Anwendung) in eine eigene Datei — nicht in die Einstellungen, deren Verlauf und Protokoll jeden Wert festhalten.
+     */
+    public function connect(string $email, string $token): void
+    {
+        $email = trim($email);
+        $token = trim($token);
+        try {
+            $response = Http::timeout(10)->connectTimeout(5)->acceptJson()->withUserAgent('Basalto/'.Core::VERSION)
+                ->withBasicAuth($email, $token)->get($this->baseUrl().'/composer/packages.json');
+        } catch (ConnectionException) {
+            throw new \RuntimeException((string) __(':host ist nicht erreichbar.', ['host' => $this->host()]));
+        }
+        if (in_array($response->status(), [401, 403], true)) {
+            throw new \RuntimeException((string) __('E-Mail oder Token stimmen nicht — das Token steht in Ihrem Autorenkonto auf :host.', ['host' => $this->host()]));
+        }
+        if (! $response->successful()) {
+            throw new \RuntimeException((string) __('Der Marktplatz antwortet mit :status.', ['status' => $response->status()]));
+        }
+        $file = self::accountFile();
+        @mkdir(dirname($file), 0775, true);
+        file_put_contents($file, Crypt::encryptString((string) json_encode(['host' => $this->host(), 'email' => $email, 'token' => $token])));
+        @chmod($file, 0600);
+    }
+
+    public function disconnect(): void
+    {
+        @unlink(self::accountFile());
+    }
+
+    /** @return array{0: string, 1: string}|null */
+    private function storedAccount(): ?array
+    {
+        $file = self::accountFile();
+        if (! is_file($file)) {
+            return null;
+        }
+        try {
+            $data = json_decode(Crypt::decryptString((string) file_get_contents($file)), true);
+        } catch (Throwable) {
+            return null;
+        }
+        // Nur für den Host, für den es geprüft wurde — die Zugangsdaten gehen nie an einen anderen
+        if (! is_array($data) || ($data['host'] ?? null) !== $this->host() || ! is_string($data['email'] ?? null) || ! is_string($data['token'] ?? null)) {
+            return null;
+        }
+
+        return [$data['email'], $data['token']];
+    }
+
+    private static function accountFile(): string
+    {
+        return storage_path('app/marktplatz-kundenkonto');
     }
 
     /** @return array{ok: bool, entries: list<Entry>, error: string|null, fetched_at: string|null} */

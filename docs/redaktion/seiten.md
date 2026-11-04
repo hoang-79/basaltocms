@@ -238,6 +238,10 @@ zuerst (bis 200), mit Anzahl, erstem und letztem Treffer und der Seite, von der 
 - **«Umleitung anlegen»** — tragen Sie das Ziel ein; die Zeile ist damit erledigt.
 - **«Verwerfen»** — entfernt die Zeile. Wird die Adresse wieder aufgerufen, zählt sie neu.
 
+Adressen, die mit einem Punkt beginnen (etwa `/.env` oder `/.git/config`), zählt Basalto nicht: Solche Abrufe stammen
+von Programmen, die nach offenen Dateien suchen, oder von der Prüfung nach der Installation — eine Umleitung dafür
+ergibt nie Sinn.
+
 Adressen ohne neue Treffer löscht ein nächtlicher Löschlauf nach 90 Tagen (die Frist lässt sich unter «Verwaltung ›
 Einstellungen», Gruppe «Aufbewahrung», ändern). Gibt es offene 404-Treffer, erscheint auf der «Übersicht» eine Aufgabe
 dazu.

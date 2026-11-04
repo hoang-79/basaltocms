@@ -265,6 +265,18 @@ return [
         'email' => env('BASALTO_MARKETPLACE_EMAIL'), 'token' => env('BASALTO_MARKETPLACE_TOKEN')],
 
     /*
+     * CR-018: Plugins aus dem Marktplatz, im Backend installiert — ohne Composer, abgelegt unter `path` (Vorgabe
+     * storage/app/plugins: ausserhalb von vendor, das ein Kern-Update als Ganzes tauscht, und geteilt zwischen den
+     * Fassungen einer Auslieferung). Bibliotheken bringt ein Plugin nicht mit (E-2): Was es in `require` nennt, muss
+     * diese Installation schon haben, in passender Version.
+     */
+    'plugins' => [
+        'path' => env('BASALTO_PLUGINS_PATH'),
+        // CR-018 (E-7): Plugins aus dem Ordner plugins/ eines Git-Arbeitsstands laden (Werkstatt, Tests)
+        'workshop' => (bool) env('BASALTO_PLUGINS_WORKSHOP', true),
+    ],
+
+    /*
      * Laravel-Cloud-CLI aus der Anwendung (Kundendomains nur automatisch, D-06). Token nie ins Repo.
      */
     'cloud' => [

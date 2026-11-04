@@ -1,8 +1,8 @@
 # Marketplace per installazioni
 
-Ogni installazione di Basalto vede nel backend il catalogo del Marketplace di basaltocms.com. I plugin arrivano
-nell’installazione tramite Composer, i temi come pacchetto firmato tramite «Adotta tema» — un caricamento ZIP per il
-codice non esiste. Le voci a pagamento le acquista prima su basaltocms.com ([Acquistare](#acquistare)).
+Ogni installazione di Basalto vede nel backend il catalogo del Marketplace di basaltocms.com. I plugin li installa
+Basalto stesso dal Marketplace — oppure tramite Composer se l’installazione è gestita così —, i temi arrivano come
+pacchetto firmato tramite «Adotta tema». Un caricamento ZIP per il codice non esiste. Le voci a pagamento le acquista prima su basaltocms.com ([Acquistare](#acquistare)).
 
 ## Amministrazione › Moduli
 
@@ -10,7 +10,7 @@ codice non esiste. Le voci a pagamento le acquista prima su basaltocms.com ([Acq
 
 | Scheda | Contenuto |
 | --- | --- |
-| **Moduli** | moduli e plugin installati, il loro stato su questo sito («attivo su questo sito» o «disattivo …») e ciò di cui hanno bisogno; «Al sito» porta all’interruttore |
+| **Moduli** | moduli e plugin installati, il loro stato su questo sito («attivo su questo sito» o «disattivo …») e ciò di cui hanno bisogno; «Al sito» porta all’interruttore. Sotto, i **«Plugin dal Marketplace»** che Basalto ha installato da sé |
 | **Marketplace** | catalogo di basaltocms.com con filtro temi/plugin e ricerca; «Installa» apre la finestra di installazione |
 
 L’attivazione non avviene qui, ma per sito sotto **Amministrazione › Siti › Modifica sito › scheda «Moduli»**.
@@ -53,7 +53,38 @@ Senza acquisto basaltocms.com risponde per una versione a pagamento con **403** 
 
 ## Installare un plugin
 
-La finestra di installazione mostra i comandi da copiare («Copia i comandi»). Da eseguire nell’installazione:
+Il modo in cui un plugin arriva nella Sua installazione dipende da come è configurato Basalto: dall’installer web, nel
+backend; con Git o Composer, tramite Composer. La finestra di installazione mostra la via giusta.
+
+### Nel backend
+
+1. **Collegare l’account cliente** — in alto nella scheda «Marketplace»: l’e-mail del Suo account cliente su
+   basaltocms.com e il **token** dell’account autore ([Token Composer](autoren.md#token-composer)). Basalto verifica
+   entrambi presso il produttore e salva il token cifrato. Con esso Basalto scarica anche i temi acquistati.
+2. Sul plugin, **«Installa»**, poi ancora **«Installa»** nella finestra. Basalto scarica il plugin, verifica la firma del
+   Marketplace e se è adatto a questa installazione (versione di Basalto, PHP, librerie), crea un **backup** (database e
+   media) e configura il plugin con le sue tabelle.
+3. Poi compare nella scheda «Moduli» sotto **«Plugin dal Marketplace»**. Lo attivi in **Amministrazione › Siti ›
+   Modifica sito › scheda «Moduli»** per i siti che devono usarlo. Nel catalogo porta ora il contrassegno
+   **«installato»**; «Dettagli» mostra la voce, le nuove versioni arrivano da **Amministrazione › Aggiornamenti**.
+
+Se il sito non si avvia con il nuovo plugin, Basalto lo disattiva subito e indica il motivo — il sito continua a
+funzionare. Se l’installazione fallisce strada facendo, Basalto rimuove di nuovo file e tabelle. I **plugin a
+pagamento** li acquista prima su basaltocms.com, con lo stesso account cliente.
+
+| Nell’elenco | Che cosa succede |
+| --- | --- |
+| **Disattiva** / **Attiva** | vale per tutta l’installazione; i dati restano |
+| **Rimuovi** | rimuove i file; i dati restano — a meno che non spunti «Elimina anche i dati del plugin», allora Basalto crea prima un backup |
+
+Le nuove versioni si installano in **Amministrazione › Aggiornamenti** ([Aggiornamenti](../verwaltung/updates.md)). Da
+riga di comando funziona lo stesso con `php artisan basalto:plugin install|update|enable|disable|remove|list produttore/pacchetto`;
+`--archiv=` installa da un file ZIP sul server, `check` apre le pagine di un plugin.
+
+### Con Composer
+
+Se Basalto è gestito con Git o Composer, la finestra di installazione mostra i comandi da copiare («Copia i
+comandi»). Da eseguire nell’installazione:
 
 ```sh
 composer config repositories.basalto composer https://basaltocms.com/composer
@@ -70,8 +101,8 @@ php artisan migrate
 - Composer verifica al download il checksum SHA-1 del pacchetto (`dist.shasum`). Il pacchetto contiene inoltre
   manifest e firma del Marketplace (`basalto-manifest.json`, `basalto-signature`).
 - Dopo `migrate` il plugin compare sotto **Moduli**; se è attivabile, attivarlo sul sito.
-- Una build propria per le pagine del backend (Vue) dei plugin di terze parti è ancora in sospeso
-  ([Moduli e plugin](../entwickler/erweiterungen.md#pagine-inertia-con-namespace)).
+- I plugin portano le loro pagine di amministrazione come descrizione, che Basalto disegna con i propri componenti —
+  senza JavaScript proprio ([Pagine del backend da descrizione](../entwickler/erweiterungen.md#pagine-del-backend-da-descrizione)).
 
 Gli aggiornamenti arrivano come per ogni pacchetto Composer: `composer update hersteller/karten`, poi `php artisan migrate`.
 

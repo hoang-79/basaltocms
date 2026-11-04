@@ -81,7 +81,7 @@ Aufbau und Schnittstelle wie bei Modulen ([Module und Plugins](../entwickler/erw
     "type": "basalto-plugin",
     "license": "MIT",
     "description": "Karten als Lava-Tag",
-    "require": { "php": "^8.4", "basalto/core": "*" },
+    "require": { "php": "^8.4", "basalto/core": "^1.3" },
     "autoload": { "psr-4": { "Hersteller\\Karten\\": "src/" } },
     "extra": {
         "laravel": { "providers": ["Hersteller\\Karten\\KartenServiceProvider"] },
@@ -100,10 +100,11 @@ Aufbau und Schnittstelle wie bei Modulen ([Module und Plugins](../entwickler/erw
 | --- | --- |
 | `name` | gültiger Composer-Name `hersteller/paket`, klein geschrieben |
 | `version` | Pflicht — der Marktplatz liest die Version von hier (`1.2.0`, `v` davor erlaubt) |
-| `type` | `library`, `basalto-plugin` oder `basalto-module` |
+| `type` | `basalto-plugin` — nur so installiert Basalto es im Backend |
 | `extra.basalto` | `module` (Handle: a–z, 0–9, `-` und `_`, mit einem Buchstaben am Anfang, höchstens 40 Zeichen), `name` (Anzeigename), `api` = `1` |
-| `extra.laravel.providers` | mindestens ein Service-Provider |
-| `autoload.psr-4` | sonst Hinweis: Klassen sind nicht ladbar |
+| `extra.laravel.providers` | mindestens ein Service-Provider, als Datei im Paket (Pfad nach `autoload.psr-4`) |
+| `autoload.psr-4` | Pflicht — der Plugin-Lader lädt Klassen nur so (dazu `autoload.files`); `autoload.classmap` kennt er nicht |
+| `require` | `basalto/core` ist Pflicht und muss zur aktuellen Fassung passen (z. B. `^1.3`; `*` ergibt einen Hinweis), `php` zur PHP-Version von Basalto; andere Bibliotheken nur, wenn Basalto sie mitliefert, in passender Version — sonst lehnt die Prüfung ab, weil Basalto das Plugin ohne Composer nicht installieren könnte ([Ohne Composer installiert](../entwickler/erweiterungen.md#ohne-composer-installiert)). Eine PHP-Erweiterung (`ext-…`), die nicht jede Installation hat, ergibt einen Hinweis |
 | `license` | weicht sie von der beim Einreichen gewählten Lizenz ab, gibt es einen Hinweis |
 | `extra.basalto.category` | Pflicht: `inhalte`, `formulare`, `shop`, `marketing`, `medien`, `mitglieder`, `anbindung` oder `entwicklung` |
 | `extra.basalto.icon` | SVG, PNG oder WebP im Paket, höchstens 256 KB — sonst Hinweis, der Katalog zeigt den Anfangsbuchstaben |
@@ -120,10 +121,10 @@ wird dabei nichts ausgeführt.
 | Schritt | Geprüft | Ablehnung bei |
 | --- | --- | --- |
 | **Paket** | lesbares ZIP, Grösse, Pfade | über 10 MB gepackt oder 50 MB entpackt, über 2000 Dateien; **ZIP-Slip** (Pfade mit `..`, absolute Pfade, Laufwerksbuchstaben, Backslashes); symbolische Links |
-| **Manifest** | Theme: Manifest und Prüfsummen, Lava-Compiler; Plugin: `composer.json`, `php -l` jeder PHP-Datei, Verbotsliste | Manifest fehlt oder passt nicht, Compiler-Fehler, Syntaxfehler, verbotene Aufrufe, ungültige Felder |
+| **Manifest** | Theme: Manifest und Prüfsummen, Lava-Compiler; Plugin: `composer.json`, Installierbarkeit ohne Composer (Typ, Klassen, Service-Provider, `require`), `php -l` jeder PHP-Datei, Verbotsliste | Manifest fehlt oder passt nicht, Compiler-Fehler, Syntaxfehler, verbotene Aufrufe, ungültige Felder, eine Bibliothek, die Basalto nicht mitliefert |
 | **Tests** | Themes: der Compiler statt Tests; Plugins: ob Tests beiliegen | — (mitgelieferte Tests werden nie ausgeführt; die Durchsicht liest sie) |
-| **Prüfstand** | Themes: Kontraste nach WCAG 2.2 AA (hell und dunkel, auch je Farbvariante), Dunkelmodus, Farbvarianten (`palette`, eigene Marke), Fremdressourcen (`src`, `<link href>`, `url()`, `@import` auf fremde Server), Gewicht der Assets, Startinhalte; Plugins: PHPStan (Stufe 5, statisch), Schreibzugriffe, Tests | — (nur Hinweise; die Kennzahlen stehen als Marken im Katalog) |
-| **Sandbox** | wir installieren die Einreichung in einer Wegwerf-Installation mit Beispielinhalt und probieren sie aus | was dort nicht funktioniert, mit Notiz |
+| **Prüfstand** | Themes: Kontraste nach WCAG 2.2 AA (hell und dunkel, auch je Farbvariante), Dunkelmodus, Farbvarianten (`palette`, eigene Marke), Fremdressourcen (`src`, `<link href>`, `url()`, `@import` auf fremde Server), Gewicht der Assets, Startinhalte; Plugins: PHPStan (Stufe 5, statisch), Schreibzugriffe, Tests, ohne Composer installierbar | — (nur Hinweise; die Kennzahlen stehen als Marken im Katalog) |
+| **Sandbox** | wir installieren die Einreichung in einer Wegwerf-Installation mit Beispielinhalt und probieren sie aus; Plugins durchlaufen dort zuerst den **Prüfstand-Lauf**: ohne Composer installieren, jede Seite des Plugins aufrufen, mit Daten entfernen, wieder installieren | ein Serverfehler auf einer Seite des Plugins, Tabellen, die nach dem Entfernen bleiben (fehlendes `down()`), was dort nicht funktioniert, mit Notiz |
 | **Signatur** | offen bis zur Freigabe | — |
 | **Durchsicht** | von Hand | Grund der Ablehnung |
 
@@ -134,7 +135,12 @@ Backtick-Operator führen zur Ablehnung. Schreiben am Flysystem vorbei (`file_pu
 Storage-Disks.
 
 **Hinweise** lehnen nicht ab, die Durchsicht sieht sie aber: Warnungen des Lava-Compilers, eine unvollständige rote
-Linie, fehlende Tests, fehlendes `autoload.psr-4`.
+Linie, fehlende Tests, `basalto/core` mit `*`, PHP-Erweiterungen, die nicht jede Installation hat.
+
+**Plugins selbst erproben:** In einer Installation aus dem Web-Installer installiert
+`php artisan basalto:plugin install --archiv=pfad/zum/plugin.zip` Ihr Plugin aus der ZIP-Datei, die Sie einreichen
+wollen; `php artisan basalto:plugin check hersteller/paket` ruft danach seine Seiten auf. Das ist derselbe Weg wie im
+Prüfstand-Lauf ([Ohne Composer installiert](../entwickler/erweiterungen.md#ohne-composer-installiert)).
 
 ## Einreichen
 
@@ -169,7 +175,9 @@ Nach der automatischen Prüfung testen wir die Einreichung in einer **Sandbox** 
 diesen Test, mit den Startinhalten des Themes bzw. dem Starter-Theme. Danach wird sie gelöscht. Erst ein bestandener
 Sandbox-Test erlaubt die Freigabe; bei «nicht bestanden» steht unsere Notiz im Grund der Ablehnung.
 
-Im Katalog trägt jeder Eintrag seinen **Prüfstand**: die Kennzahlen der automatischen Prüfung und «Sandbox geprüft am …».
+Im Katalog trägt jeder Eintrag seinen **Prüfstand**: die Kennzahlen der automatischen Prüfung und «Sandbox geprüft am …»,
+bei Plugins dazu «Ohne Composer installierbar» und das Ergebnis des Prüfstand-Laufs («Installieren, … Seiten und
+Entfernen erprobt»).
 Freigegebene Themes bekommen ein **Schaufenster** — eine Site mit ihren Startinhalten, die Besucher live anprobieren.
 
 Über jeden Entscheid bekommen Sie eine Mail in Ihrer Sprache. Bei der Freigabe gehen Titel, Texte, Lizenz und

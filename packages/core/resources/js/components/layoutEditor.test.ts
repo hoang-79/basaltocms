@@ -14,6 +14,7 @@ import {
     scheme,
     schemeText,
     settingInput,
+    settingLabel,
     snippetSummary,
 } from './layoutEditor';
 import type { FillItem, Sources } from './layoutEditor';
@@ -220,5 +221,15 @@ describe('Code-Ansicht', () => {
             collapsed: true,
         });
         expect(collapseMarkup('part x: languages').collapsed).toBe(false);
+    });
+});
+
+describe('settingLabel (TB 101)', () => {
+    it('nimmt die Beschriftung des Moduls vor der des Kerns', () => {
+        expect(settingLabel('depth')).toBe('Tiefe');
+        expect(
+            settingLabel('label', { label: 'Bezeichnung unter der Karte' }),
+        ).toBe('Bezeichnung unter der Karte');
+        expect(settingLabel('zoom')).toBe('zoom');
     });
 });

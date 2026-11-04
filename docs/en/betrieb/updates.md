@@ -28,8 +28,13 @@ php artisan basalto:update --plugin=vendor/package
 - **Source:** `BASALTO_UPDATES_URL`, otherwise basaltocms.com.
 - **Daily check:** the scheduler calls `basalto:update --benachrichtigen` at 04:10 (switch off with
   `BASALTO_UPDATES_CHECK=false`).
-- **Plugins:** these need the e-mail and token of the customer account (`auth.json` or `BASALTO_MARKETPLACE_EMAIL` and
-  `BASALTO_MARKETPLACE_TOKEN`).
+- **Plugins:** these need the e-mail and token of the customer account (`BASALTO_MARKETPLACE_EMAIL` and
+  `BASALTO_MARKETPLACE_TOKEN`, otherwise the account connected under Administration › Modules, otherwise `auth.json`).
+- **Plugins from the back end:** Basalto stores them under `storage/app/plugins/<vendor>/<package>` (elsewhere with
+  `BASALTO_PLUGINS_PATH`) — outside `vendor`, so a core update does not replace them. Basalto keeps the list
+  `storage/app/plugins/plugins.php` itself. On the command line:
+  `php artisan basalto:plugin install|update|enable|disable|remove|list <vendor/package>` (`remove` with
+  `--daten-loeschen` also deletes the tables).
 
 Before a big jump, your own backup with a restore test is still worth it ([Backup](backup.md)).
 

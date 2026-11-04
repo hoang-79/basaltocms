@@ -55,8 +55,11 @@ solo dopo pubblica. Un tema a pagamento richiede e-mail e token del Suo conto cl
 ## Plugin
 
 I plugin del Marketplace Basalto li installa esattamente come il nucleo: archivio firmato, backup, sostituzione,
-migrazioni, via di ritorno. Per questo servono e-mail e token del Suo conto cliente presso il produttore (come per
-Composer).
+migrazioni, via di ritorno. Per questo servono e-mail e token del Suo conto cliente presso il produttore — collegato in
+**Amministrazione › Moduli › Marketplace** ([Installare un plugin](../marktplatz/installieren.md#installare-un-plugin)).
+
+I plugin che Basalto ha installato nel backend vengono aggiornati subito al clic, senza modalità di manutenzione e anche
+su hosting che non permettono processi propri. Se il sito non si avvia con la nuova versione, torna quella vecchia.
 
 ## Quando non si può installare dal backend
 

@@ -221,8 +221,17 @@ export function settingInput(
     return { type: 'text' };
 }
 
-/** Die Beschriftung einer Teil-Einstellung; unbekannte Einstellungen heissen, wie sie heissen. */
-export function settingLabel(setting: string): string {
+/**
+ * Die Beschriftung einer Teil-Einstellung: die des Moduls (`labels`, schon übersetzt), sonst die des Kerns; unbekannte
+ * Einstellungen heissen, wie sie heissen.
+ */
+export function settingLabel(
+    setting: string,
+    own: Record<string, string> = {},
+): string {
+    if (own[setting]) {
+        return own[setting];
+    }
     const labels: Record<string, string> = {
         source: t('Quelle'),
         depth: t('Tiefe'),

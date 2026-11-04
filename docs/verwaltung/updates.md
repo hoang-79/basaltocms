@@ -54,7 +54,12 @@ veröffentlichen erst dann. Ein bezahltes Theme braucht E-Mail und Token Ihres K
 ## Plugins
 
 Plugins aus dem Marktplatz spielt Basalto genauso ein wie den Kern: signiertes Archiv, Sicherung, Tausch, Migrationen,
-Rückweg. Dafür braucht es E-Mail und Token Ihres Kundenkontos beim Hersteller (wie für Composer).
+Rückweg. Dafür braucht es E-Mail und Token Ihres Kundenkontos beim Hersteller — verbunden unter **Verwaltung › Module ›
+Marktplatz** ([Plugin installieren](../marktplatz/installieren.md#plugin-installieren)).
+
+Plugins, die Basalto im Backend installiert hat, aktualisiert es gleich beim Klick, ohne Wartungsmodus und auch auf
+Hostings, die keine eigenen Prozesse erlauben. Startet die Site mit der neuen Version nicht, kommt die alte Version
+zurück.
 
 ## Wenn «Einspielen» fehlt
 

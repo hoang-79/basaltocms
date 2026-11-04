@@ -39,6 +39,7 @@ use Basalto\Core\Console\LoadTestCommand;
 use Basalto\Core\Console\LocalCommand;
 use Basalto\Core\Console\LoginLinkCommand;
 use Basalto\Core\Console\PageCacheCommand;
+use Basalto\Core\Console\PluginCommand;
 use Basalto\Core\Console\PrivacyCommand;
 use Basalto\Core\Console\PublishCommand;
 use Basalto\Core\Console\PublishScheduledCommand;
@@ -93,6 +94,7 @@ use Basalto\Core\Notifications\CoreNotifications;
 use Basalto\Core\Notifications\NotificationTypes;
 use Basalto\Core\Operations\Health;
 use Basalto\Core\Operations\MonitoringSetup;
+use Basalto\Core\Plugins\PluginLoader;
 use Basalto\Core\Policies\EntryPolicy;
 use Basalto\Core\Policies\MediaPolicy;
 use Basalto\Core\Policies\SitePolicy;
@@ -208,6 +210,10 @@ final class CoreServiceProvider extends ServiceProvider
         $this->app->register(FrontendAccountsServiceProvider::class);
         // CR-006 (TB 36): Bausteine «Community» — Einhängeseiten, Profil, Besuchergruppen und -rechte
         $this->app->register(CommunityServiceProvider::class);
+        // CR-018 (TB 98): Plugins, die das Backend ohne Composer installiert hat — nach dem Kern, ein Fehler bleibt beim Plugin
+        $this->app->singleton(PluginLoader::class);
+        $this->app->make(PluginLoader::class)->boot($this->app);
+        $this->app->make(PluginLoader::class)->bootWorkshop($this->app);
     }
 
     public function boot(): void
@@ -331,6 +337,8 @@ final class CoreServiceProvider extends ServiceProvider
             $this->commands([TestdataCommand::class]);
             // CR-007: Updates prüfen und einspielen
             $this->commands([UpdateCommand::class]);
+            // CR-018: Plugins aus dem Marktplatz ohne Composer
+            $this->commands([PluginCommand::class]);
             // CR-011 TB 59: vorgemerkte Kündigungen ausführen
             $this->commands([CancellationsCommand::class]);
             // Zeitzone der Datenbank-Session: alte TIMESTAMP-Werte auf UTC umrechnen

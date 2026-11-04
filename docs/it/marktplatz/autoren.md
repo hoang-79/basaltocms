@@ -80,7 +80,7 @@ Struttura e interfaccia come per i moduli ([Moduli e plugin](../entwickler/erwei
     "type": "basalto-plugin",
     "license": "MIT",
     "description": "Karten als Lava-Tag",
-    "require": { "php": "^8.4", "basalto/core": "*" },
+    "require": { "php": "^8.4", "basalto/core": "^1.3" },
     "autoload": { "psr-4": { "Hersteller\\Karten\\": "src/" } },
     "extra": {
         "laravel": { "providers": ["Hersteller\\Karten\\KartenServiceProvider"] },
@@ -99,10 +99,11 @@ Struttura e interfaccia come per i moduli ([Moduli e plugin](../entwickler/erwei
 | --- | --- |
 | `name` | nome Composer valido `hersteller/paket`, in minuscolo |
 | `version` | obbligatorio — il Marketplace legge la versione da qui (`1.2.0`, `v` davanti consentito) |
-| `type` | `library`, `basalto-plugin` o `basalto-module` |
+| `type` | `basalto-plugin` — solo così Basalto lo installa nel backend |
 | `extra.basalto` | `module` (handle: a–z, 0–9, `-` e `_`, con una lettera all’inizio, al massimo 40 caratteri), `name` (nome visualizzato), `api` = `1` |
-| `extra.laravel.providers` | almeno un service provider |
-| `autoload.psr-4` | altrimenti indicazione: le classi non sono caricabili |
+| `extra.laravel.providers` | almeno un service provider, come file nel pacchetto (percorso secondo `autoload.psr-4`) |
+| `autoload.psr-4` | obbligatorio — il caricatore dei plugin carica le classi solo così (più `autoload.files`); non conosce `autoload.classmap` |
+| `require` | `basalto/core` è obbligatorio e deve corrispondere alla versione attuale (p. es. `^1.3`; `*` dà un’indicazione), `php` alla versione PHP di Basalto; altre librerie solo se Basalto le fornisce, in una versione adatta — altrimenti la verifica rifiuta, perché Basalto non potrebbe installare il plugin senza Composer ([Installato senza Composer](../entwickler/erweiterungen.md#installato-senza-composer)). Un’estensione PHP (`ext-…`) che non tutte le installazioni hanno dà un’indicazione |
 | `license` | se differisce dalla licenza scelta all’invio, c’è un’indicazione |
 | `extra.basalto.category` | obbligatorio: `inhalte`, `formulare`, `shop`, `marketing`, `medien`, `mitglieder`, `anbindung` o `entwicklung` |
 | `extra.basalto.icon` | SVG, PNG o WebP nel pacchetto, al massimo 256 KB — altrimenti indicazione, il catalogo mostra l’iniziale |
@@ -119,10 +120,10 @@ passaggi. Nel farlo non viene eseguito nulla del pacchetto.
 | Passaggio | Verificato | Rifiuto in caso di |
 | --- | --- | --- |
 | **Pacchetto** | ZIP leggibile, dimensione, percorsi | oltre 10 MB compresso o 50 MB estratto, oltre 2000 file; **ZIP slip** (percorsi con `..`, percorsi assoluti, lettere di unità, backslash); link simbolici |
-| **Manifest** | Tema: manifest e checksum, compilatore Lava; plugin: `composer.json`, `php -l` di ogni file PHP, elenco dei divieti | manifest mancante o non corrispondente, errori del compilatore, errori di sintassi, chiamate vietate, campi non validi |
+| **Manifest** | Tema: manifest e checksum, compilatore Lava; plugin: `composer.json`, installabile senza Composer (tipo, classi, service provider, `require`), `php -l` di ogni file PHP, elenco dei divieti | manifest mancante o non corrispondente, errori del compilatore, errori di sintassi, chiamate vietate, campi non validi, una libreria che Basalto non fornisce |
 | **Test** | Temi: il compilatore invece dei test; plugin: se sono allegati test | — (i test inclusi non vengono mai eseguiti; la revisione li legge) |
-| **Banco di prova** | Temi: contrasti secondo WCAG 2.2 AA (chiaro e scuro, anche per ogni variante di colori), modalità scura, varianti di colori (`palette`, marchio proprio), risorse esterne (`src`, `<link href>`, `url()`, `@import` verso server esterni), peso degli asset, contenuti iniziali; plugin: PHPStan (livello 5, statico), accessi in scrittura, test | — (solo indicazioni; gli indicatori compaiono come marchi nel catalogo) |
-| **Sandbox** | installiamo l’invio in un’installazione usa e getta con contenuti di esempio e lo proviamo | ciò che lì non funziona, con nota |
+| **Banco di prova** | Temi: contrasti secondo WCAG 2.2 AA (chiaro e scuro, anche per ogni variante di colori), modalità scura, varianti di colori (`palette`, marchio proprio), risorse esterne (`src`, `<link href>`, `url()`, `@import` verso server esterni), peso degli asset, contenuti iniziali; plugin: PHPStan (livello 5, statico), accessi in scrittura, test, installabile senza Composer | — (solo indicazioni; gli indicatori compaiono come marchi nel catalogo) |
+| **Sandbox** | installiamo l’invio in un’installazione usa e getta con contenuti di esempio e lo proviamo; i plugin vi passano prima la **prova al banco**: installazione senza Composer, apertura di ogni pagina del plugin, rimozione con i dati, nuova installazione | un errore del server su una pagina del plugin, tabelle che restano dopo la rimozione (`down()` mancante), ciò che lì non funziona, con nota |
 | **Firma** | aperta fino all’approvazione | — |
 | **Revisione** | a mano | motivo del rifiuto |
 
@@ -133,7 +134,12 @@ l’operatore backtick portano al rifiuto. Scrivere aggirando Flysystem (`file_p
 dischi di storage.
 
 **Le indicazioni** non portano al rifiuto, ma la revisione le vede: avvisi del compilatore Lava, una linea rossa
-incompleta, test mancanti, `autoload.psr-4` mancante.
+incompleta, test mancanti, `basalto/core` con `*`, estensioni PHP che non tutte le installazioni hanno.
+
+**Provare i plugin da sé:** in un’installazione dall’installer web,
+`php artisan basalto:plugin install --archiv=percorso/del/plugin.zip` installa il vostro plugin dal file ZIP che volete
+inviare; `php artisan basalto:plugin check produttore/pacchetto` apre poi le sue pagine. È la stessa via della prova al
+banco ([Installato senza Composer](../entwickler/erweiterungen.md#installato-senza-composer)).
 
 ## Inviare
 
@@ -168,7 +174,9 @@ Dopo la verifica automatica testiamo l’invio in una **sandbox** — un’insta
 questo test, con i contenuti iniziali del tema o con il tema Starter. Poi viene eliminata. Solo un test in sandbox
 superato consente l’approvazione; in caso di «non superato» la nostra nota compare nel motivo del rifiuto.
 
-Nel catalogo ogni voce porta il suo **banco di prova**: gli indicatori della verifica automatica e «Testato in sandbox il …».
+Nel catalogo ogni voce porta il suo **banco di prova**: gli indicatori della verifica automatica e «Testato in sandbox il …»,
+per i plugin anche «Installabile senza Composer» e il risultato della prova al banco («Installazione, … pagine e
+rimozione provate»).
 I temi approvati ricevono una **vetrina** — un sito con i loro contenuti iniziali, che i visitatori provano dal vivo.
 
 Per ogni decisione riceve un’e-mail nella sua lingua. All’approvazione titolo, testi, licenza e immagine di anteprima

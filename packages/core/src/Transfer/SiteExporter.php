@@ -55,6 +55,8 @@ final class SiteExporter
         // Modul Kommentare (M-27, TB 10): Modul-Tabellen gehen erst mit einer Export-Schnittstelle für Module mit (offen)
         'comments' => 'Tabelle des Moduls Kommentare — Export und Import über eine Schnittstelle für Module (offen); Kommentare tragen Personendaten wie Formulareingänge',
         'comment_spam_counts' => 'Spam-Zähler des Moduls Kommentare je Tag — Betriebszahl der Quellinstallation, zählt nach dem Umzug neu',
+        // CR-018 TB 99: Beispiel-Modul
+        'example_notes' => 'Notizen des Beispiel-Moduls — zeigen Verwaltungsseiten aus Beschreibung, keine Inhalte der Site-Vorlage',
         // TB 11 Scheibe 1: Modul Lizenzverkauf — Geschäftsdaten und Personendaten, keine Inhalte der Site
         // TB 13 Scheibe 2: `customers` ist seit den Mitgliedern das Frontend-Konto des Kerns (Lizenzverkauf, Marktplatz, Mitglieder)
         'customers' => 'Frontend-Konten (Kunden des Lizenzverkaufs, Autoren des Marktplatzes, Mitglieder) — Personendaten mit Stripe-Kennung; sie gehören zu den Menschen und zum Geschäft, nicht zur Site-Vorlage',
@@ -336,6 +338,8 @@ final class SiteExporter
             'spam_count' => (int) $r->spam_count, 'spam_last_at' => self::time($r->spam_last_at), 'last_submission_at' => self::time($r->last_submission_at),
             'created_at' => self::time($r->created_at), 'updated_at' => self::time($r->updated_at)])->values()->all();
         $payload['submissions'] = $withSubmissions ? $this->submissions($siteId, $forms->pluck('handle', 'id')->all(), $writer, $warnings) : [];
+        // CR-018 (TB 101): einfache Tabellen von Modulen und Plugins (ModuleTables)
+        $payload['module_tables'] = app(ModuleTables::class)->rows($siteId);
 
         return [$payload, $warnings];
     }

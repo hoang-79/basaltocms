@@ -34,7 +34,7 @@ import type {
 } from '../../components/layoutEditor';
 import {
     COMMON_REGIONS,
-    PRIMARY_SETTINGS,
+    orderSettings,
     partNameFor,
     settingHelp,
 } from '../../components/fillPalette';
@@ -489,20 +489,12 @@ function instancesOf(kind: string): PartInfo[] {
 /* ── TB 33: neue Instanz — Kennung aus Art und Quelle, Einstellungen mit dem Wichtigsten zuerst ── */
 const partNameTouched = ref(false);
 const partMoreOpen = ref(false);
-const orderedSettings = computed(() => {
-    const all = partKind.value?.settings ?? [];
-
-    return [
-        ...all.filter((x) => PRIMARY_SETTINGS.includes(x)),
-        ...all.filter((x) => !PRIMARY_SETTINGS.includes(x)),
-    ];
-});
-const primaryCount = computed(
-    () =>
-        (partKind.value?.settings ?? []).filter((x) =>
-            PRIMARY_SETTINGS.includes(x),
-        ).length,
+const partLabels = computed(() => partKind.value?.labels ?? {});
+const settingOrder = computed(() =>
+    orderSettings(partKind.value?.settings ?? [], partLabels.value),
 );
+const orderedSettings = computed(() => settingOrder.value.ordered);
+const primaryCount = computed(() => settingOrder.value.primary);
 const showPartMore = computed(
     () =>
         partMoreOpen.value ||
@@ -1614,7 +1606,12 @@ const sel =
                                         : $t('Weitere Möglichkeiten (:list)', {
                                               list: orderedSettings
                                                   .slice(primaryCount)
-                                                  .map((x) => settingLabel(x))
+                                                  .map((x) =>
+                                                      settingLabel(
+                                                          x,
+                                                          partLabels,
+                                                      ),
+                                                  )
                                                   .join(', '),
                                           })
                                 }}
@@ -1630,7 +1627,7 @@ const sel =
                                 v-show="si < primaryCount || showPartMore"
                                 class="block text-[12px] font-semibold tracking-wide text-basalt-light uppercase"
                             >
-                                {{ settingLabel(setting) }}
+                                {{ settingLabel(setting, partLabels) }}
                                 <select
                                     v-if="
                                         settingInput(
@@ -1700,9 +1697,11 @@ const sel =
                                     "
                                 />
                                 <span
-                                    v-if="settingHelp(setting)"
+                                    v-if="settingHelp(setting, partLabels)"
                                     class="mt-0.5 block text-[11px] font-normal tracking-normal text-basalt-light normal-case"
-                                    >{{ settingHelp(setting) }}</span
+                                    >{{
+                                        settingHelp(setting, partLabels)
+                                    }}</span
                                 >
                                 <span
                                     v-if="errors[`settings.${setting}`]"
@@ -1718,13 +1717,13 @@ const sel =
                                 <legend
                                     class="text-[12px] font-semibold tracking-wide text-basalt-light uppercase"
                                 >
-                                    {{ settingLabel(setting) }}
+                                    {{ settingLabel(setting, partLabels) }}
                                 </legend>
                                 <p
-                                    v-if="settingHelp(setting)"
+                                    v-if="settingHelp(setting, partLabels)"
                                     class="text-[11px] text-basalt-light"
                                 >
-                                    {{ settingHelp(setting) }}
+                                    {{ settingHelp(setting, partLabels) }}
                                 </p>
                                 <div
                                     class="mt-1 flex flex-wrap gap-x-3 gap-y-1"
@@ -1766,7 +1765,7 @@ const sel =
                                 :key="`${setting}.${l}`"
                                 class="block text-[12px] font-semibold tracking-wide text-basalt-light uppercase"
                             >
-                                {{ settingLabel(setting) }} ·
+                                {{ settingLabel(setting, partLabels) }} ·
                                 {{ l.toUpperCase() }}
                                 <input
                                     :value="
