@@ -18,6 +18,7 @@ use Basalto\Modules\Comments\Http\Controllers\CommentSubmissionController;
 use Basalto\Modules\Comments\Http\Controllers\ModerationController;
 use Basalto\Modules\Comments\Models\Comment;
 use Basalto\Modules\Comments\Privacy\CommentPersonData;
+use Basalto\Modules\Comments\Statistics\CommentStatistics;
 use Basalto\Modules\Comments\Testdata\CommentsTestdata;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,8 @@ final class CommentsServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
+        // CR-019 (TB 109): Abschnitt unter Verwaltung › Statistik
+        app(Backend::class)->statistics('kommentare', 'Kommentare', 'comments', 60, CommentStatistics::section(...), module: 'comments');
         // Testdaten (basalto:testdaten)
         app(Testdata::class)->register(CommentsTestdata::KEY, 'Kommentare', 30, static fn (Site $site): bool => app(Backend::class)->moduleEnabled('comments', $site),
             static fn (TestdataRun $run) => app(CommentsTestdata::class)->seed($run), static fn (Site $site) => app(CommentsTestdata::class)->remove($site));

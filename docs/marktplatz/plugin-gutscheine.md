@@ -71,6 +71,10 @@ Gespeichert werden Name und E-Mail des Käufers und die Widmung. Löschen Sie di
 **Verwaltung › Benutzer** ([Benutzer](../verwaltung/benutzer.md)), bleibt der Gutschein gültig. Zwei Jahre nach Ablauf
 entfernt der nächtliche Löschlauf die Angaben zur Person; nie bezahlte Bestellungen schon nach einem Tag.
 
+## In der Statistik
+
+Unter [Statistik](../verwaltung/statistik.md) zeigt der Reiter **Gutscheine** verkaufte Gutscheine, Umsatz, eingelöste Beträge und den offenen Restwert, mit dem Vergleich zum Zeitraum davor.
+
 ## Weiter
 
 - [Zahlungen](../verwaltung/zahlungen.md)

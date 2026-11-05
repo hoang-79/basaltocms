@@ -68,6 +68,10 @@ Vengono salvati nome ed e-mail dell’acquirente e la dedica. Se elimina i dati 
 Utenti** ([Utenti](../verwaltung/benutzer.md)), il buono resta valido. Due anni dopo la scadenza la pulizia notturna
 rimuove i dati personali; gli ordini mai pagati già dopo un giorno.
 
+## Nelle statistiche
+
+In [Statistiche](../verwaltung/statistik.md), la scheda **Buoni** mostra buoni venduti, fatturato, importi riscattati e il valore residuo aperto, confrontati con il periodo precedente.
+
 ## Per continuare
 
 - [Pagamenti](../verwaltung/zahlungen.md)

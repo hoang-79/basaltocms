@@ -7,6 +7,8 @@ namespace Basalto\Core\Backend;
 use Basalto\Core\Access\Access;
 use Basalto\Core\Access\Areas;
 use Basalto\Core\Access\Level;
+use Basalto\Core\Analytics\Period;
+use Basalto\Core\Extranet\Statistics\MetricSection;
 use Basalto\Core\Http\Middleware\EnsureAccountActive;
 use Basalto\Core\Http\Middleware\GuardAccountLifecycle;
 use Basalto\Core\Http\Middleware\GuardAreaAccess;
@@ -50,6 +52,40 @@ final class Backend
 
     /** @var array<string, Closure(?Site): mixed> TB 13 Scheibe 3: geteilte Props der Module für Erweiterungen in Seiten des Kerns */
     private array $shared = [];
+
+    /** @var array<string, array{key: string, label: string, area: string|null, module: string|null, order: int, build: Closure(Period, Site): MetricSection, when: (Closure(Site): bool)|null}> CR-019 TB 108: Abschnitte der Statistik je Site */
+    private array $statistics = [];
+
+    /**
+     * CR-019 (TB 108): Ein Abschnitt unter Verwaltung › Statistik — wie im Extranet ({@see MetricSection}), aber für die
+     * gewählte Site. Er erscheint nur, wenn das Modul auf der Site an ist und die Person den Bereich sehen darf; seine
+     * Kennzahlen mit `headline` stehen zusätzlich im Überblick. `$label` ist ein Übersetzungsschlüssel; `$when` blendet
+     * den Abschnitt für Sites aus, die damit nichts zu tun haben (keine Zahlungen eingerichtet).
+     *
+     * @param  Closure(Period, Site): MetricSection  $build
+     * @param  (Closure(Site): bool)|null  $when
+     */
+    public function statistics(string $key, string $label, ?string $area, int $order, Closure $build, ?string $module = null, ?Closure $when = null): self
+    {
+        $this->statistics[$key] = ['key' => $key, 'label' => $label, 'area' => $area, 'module' => $module, 'order' => $order, 'build' => $build, 'when' => $when];
+
+        return $this;
+    }
+
+    /**
+     * Abschnitte der Statistik einer Site für eine Person, in ihrer Reihenfolge.
+     *
+     * @return list<array{key: string, label: string, area: string|null, module: string|null, order: int, build: Closure(Period, Site): MetricSection, when: (Closure(Site): bool)|null}>
+     */
+    public function statisticsFor(Authenticatable $user, Site $site): array
+    {
+        $access = app(Access::class);
+        $sections = array_values(array_filter($this->statistics, fn (array $s): bool => ($s['module'] === null || $this->moduleEnabled($s['module'], $site))
+            && ($s['area'] === null || $access->allows($user, $site, $s['area'])) && ($s['when'] === null || ($s['when'])($site))));
+        usort($sections, static fn (array $a, array $b): int => $a['order'] <=> $b['order']);
+
+        return $sections;
+    }
 
     public function pages(string $namespace, string $directory): self
     {

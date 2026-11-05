@@ -41,6 +41,10 @@ Oben wählen Sie **«Alle defekten»**, **«Intern»**, **«Extern»** oder **«
 - **Ignorieren:** für Links, die absichtlich so sind oder nur gelegentlich nicht antworten. Unter «Ignoriert» holen
   Sie sie mit **«Wieder melden»** zurück.
 
+## In der Statistik
+
+Unter [Statistik](../verwaltung/statistik.md) zeigt der Reiter **Link-Prüfer** defekte Links nach dem letzten Lauf mit der Zahl der Seiten, auf denen sie stehen, mit dem Vergleich zum Zeitraum davor.
+
 ## Wenn etwas nicht klappt
 
 | Zeichen | Ursache | Lösung |

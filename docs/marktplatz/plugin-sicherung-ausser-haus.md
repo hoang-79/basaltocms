@@ -133,6 +133,10 @@ sie unangetastet. Danach geht es weiter wie unter [Wiederherstellen](../betrieb/
 
 `--passphrase-fragen` hilft auch, wenn eine ältere Sicherung noch die bisherige Passphrase braucht.
 
+## In der Statistik
+
+Unter [Statistik](../verwaltung/statistik.md) zeigt der Reiter **Sicherung ausser Haus** hochgeladene Sicherungen, bestandene Proben und Fehler, mit dem Vergleich zum Zeitraum davor.
+
 ## Wenn etwas nicht klappt
 
 | Zeichen | Ursache | Lösung |

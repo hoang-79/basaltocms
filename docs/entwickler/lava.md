@@ -281,7 +281,7 @@ Ein Tag ist `{% name argumente name: wert %}`; Argumente trennen Leerzeichen ode
 | --- | --- |
 | `{% assets %}` | Zeichensatz, Viewport, Design-Variablen der Site und Stylesheets des Themes — zuerst im `<head>` |
 | `{% appearance %}` | Umschalter hell/dunkel für Besucher (Sonne/Mond, Wahl im Browser gespeichert) — nur, wenn `design` dunkle Farben hat |
-| `{% seo %}` | Titel, Beschreibung, Canonical, `robots` und Open-Graph-Angaben der Seite (aus `publish.seo` und den Seitendaten) |
+| `{% seo %}` | der ganze Kopf für Suchmaschinen und Netzwerke: Titel, Beschreibung, Canonical, `robots`, Open Graph mit Vorschaubild, hreflang und strukturierte Daten (aus `publish.seo`, den Seitendaten und der fertigen Seite). Fehlt der Tag, ergänzt Basalto vor `</head>`, was das Theme nicht selbst schreibt |
 | `{% region "main" %}` | Inhalt einer Region (im Layout-Markup) |
 | `{% nav "main" %}` · `{% part "main_nav" %}` · `{% form "contact" %}` | Navigation, Lava-Teil oder Formular an dieser Stelle |
 | `{% image bild size: "hero" class: "…" %}` | Bild mit Variante aus `design.images` (WebP mit `srcset`, AVIF-Quelle, Breite und Höhe, `loading`) |

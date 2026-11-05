@@ -18,6 +18,8 @@ use Basalto\Core\Models\Site;
 use Basalto\Core\Navigation\Navigation;
 use Basalto\Core\Publish\LegalPages;
 use Basalto\Core\Search\SiteSearch;
+use Basalto\Core\Seo\PageSeo;
+use Basalto\Core\Seo\SeoHead;
 use Basalto\Core\Support\DevServer;
 use Basalto\Core\Theme\ThemeAssets;
 use Basalto\Core\Theme\ThemeLoader;
@@ -90,6 +92,8 @@ final class EntryRenderer
             'type' => $entry->type, 'locale' => $version->locale,
             'meta' => ['title' => $meta['title'] ?? null, 'description' => is_string($meta['description'] ?? null) && trim($meta['description']) !== '' ? $meta['description'] : (RichText::toText($version->data['intro'] ?? null) ?: null), 'robots' => $entry->setting('meta.robots')],
             'css_class' => (string) $entry->setting('expert.css_class', ''),
+            // CR-019 TB 106: für article:published_time/modified_time und das JSON-LD datierter Inhalte
+            'published_at' => $version->published_at?->toIso8601String(), 'modified_at' => ($version->updated_at ?? $version->published_at)?->toIso8601String(),
             'shortcut' => $entry->setting('keyboard.shortcut'),
         ];
         foreach ($schema->types[$entry->type]['fields'] ?? [] as $field) {
@@ -101,7 +105,15 @@ final class EntryRenderer
         // CR-006 (FO-K1): Einhängeseiten bringen ihre Brotkrumen mit (Seite + Ansicht des Moduls)
         $pageVars['breadcrumbs'] = is_array($page['breadcrumbs'] ?? null) ? $page['breadcrumbs'] : $this->navigation->breadcrumbs($entry, $version->locale);
         $registry = clone $this->registry;
-        $registry->tag('seo', fn (array $args, array $named, Context $ctx): string => $this->seo($theme, $template, is_array($ctx->get('page')) ? $ctx->get('page') : [], (string) $entry->site->name));
+        // CR-019 TB 106: «{% seo %}» hinterlässt eine Marke — den Kopf setzt {@see SeoHead} zusammen, wenn die Seite fertig ist
+        $seoPage = null;
+        $registry->tag('seo', static function (array $args, array $named, Context $ctx) use (&$seoPage): string {
+            $seoPage = is_array($ctx->get('page')) ? $ctx->get('page') : null;
+
+            return SeoHead::MARK;
+        });
+        $pageSeo = app(PageSeo::class);
+        $pageSeo->reset();
         // «{% assets %}» (L-10): Zeichensatz und Viewport, Design-Tokens mit den Überschreibungen der Site, Stylesheets des Themes
         $themeAssets = app(ThemeAssets::class);
         $registry->tag('assets', static fn (): string => self::assets().$themeAssets->head($entry->site));
@@ -172,6 +184,7 @@ final class EntryRenderer
         $this->editable = null;
 
         $html = FormRenderer::inject($html, $version->locale);
+        $html = $this->finishSeo($html, $theme, $template, $seoPage ?? $pageVars, $version->locale, $pageSeo);
 
         // TB 54: Cookie-Einstellungen auch, wenn die Site Besuche zählt — mit Verweis auf die Datenschutzerklärung der Site in
         // der Sprache der Seite (ohne veröffentlichte Seite kein Verweis). Nur für Besucher der Website
@@ -229,102 +242,24 @@ final class EntryRenderer
     }
 
     /**
-     * Der Kopf einer Seite aus Metadaten: Titel (eigener oder Name plus Suffix aus `publish.seo`), Beschreibung,
-     * Robots (Template «noindex» zählt), kanonische URL, Open Graph, hreflang je Sprache.
+     * Den Kopf der Seite einsetzen (M-10, CR-019 TB 106): Titel-Zusatz aus `publish.seo`, «noindex» des Templates, die
+     * Beiträge aus {@see PageSeo} und was {@see SeoHead} aus der fertigen Seite liest.
      *
      * @param  array<string, mixed>  $page
      */
-    private function seo(Theme $theme, string $templateName, array $page, string $siteName): string
+    private function finishSeo(string $html, Theme $theme, string $templateName, array $page, string $locale, PageSeo $pageSeo): string
     {
+        $site = $this->site;
+        if ($site === null) {
+            return $html;
+        }
         $publish = $theme->document->find('publish');
         $seoDef = $publish?->childrenOf('seo')[0] ?? $publish?->property('seo')?->block;
         // «{site}» im Titel-Zusatz wird der Name der Site («Über uns · Bäckerei Muster»)
-        $suffix = str_replace('{site}', $siteName, (string) ($seoDef?->value('title_suffix') ?? ''));
-        $meta = is_array($page['meta'] ?? null) ? $page['meta'] : [];
-        $ownTitle = is_string($meta['title'] ?? null) && trim($meta['title']) !== '';
-        $title = $ownTitle ? (string) $meta['title'] : (string) ($page['title'] ?? '').$suffix;
-        $description = is_string($meta['description'] ?? null) ? trim($meta['description']) : '';
-        $template = $theme->template($templateName);
-        $robots = is_string($meta['robots'] ?? null) && $meta['robots'] !== '' ? $meta['robots'] : ($template?->value('noindex') === 'true' ? 'noindex, follow' : null);
-        $e = static fn (mixed $v): string => htmlspecialchars((string) $v, ENT_QUOTES);
-        $html = sprintf('<title>%s</title>', $e($title));
-        if ($description !== '') {
-            $html .= sprintf('<meta name="description" content="%s">', $e($description));
-        }
-        if ($robots !== null) {
-            $html .= sprintf('<meta name="robots" content="%s">', $e($robots));
-        }
-        if (is_string($page['canonical'] ?? null) && $page['canonical'] !== '') {
-            $html .= sprintf('<link rel="canonical" href="%s">', $e($page['canonical']));
-        }
-        $site = $this->site;
-        $url = is_string($page['canonical'] ?? null) && $page['canonical'] !== '' ? $page['canonical'] : (is_string($page['url'] ?? null) ? $page['url'] : null);
-        $locale = is_string($page['locale'] ?? null) ? $page['locale'] : null;
-        $image = is_array($page['image'] ?? null) && is_string($page['image']['src'] ?? null) ? $page['image']['src'] : null;
-        $html .= sprintf('<meta property="og:type" content="%s">', ($page['is_home'] ?? false) === true ? 'website' : 'article');
-        $html .= sprintf('<meta property="og:title" content="%s">', $e($title));
-        if ($description !== '') {
-            $html .= sprintf('<meta property="og:description" content="%s">', $e($description));
-        }
-        if ($url !== null) {
-            $html .= sprintf('<meta property="og:url" content="%s">', $e($url));
-        }
-        if ($site !== null) {
-            $html .= sprintf('<meta property="og:site_name" content="%s">', $e($site->name));
-        }
-        if ($locale !== null) {
-            $html .= sprintf('<meta property="og:locale" content="%s">', $e(str_replace('-', '_', $locale)));
-        }
-        if ($image !== null) {
-            $html .= sprintf('<meta property="og:image" content="%s">', $e($image));
-        }
-        $html .= sprintf('<meta name="twitter:card" content="%s">', $image !== null ? 'summary_large_image' : 'summary');
-        $alternates = is_array($page['hreflang'] ?? null) ? $page['hreflang'] : (is_array($page['alternates'] ?? null) ? $page['alternates'] : []);
-        foreach ($alternates as $alt) {
-            if (is_array($alt) && isset($alt['locale'], $alt['url'])) {
-                $html .= sprintf('<link rel="alternate" hreflang="%s" href="%s">', $e($alt['locale']), $e($alt['url']));
-                if ($site !== null && $alt['locale'] === $site->default_locale && count($alternates) > 1) {
-                    $html .= sprintf('<link rel="alternate" hreflang="x-default" href="%s">', $e($alt['url']));
-                }
-            }
-        }
+        $suffix = str_replace('{site}', $site->name, (string) ($seoDef?->value('title_suffix') ?? ''));
+        $noindex = $theme->template($templateName)?->value('noindex') === 'true';
 
-        return $html.$this->structuredData($page, $title, $description, $url, $locale);
-    }
-
-    /**
-     * Schema.org als JSON-LD (M-10): `WebSite` auf der Startseite, sonst `WebPage`, dazu `BreadcrumbList` ab zwei
-     * Stufen. `</` wird maskiert, damit kein Inhalt das Skript beenden kann.
-     *
-     * @param  array<string, mixed>  $page
-     */
-    private function structuredData(array $page, string $title, string $description, ?string $url, ?string $locale): string
-    {
-        if ($url === null) {
-            return '';
-        }
-        $origin = (string) preg_replace('#^(https?://[^/]+).*$#', '$1', $url);
-        $graph = [];
-        if (($page['is_home'] ?? false) === true) {
-            $graph[] = array_filter(['@type' => 'WebSite', 'name' => $this->site?->name, 'url' => $url, 'inLanguage' => $locale, 'description' => $description ?: null]);
-        } else {
-            $graph[] = array_filter(['@type' => 'WebPage', 'name' => $title, 'url' => $url, 'inLanguage' => $locale, 'description' => $description ?: null,
-                'isPartOf' => $this->site !== null ? ['@type' => 'WebSite', 'name' => $this->site->name, 'url' => $origin.'/'] : null]);
-        }
-        $crumbs = is_array($page['breadcrumbs'] ?? null) ? array_values($page['breadcrumbs']) : [];
-        if (count($crumbs) >= 2) {
-            $items = [];
-            foreach ($crumbs as $i => $crumb) {
-                if (is_array($crumb) && is_string($crumb['label'] ?? null)) {
-                    $href = is_string($crumb['href'] ?? null) ? $crumb['href'] : '';
-                    $items[] = array_filter(['@type' => 'ListItem', 'position' => $i + 1, 'name' => $crumb['label'], 'item' => $href === '' ? null : (str_starts_with($href, 'http') ? $href : $origin.$href)]);
-                }
-            }
-            $graph[] = ['@type' => 'BreadcrumbList', 'itemListElement' => $items];
-        }
-        $json = (string) json_encode(['@context' => 'https://schema.org', '@graph' => $graph], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG);
-
-        return '<script type="application/ld+json">'.$json.'</script>';
+        return app(SeoHead::class)->finish($html, $site, $locale, $page, $suffix, $noindex, $pageSeo);
     }
 
     /**

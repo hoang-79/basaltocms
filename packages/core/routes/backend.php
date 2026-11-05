@@ -36,6 +36,7 @@ use Basalto\Core\Http\Controllers\ProfileController;
 use Basalto\Core\Http\Controllers\PublishController;
 use Basalto\Core\Http\Controllers\RedirectController;
 use Basalto\Core\Http\Controllers\RoleController;
+use Basalto\Core\Http\Controllers\SearchEngineController;
 use Basalto\Core\Http\Controllers\SettingsController;
 use Basalto\Core\Http\Controllers\SetupController;
 use Basalto\Core\Http\Controllers\SiteController;
@@ -224,6 +225,9 @@ app(Backend::class)->routes(static function (): void {
     Route::post('datenschutz/{privacyRequest}/erledigen', [PrivacyRequestsController::class, 'answer'])->whereNumber('privacyRequest')->name('privacy.requests.answer');
     Route::get('activity/export', [ActivityController::class, 'export'])->name('activity.export');
     // CR-018 TB 103: Stripe-Konto der Site für Plugins und die Liste der Zahlungen
+    // CR-019 TB 107: Verwaltung › Suchmaschinen — Vorschaubild, Bestätigungscodes, IndexNow
+    Route::get('suchmaschinen', [SearchEngineController::class, 'index'])->name('search_engines');
+    Route::put('suchmaschinen', [SearchEngineController::class, 'update'])->name('search_engines.update');
     Route::get('zahlungen', [PaymentSettingsController::class, 'index'])->name('payments');
     Route::put('zahlungen', [PaymentSettingsController::class, 'update'])->name('payments.update');
     Route::delete('zahlungen', [PaymentSettingsController::class, 'destroy'])->name('payments.destroy');

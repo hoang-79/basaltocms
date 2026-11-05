@@ -283,7 +283,7 @@ Un tag è `{% name argumente name: wert %}`; gli argomenti sono separati da spaz
 | --- | --- |
 | `{% assets %}` | set di caratteri, viewport, variabili di design del sito e fogli di stile del tema — per primo nel `<head>` |
 | `{% appearance %}` | selettore chiaro/scuro per i visitatori (sole/luna, scelta salvata nel browser) — solo se `design` ha colori scuri |
-| `{% seo %}` | titolo, descrizione, canonical, `robots` e dati Open Graph della pagina (da `publish.seo` e dai dati della pagina) |
+| `{% seo %}` | l’intera intestazione per motori di ricerca e social network: titolo, descrizione, canonical, `robots`, Open Graph con immagine di anteprima, hreflang e dati strutturati (da `publish.seo`, dai dati della pagina e dalla pagina finita). Senza il tag, Basalto aggiunge prima di `</head>` ciò che il tema non scrive da sé |
 | `{% region "main" %}` | contenuto di una regione (nel markup del layout) |
 | `{% nav "main" %}` · `{% part "main_nav" %}` · `{% form "contact" %}` | navigazione, parte Lava o form in questo punto |
 | `{% image bild size: "hero" class: "…" %}` | immagine con variante da `design.images` (WebP con `srcset`, fonte AVIF, larghezza e altezza, `loading`) |

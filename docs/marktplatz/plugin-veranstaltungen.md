@@ -83,6 +83,10 @@ Veranstaltung mit Adresse die Karte dazu — erst nach einem Klick.
 Jede Veranstaltung trägt strukturierte Daten (schema.org `Event`: Name, Zeiten, Ort, Stand, Veranstalterin) und steht in
 der Sitemap der Site. Das Plugin speichert keine Personendaten; die Veranstaltungen gehen mit dem Export einer Site mit.
 
+## In der Statistik
+
+Unter [Statistik](../verwaltung/statistik.md) zeigt der Reiter **Veranstaltungen** kommende Veranstaltungen, Termine im Zeitraum, neu erfasste und abgesagte, mit dem Vergleich zum Zeitraum davor.
+
 ## Weiter
 
 - [Plugin «Karte ohne Tracking»](plugin-karte.md)

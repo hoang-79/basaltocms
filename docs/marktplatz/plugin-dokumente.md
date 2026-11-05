@@ -68,6 +68,10 @@ Der Lava-Teil **«Dokumente»** zeigt die Dokumente einer Kategorie auf einer be
 - PDF und Bilder öffnen sich im Browser, alles andere wird heruntergeladen.
 - Dateien gehen nicht mit dem Export einer Site mit; ziehen Sie sie mit der Sicherung um.
 
+## In der Statistik
+
+Unter [Statistik](../verwaltung/statistik.md) zeigt der Reiter **Dokumente** Downloads (seit Beginn gezählt), die meistgeladenen Dokumente und neue Fassungen, mit dem Vergleich zum Zeitraum davor.
+
 ## Weiter
 
 - [Mitglieder](../redaktion/mitglieder.md)

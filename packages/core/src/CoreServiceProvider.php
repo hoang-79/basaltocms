@@ -9,6 +9,7 @@ use Basalto\Core\Access\Areas;
 use Basalto\Core\Access\CoreAreas;
 use Basalto\Core\Access\Level;
 use Basalto\Core\Activity\Recorder;
+use Basalto\Core\Analytics\SiteStatistics;
 use Basalto\Core\Analytics\Statistics;
 use Basalto\Core\Analytics\TrackPageView;
 use Basalto\Core\Auth\PasskeyOrigins;
@@ -86,6 +87,7 @@ use Basalto\Core\Mail\MailBrand;
 use Basalto\Core\Mail\UndeliverableRecipients;
 use Basalto\Core\Models\ApiToken;
 use Basalto\Core\Models\Entry;
+use Basalto\Core\Models\EntryVersion;
 use Basalto\Core\Models\Media;
 use Basalto\Core\Models\PrivacyRequest;
 use Basalto\Core\Models\SearchDocument;
@@ -107,6 +109,8 @@ use Basalto\Core\Saas\Saas;
 use Basalto\Core\Saas\SaasServiceProvider;
 use Basalto\Core\Search\SearchSources;
 use Basalto\Core\Search\SearchSync;
+use Basalto\Core\Seo\IndexNow;
+use Basalto\Core\Seo\PageSeo;
 use Basalto\Core\Settings\Settings;
 use Basalto\Core\Sites\CurrentSite;
 use Basalto\Core\Sso\SsoServiceProvider;
@@ -148,6 +152,7 @@ use Illuminate\Translation\Translator;
 use Illuminate\View\FileViewFinder;
 use Laravel\Sanctum\Contracts\HasApiTokens;
 use Laravel\Sanctum\Sanctum;
+use Throwable;
 
 /**
  * Der Kern als Composer-Paket: Konfiguration, Routen, Views, Übersetzungen, Migrationen und die fertig
@@ -160,6 +165,8 @@ final class CoreServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->scoped(MailBrand::class);
+        // CR-019 TB 106: Beiträge zum Kopf der Seite in Arbeit (Lava-Teile, Module)
+        $this->app->scoped(PageSeo::class);
         // CR-011 TB 61: Auskunft und Löschen aus dem Kundenkonto nur für die eigene Site
         $this->app->scoped(PersonScope::class);
         $this->root = dirname(__DIR__);
@@ -285,6 +292,14 @@ final class CoreServiceProvider extends ServiceProvider
         // TB 27: Benachrichtigungen des Kerns (Workflow, Sicherheit, Extranet)
         CoreNotifications::register($this->app->make(NotificationTypes::class));
         PageCacheInvalidation::register();
+        // CR-019 TB 107: Veröffentlichen, Offline nehmen, Archivieren → Adresse für IndexNow vormerken (scheitert nie laut)
+        EntryVersion::saved(static function (EntryVersion $version): void {
+            try {
+                app(IndexNow::class)->versionChanged($version);
+            } catch (Throwable $e) {
+                report($e);
+            }
+        });
         SearchSync::register();
         // Meilisearch filtert nur, was vorher als filterbar gemeldet ist — der Treiberwechsel bleibt so reine Konfiguration
         if (config('scout.meilisearch.index-settings.'.SearchDocument::class) === null) {
@@ -361,6 +376,9 @@ final class CoreServiceProvider extends ServiceProvider
                 $schedule->command('basalto:hostnamen')->everyMinute()->when(static fn (): bool => Hostnames::due()->exists())->withoutOverlapping(15)->onOneServer();
             }
             $schedule->command('basalto:license')->hourly()->onOneServer();
+            // CR-019 TB 107: geänderte Adressen über IndexNow melden — gesammelt, nur wenn welche warten
+            $schedule->call(static fn (): int => app(IndexNow::class)->send())->everyTenMinutes()->name('basalto:indexnow')
+                ->when(static fn (): bool => IndexNow::anyPending())->withoutOverlapping(10)->onOneServer();
             // CR-018 TB 103: offene Zahlungen bei Stripe nachfragen — wer das Fenster nach dem Bezahlen schliesst, verpasst nichts
             $schedule->call(static fn (): int => app(SitePayments::class)->reconcile())->everyFiveMinutes()->name('basalto:zahlungen-abgleichen')
                 ->when(static fn (): bool => SitePayments::anyOpen())->withoutOverlapping(10)->onOneServer();
@@ -448,12 +466,19 @@ final class CoreServiceProvider extends ServiceProvider
         $backend->count('basalto.updates', static fn (): int => (int) (app(UpdateCheck::class)->cached()['count'] ?? 0));
         // TB 54: Statistik der Website (Seitenaufrufe, wie Fristo)
         $backend->menu('Statistik', 'basalto.statistics', 46, Backend::MODE_ADMIN, icon: 'statistics');
+        // CR-019 TB 108: Abschnitte der Statistik einer Site wie im Extranet
+        $backend->statistics('suchmaschinen', 'Suchmaschinen', 'publishing', 10, SiteStatistics::searchEngines(...))
+            ->statistics('formulare', 'Formulare', 'forms', 20, SiteStatistics::forms(...))
+            ->statistics('kundenkonten', 'Kundenkonten', null, 30, SiteStatistics::accounts(...))
+            ->statistics('zahlungen', 'Zahlungen', 'payments', 40, SiteStatistics::payments(...), when: SiteStatistics::hasPayments(...));
         // CR-011 TB 61: Anliegen zum Datenschutz — die Zahl nennt die offenen
         $backend->menu('Datenschutz', 'basalto.privacy.requests.index', 48, Backend::MODE_ADMIN, icon: 'user');
         $backend->count('basalto.privacy.requests.index', static fn (Site $site): int => PrivacyRequest::query()->withoutGlobalScopes()->where('site_id', $site->id)->where('status', PrivacyRequest::OPEN)->count());
         $backend->menu('basalto::backend.operations', 'basalto.operations', 47, Backend::MODE_ADMIN, icon: 'activity');
         // CR-018 TB 103: das Stripe-Konto der Site für Plugins (Anzahlung, Gutscheine) und die Liste der Zahlungen
         $backend->menu('Zahlungen', 'basalto.payments', 44, Backend::MODE_ADMIN, icon: 'license');
+        // CR-019 TB 107: was Suchmaschinen sehen, Vorschaubild, Bestätigungscodes, IndexNow
+        $backend->menu('Suchmaschinen', 'basalto.search_engines', 43, Backend::MODE_ADMIN, icon: 'statistics');
         $backend->menu('basalto::backend.activity', 'basalto.activity.index', 50, Backend::MODE_ADMIN, icon: 'activity');
         $backend->menu('basalto::backend.passkeys', 'basalto.passkeys', 90, Backend::MODE_ADMIN, icon: 'user');
 

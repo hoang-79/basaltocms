@@ -142,6 +142,10 @@ section paiement QR tant qu’une facture est ouverte. Les factures ouvertes fig
   leurs paiements.
 - L’**export d’un site** n’emporte que les types de cotisation ; factures et paiements restent sur le site d’origine.
 
+## Dans les statistiques
+
+Sous [Statistiques](../verwaltung/statistik.md), l’onglet **Cotisations** montre paiements reçus, montants ouverts, factures émises et relances, comparés à la période précédente.
+
 ## En cas de problème
 
 | Signe | Cause | Solution |

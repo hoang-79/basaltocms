@@ -44,6 +44,10 @@ In alto sceglie **«Tutti i guasti»**, **«Interni»**, **«Esterni»** o **«I
 - **Ignora:** per link voluti così o che solo occasionalmente non rispondono. In «Ignorati» li recupera con
   **«Segnala di nuovo»**.
 
+## Nelle statistiche
+
+In [Statistiche](../verwaltung/statistik.md), la scheda **Controllo link** mostra link non funzionanti dopo l’ultimo controllo con il numero di pagine in cui compaiono, confrontati con il periodo precedente.
+
 ## Se qualcosa non funziona
 
 | Segno | Causa | Soluzione |

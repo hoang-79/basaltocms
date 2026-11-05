@@ -120,6 +120,68 @@ const inputType = (f: AdminField): string =>
                         >
                     </span>
                 </label>
+                <fieldset v-else-if="f.type === 'image'">
+                    <legend class="text-[13px] font-semibold">
+                        {{ f.label }}
+                        <span
+                            v-if="save?.saved(f.name)"
+                            class="text-success ml-1.5 text-[11.5px] font-semibold"
+                            >✓ {{ $t('gespeichert') }}</span
+                        >
+                    </legend>
+                    <p
+                        v-if="f.help"
+                        :id="`hilfe-${f.name}`"
+                        class="text-[11.5px] text-basalt-light"
+                    >
+                        {{ f.help }}
+                    </p>
+                    <div
+                        class="mt-1 grid grid-cols-[repeat(auto-fill,minmax(7rem,1fr))] gap-2"
+                        :aria-describedby="
+                            f.help ? `hilfe-${f.name}` : undefined
+                        "
+                    >
+                        <label
+                            class="flex h-20 cursor-pointer items-center justify-center rounded-sm border border-ash-light p-1 text-center text-[11.5px] has-[:checked]:border-lava has-[:checked]:ring-2 has-[:checked]:ring-lava/40 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-basalt"
+                        >
+                            <input
+                                v-model="form[f.name]"
+                                type="radio"
+                                :name="f.name"
+                                :value="null"
+                                class="sr-only"
+                            />
+                            {{ f.none }}
+                        </label>
+                        <label
+                            v-for="image in f.images ?? []"
+                            :key="image.id"
+                            class="flex h-20 cursor-pointer items-center justify-center rounded-sm border border-ash-light bg-white p-1 has-[:checked]:border-lava has-[:checked]:ring-2 has-[:checked]:ring-lava/40 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-basalt"
+                            :title="image.name"
+                        >
+                            <input
+                                v-model="form[f.name]"
+                                type="radio"
+                                :name="f.name"
+                                :value="image.id"
+                                class="sr-only"
+                            />
+                            <img
+                                :src="image.url"
+                                :alt="image.name"
+                                class="max-h-full max-w-full object-contain"
+                            />
+                        </label>
+                    </div>
+                    <p
+                        v-if="errors[f.name]"
+                        class="text-danger mt-1 text-[11.5px]"
+                        role="alert"
+                    >
+                        {{ errors[f.name] }}
+                    </p>
+                </fieldset>
                 <Field
                     v-else-if="f.type === 'richtext'"
                     :label="f.label"

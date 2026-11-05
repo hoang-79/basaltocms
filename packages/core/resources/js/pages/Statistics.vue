@@ -3,23 +3,36 @@ import { Head, Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import Notice from '../components/Notice.vue';
 import PageHeader from '../components/PageHeader.vue';
-import StatisticsBoard from '../components/statistics/StatisticsBoard.vue';
-import type { StatisticsPayload } from '../components/statistics/types';
+import StatisticsTabs from '../components/statistics/StatisticsTabs.vue';
+import type { StatisticsView } from '../components/statistics/types';
 import type { BackendProps } from '../types';
 
-/** TB 54: Verwaltung › Statistik — die Seitenaufrufe der gewählten Site (wie Fristo), gezählt ohne Drittanbieter. */
-defineProps<{
-    stats: StatisticsPayload;
-    enabled: boolean;
-    site: { name: string };
-    url: string;
-    settings_url: string;
-}>();
+/**
+ * Verwaltung › Statistik (TB 54, CR-019 TB 108) — wie im Extranet: Überblick, Website (Seitenaufrufe, gezählt ohne
+ * Drittanbieter), Suchmaschinen und je ein Reiter für Formulare, Kundenkonten, Zahlungen, Module und Plugins.
+ */
+const props = defineProps<
+    StatisticsView & {
+        enabled: boolean;
+        site: { name: string };
+        settings_url: string;
+    }
+>();
 
 const page = usePage<BackendProps>();
 const siteName = computed(
     () => page.props.backend.site?.name ?? page.props.backend.name,
 );
+const view = computed<StatisticsView>(() => ({
+    tab: props.tab,
+    tabs: props.tabs,
+    range: props.range,
+    period: props.period,
+    overview: props.overview,
+    section: props.section,
+    website: props.website,
+    urls: props.urls,
+}));
 </script>
 
 <template>
@@ -31,7 +44,7 @@ const siteName = computed(
         <template #lead>
             {{
                 $t(
-                    'Wie die Website genutzt wird — gezählt von Basalto selbst, ohne Dienste anderer Anbieter. Besucher und Sitzungen nur mit Einwilligung in den Cookie-Einstellungen; sonst zählt ein Aufruf anonym.',
+                    'Wie Ihre Website genutzt und gefunden wird — Besuche, Suchmaschinen, Formulare und was Module und Plugins zählen. Gezählt von Basalto selbst, ohne Dienste anderer Anbieter; Besucher und Sitzungen nur mit Einwilligung in den Cookie-Einstellungen.',
                 )
             }}
         </template>
@@ -48,5 +61,5 @@ const siteName = computed(
             >{{ $t('Einstellungen öffnen') }}</Link
         >
     </Notice>
-    <StatisticsBoard :stats="stats" :url="url" />
+    <StatisticsTabs v-bind="view" />
 </template>

@@ -81,6 +81,10 @@ address shows its map — only after a click.
 Every event carries structured data (schema.org `Event`: name, times, place, status, organiser) and is listed in the
 site’s sitemap. The plugin stores no personal data; the events go along with a site’s export.
 
+## In the statistics
+
+Under [Statistics](../verwaltung/statistik.md), the **Events** tab shows upcoming events, events in the period, newly added and cancelled ones, compared with the previous period.
+
 ## Next
 
 - [“Map without tracking” plugin](plugin-karte.md)

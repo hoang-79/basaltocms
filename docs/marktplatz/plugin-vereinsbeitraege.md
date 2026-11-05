@@ -137,6 +137,10 @@ solange eine Rechnung offen ist, mit dem QR-Zahlteil. Offene Rechnungen stehen d
   Zahlungen.
 - Der **Export einer Site** nimmt nur die Beitragsarten mit; Rechnungen und Zahlungen bleiben bei der bisherigen Site.
 
+## In der Statistik
+
+Unter [Statistik](../verwaltung/statistik.md) zeigt der Reiter **Mitgliederbeiträge** Zahlungseingänge, offene Beträge, gestellte Rechnungen und Mahnungen, mit dem Vergleich zum Zeitraum davor.
+
 ## Wenn etwas nicht klappt
 
 | Zeichen | Ursache | Lösung |

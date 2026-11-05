@@ -969,7 +969,7 @@ final class ForumMount implements MountHandler
         $crumbs = [...$this->crumbs($node, true), ['label' => $thread->title, 'href' => $this->r->url('thema/'.$thread->pathSegment())]];
         $first = $posts->first();
 
-        return $this->page($html, $thread->title, $crumbs, $first === null ? null : mb_substr(RichText::toText($first->body), 0, 160), image: $this->shareImage($thread));
+        return $this->page($html, $thread->title, $crumbs, $first === null ? null : mb_substr(RichText::toText($first->body), 0, 600), image: $this->shareImage($thread));
     }
 
     /** TB 51: das erste Bild des Startbeitrags als Vorschaubild beim Teilen (`og:image`), als volle Adresse. */

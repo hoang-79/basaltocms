@@ -1,8 +1,32 @@
 # Statistiques
 
-Basalto compte lui-même comment votre site est utilisé — sans services d’autres fournisseurs, sans script provenant d’autres serveurs et sans adresses IP. Sous **Administration › Statistiques**, vous voyez les visiteurs, les pages vues, la provenance, les pages les plus visitées, la technique, les langues et les temps de réponse du site choisi.
+Basalto compte lui-même comment votre site est utilisé et trouvé — sans services d’autres fournisseurs, sans script
+provenant d’autres serveurs et sans adresses IP. Sous **Administration › Statistiques**, la **Vue d’ensemble** montre
+les chiffres clés de chaque domaine comparés à la période précédente, et chaque domaine a son propre onglet : site web,
+moteurs de recherche, formulaires, comptes clients et ce que comptent vos modules et plugins.
 
-![Administration › Statistiques avec indicateurs, évolution et onglets](bilder/statistik.webp)
+![Administration › Statistiques : vue d’ensemble avec onglets, période et une carte par domaine](bilder/statistik.webp)
+
+1. **Onglets** — Vue d’ensemble, Site web et un onglet pour chaque domaine.
+2. **Période** — 7, 30 ou 90 jours ; les flèches comparent avec autant de jours auparavant.
+3. **Carte d’un domaine** — les chiffres clés ; **Détails →** ouvre son onglet.
+
+## Quels onglets existent
+
+| Onglet | Contenu | Apparaît |
+| --- | --- | --- |
+| **Site web** | visiteurs, pages vues, provenance, pages, technique, langues, performance — voir ci-dessous | toujours |
+| **Moteurs de recherche** | visites depuis les moteurs de recherche (Google, Bing, DuckDuckGo …) et leurs pages d’entrée, visites de robots comme Googlebot, adresses dans le plan du site, signalements via IndexNow, adresses sans cible (404) | avec le droit pour la publication et le SEO |
+| **Formulaires** | envois par formulaire et par jour, non lus, spam bloqué | avec le droit pour les formulaires |
+| **Comptes clients** | nouveaux comptes, tous les comptes, connectés pendant la période | toujours |
+| **Paiements** | chiffre d’affaires et paiements effectués via votre compte Stripe, par provenance | dès que les paiements sont configurés |
+| **Communauté**, **Commentaires**, **Membres** | sujets et messages, commentaires nouveaux et en attente, membres nouveaux et actifs | si le module est activé |
+| **Plugins** | par ex. réservations, newsletter, bons, cotisations, documents, postes, événements, vérificateur de liens, sauvegarde externe | si le plugin est activé |
+
+Chaque onglet montre des chiffres clés comparés à la période précédente, une évolution par jour et des classements ;
+**Ouvrir …** mène à la page où vous travaillez avec les données.
+
+![Onglet Moteurs de recherche avec visites depuis la recherche, robots et plan du site](bilder/statistik-suchmaschinen.webp)
 
 ## Ce qui est compté
 
@@ -12,7 +36,7 @@ Basalto compte lui-même comment votre site est utilisé — sans services d’a
 - **Aucune adresse IP** et **aucun paramètre** de l’adresse ne sont enregistrés — de `?utm_source=…`, Basalto ne reprend que la source, le support et la campagne.
 - **Le pays** n’apparaît que si un service en amont, comme Cloudflare, le transmet.
 
-## Lire les statistiques
+## L’onglet Site web
 
 En haut, vous choisissez la **période** (7, 30 ou 90 jours) et si les **robots** comptent. Un clic sur une page, un lien entrant, un navigateur, un appareil, un pays ou une langue **filtre tout le rapport** ; la sélection s’affiche en haut et se supprime élément par élément.
 
@@ -52,7 +76,7 @@ Un lien vers `#cookie-einstellungen` ouvre les paramètres des cookies depuis n�
 
 ## Pour continuer
 
+- [Moteurs de recherche](suchmaschinen.md)
 - [Paramètres](einstellungen.md)
 - [Rôles](rollen.md)
 - [Connexion des comptes clients](kundenanmeldung.md)
-- [Lava](../entwickler/lava.md)

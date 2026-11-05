@@ -281,7 +281,7 @@ A tag is `{% name argumente name: wert %}`; arguments are separated by spaces or
 | --- | --- |
 | `{% assets %}` | character set, viewport, design variables of the site and stylesheets of the theme — first in the `<head>` |
 | `{% appearance %}` | light/dark toggle for visitors (sun/moon, choice stored in the browser) — only when `design` has dark colours |
-| `{% seo %}` | title, description, canonical, `robots` and Open Graph details of the page (from `publish.seo` and the page data) |
+| `{% seo %}` | the whole head for search engines and networks: title, description, canonical, `robots`, Open Graph with preview image, hreflang and structured data (from `publish.seo`, the page data and the finished page). Without the tag, Basalto adds before `</head>` whatever the theme does not write itself |
 | `{% region "main" %}` | content of a region (in layout markup) |
 | `{% nav "main" %}` · `{% part "main_nav" %}` · `{% form "contact" %}` | navigation, Lava part or form at this position |
 | `{% image bild size: "hero" class: "…" %}` | image with a variant from `design.images` (WebP with `srcset`, AVIF source, width and height, `loading`) |

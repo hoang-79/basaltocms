@@ -1,8 +1,32 @@
 # Statistik
 
-Basalto zählt selbst, wie Ihre Website genutzt wird — ohne Dienste anderer Anbieter, ohne Skript von fremden Servern und ohne IP-Adressen. Unter **Verwaltung › Statistik** sehen Sie Besucher, Seitenaufrufe, Herkunft, meistbesuchte Seiten, Technik, Sprachen und Antwortzeiten der gewählten Site.
+Basalto zählt selbst, wie Ihre Website genutzt und gefunden wird — ohne Dienste anderer Anbieter, ohne Skript von
+fremden Servern und ohne IP-Adressen. Unter **Verwaltung › Statistik** sehen Sie im **Überblick** die wichtigsten Zahlen
+jedes Bereichs mit dem Vergleich zum Zeitraum davor, und je Bereich einen eigenen Reiter: Website, Suchmaschinen,
+Formulare, Kundenkonten und was Ihre Module und Plugins zählen.
 
-![Verwaltung › Statistik mit Kennzahlen, Verlauf und Reitern](bilder/statistik.webp)
+![Verwaltung › Statistik: Überblick mit Reitern, Zeitraum und einer Karte je Bereich](bilder/statistik.webp)
+
+1. **Reiter** — Überblick, Website und je ein Reiter für jeden Bereich.
+2. **Zeitraum** — 7, 30 oder 90 Tage; die Pfeile vergleichen mit gleich vielen Tagen davor.
+3. **Karte eines Bereichs** — die wichtigsten Zahlen; **Details →** öffnet seinen Reiter.
+
+## Welche Reiter es gibt
+
+| Reiter | Inhalt | Erscheint |
+| --- | --- | --- |
+| **Website** | Besucher, Seitenaufrufe, Herkunft, Seiten, Technik, Sprachen, Leistung — siehe unten | immer |
+| **Suchmaschinen** | Besuche aus Suchmaschinen (Google, Bing, DuckDuckGo …) und ihre Einstiegsseiten, Besuche von Crawlern wie Googlebot, Adressen in der Sitemap, Meldungen über IndexNow, Adressen ohne Ziel (404) | mit dem Recht für Veröffentlichen und SEO |
+| **Formulare** | Eingänge je Formular und Tag, ungelesene, abgewehrter Spam | mit dem Recht für Formulare |
+| **Kundenkonten** | neue Konten, alle Konten, angemeldet im Zeitraum | immer |
+| **Zahlungen** | Umsatz und bezahlte Zahlungen über Ihr Stripe-Konto, je Herkunft | sobald Zahlungen eingerichtet sind |
+| **Community**, **Kommentare**, **Mitglieder** | Themen und Beiträge, neue und wartende Kommentare, neue und aktive Mitglieder | wenn das Modul an ist |
+| **Plugins** | z. B. Reservierungen, Newsletter, Gutscheine, Mitgliederbeiträge, Dokumente, Stellen, Veranstaltungen, Link-Prüfer, Sicherung ausser Haus | wenn das Plugin an ist |
+
+Jeder Reiter zeigt Kennzahlen mit dem Vergleich zum Zeitraum davor, einen Verlauf je Tag und Ranglisten; **… öffnen**
+führt zur Seite, auf der Sie mit den Daten arbeiten.
+
+![Reiter Suchmaschinen mit Besuchen aus der Suche, Crawlern und Sitemap](bilder/statistik-suchmaschinen.webp)
 
 ## Was gezählt wird
 
@@ -12,7 +36,7 @@ Basalto zählt selbst, wie Ihre Website genutzt wird — ohne Dienste anderer An
 - **Keine IP-Adresse** und **keine Abfrage** der Adresse werden gespeichert — aus `?utm_source=…` übernimmt Basalto nur Quelle, Medium und Kampagne.
 - **Das Land** erscheint nur, wenn ein vorgeschalteter Dienst wie Cloudflare es mitgibt.
 
-## Die Auswertung lesen
+## Der Reiter Website
 
 Oben wählen Sie den **Zeitraum** (7, 30 oder 90 Tage) und ob **Bots** mitzählen. Ein Klick auf eine Seite, einen Verweis, einen Browser, ein Gerät, ein Land oder eine Sprache **grenzt die ganze Auswertung ein**; die Auswahl steht oben und lässt sich einzeln entfernen.
 
@@ -52,7 +76,7 @@ Ein Link auf `#cookie-einstellungen` öffnet die Cookie-Einstellungen von übera
 
 ## Weiter
 
+- [Suchmaschinen](suchmaschinen.md)
 - [Einstellungen](einstellungen.md)
 - [Rollen](rollen.md)
 - [Anmeldung für Kundenkonten](kundenanmeldung.md)
-- [Lava](../entwickler/lava.md)

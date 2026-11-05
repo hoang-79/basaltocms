@@ -78,6 +78,10 @@ person’s addresses are part of **information** and **deletion** under **Admini
 ([Users](../verwaltung/benutzer.md)). Subscribers do not go along with a site’s export — their consent applies to the
 previous site.
 
+## In the statistics
+
+Under [Statistics](../verwaltung/statistik.md), the **Newsletter** tab shows new subscriptions, unsubscriptions, issues sent and emails sent — subscriptions per list, compared with the previous period.
+
 ## If something goes wrong
 
 | Sign | Cause | Solution |

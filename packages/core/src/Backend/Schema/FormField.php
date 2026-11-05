@@ -7,8 +7,8 @@ namespace Basalto\Core\Backend\Schema;
 /**
  * Ein Feld eines Formulars aus Beschreibung (CR-018, TB 99) — gezeichnet mit den Feldern des Kerns. Typen: `text`,
  * `email`, `url`, `number`, `password`, `textarea`, `select`, `checkbox`, `date`, `time`, `datetime`, `color`,
- * `richtext` (Fliesstext mit dem Editor des Kerns, Wert als Dokument) und `file` (eine Datei; nur in Formularen ohne
- * Autosave).
+ * `richtext` (Fliesstext mit dem Editor des Kerns, Wert als Dokument), `file` (eine Datei; nur in Formularen ohne
+ * Autosave) und `image` (ein Bild aus der Mediathek, CR-019).
  */
 final class FormField
 {
@@ -91,6 +91,21 @@ final class FormField
     {
         $field = new self($name, $label, 'file');
         $field->options['accept'] = $accept;
+
+        return $field;
+    }
+
+    /**
+     * Ein Bild aus der Mediathek (CR-019): Auswahl unter den gezeigten Bildern, Wert ist die ID oder null; `$none`
+     * beschriftet die Wahl «kein Bild». Hochgeladen wird in der Mediathek.
+     *
+     * @param  iterable<array{id: int, name: string, url: string}>  $images
+     */
+    public static function image(string $name, string $label, iterable $images, string $none): self
+    {
+        $field = new self($name, $label, 'image');
+        $field->options['images'] = array_values(is_array($images) ? $images : iterator_to_array($images, false));
+        $field->options['none'] = $none;
 
         return $field;
     }

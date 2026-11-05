@@ -9,10 +9,12 @@ use Basalto\Core\Content\Pages;
 use Basalto\Core\Content\PageType;
 use Basalto\Core\Content\ThemeSchema;
 use Basalto\Core\Models\Entry;
+use Basalto\Core\Models\Media;
 use Basalto\Core\Models\Site;
 use Basalto\Core\Theme\ThemeException;
 use Basalto\Core\Theme\ThemeLoader;
 use Carbon\CarbonInterface;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Die Sitemap einer Site (M-10): `/sitemap.xml` ist ein Index mit einer Sitemap je Sprache (`/sitemap-de.xml` …),
@@ -49,12 +51,29 @@ final class Sitemap
         return $xml.'</sitemapindex>';
     }
 
+    /**
+     * Wie viele Adressen die Sitemap in allen Sprachen hat (CR-019, Statistik und Verwaltung › Suchmaschinen) — zehn
+     * Minuten zwischengespeichert, weil grosse Sites dafür jede Seite durchgehen.
+     */
+    public function count(Site $site): int
+    {
+        return (int) Cache::remember('basalto.sitemap.count.'.$site->id, 600, function () use ($site): int {
+            $base = rtrim($site->publicUrl(), '/');
+            $count = 0;
+            foreach ($site->localeCodes() as $locale) {
+                $count += count($this->urls($site, $locale, $base));
+            }
+
+            return $count;
+        });
+    }
+
     public function forLocale(Site $site, string $locale, string $base): ?string
     {
         if (! in_array($locale, $site->localeCodes(), true)) {
             return null;
         }
-        $xml = '<?xml version="1.0" encoding="UTF-8"?>'."\n".'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">';
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>'."\n".'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">';
         foreach ($this->urls($site, $locale, $base) as $url) {
             $xml .= '<url><loc>'.self::e($url['loc']).'</loc>';
             if ($url['lastmod'] !== null) {
@@ -65,6 +84,10 @@ final class Sitemap
                     $xml .= sprintf('<xhtml:link rel="alternate" hreflang="%s" href="%s"/>', self::e($code), self::e($href));
                 }
             }
+            // CR-019 TB 107: Seitenbild (und Bilder der Module) für die Bildersuche
+            foreach ($url['images'] ?? [] as $image) {
+                $xml .= '<image:image><image:loc>'.self::e($image).'</image:loc></image:image>';
+            }
             $xml .= '</url>';
         }
 
@@ -74,12 +97,13 @@ final class Sitemap
     /**
      * Die Adressen einer Sprache, Startseite zuerst.
      *
-     * @return list<array{loc: string, lastmod: CarbonInterface|null, alternates: array<string, string>}>
+     * @return list<array{loc: string, lastmod: CarbonInterface|null, alternates: array<string, string>, images?: list<string>}>
      */
     public function urls(Site $site, string $locale, string $base): array
     {
         $base = rtrim($base, '/');
         $out = [];
+        $images = $this->images($site);
         foreach ($this->pages->entries($site) as $entry) {
             $entry->setRelation('site', $site);
             if (! $this->listed($entry)) {
@@ -102,10 +126,12 @@ final class Sitemap
                     $alternates[$code] = $base.$this->pages->urlPath($site, $code, $altPath);
                 }
             }
-            $out[] = ['loc' => $loc, 'lastmod' => $version->published_at ?? $version->updated_at, 'alternates' => $alternates, 'home' => $path === '/'];
+            $mediaId = $entry->setting('image.media_id');
+            $out[] = ['loc' => $loc, 'lastmod' => $version->published_at ?? $version->updated_at, 'alternates' => $alternates, 'home' => $path === '/',
+                'images' => is_numeric($mediaId) && isset($images[(int) $mediaId]) ? [$base.$images[(int) $mediaId]] : []];
         }
         usort($out, static fn (array $a, array $b): int => [$b['home'], $a['loc']] <=> [$a['home'], $b['loc']]);
-        $urls = array_map(static fn (array $u): array => ['loc' => $u['loc'], 'lastmod' => $u['lastmod'], 'alternates' => $u['alternates']], $out);
+        $urls = array_map(static fn (array $u): array => ['loc' => $u['loc'], 'lastmod' => $u['lastmod'], 'alternates' => $u['alternates'], 'images' => $u['images']], $out);
         // CR-006 (TB 41, FO-22): Adressen der Module unter Einhängeseiten (Themen des Forums)
         foreach (app()->tagged(self::TAG) as $more) {
             if (is_callable($more)) {
@@ -114,6 +140,31 @@ final class Sitemap
         }
 
         return $urls;
+    }
+
+    /**
+     * Pfade der Seitenbilder einer Site (Auslieferung der Site, keine befristeten Adressen), mit einer Abfrage.
+     *
+     * @return array<int, string> Medien-ID → Pfad
+     */
+    private function images(Site $site): array
+    {
+        $ids = [];
+        foreach ($this->pages->entries($site) as $entry) {
+            $id = $entry->setting('image.media_id');
+            if (is_numeric($id)) {
+                $ids[] = (int) $id;
+            }
+        }
+        if ($ids === []) {
+            return [];
+        }
+        $out = [];
+        foreach (Media::query()->withoutGlobalScopes()->where('site_id', $site->id)->whereIn('id', array_unique($ids))->whereNull('deleted_at')->pluck('id') as $id) {
+            $out[(int) $id] = route('basalto.media.show', ['media' => (int) $id], false);
+        }
+
+        return $out;
     }
 
     private function listed(Entry $entry): bool

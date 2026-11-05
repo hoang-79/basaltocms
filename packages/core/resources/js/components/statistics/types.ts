@@ -246,3 +246,15 @@ export function trend(
         ? { text: `▲ +${delta} %`, tone: 'text-success' }
         : { text: `▼ ${delta} %`, tone: 'text-danger' };
 }
+
+/** Reiter der Statistik (TB 55, CR-019): im Extranet und unter Verwaltung › Statistik. */
+export type StatisticsView = {
+    tab: string;
+    tabs: { key: string; label: string }[];
+    range: string;
+    period: { from: string; to: string; days: number };
+    overview: { key: string; label: string; kpis: MetricKpi[] }[] | null;
+    section: MetricSectionData | null;
+    website: StatisticsPayload | null;
+    urls: { index: string; website: string };
+};

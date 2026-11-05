@@ -133,6 +133,10 @@ intatto. Poi prosegua come in [Ripristino](../betrieb/backup.md#ripristino): pri
 
 `--passphrase-fragen` aiuta anche quando un backup più vecchio richiede ancora la passphrase precedente.
 
+## Nelle statistiche
+
+In [Statistiche](../verwaltung/statistik.md), la scheda **Backup esterno** mostra backup caricati, test di ripristino superati ed errori, confrontati con il periodo precedente.
+
 ## Se qualcosa non funziona
 
 | Segno | Causa | Soluzione |

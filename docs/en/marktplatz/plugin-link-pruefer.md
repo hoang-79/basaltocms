@@ -41,6 +41,10 @@ At the top you choose **“All broken”**, **“Internal”**, **“External”
 - **Ignore:** for links that are intentional or only occasionally fail to respond. Under “Ignored” you bring them back
   with **“Report again”**.
 
+## In the statistics
+
+Under [Statistics](../verwaltung/statistik.md), the **Link checker** tab shows broken links after the last check with the number of pages they appear on, compared with the previous period.
+
 ## If something goes wrong
 
 | Sign | Cause | Solution |

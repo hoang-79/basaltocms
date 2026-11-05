@@ -83,6 +83,10 @@ Jede offene Stelle trägt strukturierte Daten (schema.org `JobPosting`: Titel, B
 Arbeitgeber, ausgeschrieben bis) und steht in der Sitemap. Das Plugin selbst speichert keine Bewerbungen — die liegen
 bei den Eingängen der Formulare. Die Stellen gehen mit dem Export einer Site mit.
 
+## In der Statistik
+
+Unter [Statistik](../verwaltung/statistik.md) zeigt der Reiter **Stellen** offene Stellen, neu ausgeschriebene und die Bewerbungen über das Formular, mit dem Vergleich zum Zeitraum davor.
+
 ## Weiter
 
 - [Formulare](../redaktion/formulare.md)

@@ -67,6 +67,10 @@ The Lava part **“Documents”** shows the documents of a category on any page:
 - PDF files and images open in the browser; everything else is downloaded.
 - Files do not go along with a site’s export; move them with the backup.
 
+## In the statistics
+
+Under [Statistics](../verwaltung/statistik.md), the **Documents** tab shows downloads (counted since the start), the most downloaded documents and new versions, compared with the previous period.
+
 ## Next
 
 - [Members](../redaktion/mitglieder.md)

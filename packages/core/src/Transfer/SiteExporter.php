@@ -74,6 +74,8 @@ final class SiteExporter
         'licenses' => 'Verkaufte Lizenzen des Moduls Lizenzverkauf — Schlüssel sind an Kunden und Zahlungen gebunden, nicht an die Site',
         'license_orders' => 'Bestellungen des Moduls Lizenzverkauf — Buchhaltung der Quellinstallation (Aufbewahrungspflicht), nicht übertragbar',
         'license_invoices' => 'Rechnungen des Moduls Lizenzverkauf — Nummern fortlaufend je Installation, Aufbewahrungspflicht, nicht übertragbar',
+        // CR-019 TB 107: Meldungen an Suchmaschinen
+        'indexnow_urls' => 'Meldungen an Suchmaschinen (IndexNow) — Protokoll der bisherigen Adressen; die neue Site meldet ihre eigenen',
         // CR-018 TB 103: Zahlungen der Site über ihr Stripe-Konto
         'site_payment_settings' => 'Stripe-Konto der Site — geheimer Schlüssel verschlüsselt mit dem APP_KEY der Quellinstallation; in der Zielinstallation neu verbinden',
         'payments' => 'Zahlungen der Site — Buchhaltung mit Personendaten der Quellinstallation, gehören zum Stripe-Konto, nicht zur Site-Vorlage',

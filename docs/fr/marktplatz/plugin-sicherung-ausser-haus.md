@@ -138,6 +138,10 @@ intact. Continuez ensuite comme sous [Restaurer](../betrieb/backup.md#restaurer)
 
 `--passphrase-fragen` aide aussi lorsqu’une sauvegarde plus ancienne nécessite encore l’ancienne phrase secrète.
 
+## Dans les statistiques
+
+Sous [Statistiques](../verwaltung/statistik.md), l’onglet **Sauvegarde externe** montre sauvegardes envoyées, tests de restauration réussis et échecs, comparés à la période précédente.
+
 ## En cas de problème
 
 | Signe | Cause | Solution |

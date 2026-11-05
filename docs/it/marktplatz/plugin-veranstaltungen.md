@@ -82,6 +82,10 @@ indirizzo mostra la sua mappa — solo dopo un clic.
 Ogni evento porta dati strutturati (schema.org `Event`: nome, orari, luogo, stato, organizzatore) e figura nella
 sitemap del sito. Il plugin non salva dati personali; gli eventi fanno parte dell’esportazione di un sito.
 
+## Nelle statistiche
+
+In [Statistiche](../verwaltung/statistik.md), la scheda **Eventi** mostra eventi in programma, quelli del periodo, aggiunti di recente e annullati, confrontati con il periodo precedente.
+
 ## Per continuare
 
 - [Plugin «Mappa senza tracciamento»](plugin-karte.md)

@@ -101,6 +101,10 @@ numeri. Le prenotazioni di un indirizzo e-mail fanno parte dell’**accesso ai d
 **Amministrazione › Utenti** ([Utenti](../verwaltung/benutzer.md)). Le prenotazioni non fanno parte
 dell’esportazione di un sito; le offerte sì.
 
+## Nelle statistiche
+
+In [Statistiche](../verwaltung/statistik.md), la scheda **Prenotazioni** mostra nuove prenotazioni, ospiti nel periodo, cancellazioni, richieste aperte e acconti — per offerta, confrontati con il periodo precedente.
+
 ## Se qualcosa non funziona
 
 | Segno | Causa | Soluzione |

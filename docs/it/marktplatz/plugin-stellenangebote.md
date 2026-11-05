@@ -84,6 +84,10 @@ Ogni posto aperto porta dati strutturati (schema.org `JobPosting`: titolo, descr
 lavoro, datore di lavoro, messo a concorso fino al) e figura nella sitemap. Il plugin stesso non salva candidature —
 si trovano tra gli invii dei moduli. I posti fanno parte dell’esportazione di un sito.
 
+## Nelle statistiche
+
+In [Statistiche](../verwaltung/statistik.md), la scheda **Posti** mostra posti aperti, pubblicati di recente e le candidature tramite il modulo, confrontati con il periodo precedente.
+
 ## Per continuare
 
 - [Moduli](../redaktion/formulare.md)

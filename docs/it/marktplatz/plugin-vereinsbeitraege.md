@@ -135,6 +135,10 @@ sezione pagamento QR finché una fattura è aperta. Le fatture aperte figurano a
 - L’**esportazione di un sito** porta con sé solo i tipi di quota; fatture e pagamenti restano presso il sito
   precedente.
 
+## Nelle statistiche
+
+In [Statistiche](../verwaltung/statistik.md), la scheda **Quote sociali** mostra pagamenti ricevuti, importi aperti, fatture emesse e solleciti, confrontati con il periodo precedente.
+
 ## Se qualcosa non funziona
 
 | Segnale | Causa | Soluzione |

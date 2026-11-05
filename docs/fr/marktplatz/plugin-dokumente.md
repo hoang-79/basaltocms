@@ -71,6 +71,10 @@ thème :
 - Les PDF et les images s’ouvrent dans le navigateur ; tout le reste est téléchargé.
 - Les fichiers ne font pas partie de l’export d’un site ; déplacez-les avec la sauvegarde.
 
+## Dans les statistiques
+
+Sous [Statistiques](../verwaltung/statistik.md), l’onglet **Documents** montre téléchargements (comptés depuis le début), les documents les plus téléchargés et les nouvelles versions, comparés à la période précédente.
+
 ## Pour continuer
 
 - [Membres](../redaktion/mitglieder.md)

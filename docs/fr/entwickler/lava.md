@@ -282,7 +282,7 @@ Une balise s’écrit `{% name argumente name: wert %}` ; les arguments sont sé
 | --- | --- |
 | `{% assets %}` | jeu de caractères, viewport, variables de design du site et feuilles de style du thème — en premier dans `<head>` |
 | `{% appearance %}` | sélecteur clair/sombre pour les visiteurs (soleil/lune, choix enregistré dans le navigateur) — uniquement si `design` a des couleurs sombres |
-| `{% seo %}` | titre, description, canonical, `robots` et indications Open Graph de la page (issus de `publish.seo` et des données de la page) |
+| `{% seo %}` | tout l’en-tête pour les moteurs de recherche et les réseaux : titre, description, canonical, `robots`, Open Graph avec image d’aperçu, hreflang et données structurées (issus de `publish.seo`, des données de la page et de la page terminée). Sans le tag, Basalto ajoute avant `</head>` ce que le thème n’écrit pas lui-même |
 | `{% region "main" %}` | contenu d’une région (dans le balisage de la mise en page) |
 | `{% nav "main" %}` · `{% part "main_nav" %}` · `{% form "contact" %}` | navigation, partie Lava ou formulaire à cet endroit |
 | `{% image bild size: "hero" class: "…" %}` | image avec une variante issue de `design.images` (WebP avec `srcset`, source AVIF, largeur et hauteur, `loading`) |

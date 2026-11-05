@@ -63,7 +63,8 @@ export type AdminField = {
         | 'datetime'
         | 'color'
         | 'richtext'
-        | 'file';
+        | 'file'
+        | 'image';
     help?: string;
     placeholder?: string;
     required?: boolean;
@@ -76,6 +77,8 @@ export type AdminField = {
     half?: boolean;
     accept?: string;
     choices?: { value: string; label: string }[];
+    images?: { id: number; name: string; url: string }[];
+    none?: string;
 };
 
 export type AdminFormSection = {

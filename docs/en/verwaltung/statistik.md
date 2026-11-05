@@ -1,8 +1,32 @@
 # Statistics
 
-Basalto counts for itself how your website is used — without services from other providers, without scripts from other servers and without IP addresses. Under **Administration › Statistics** you see visitors, page views, acquisition, most visited pages, technology, languages and response times of the selected site.
+Basalto counts for itself how your website is used and found — without services from other providers, without scripts
+from other servers and without IP addresses. Under **Administration › Statistics** the **Overview** shows the key
+figures of every area compared with the previous period, and each area has its own tab: website, search engines,
+forms, customer accounts and whatever your modules and plugins count.
 
-![Administration › Statistics with key figures, trend and tabs](bilder/statistik.webp)
+![Administration › Statistics: overview with tabs, period and one card per area](bilder/statistik.webp)
+
+1. **Tabs** — Overview, Website and one tab for every area.
+2. **Period** — 7, 30 or 90 days; the arrows compare with the same number of days before.
+3. **Card of an area** — the key figures; **Details →** opens its tab.
+
+## Which tabs there are
+
+| Tab | Content | Appears |
+| --- | --- | --- |
+| **Website** | visitors, page views, acquisition, pages, technology, languages, performance — see below | always |
+| **Search engines** | visits from search engines (Google, Bing, DuckDuckGo …) and their landing pages, visits from crawlers such as Googlebot, addresses in the sitemap, reports via IndexNow, addresses without a target (404) | with the right for publishing and SEO |
+| **Forms** | submissions per form and day, unread ones, spam blocked | with the right for forms |
+| **Customer accounts** | new accounts, all accounts, signed in during the period | always |
+| **Payments** | revenue and completed payments via your Stripe account, by source | as soon as payments are set up |
+| **Community**, **Comments**, **Members** | topics and posts, new and waiting comments, new and active members | when the module is on |
+| **Plugins** | e.g. reservations, newsletter, vouchers, membership fees, documents, jobs, events, link checker, off-site backup | when the plugin is on |
+
+Every tab shows key figures compared with the previous period, a daily trend and rankings; **Open …** leads to the page
+where you work with the data.
+
+![Search engines tab with visits from search, crawlers and sitemap](bilder/statistik-suchmaschinen.webp)
 
 ## What is counted
 
@@ -12,7 +36,7 @@ Basalto counts for itself how your website is used — without services from oth
 - **No IP address** and **no query string** are stored — from `?utm_source=…` Basalto only takes source, medium and campaign.
 - **The country** only appears if an upstream service such as Cloudflare passes it on.
 
-## Reading the statistics
+## The Website tab
 
 At the top you choose the **period** (7, 30 or 90 days) and whether **bots** count. Clicking a page, referrer, browser, device, country or language **filters the whole report**; the selection appears at the top and can be removed one by one.
 
@@ -52,7 +76,7 @@ A link to `#cookie-einstellungen` opens the cookie settings from anywhere. The b
 
 ## Next
 
+- [Search engines](suchmaschinen.md)
 - [Settings](einstellungen.md)
 - [Roles](rollen.md)
 - [Customer account sign-in](kundenanmeldung.md)
-- [Lava](../entwickler/lava.md)

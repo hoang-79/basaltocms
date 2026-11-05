@@ -224,6 +224,11 @@ return [
     // TB 64: Testumgebung — jede Antwort mit X-Robots-Tag noindex, robots.txt sperrt alles
     'noindex' => (bool) env('BASALTO_NOINDEX', false),
 
+    // CR-019 TB 107: geänderte Adressen über IndexNow melden (Bing, Yandex, Seznam, Naver, Yep) — nur in Produktion,
+    // nur öffentliche Sites; die Site schaltet es unter Verwaltung › Suchmaschinen ab. `always` meldet auch ausserhalb
+    // der Produktion (Tests mit gefälschter Antwort).
+    'indexnow' => ['endpoint' => env('BASALTO_INDEXNOW_ENDPOINT', 'https://api.indexnow.org/indexnow'), 'always' => (bool) env('BASALTO_INDEXNOW_ALWAYS', false)],
+
     'vendor' => ['url' => env('BASALTO_VENDOR_URL', 'https://basaltocms.com'), 'email' => env('BASALTO_VENDOR_EMAIL', 'email@basaltocms.com')],
 
     /*

@@ -85,6 +85,10 @@ adresses d’une personne font partie du **droit d’accès** et de la **suppres
 Utilisateurs** ([Utilisateurs](../verwaltung/benutzer.md)). Les abonnés ne font pas partie de l’export d’un site —
 leur consentement vaut pour le site précédent.
 
+## Dans les statistiques
+
+Sous [Statistiques](../verwaltung/statistik.md), l’onglet **Newsletter** montre nouveaux abonnements, désabonnements, éditions et e-mails envoyés — abonnés par liste, comparés à la période précédente.
+
 ## En cas de problème
 
 | Signe | Cause | Solution |

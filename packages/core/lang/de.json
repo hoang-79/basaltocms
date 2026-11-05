@@ -67,5 +67,7 @@
     ":count Fassung freigegeben.|:count Fassungen freigegeben.": ":count Fassung freigegeben.|:count Fassungen freigegeben.",
     ":count Fassung ist live.|:count Fassungen sind live.": ":count Fassung ist live.|:count Fassungen sind live.",
     ":count Fassung geplant für :moment.|:count Fassungen geplant für :moment.": ":count Fassung geplant für :moment.|:count Fassungen geplant für :moment.",
-    ":count Fassung zurückgewiesen — der Kommentar steht am Entwurf.|:count Fassungen zurückgewiesen — der Kommentar steht am Entwurf.": ":count Fassung zurückgewiesen — der Kommentar steht am Entwurf.|:count Fassungen zurückgewiesen — der Kommentar steht am Entwurf."
+    ":count Fassung zurückgewiesen — der Kommentar steht am Entwurf.|:count Fassungen zurückgewiesen — der Kommentar steht am Entwurf.": ":count Fassung zurückgewiesen — der Kommentar steht am Entwurf.|:count Fassungen zurückgewiesen — der Kommentar steht am Entwurf.",
+    ":count Zahlung|:count Zahlungen": ":count Zahlung|:count Zahlungen",
+    ":count Sprache|:count Sprachen": ":count Sprache|:count Sprachen"
 }

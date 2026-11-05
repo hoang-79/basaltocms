@@ -13,6 +13,7 @@ use Basalto\Core\Http\Controllers\LegalController;
 use Basalto\Core\Http\Controllers\LiveController;
 use Basalto\Core\Http\Controllers\PaymentReturnController;
 use Basalto\Core\Http\Controllers\ProofOfWorkController;
+use Basalto\Core\Http\Controllers\ShareImageController;
 use Basalto\Core\Http\Controllers\ThemeAssetController;
 use Basalto\Core\Http\Controllers\UpController;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -52,6 +53,9 @@ Route::get('_live', LiveController::class)->middleware('throttle:basalto-live')-
 // TB 50: Aufgabe für den Spamschutz im Browser (Proof of Work)
 Route::get('_pruefung', ProofOfWorkController::class)->middleware('throttle:30,1')->name('basalto.pow');
 Route::post('_live/auth', [LiveController::class, 'auth'])->middleware('throttle:basalto-live')->name('basalto.live.auth');
+
+// CR-019 TB 106: erzeugtes Vorschaubild einer Seite (og:image) — ohne Sitzung und Cookies wie die Dateien eines Themes
+Route::get('_teilen/{site}/{file}', ShareImageController::class)->whereNumber('site')->where('file', '[a-f0-9]{32}\.png')->name('basalto.share.image');
 
 // Dateien aus «assets/» eines Themes (L-10): ohne Sitzung und Cookies, damit Browser und CDN sie behalten dürfen
 Route::get('_theme/{site}/{hash}/{path}', ThemeAssetController::class)->whereNumber('site')->where('hash', '[a-f0-9]{12}')

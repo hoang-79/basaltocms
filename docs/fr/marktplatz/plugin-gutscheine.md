@@ -71,6 +71,10 @@ Le nom et l’e-mail de l’acheteur ainsi que la dédicace sont enregistrés. S
 sous **Administration › Utilisateurs** ([Utilisateurs](../verwaltung/benutzer.md)), le bon reste valable. Deux ans
 après l’échéance, le nettoyage nocturne retire les données personnelles ; les commandes jamais payées, après un jour.
 
+## Dans les statistiques
+
+Sous [Statistiques](../verwaltung/statistik.md), l’onglet **Bons** montre bons vendus, chiffre d’affaires, montants utilisés et la valeur restante ouverte, comparés à la période précédente.
+
 ## Pour continuer
 
 - [Paiements](../verwaltung/zahlungen.md)

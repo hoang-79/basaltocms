@@ -85,6 +85,10 @@ Chaque poste ouvert porte des données structurées (schema.org `JobPosting` : t
 de travail, employeur, mise au concours jusqu’au) et figure dans le plan du site. Le plugin lui-même n’enregistre
 aucune candidature — elles se trouvent parmi les envois des formulaires. Les postes font partie de l’export d’un site.
 
+## Dans les statistiques
+
+Sous [Statistiques](../verwaltung/statistik.md), l’onglet **Postes** montre postes ouverts, nouvellement publiés et les candidatures via le formulaire, comparés à la période précédente.
+
 ## Pour continuer
 
 - [Formulaires](../redaktion/formulare.md)

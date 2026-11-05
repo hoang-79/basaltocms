@@ -86,6 +86,10 @@ Chaque événement porte des données structurées (schema.org `Event` : nom, ho
 dans le plan du site. Le plugin n’enregistre aucune donnée personnelle ; les événements font partie de l’export d’un
 site.
 
+## Dans les statistiques
+
+Sous [Statistiques](../verwaltung/statistik.md), l’onglet **Événements** montre événements à venir, ceux de la période, nouvellement saisis et annulés, comparés à la période précédente.
+
 ## Pour continuer
 
 - [Plugin « Carte sans pistage »](plugin-karte.md)

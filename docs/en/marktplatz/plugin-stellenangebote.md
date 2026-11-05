@@ -83,6 +83,10 @@ Every open position carries structured data (schema.org `JobPosting`: title, des
 employer, advertised until) and is listed in the sitemap. The plugin itself stores no applications — they are kept
 with the form submissions. The positions go along with a site’s export.
 
+## In the statistics
+
+Under [Statistics](../verwaltung/statistik.md), the **Jobs** tab shows open jobs, newly advertised ones and the applications via the form, compared with the previous period.
+
 ## Next
 
 - [Forms](../redaktion/formulare.md)

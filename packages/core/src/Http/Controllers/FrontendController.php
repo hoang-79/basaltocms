@@ -21,6 +21,7 @@ use Basalto\Core\Models\EntryVersion;
 use Basalto\Core\Models\Redirect;
 use Basalto\Core\Models\Site;
 use Basalto\Core\Navigation\Navigation;
+use Basalto\Core\Seo\IndexNow;
 use Basalto\Core\Seo\NotFoundLog;
 use Basalto\Core\Seo\PublishSettings;
 use Basalto\Core\Seo\Sitemap;
@@ -503,7 +504,7 @@ final class FrontendController
         return response($this->renderer->forVisitors()->html($hit['version'], $page), $status)->header('X-Robots-Tag', 'noindex');
     }
 
-    /** `/robots.txt`, `/sitemap.xml` und `/sitemap-<sprache>.xml` aus dem Block `publish` des Themes (M-10). */
+    /** `/robots.txt`, `/sitemap.xml` und `/sitemap-<sprache>.xml` aus dem Block `publish` des Themes (M-10), `/<schlüssel>.txt` für IndexNow. */
     private function seoFile(Request $request, Site $site, string $requestPath): ?Response
     {
         $base = $request->getSchemeAndHttpHost();
@@ -515,6 +516,12 @@ final class FrontendController
             }
 
             return response(implode("\n", $lines)."\n")->header('Content-Type', 'text/plain; charset=UTF-8')->header(PageCache::TTL_HEADER, (string) $this->cache->ttlFor($site));
+        }
+        // CR-019 TB 107: Schlüssel für IndexNow — nur der eigene einer Site, die meldet
+        if (preg_match('#^/([a-f0-9]{32})\.txt$#', $requestPath, $k) === 1) {
+            $key = app(IndexNow::class)->keyFile($site, $k[1]);
+
+            return $key === null ? null : response($key)->header('Content-Type', 'text/plain; charset=UTF-8');
         }
         $isIndex = $requestPath === '/sitemap.xml';
         if (! $isIndex && preg_match('#^/sitemap-([a-z]{2,3}(?:-[a-z0-9]{2,4})?)\.xml$#i', $requestPath, $m) !== 1) {

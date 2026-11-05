@@ -69,6 +69,10 @@ The buyer’s name and email and the dedication are stored. If you delete a pers
 **Administration › Users** ([Users](../verwaltung/benutzer.md)), the voucher stays valid. Two years after expiry the
 nightly clean-up removes the personal details; orders never paid are removed after one day.
 
+## In the statistics
+
+Under [Statistics](../verwaltung/statistik.md), the **Vouchers** tab shows vouchers sold, revenue, amounts redeemed and the open remaining value, compared with the previous period.
+
 ## Next
 
 - [Payments](../verwaltung/zahlungen.md)

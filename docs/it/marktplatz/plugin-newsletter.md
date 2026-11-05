@@ -79,6 +79,10 @@ indirizzi di una persona fanno parte dell’**accesso ai dati** e dell’**elimi
 ([Utenti](../verwaltung/benutzer.md)). Gli iscritti non fanno parte dell’esportazione di un sito — il loro consenso
 vale per il sito precedente.
 
+## Nelle statistiche
+
+In [Statistiche](../verwaltung/statistik.md), la scheda **Newsletter** mostra nuove iscrizioni, disiscrizioni, edizioni ed e-mail inviate — iscritti per lista, confrontati con il periodo precedente.
+
 ## Se qualcosa non funziona
 
 | Segno | Causa | Soluzione |

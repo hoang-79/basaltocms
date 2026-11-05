@@ -130,6 +130,10 @@ untouched. Then continue as under [Restoring](../betrieb/backup.md#restoring): f
 
 `--passphrase-fragen` also helps when an older backup still needs the previous passphrase.
 
+## In the statistics
+
+Under [Statistics](../verwaltung/statistik.md), the **Off-site backup** tab shows backups uploaded, restore tests passed and failures, compared with the previous period.
+
 ## If something goes wrong
 
 | Sign | Cause | Solution |

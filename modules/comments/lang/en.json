@@ -73,5 +73,12 @@
     "gelöschte Kommentare und Spam nach :days Tagen · Einstellungen › Aufbewahrung": "deleted comments and spam after :days days · Settings › Retention",
     "gespeichert, nie veröffentlicht": "stored, never published",
     "nur als Prüfsumme (HMAC mit dem App-Schlüssel) — für das Limit je IP": "only as a checksum (HMAC with the app key) — for the per-IP limit",
-    "Ältere": "Older"
+    "Ältere": "Older",
+    "Kommentare unter Ihren Seiten und Beiträgen — geschrieben, wartend und als Spam abgewehrt.": "Comments on your pages and posts — written, waiting and blocked as spam.",
+    "Kommentare öffnen": "Open comments",
+    "Neue Kommentare": "New comments",
+    "Warten auf Freigabe": "Awaiting approval",
+    "Neue Kommentare je Tag": "New comments per day",
+    "Am meisten kommentiert": "Most commented",
+    "Im Zeitraum kam kein Kommentar.": "No comments in this period."
 }

@@ -135,6 +135,10 @@ with the QR payment part as long as an invoice is open. Open invoices also appea
   payments.
 - The **export of a site** takes only the fee types; invoices and payments stay with the previous site.
 
+## In the statistics
+
+Under [Statistics](../verwaltung/statistik.md), the **Membership fees** tab shows payments received, open amounts, invoices issued and reminders, compared with the previous period.
+
 ## If something goes wrong
 
 | Sign | Cause | Solution |

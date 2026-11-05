@@ -73,5 +73,12 @@
     "gelöschte Kommentare und Spam nach :days Tagen · Einstellungen › Aufbewahrung": "commentaires supprimés et spam après :days jours · Paramètres › Conservation",
     "gespeichert, nie veröffentlicht": "enregistré, jamais publié",
     "nur als Prüfsumme (HMAC mit dem App-Schlüssel) — für das Limit je IP": "seulement en somme de contrôle (HMAC avec la clé de l’app) — pour la limite par IP",
-    "Ältere": "Plus anciennes"
+    "Ältere": "Plus anciennes",
+    "Kommentare unter Ihren Seiten und Beiträgen — geschrieben, wartend und als Spam abgewehrt.": "Commentaires sous vos pages et articles — écrits, en attente et bloqués comme spam.",
+    "Kommentare öffnen": "Ouvrir les commentaires",
+    "Neue Kommentare": "Nouveaux commentaires",
+    "Warten auf Freigabe": "En attente de validation",
+    "Neue Kommentare je Tag": "Nouveaux commentaires par jour",
+    "Am meisten kommentiert": "Les plus commentés",
+    "Im Zeitraum kam kein Kommentar.": "Aucun commentaire pendant la période."
 }

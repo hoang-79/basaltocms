@@ -1,8 +1,4 @@
-import type {
-    MetricKpi,
-    MetricSectionData,
-    StatisticsPayload,
-} from './components/statistics/types';
+import type { StatisticsView } from './components/statistics/types';
 
 /**
  * Props des Hersteller-Extranets (TB 19, CR-004 P-09–P-16). Das Layout wählt den Rahmen nach `extranet`.
@@ -211,17 +207,7 @@ export type TeamProps = {
 };
 
 /** TB 55: Extranet › Statistik — Überblick, Website und Abschnitte aus Kern und Modulen. */
-export type StatisticsProps = {
-    tab: string;
-    tabs: { key: string; label: string }[];
-    range: string;
-    period: { from: string; to: string; days: number };
-    site: { name: string };
-    overview: { key: string; label: string; kpis: MetricKpi[] }[] | null;
-    section: MetricSectionData | null;
-    website: StatisticsPayload | null;
-    urls: { index: string; website: string };
-};
+export type StatisticsProps = StatisticsView & { site: { name: string } };
 
 export type CancellationsProps = {
     items: {

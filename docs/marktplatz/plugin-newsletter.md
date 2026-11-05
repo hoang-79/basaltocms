@@ -79,6 +79,10 @@ einer Person gehören zur **Auskunft** und **Löschung** unter **Verwaltung › 
 ([Benutzer](../verwaltung/benutzer.md)). Abonnenten gehen nicht mit dem Export einer Site mit — ihre Einwilligung gilt
 für die bisherige Site.
 
+## In der Statistik
+
+Unter [Statistik](../verwaltung/statistik.md) zeigt der Reiter **Newsletter** neue Abonnements, Abmeldungen, versendete Ausgaben und verschickte Mails — Abonnements je Liste, mit dem Vergleich zum Zeitraum davor.
+
 ## Wenn etwas nicht klappt
 
 | Zeichen | Ursache | Lösung |

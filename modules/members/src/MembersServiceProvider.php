@@ -23,6 +23,7 @@ use Basalto\Modules\Members\Http\Controllers\JoinController;
 use Basalto\Modules\Members\Listeners\JoinOnSignIn;
 use Basalto\Modules\Members\Models\Member;
 use Basalto\Modules\Members\Privacy\MemberPersonData;
+use Basalto\Modules\Members\Statistics\MemberStatistics;
 use Basalto\Modules\Members\Testdata\MembersTestdata;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
@@ -44,6 +45,8 @@ final class MembersServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
+        // CR-019 (TB 109): Abschnitt unter Verwaltung › Statistik
+        app(Backend::class)->statistics('mitglieder', 'Mitglieder', 'members', 70, MemberStatistics::section(...), module: 'members');
         // Testdaten (basalto:testdaten)
         app(Testdata::class)->register(MembersTestdata::KEY, 'Mitglieder', 20, static fn (Site $site): bool => app(Backend::class)->moduleEnabled('members', $site),
             static fn (TestdataRun $run) => app(MembersTestdata::class)->seed($run), static fn (Site $site) => app(MembersTestdata::class)->remove($site));

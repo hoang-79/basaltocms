@@ -1,8 +1,32 @@
 # Statistiche
 
-Basalto conta da sé come viene usato il Suo sito, senza servizi di altri fornitori, senza script da altri server e senza indirizzi IP. In **Amministrazione › Statistiche** vede visitatori, visualizzazioni, provenienza, pagine più visitate, tecnologia, lingue e tempi di risposta del sito selezionato.
+Basalto conta da sé come viene usato e trovato il Suo sito — senza servizi di altri fornitori, senza script da altri
+server e senza indirizzi IP. In **Amministrazione › Statistiche** la **Panoramica** mostra gli indicatori principali di
+ogni ambito confrontati con il periodo precedente, e ogni ambito ha una propria scheda: sito web, motori di ricerca,
+moduli, account cliente e ciò che contano i Suoi moduli e plugin.
 
-![Amministrazione › Statistiche con indicatori, andamento e schede](bilder/statistik.webp)
+![Amministrazione › Statistiche: panoramica con schede, periodo e una scheda per ambito](bilder/statistik.webp)
+
+1. **Schede** — Panoramica, Sito web e una scheda per ogni ambito.
+2. **Periodo** — 7, 30 o 90 giorni; le frecce confrontano con altrettanti giorni prima.
+3. **Riquadro di un ambito** — gli indicatori principali; **Dettagli →** apre la sua scheda.
+
+## Quali schede esistono
+
+| Scheda | Contenuto | Compare |
+| --- | --- | --- |
+| **Sito web** | visitatori, visualizzazioni, provenienza, pagine, tecnologia, lingue, prestazioni — vedi sotto | sempre |
+| **Motori di ricerca** | visite dai motori di ricerca (Google, Bing, DuckDuckGo …) e le loro pagine d’ingresso, visite di crawler come Googlebot, indirizzi nella sitemap, segnalazioni tramite IndexNow, indirizzi senza destinazione (404) | con il diritto per pubblicazione e SEO |
+| **Moduli** | invii per modulo e per giorno, non letti, spam bloccato | con il diritto per i moduli |
+| **Account cliente** | nuovi account, tutti gli account, accessi nel periodo | sempre |
+| **Pagamenti** | fatturato e pagamenti completati tramite il Suo account Stripe, per provenienza | appena i pagamenti sono configurati |
+| **Community**, **Commenti**, **Membri** | argomenti e messaggi, commenti nuovi e in attesa, membri nuovi e attivi | se il modulo è attivo |
+| **Plugin** | p. es. prenotazioni, newsletter, buoni, quote sociali, documenti, posti, eventi, controllo link, backup esterno | se il plugin è attivo |
+
+Ogni scheda mostra indicatori confrontati con il periodo precedente, un andamento giornaliero e classifiche;
+**Apri …** porta alla pagina in cui lavora con i dati.
+
+![Scheda Motori di ricerca con visite dalla ricerca, crawler e sitemap](bilder/statistik-suchmaschinen.webp)
 
 ## Che cosa viene contato
 
@@ -12,7 +36,7 @@ Basalto conta da sé come viene usato il Suo sito, senza servizi di altri fornit
 - **Nessun indirizzo IP** e **nessun parametro** dell’indirizzo vengono salvati: da `?utm_source=…` Basalto riprende solo fonte, mezzo e campagna.
 - **Il paese** compare solo se un servizio a monte, come Cloudflare, lo trasmette.
 
-## Leggere le statistiche
+## La scheda Sito web
 
 In alto sceglie il **periodo** (7, 30 o 90 giorni) e se contare i **bot**. Un clic su una pagina, un link in entrata, un browser, un dispositivo, un paese o una lingua **filtra l’intero rapporto**; la selezione compare in alto e si rimuove elemento per elemento.
 
@@ -52,7 +76,7 @@ Un link a `#cookie-einstellungen` apre le impostazioni dei cookie da qualsiasi p
 
 ## Per continuare
 
+- [Motori di ricerca](suchmaschinen.md)
 - [Impostazioni](einstellungen.md)
 - [Ruoli](rollen.md)
 - [Accesso per account cliente](kundenanmeldung.md)
-- [Lava](../entwickler/lava.md)

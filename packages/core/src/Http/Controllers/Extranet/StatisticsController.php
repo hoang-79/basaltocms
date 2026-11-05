@@ -6,14 +6,12 @@ namespace Basalto\Core\Http\Controllers\Extranet;
 
 use Basalto\Core\Analytics\Aggregator;
 use Basalto\Core\Analytics\Period;
+use Basalto\Core\Analytics\SiteStatistics;
 use Basalto\Core\Extranet\Extranet;
 use Basalto\Core\Extranet\ExtranetRegistry;
 use Basalto\Core\Extranet\Statistics\MetricSection;
-use Basalto\Core\Models\Site;
 use Basalto\Core\Support\Text;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -49,7 +47,7 @@ final class StatisticsController
         $overview = null;
         $current = null;
         if ($tab === 'ueberblick') {
-            $overview = [['key' => 'website', 'label' => Text::t('Website'), 'kpis' => $this->website($period, $site)]];
+            $overview = [['key' => 'website', 'label' => Text::t('Website'), 'kpis' => SiteStatistics::website($period, $site)->headlines()]];
             foreach ($sections as $section) {
                 $built = ($section['build'])($period, $site);
                 $overview[] = ['key' => $section['key'], 'label' => Text::t($section['label']), 'kpis' => $built->headlines()];
@@ -75,22 +73,5 @@ final class StatisticsController
                 : null,
             'urls' => ['index' => route('extranet.statistics.index'), 'website' => route('extranet.statistics.index', ['tab' => 'website'])],
         ]);
-    }
-
-    /**
-     * Kurzfassung der Website für den Überblick: Aufrufe und Besucher ohne Bots.
-     *
-     * @return list<Kpi>
-     */
-    private function website(Period $period, Site $site): array
-    {
-        $views = static fn (Period $p): Builder => DB::table('analytics_page_views')->where('site_id', $site->id)->where('is_bot', false)->whereBetween('created_at', $p->between());
-        $visitors = static fn (Period $p): int => (int) $views($p)->where('visitor_id', '<>', '')->distinct()->count('visitor_id');
-        $previous = $period->previous();
-
-        return (new MetricSection('website', Text::t('Website')))
-            ->kpi(Text::t('Seitenaufrufe'), $views($period)->count(), $views($previous)->count(), headline: true)
-            ->kpi(Text::t('Besucher'), $visitors($period), $visitors($previous), hint: Text::t('Nur mit Einwilligung gezählt'), headline: true)
-            ->headlines();
     }
 }

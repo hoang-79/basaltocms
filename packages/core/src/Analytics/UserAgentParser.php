@@ -15,7 +15,10 @@ final class UserAgentParser
     {
         $agent = (string) $agent;
 
-        return ['browser' => self::browser($agent), 'os' => self::os($agent), 'device_type' => self::deviceType($agent), 'is_bot' => self::isBot($agent)];
+        // CR-019 TB 108: bei Bots der Name des Crawlers (Googlebot, Bingbot …) statt des Browsers
+        $bot = self::isBot($agent);
+
+        return ['browser' => $bot ? SearchEngines::crawler($agent) : self::browser($agent), 'os' => self::os($agent), 'device_type' => self::deviceType($agent), 'is_bot' => $bot];
     }
 
     public static function isBot(string $agent): bool

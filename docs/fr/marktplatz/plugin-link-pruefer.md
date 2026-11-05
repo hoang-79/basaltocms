@@ -46,6 +46,10 @@ recherche filtre par adresse.
 - **Ignorer :** pour les liens voulus tels quels ou qui ne répondent qu’occasionnellement pas. Sous « Ignorés », vous
   les récupérez avec **« Signaler de nouveau »**.
 
+## Dans les statistiques
+
+Sous [Statistiques](../verwaltung/statistik.md), l’onglet **Vérificateur de liens** montre liens cassés après la dernière vérification avec le nombre de pages où ils figurent, comparés à la période précédente.
+
 ## En cas de problème
 
 | Signe | Cause | Solution |

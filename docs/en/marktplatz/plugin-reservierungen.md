@@ -100,6 +100,10 @@ figures. The reservations of an email address are part of **information** and **
 **Administration › Users** ([Users](../verwaltung/benutzer.md)). Reservations do not go along with a site’s export;
 the offers do.
 
+## In the statistics
+
+Under [Statistics](../verwaltung/statistik.md), the **Reservations** tab shows new reservations, guests in the period, cancellations, open requests and deposits — per offer, compared with the previous period.
+
 ## If something goes wrong
 
 | Sign | Cause | Solution |

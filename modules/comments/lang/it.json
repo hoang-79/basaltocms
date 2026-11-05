@@ -73,5 +73,12 @@
     "gelöschte Kommentare und Spam nach :days Tagen · Einstellungen › Aufbewahrung": "commenti eliminati e spam dopo :days giorni · Impostazioni › Conservazione",
     "gespeichert, nie veröffentlicht": "memorizzato, mai pubblicato",
     "nur als Prüfsumme (HMAC mit dem App-Schlüssel) — für das Limit je IP": "solo come checksum (HMAC con la chiave dell’app) — per il limite per IP",
-    "Ältere": "Meno recenti"
+    "Ältere": "Meno recenti",
+    "Kommentare unter Ihren Seiten und Beiträgen — geschrieben, wartend und als Spam abgewehrt.": "Commenti sotto le Sue pagine e i Suoi articoli — scritti, in attesa e bloccati come spam.",
+    "Kommentare öffnen": "Apri commenti",
+    "Neue Kommentare": "Nuovi commenti",
+    "Warten auf Freigabe": "In attesa di approvazione",
+    "Neue Kommentare je Tag": "Nuovi commenti al giorno",
+    "Am meisten kommentiert": "Più commentati",
+    "Im Zeitraum kam kein Kommentar.": "Nessun commento nel periodo."
 }

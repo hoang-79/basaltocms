@@ -100,6 +100,10 @@ Reservierungen einer E-Mail-Adresse gehören zur **Auskunft** und **Löschung** 
 ([Benutzer](../verwaltung/benutzer.md)). Reservierungen
 gehen nicht mit dem Export einer Site mit, die Angebote schon.
 
+## In der Statistik
+
+Unter [Statistik](../verwaltung/statistik.md) zeigt der Reiter **Reservierungen** neue Reservierungen, Gäste im Zeitraum, Stornos, offene Anfragen und Anzahlungen — je Angebot, mit dem Vergleich zum Zeitraum davor.
+
 ## Wenn etwas nicht klappt
 
 | Zeichen | Ursache | Lösung |

@@ -157,7 +157,7 @@ trait CommunityPages
         $html = $this->bar().$head.sprintf('<nav class="forum-filter" aria-label="%s"><ul>%s</ul></nav><section class="forum-section community-reiter">%s</section>', $this->e($this->t('Profil')), $nav, $body);
         $crumbs = [['label' => $this->t('Mitglieder'), 'href' => $this->r->url('mitglieder')], ['label' => $profile->name, 'href' => $page]];
 
-        return $this->page($html, $profile->name, $crumbs, $profile->about !== null ? mb_substr($profile->about, 0, 160) : null);
+        return $this->page($html, $profile->name, $crumbs, $profile->about !== null ? mb_substr($profile->about, 0, 600) : null);
     }
 
     private function aboutTab(CommunityProfile $profile, Customer $owner): string

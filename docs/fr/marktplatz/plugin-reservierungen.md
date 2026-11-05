@@ -103,6 +103,10 @@ restent pour vos chiffres. Les réservations d’une adresse e-mail font partie 
 **suppression** sous **Administration › Utilisateurs** ([Utilisateurs](../verwaltung/benutzer.md)). Les réservations
 ne font pas partie de l’export d’un site ; les offres, si.
 
+## Dans les statistiques
+
+Sous [Statistiques](../verwaltung/statistik.md), l’onglet **Réservations** montre nouvelles réservations, clients pendant la période, annulations, demandes ouvertes et acomptes — par offre, comparés à la période précédente.
+
 ## En cas de problème
 
 | Signe | Cause | Solution |

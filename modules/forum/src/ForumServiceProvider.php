@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Basalto\Modules\Forum;
 
 use Basalto\Core\Access\Areas;
+use Basalto\Core\Analytics\Period;
 use Basalto\Core\Backend\Backend;
 use Basalto\Core\Cache\PageCache;
 use Basalto\Core\Community\Attachments;
@@ -23,6 +24,7 @@ use Basalto\Core\Content\RichText;
 use Basalto\Core\Demo\DemoMode;
 use Basalto\Core\Extranet\Extranet;
 use Basalto\Core\Extranet\ExtranetRegistry;
+use Basalto\Core\Extranet\Statistics\MetricSection;
 use Basalto\Core\FrontendAccounts\Customer;
 use Basalto\Core\FrontendAccounts\CustomerAuth;
 use Basalto\Core\FrontendAccounts\Hub\AccountAreas;
@@ -34,6 +36,7 @@ use Basalto\Core\Search\SearchSources;
 use Basalto\Core\Seo\Sitemap;
 use Basalto\Core\Sites\CurrentSite;
 use Basalto\Core\Sites\SiteScope;
+use Basalto\Core\Support\Text;
 use Basalto\Core\Testdata\Testdata;
 use Basalto\Core\Testdata\TestdataRun;
 use Basalto\Lava\Runtime\Context;
@@ -94,6 +97,9 @@ final class ForumServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        // CR-019 (TB 109): Abschnitt unter Verwaltung › Statistik — wie im Extranet, mit Verweis auf die Community im Backend
+        app(Backend::class)->statistics('community', 'Community', 'forumadmin', 50,
+            static fn (Period $period, Site $site): MetricSection => CommunityStatistics::section($period, $site)->link(Text::t('Community öffnen'), route('basalto.forumadmin.index')), module: 'forum');
         // TB 48: die Community als Bereich des Kundenkontos
         app(AccountAreas::class)->add(CommunityArea::class);
         app(Areas::class)->register('community', 'Community', Areas::EXTRANET, 'forum')->map('basalto.forum.', 'community');

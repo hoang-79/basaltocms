@@ -68,6 +68,10 @@ scheda «Parti»**, **«+ Istanza»** (categoria, numero, titolo), oppure nel te
 - PDF e immagini si aprono nel browser; tutto il resto viene scaricato.
 - I file non fanno parte dell’esportazione di un sito; li trasferisca con il backup.
 
+## Nelle statistiche
+
+In [Statistiche](../verwaltung/statistik.md), la scheda **Documenti** mostra download (contati dall’inizio), i documenti più scaricati e le nuove versioni, confrontati con il periodo precedente.
+
 ## Per continuare
 
 - [Membri](../redaktion/mitglieder.md)

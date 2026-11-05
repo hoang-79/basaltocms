@@ -75,6 +75,8 @@ final class CoreAreas
             ->map('basalto.modules', 'settings')
             ->map('basalto.sites.', 'settings')
             ->map('basalto.license', 'license')
+            // CR-019 TB 107: Suchmaschinen gehören zu «Veröffentlichen, SEO und Umleitungen»
+            ->map('basalto.search_engines', 'publishing')
             ->map('basalto.payments', 'payments')
             ->map('basalto.operations', 'operations')
             // CR-007: prüfen heisst ansehen, einspielen verlangt «alles»

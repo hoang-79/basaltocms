@@ -284,6 +284,46 @@ With `community: true` (only the forum), profiles and conversations also live be
 community leaves it out. Answers for guests come from the page cache: after a change to the module’s data, call
 `app(PageCache::class)->invalidate($site->id)`.
 
+## Search engines and statistics
+
+Basalto assembles every page's head itself once the page is finished — title, description, preview image, canonical
+address, language versions and structured data. A module contributes what only it knows:
+
+```php
+use Basalto\Core\Seo\PageSeo;
+
+// in a Lava tag or part, while it renders
+app(PageSeo::class)->title($package->title)
+    ->description($package->summary)
+    ->image('/marketplace/media/'.$package->id.'/screen-1', 1280, 800, 'Screenshot')
+    ->query(['paket' => $package->handle()])           // part of the canonical address
+    ->data(['@type' => 'SoftwareApplication', 'name' => $package->title]);
+```
+
+`query()` names the parameters without which the view would be a different one — they go into the canonical address
+and the language versions. `noindex()` keeps a view out of the index (an unknown entry), `dates()` states publication
+and modification. Mounted pages give title, description and image via `MountResult::page()`.
+
+**Sitemap:** a module's addresses get into the sitemap through a closure tagged `Sitemap::TAG` — it receives site,
+language and base address and returns a list of `loc`, `lastmod`, `alternates` (language → address) and, if wanted,
+`images`. **IndexNow:** `app(IndexNow::class)->queue($site, [$url])` reports a new or changed address.
+
+**Statistics:** a section under Administration › Statistics is registered with `Backend::statistics()` — with area
+(right), order, the module (only when it is on for the site) and a closure that builds a `MetricSection`. Key figures
+with `headline` also appear in the overview.
+
+```php
+use Basalto\Core\Analytics\Period;
+use Basalto\Core\Extranet\Statistics\MetricSection;
+
+$backend->statistics('reservierungen', 'Reservierungen', 'reservations', 100,
+    static fn (Period $period, Site $site): MetricSection => (new MetricSection('reservierungen', 'Reservierungen'))
+        ->kpi('Neue Reservierungen', $neu($period), $neu($period->previous()), headline: true)
+        ->series('Neue Reservierungen je Tag', $period->daily($abfrage))
+        ->list('Reservierungen je Angebot', $zeilen),
+    module: 'reservations');
+```
+
 ## Extending Lava: the registry
 
 Lava only calls what is registered (`Basalto\Lava\Runtime\Registry`, one instance per application). A module extends
