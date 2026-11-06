@@ -24,9 +24,10 @@ final class ReleaseBuilder
 {
     /**
      * Ordner, die eine Installation nie braucht. `plugins/`: die Plugins der Werkstatt — sie kommen über den Marktplatz,
-     * die Quellen der kostenpflichtigen nie in ein Release oder ins Produkt-Repository (CR-018, E-7).
+     * die Quellen der kostenpflichtigen nie in ein Release oder ins Produkt-Repository (CR-018, E-7). `public/film/`: der
+     * Werbefilm der Website basaltocms.com (tools/werbefilm) — rund 40 MB, die keine Installation braucht.
      */
-    public const EXCLUDE_DIRS = ['dokumentationen/', 'tests/', '.github/', 'tools/', '.ai/', '.claude/', '.agents/', 'node_modules/', '.cyon/', 'plugins/'];
+    public const EXCLUDE_DIRS = ['dokumentationen/', 'tests/', '.github/', 'tools/', '.ai/', '.claude/', '.agents/', 'node_modules/', '.cyon/', 'plugins/', 'public/film/'];
 
     /** Dateien der Entwicklung (Build, Prüfung, Editor). */
     public const EXCLUDE_FILES = ['phpunit.xml', 'phpstan.neon', 'pint.json', 'package.json', 'package-lock.json', 'pnpm-lock.yaml', 'pnpm-workspace.yaml',

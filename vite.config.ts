@@ -81,6 +81,8 @@ export default defineConfig({
             // Lava-Teile sind Markup mit {% … %} — der HTML-Formatierer würde sie umbrechen
             'themes/**/*.lava.html',
             'packages/*/resources/dist/**',
+            // Von stimme-bauen.py erzeugt (json.dumps, Einzug 2) — beim nächsten Lauf ohnehin neu geschrieben
+            'tools/werbefilm/stimme/**',
         ],
         sortTailwindcss: {
             functions: ['clsx', 'cn', 'cva'],
