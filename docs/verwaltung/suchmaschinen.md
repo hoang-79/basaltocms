@@ -23,7 +23,8 @@ Sie müssen dafür nichts tun — weder in der Redaktion noch im Theme. Was Sie 
 | **robots.txt** | erlaubt Suchmaschinen alles ausser dem Backend und nennt die Sitemap |
 
 Seiten nur für Mitglieder, Entwürfe, Weiterleitungen und Seiten mit «noindex» stehen weder in der Sitemap noch im
-Index.
+Index. Wer Ihre Website mit oder ohne «www.» aufruft, landet auf der Hauptdomain der Site (Weiterleitung 301) — für
+Suchmaschinen gibt es sie nur einmal.
 
 ## Das Vorschaubild für geteilte Links
 
@@ -50,6 +51,10 @@ Seiten im Index sind, mit welchen Suchbegriffen Besucher kommen und ob Google Fe
    ganze Tag oder nur den Code aus `content="…"`.
 4. Klicken Sie in der Search Console auf **Bestätigen**.
 5. Reichen Sie unter **Sitemaps** die Adresse `sitemap.xml` ein.
+
+Steht oben links in der Search Console nur der Name der Domain (`beispiel.ch`, ohne `https://`), ist Ihre Website als
+**Domain** bestätigt — meist über einen Eintrag im DNS. Dann entfallen die Schritte 2 bis 4, das Feld in Basalto bleibt
+leer. Unter **Sitemaps** tragen Sie bei einer Domain die ganze Adresse ein: `https://beispiel.ch/sitemap.xml`.
 
 Für **Bing Webmaster Tools** gilt dasselbe mit dem Tag `msvalidate.01`; Bing kann eine bestätigte Website auch aus der
 Search Console übernehmen.

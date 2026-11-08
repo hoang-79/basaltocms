@@ -23,6 +23,8 @@ page's settings on the **Metadata** tab always takes precedence.
 | **robots.txt** | allows search engines everything except the back office and names the sitemap |
 
 Pages for members only, drafts, redirects and pages with “noindex” are neither in the sitemap nor in the index.
+Anyone who calls up your website with or without “www.” lands on the site's main domain (301 redirect) — for search
+engines it exists only once.
 
 ## The preview image for shared links
 
@@ -47,6 +49,10 @@ index, which search terms bring visitors and whether Google reports errors.
    tag or just the code from `content="…"`.
 4. Click **Verify** in Search Console.
 5. Under **Sitemaps**, submit the address `sitemap.xml`.
+
+If Search Console shows only the domain name at the top left (`example.com`, without `https://`), your website is
+verified as a **domain** — usually through a DNS record. Steps 2 to 4 are then not needed and the field in Basalto stays
+empty. Under **Sitemaps**, enter the full address for a domain: `https://example.com/sitemap.xml`.
 
 The same applies to **Bing Webmaster Tools** with the `msvalidate.01` tag; Bing can also import a verified website from
 Search Console.

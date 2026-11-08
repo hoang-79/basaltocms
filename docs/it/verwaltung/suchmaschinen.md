@@ -23,7 +23,8 @@ scheda **Metadati**, ha sempre la precedenza.
 | **robots.txt** | consente ai motori di ricerca tutto tranne l’amministrazione e indica la sitemap |
 
 Le pagine riservate ai membri, le bozze, i reindirizzamenti e le pagine con «noindex» non sono né nella sitemap né
-nell’indice.
+nell’indice. Chi apre il Suo sito con o senza «www.» arriva sul dominio principale del sito (reindirizzamento 301) — per
+i motori di ricerca esiste una sola volta.
 
 ## L’immagine di anteprima dei link condivisi
 
@@ -50,6 +51,10 @@ nell’indice, con quali termini di ricerca arrivano i visitatori e se Google se
    intero o solo il codice di `content="…"`.
 4. Clicchi su **Verifica** nella Search Console.
 5. In **Sitemap**, invii l’indirizzo `sitemap.xml`.
+
+Se in alto a sinistra la Search Console mostra solo il nome del dominio (`esempio.ch`, senza `https://`), il Suo sito è
+verificato come **dominio** — di solito tramite una voce DNS. In questo caso i passi da 2 a 4 non servono e il campo in
+Basalto resta vuoto. In **Sitemap** indichi per un dominio l’indirizzo completo: `https://esempio.ch/sitemap.xml`.
 
 Lo stesso vale per **Bing Webmaster Tools** con il tag `msvalidate.01`; Bing può anche importare un sito verificato
 dalla Search Console.

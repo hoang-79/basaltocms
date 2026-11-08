@@ -25,7 +25,8 @@ use Symfony\Component\HttpFoundation\Response;
  * leitet GET/HEAD per 301 auf die Hauptadresse um, Pfad und Abfrage bleiben. Ein abgelaufener alter Alias führt zu keiner
  * Site mehr. Alias-Hosts tragen immer `X-Robots-Tag: noindex` (Feasibility «SaaS-Domains» § 2: der Alias ist nur
  * Übergang, Suchmaschinen sollen die Kundendomain indexieren; Missbrauch der Alias-Zone trifft so keine Suchergebnisse).
- * Download-Installationen bleiben, wie sie sind: dort gilt `site.domain` aus Lava.
+ * Download-Installationen bleiben, wie sie sind: dort gilt `site.domain` aus Lava. Überall gilt: Ein Aufruf mit oder ohne
+ * «www.», der keine eigene Domain der Site ist, leitet auf die Hauptdomain um (CR-019).
  */
 final class ResolveSiteFromHost
 {
@@ -51,6 +52,11 @@ final class ResolveSiteFromHost
         if (($gone = LockedSite::response($site)) !== null) {
             return $gone;
         }
+        // CR-019 (Nachtrag): «www.» und ohne sind dieselbe Site — die Variante, die keine eigene Domain ist, leitet auf
+        // die Hauptdomain um, sonst sieht eine Suchmaschine zwei Websites mit gleichem Inhalt
+        if ($domain === null && $site !== null && ($target = $this->wwwTarget($request, $host, $site)) !== null) {
+            return redirect()->away($target, 301);
+        }
         if ($domain === null || $site === null || ! Saas::enabled()) {
             return $next($request);
         }
@@ -64,14 +70,48 @@ final class ResolveSiteFromHost
         return $response;
     }
 
+    /**
+     * Ziel der Umleitung von `www.beispiel.ch` auf die Hauptadresse `beispiel.ch` (oder umgekehrt), wenn der aufgerufene
+     * Host keine eigene Domain der Site ist — nur für GET/HEAD und nie unter dem Backend-Pfad. Ohne eigene Domain zeigt
+     * der Aufruf die Standard-Site; deren Adresse steht in `APP_URL` (ohne Abfrage) oder als Hauptdomain der Site (eine
+     * Abfrage, nur für Hosts mit «www.»).
+     */
+    private function wwwTarget(Request $request, string $host, Site $site): ?string
+    {
+        if (! ($request->isMethod('GET') || $request->isMethod('HEAD')) || $this->underBackend($request)) {
+            return null;
+        }
+        // Nur Namen mit Punkt können ein www-Paar sein — localhost und IP-Adressen nie
+        if (! str_contains($host, '.') || filter_var($host, FILTER_VALIDATE_IP) !== false) {
+            return null;
+        }
+        $counterpart = str_starts_with($host, 'www.') ? substr($host, 4) : 'www.'.$host;
+        $appHost = strtolower((string) parse_url((string) config('app.url'), PHP_URL_HOST));
+        if ($appHost === $counterpart) {
+            return Domains::url($appHost).$request->getRequestUri();
+        }
+        if (! str_starts_with($host, 'www.')) {
+            return null;
+        }
+        $primary = $site->domains()->where('is_primary', true)->value('host');
+
+        return is_string($primary) && strtolower($primary) === $counterpart ? Domains::url($counterpart).$request->getRequestUri() : null;
+    }
+
+    private function underBackend(Request $request): bool
+    {
+        $backend = app(Backend::class)->path();
+
+        return $request->is($backend) || $request->is($backend.'/*');
+    }
+
     /** Ziel der Umleitung auf die Hauptadresse — nur für GET/HEAD und nie unter dem Backend-Pfad (Frontend-Editor). */
     private function redirectTarget(Request $request, SiteDomain $domain, Site $site): ?string
     {
         if (($domain->is_primary && $domain->isVerified()) || ! ($request->isMethod('GET') || $request->isMethod('HEAD'))) {
             return null;
         }
-        $backend = app(Backend::class)->path();
-        if ($request->is($backend) || $request->is($backend.'/*')) {
+        if ($this->underBackend($request)) {
             return null;
         }
         $primary = Domains::primary($site);

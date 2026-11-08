@@ -24,7 +24,8 @@ paramètres d’une page, onglet **Métadonnées**, prime toujours.
 | **robots.txt** | autorise tout aux moteurs de recherche sauf l’administration et indique le plan du site |
 
 Les pages réservées aux membres, les brouillons, les redirections et les pages « noindex » ne figurent ni dans le plan
-du site ni dans l’index.
+du site ni dans l’index. Qui appelle votre site avec ou sans « www. » arrive sur le domaine principal du site
+(redirection 301) — pour les moteurs de recherche, il n’existe qu’une fois.
 
 ## L’image d’aperçu des liens partagés
 
@@ -51,6 +52,11 @@ pages sont dans l’index, avec quels termes de recherche les visiteurs arrivent
    la balise entière ou seulement le code de `content="…"`.
 4. Cliquez sur **Valider** dans la Search Console.
 5. Sous **Sitemaps**, envoyez l’adresse `sitemap.xml`.
+
+Si la Search Console n’affiche en haut à gauche que le nom de domaine (`exemple.ch`, sans `https://`), votre site est
+validé en tant que **domaine** — en général par une entrée DNS. Les étapes 2 à 4 ne sont alors pas nécessaires et le
+champ dans Basalto reste vide. Sous **Sitemaps**, indiquez pour un domaine l’adresse complète :
+`https://exemple.ch/sitemap.xml`.
 
 Il en va de même pour **Bing Webmaster Tools** avec la balise `msvalidate.01` ; Bing peut aussi reprendre un site
 validé depuis la Search Console.
