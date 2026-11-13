@@ -41,7 +41,7 @@ final class Backend
     /** @var list<array{label: string, route: string, order: int, mode: string, module: ?string, icon: ?string}> */
     private array $menu = [];
 
-    /** @var array<string, array{handle: string, label: string, switchable: bool, manifest: array<string, mixed>, default: bool}> */
+    /** @var array<string, array{handle: string, label: string, switchable: bool, manifest: array<string, mixed>, default: bool, package: string|null, suggest: list<string>}> */
     private array $modules = [];
 
     /** @var array<string, Closure(Site): int> Route eines Menüeintrags → Zahl daran (z. B. wartende Kommentare eines Moduls) */
@@ -108,17 +108,22 @@ final class Backend
     public function module(string $handle, string $label, bool $switchable = true, ?string $composerJson = null, bool $enabledByDefault = true): self
     {
         $manifest = [];
+        $package = null;
+        $suggest = [];
         if ($composerJson !== null && is_file($composerJson)) {
             $decoded = json_decode((string) file_get_contents($composerJson), true);
             $extra = is_array($decoded) ? ($decoded['extra']['basalto'] ?? null) : null;
             $manifest = is_array($extra) ? $extra : [];
+            $package = is_array($decoded) && is_string($decoded['name'] ?? null) ? $decoded['name'] : null;
+            // CR-020: optionale Abhängigkeiten wie bei Composer («suggest») — Plugins, mit denen dieses zusammenarbeitet
+            $suggest = is_array($decoded) && is_array($decoded['suggest'] ?? null) ? array_values(array_filter(array_keys($decoded['suggest']), 'is_string')) : [];
         }
-        $this->modules[$handle] = ['handle' => $handle, 'label' => $label, 'switchable' => $switchable, 'manifest' => $manifest, 'default' => $enabledByDefault];
+        $this->modules[$handle] = ['handle' => $handle, 'label' => $label, 'switchable' => $switchable, 'manifest' => $manifest, 'default' => $enabledByDefault, 'package' => $package, 'suggest' => $suggest];
 
         return $this;
     }
 
-    /** @return list<array{handle: string, label: string, switchable: bool, manifest: array<string, mixed>, default: bool}> */
+    /** @return list<array{handle: string, label: string, switchable: bool, manifest: array<string, mixed>, default: bool, package: string|null, suggest: list<string>}> */
     public function modules(): array
     {
         return array_values($this->modules);

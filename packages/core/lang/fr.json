@@ -4823,5 +4823,14 @@
     "Website": "Site web",
     "Umsatz": "Chiffre d’affaires",
     "Was Suchmaschinen und soziale Netzwerke von Ihrer Website sehen. Titel, Beschreibung, Vorschaubild und strukturierte Daten setzt Basalto auf jeder Seite selbst — eigene Angaben im Reiter «Metadaten» einer Seite gehen vor. Die Sitemap hält sich von selbst aktuell.": "Ce que les moteurs de recherche et les réseaux sociaux voient de votre site. Basalto définit lui-même le titre, la description, l’image d’aperçu et les données structurées de chaque page — vos propres indications dans l’onglet « Métadonnées » d’une page priment. Le plan du site se tient à jour tout seul.",
-    "nicht erlaubt": "non autorisés"
+    "nicht erlaubt": "non autorisés",
+    "Die Spalte «:column» hat ihr WIP-Limit (:limit) erreicht.": "La colonne « :column » a atteint sa limite WIP (:limit).",
+    "Board": "Tableau",
+    "WIP-Limit :limit": "Limite WIP :limit",
+    ":card nach links verschieben": "Déplacer :card vers la gauche",
+    ":card nach oben verschieben": "Déplacer :card vers le haut",
+    ":card nach unten verschieben": "Déplacer :card vers le bas",
+    ":card nach rechts verschieben": "Déplacer :card vers la droite",
+    "arbeitet zusammen mit :modules": "fonctionne avec :modules",
+    ":name (nicht installiert)": ":name (non installé)"
 }

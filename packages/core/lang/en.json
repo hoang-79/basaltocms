@@ -4818,5 +4818,14 @@
     "Website": "Website",
     "Umsatz": "Revenue",
     "Was Suchmaschinen und soziale Netzwerke von Ihrer Website sehen. Titel, Beschreibung, Vorschaubild und strukturierte Daten setzt Basalto auf jeder Seite selbst — eigene Angaben im Reiter «Metadaten» einer Seite gehen vor. Die Sitemap hält sich von selbst aktuell.": "What search engines and social networks see of your website. Basalto sets the title, description, preview image and structured data on every page itself — your own entries in a page's “Metadata” tab take precedence. The sitemap keeps itself up to date.",
-    "nicht erlaubt": "not allowed"
+    "nicht erlaubt": "not allowed",
+    "Die Spalte «:column» hat ihr WIP-Limit (:limit) erreicht.": "The column “:column” has reached its WIP limit (:limit).",
+    "Board": "Board",
+    "WIP-Limit :limit": "WIP limit :limit",
+    ":card nach links verschieben": "Move :card left",
+    ":card nach oben verschieben": "Move :card up",
+    ":card nach unten verschieben": "Move :card down",
+    ":card nach rechts verschieben": "Move :card right",
+    "arbeitet zusammen mit :modules": "works with :modules",
+    ":name (nicht installiert)": ":name (not installed)"
 }

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Eine Verwaltungsseite aus Beschreibung (CR-018, TB 99, E-3): Ein Plugin beschreibt in PHP, was die Seite zeigt —
- * Kennzahlen, Hinweise, Listen, Formulare, Knöpfe —, und gibt sie aus seinem Controller zurück; der Kern zeichnet sie mit
+ * Kennzahlen, Hinweise, Listen, Formulare, Knöpfe, Boards (CR-020) —, und gibt sie aus seinem Controller zurück; der Kern zeichnet sie mit
  * seinen eigenen Komponenten. So braucht ein Plugin kein eigenes JavaScript im Backend, und seine Seiten sehen aus,
  * speichern und verhalten sich wie die des Kerns (Autosave, Tastatur, vier Sprachen). Texte übergibt das Plugin schon
  * übersetzt (`__()` mit seinen eigenen Sprachdateien).
@@ -97,6 +97,14 @@ final class AdminPage implements Responsable
     public function form(Form $form): self
     {
         $this->sections[] = $form->toArray();
+
+        return $this;
+    }
+
+    /** Ein Board mit Spalten und Karten zum Verschieben (CR-020). */
+    public function board(Board $board): self
+    {
+        $this->sections[] = $board->toArray();
 
         return $this;
     }

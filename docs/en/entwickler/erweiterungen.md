@@ -248,6 +248,72 @@ What matters:
 - **Rights** apply as for every route ([Areas and rights](#areas-and-rights)); the controller leaves out buttons a user
   may not use.
 
+### Boards
+
+With `AdminPage::board()` a page shows a board following the Kanban method: columns with cards, optionally with a WIP
+limit. The core moves cards by drag and drop or with the arrow buttons on each card (keyboard) and sends `card`,
+`column` and `position` (from 0) as a POST to the address given to `Board::make()`. The controller checks the WIP
+limit with `Board::allows($limit, $count, $from, $to)` — no card goes into a full column, reordering within the column
+always works — and saves. Errors without a field (`back()->withErrors(['card' => …])`) appear at the top of the page.
+
+```php
+use Basalto\Core\Backend\Schema\{Board, Card};
+
+$page->board(Board::make(route('basalto.shop.board.move'))->add(route('basalto.shop.board.store'), __('Karte hinzufügen'))
+    ->column('neu', __('Neu'), [Card::make(7, 'B-0042')->meta('Muster AG')->due('14.11.2026', overdue: true)->label(__('Express'), 'lava')])
+    ->column('packen', __('Packen'), limit: 3)
+    ->column('versandt', __('Versandt'), done: true));
+```
+
+## Connections between plugins
+
+Plugins never reach into another plugin’s tables. Where they work together — customers from the CRM, invoices in
+accounting, tasks as a Kanban board — they use contracts of the core in `Basalto\Core\Business`: one plugin provides
+a contract, others ask for it through `Connections`. If the plugin is missing or switched off for the site, the answer
+is `null` — every plugin must run without the other and switches the connection on by itself.
+
+![Four plugins connect through contracts in the core](bilder/geschaeft-zusammenspiel.svg)
+
+| Contract | Provided by | Asked with | Events |
+| --- | --- | --- | --- |
+| `PartnerDirectory` (`PartnerData`) | CRM | `partners($site)` | `PartnerCreated`, `PartnerUpdated`, `PartnerArchived` |
+| `ProjectDirectory` (`ProjectData`) | Project management | `projects($site)` | `ProjectUpdated` |
+| `Invoicing` (`InvoiceDraft`, `InvoiceLine`, `InvoiceData`) | Accounting | `invoicing($site)` | `InvoiceCancelled` |
+| `CardSource` (`CardColumn`, `CardData`) | a plugin with cards, e.g. project management | `cardSource($site, $key)` | — |
+| `BoardViewer` | Kanban board | `boardUrl($site, $source, $key)` | — |
+| `LinkedRecord` | any plugin | `linked($site, Connections::PARTNER, $id)` | — |
+
+Register in `boot()` with `providePartners()`, `provideProjects()`, `provideInvoicing()`, `provideCardSource()`,
+`provideBoardViewer()` and `links()`. The question is only asked during the request — the order in which plugins start
+does not matter.
+
+```php
+use Basalto\Core\Business\{Connections, LinkedRecord};
+use Basalto\Core\Business\Events\PartnerUpdated;
+
+// boot(): Kunden aus dem CRM verwenden, wenn es da ist
+$partners = app(Connections::class)->partners($site);      // null ohne CRM oder auf einer Site ohne CRM
+$choices = $partners?->search($site, $term) ?? [];          // list<PartnerData>
+$invoiceAddress = $partners?->find($site, $id)?->debtor(); // Anschrift in der Form der QR-Rechnung
+
+// Kopien abgleichen, wenn sich der Kunde im CRM ändert
+Event::listen(PartnerUpdated::class, fn (PartnerUpdated $e) => Order::query()
+    ->where('site_id', $e->siteId)->where('partner_id', $e->partner->id)->update(['partner_name' => $e->partner->name]));
+
+// Beim Kunden im CRM zeigen, was dieses Plugin zu ihm weiss
+app(Connections::class)->links(Connections::PARTNER, 'shop', fn (Site $site, int $partnerId): array => [
+    new LinkedRecord(__('Bestellungen'), 'B-0042', 'CHF 120.00', route('basalto.shop.orders.show', 42), __('offen'), 'warning'),
+]);
+```
+
+What matters:
+
+- **Copy and reference:** next to `partner_id`, store a copy of the name (for invoices, the address), without a foreign
+  key — the CRM may be missing or removed later. The events keep the copy up to date.
+- **Without the other plugin**, your plugin shows its own simple input or a notice, never an error.
+- **`suggest` in `composer.json`** names the plugins yours works with; Administration › Modules shows them as “works
+  with …”. A `require` on another plugin makes the installation fail.
+
 ## Mounted pages: a page belongs to the module
 
 A module can take over a page of the page tree together with every address below it — this is how the forum and the

@@ -13,6 +13,9 @@ export function sectionKey(section: AdminSection, index: number): string {
     if (section.kind === 'table') {
         return `table:${section.key}`;
     }
+    if (section.kind === 'board') {
+        return `board:${section.key}`;
+    }
 
     return `${section.kind}:${index}`;
 }
@@ -42,4 +45,30 @@ export function mergeServerValues(
     }
 
     return { updates, clean };
+}
+
+/**
+ * Fehler, die zu keinem Feld eines Formulars der Seite gehören (CR-020) — etwa «Diese Spalte ist voll» beim Verschieben
+ * oder `action` einer Sammelaktion. Die Seite zeigt sie oben als Hinweis; Fehler eines Felds stehen am Feld.
+ */
+export function pageErrors(
+    sections: AdminSection[],
+    errors: Record<string, string>,
+): string[] {
+    const fields = new Set<string>();
+    for (const section of sections) {
+        if (section.kind === 'form') {
+            for (const field of section.fields) {
+                fields.add(field.name);
+            }
+        }
+    }
+
+    return [
+        ...new Set(
+            Object.entries(errors)
+                .filter(([key]) => !fields.has(key.split('.')[0]))
+                .map(([, message]) => message),
+        ),
+    ];
 }

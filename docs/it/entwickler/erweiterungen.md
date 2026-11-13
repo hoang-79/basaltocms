@@ -251,6 +251,73 @@ Cosa conta:
 - **I permessi** valgono come per ogni route ([Sezioni e permessi](#sezioni-e-permessi)); il controller omette i
   pulsanti che un utente non può usare.
 
+### Bacheche
+
+Con `AdminPage::board()` una pagina mostra una bacheca secondo il metodo Kanban: colonne con schede, se si vuole con un
+limite WIP. Il nucleo sposta le schede trascinandole o con i pulsanti a freccia di ogni scheda (tastiera) e invia
+`card`, `column` e `position` (da 0) come POST all’indirizzo indicato a `Board::make()`. Il controller verifica il
+limite WIP con `Board::allows($limite, $numero, $da, $a)` — nessuna scheda entra in una colonna piena, riordinare nella
+colonna funziona sempre — e salva. Gli errori senza campo (`back()->withErrors(['card' => …])`) compaiono in cima alla
+pagina.
+
+```php
+use Basalto\Core\Backend\Schema\{Board, Card};
+
+$page->board(Board::make(route('basalto.shop.board.move'))->add(route('basalto.shop.board.store'), __('Karte hinzufügen'))
+    ->column('neu', __('Neu'), [Card::make(7, 'B-0042')->meta('Muster AG')->due('14.11.2026', overdue: true)->label(__('Express'), 'lava')])
+    ->column('packen', __('Packen'), limit: 3)
+    ->column('versandt', __('Versandt'), done: true));
+```
+
+## Collegamenti tra plugin
+
+Un plugin non accede mai alle tabelle di un altro. Dove collaborano — clienti dal CRM, fatture in contabilità, attività
+come bacheca Kanban — passano per contratti del nucleo in `Basalto\Core\Business`: un plugin fornisce un contratto,
+gli altri lo chiedono tramite `Connections`. Se il plugin manca o è disattivato per il sito, la risposta è `null` —
+ogni plugin deve funzionare senza l’altro e attiva il collegamento da sé.
+
+![Quattro plugin si collegano tramite contratti del nucleo](bilder/geschaeft-zusammenspiel.svg)
+
+| Contratto | Fornito da | Chiesto con | Eventi |
+| --- | --- | --- | --- |
+| `PartnerDirectory` (`PartnerData`) | CRM | `partners($site)` | `PartnerCreated`, `PartnerUpdated`, `PartnerArchived` |
+| `ProjectDirectory` (`ProjectData`) | Gestione progetti | `projects($site)` | `ProjectUpdated` |
+| `Invoicing` (`InvoiceDraft`, `InvoiceLine`, `InvoiceData`) | Contabilità | `invoicing($site)` | `InvoiceCancelled` |
+| `CardSource` (`CardColumn`, `CardData`) | un plugin con schede, p. es. la gestione progetti | `cardSource($site, $chiave)` | — |
+| `BoardViewer` | Bacheca Kanban | `boardUrl($site, $fonte, $chiave)` | — |
+| `LinkedRecord` | ogni plugin | `linked($site, Connections::PARTNER, $id)` | — |
+
+La registrazione avviene in `boot()` con `providePartners()`, `provideProjects()`, `provideInvoicing()`,
+`provideCardSource()`, `provideBoardViewer()` e `links()`. La domanda si pone solo durante la richiesta — l’ordine in
+cui i plugin partono non conta.
+
+```php
+use Basalto\Core\Business\{Connections, LinkedRecord};
+use Basalto\Core\Business\Events\PartnerUpdated;
+
+// boot(): Kunden aus dem CRM verwenden, wenn es da ist
+$partners = app(Connections::class)->partners($site);      // null ohne CRM oder auf einer Site ohne CRM
+$choices = $partners?->search($site, $term) ?? [];          // list<PartnerData>
+$invoiceAddress = $partners?->find($site, $id)?->debtor(); // Anschrift in der Form der QR-Rechnung
+
+// Kopien abgleichen, wenn sich der Kunde im CRM ändert
+Event::listen(PartnerUpdated::class, fn (PartnerUpdated $e) => Order::query()
+    ->where('site_id', $e->siteId)->where('partner_id', $e->partner->id)->update(['partner_name' => $e->partner->name]));
+
+// Beim Kunden im CRM zeigen, was dieses Plugin zu ihm weiss
+app(Connections::class)->links(Connections::PARTNER, 'shop', fn (Site $site, int $partnerId): array => [
+    new LinkedRecord(__('Bestellungen'), 'B-0042', 'CHF 120.00', route('basalto.shop.orders.show', 42), __('offen'), 'warning'),
+]);
+```
+
+Ciò che conta:
+
+- **Copia e riferimento:** accanto a `partner_id` salvi una copia del nome (per le fatture, dell’indirizzo), senza
+  chiave esterna — il CRM può mancare o essere rimosso più tardi. Gli eventi tengono aggiornata la copia.
+- **Senza l’altro plugin** il Suo mostra un proprio campo semplice o un avviso, mai un errore.
+- **`suggest` in `composer.json`** nomina i plugin con cui il Suo funziona; Amministrazione › Moduli li mostra come
+  «funziona con …». Un `require` su un altro plugin fa fallire l’installazione.
+
 ## Pagine agganciate: una pagina appartiene al modulo
 
 Un modulo può rilevare una pagina dell’albero insieme a tutti gli indirizzi sottostanti — così funzionano il forum e il

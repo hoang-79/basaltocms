@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 330" width="840" height="330" role="img" aria-label="Finanzbuchhaltung: von der Rechnung über die Buchung zu Bilanz, Erfolgsrechnung und MWST-Abrechnung">
+  <title>Finanzbuchhaltung: von der Rechnung über die Buchung zu Bilanz, Erfolgsrechnung und MWST-Abrechnung</title>
+  <rect width="840" height="330" fill="#f6f4f0"/>
+  <text x="24" y="34" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="16" font-weight="700" fill="#23262b" text-anchor="start">Jede Rechnung bucht sich selbst</text>
+  <text x="24" y="54" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="12.5" font-weight="400" fill="#62676e" text-anchor="start">Doppelte Buchhaltung nach Kontenrahmen KMU — Soll und Haben stimmen in jeder Buchung.</text>
+  <rect x="24" y="76" width="180" height="58" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="114.0" y="102.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Rechnung</text>
+  <text x="114.0" y="118.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">mit QR-Rechnung</text>
+  <path d="M206 105.0L226 105.0" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M218.8 108.5L226 105.0L218.8 101.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="228" y="76" width="180" height="58" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="318.0" y="102.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="middle">Ausstellen</text>
+  <text x="318.0" y="118.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">1100 an 3400 / 2200</text>
+  <path d="M410 105.0L430 105.0" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M422.8 108.5L430 105.0L422.8 101.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="432" y="76" width="180" height="58" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="522.0" y="102.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Zahlung</text>
+  <text x="522.0" y="118.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">1020 an 1100</text>
+  <path d="M614 105.0L634 105.0" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M626.8 108.5L634 105.0L626.8 101.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="636" y="76" width="180" height="58" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="726.0" y="102.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Journal</text>
+  <text x="726.0" y="118.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">Hauptbuch, Saldenliste</text>
+  <rect x="24" y="150" width="180" height="58" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="114.0" y="176.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Eingangsrechnung</text>
+  <text x="114.0" y="192.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">6xxx / 1170 an 2000</text>
+  <path d="M206 179.0L226 179.0" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M218.8 182.5L226 179.0L218.8 175.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="228" y="150" width="180" height="58" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="318.0" y="176.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Bezahlen</text>
+  <text x="318.0" y="192.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">2000 an 1020</text>
+  <rect x="24" y="224" width="180" height="58" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="114.0" y="250.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Bilanz</text>
+  <text x="114.0" y="266.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">Klassen 1 und 2</text>
+  <path d="M206 253.0L226 253.0" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M218.8 256.5L226 253.0L218.8 249.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="228" y="224" width="180" height="58" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="318.0" y="250.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">Erfolgsrechnung</text>
+  <text x="318.0" y="266.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">Klassen 3 bis 8</text>
+  <path d="M410 253.0L430 253.0" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M422.8 256.5L430 253.0L422.8 249.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="432" y="224" width="180" height="58" rx="8" fill="#ffffff" stroke="#e3e6ea" stroke-width="1.2"/>
+  <text x="522.0" y="250.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#23262b" text-anchor="middle">MWST-Abrechnung</text>
+  <text x="522.0" y="266.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">effektive Methode</text>
+  <path d="M614 253.0L634 253.0" stroke="#62676e" stroke-width="1.6" fill="none"/>
+  <path d="M626.8 256.5L634 253.0L626.8 249.5" stroke="#62676e" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="636" y="224" width="180" height="58" rx="8" fill="#fbe6df" stroke="#e4572e" stroke-width="1.2"/>
+  <text x="726.0" y="250.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="13" font-weight="600" fill="#b53f1d" text-anchor="middle">Jahresabschluss</text>
+  <text x="726.0" y="266.0" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="middle">2979, Eröffnung</text>
+  <text x="24" y="316" font-family="system-ui, -apple-system, 'Segoe UI', 'IBM Plex Sans', sans-serif" font-size="11.5" font-weight="400" fill="#62676e" text-anchor="start">Gebuchtes wird nicht geändert, sondern storniert — mit einer Gegenbuchung.</text>
+</svg>

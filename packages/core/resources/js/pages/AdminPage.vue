@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { FormDataConvertible } from '@inertiajs/core';
-import { Head, router } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { Head, router, usePage } from '@inertiajs/vue3';
+import { computed, ref } from 'vue';
+import AdminBoard from '../components/admin/AdminBoard.vue';
 import AdminForm from '../components/admin/AdminForm.vue';
 import AdminTable from '../components/admin/AdminTable.vue';
-import { sectionKey } from '../components/admin/state';
+import { pageErrors, sectionKey } from '../components/admin/state';
 import type {
     AdminAction,
     AdminPageData,
@@ -18,9 +19,18 @@ import PageHeader from '../components/PageHeader.vue';
 /**
  * Eine Verwaltungsseite aus Beschreibung (CR-018, TB 99, E-3): Ein Plugin beschreibt sie in PHP
  * (`Basalto\Core\Backend\Schema\AdminPage`), diese Seite zeichnet sie mit den Komponenten des Kerns — Kennzahlen,
- * Hinweise, Text, Listen, Formulare und Knöpfe. Kein JavaScript aus dem Plugin; Texte kommen übersetzt.
+ * Hinweise, Text, Listen, Formulare, Boards (CR-020) und Knöpfe. Kein JavaScript aus dem Plugin; Texte kommen übersetzt.
  */
 const props = defineProps<{ page: AdminPageData }>();
+
+// CR-020: Fehler ohne Feld (Verschieben, Sammelaktionen, Knöpfe) oben als Hinweis — sonst sähe sie niemand
+const inertia = usePage();
+const errors = computed(() =>
+    pageErrors(
+        props.page.sections,
+        (inertia.props.errors ?? {}) as Record<string, string>,
+    ),
+);
 
 const asking = ref<{
     action: AdminAction;
@@ -92,6 +102,9 @@ const toneOf = {
     </PageHeader>
 
     <div class="flex flex-col gap-5">
+        <Notice v-if="errors.length > 0" tone="danger" role="alert">
+            <p v-for="message in errors" :key="message">{{ message }}</p>
+        </Notice>
         <template
             v-for="(section, i) in props.page.sections"
             :key="sectionKey(section, i)"
@@ -139,6 +152,7 @@ const toneOf = {
                 :run="run"
             />
             <AdminForm v-else-if="section.kind === 'form'" :section="section" />
+            <AdminBoard v-else-if="section.kind === 'board'" :board="section" />
         </template>
     </div>
 

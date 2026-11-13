@@ -92,6 +92,37 @@ export type AdminFormSection = {
     values: Record<string, unknown>;
 };
 
+/** CR-020: eine Karte eines Boards (Kanban). */
+export type AdminCard = {
+    id: string | number;
+    title: string;
+    meta: string[];
+    labels: { text: string; tone: string }[];
+    due: string | null;
+    overdue: boolean;
+    assignee: string;
+    url: string | null;
+};
+
+export type AdminBoardColumn = {
+    key: string;
+    title: string;
+    limit: number | null;
+    done: boolean;
+    cards: AdminCard[];
+};
+
+/** CR-020: ein Board mit Spalten, WIP-Limits und Ziehen und Ablegen. */
+export type AdminBoardSection = {
+    kind: 'board';
+    key: string;
+    title: string | null;
+    move_url: string;
+    add: { url: string; label: string } | null;
+    columns: AdminBoardColumn[];
+    empty: { title: string; text: string | null };
+};
+
 export type AdminSection =
     | {
           kind: 'stats';
@@ -110,7 +141,8 @@ export type AdminSection =
       }
     | { kind: 'text'; title: string | null; text: string }
     | AdminTableSection
-    | AdminFormSection;
+    | AdminFormSection
+    | AdminBoardSection;
 
 export type AdminPageData = {
     title: string;

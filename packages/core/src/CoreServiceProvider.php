@@ -15,6 +15,7 @@ use Basalto\Core\Analytics\TrackPageView;
 use Basalto\Core\Auth\PasskeyOrigins;
 use Basalto\Core\Auth\QuietDatabaseSessionHandler;
 use Basalto\Core\Backend\Backend;
+use Basalto\Core\Business\Connections;
 use Basalto\Core\Cache\PageCacheInvalidation;
 use Basalto\Core\Cloud\CloudCli;
 use Basalto\Core\Cloud\CommandRunner;
@@ -180,6 +181,8 @@ final class CoreServiceProvider extends ServiceProvider
         $this->app->singleton(SearchSources::class);
         // CR-011 TB 59: kündbare Verträge aus Kern und Modulen für «Verträge hier kündigen»
         $this->app->singleton(ContractSources::class);
+        // CR-020: Verbindungen zwischen Plugins — Geschäftspartner, Projekte, Rechnungsstellung, Kartenquellen
+        $this->app->singleton(Connections::class);
         // Testdaten aus Kern und Modulen (basalto:testdaten)
         $this->app->singleton(Testdata::class);
         // CR-007: die Installation, die sich aktualisiert — immer die laufende

@@ -44,6 +44,13 @@ final class ModulesController
             $labels[$module['handle']] = __($module['label']);
         }
         $modules = array_values(array_filter($this->backend->modules(), static fn (array $m): bool => $m['handle'] !== 'core'));
+        // CR-020: Paketname → Handle, für «arbeitet zusammen mit» (suggest der composer.json)
+        $packages = [];
+        foreach ($this->backend->modules() as $module) {
+            if ($module['package'] !== null) {
+                $packages[$module['package']] = $module['handle'];
+            }
+        }
         $fresh = $request->boolean('neu');
 
         return Inertia::render('core::Modules/Index', [
@@ -52,6 +59,9 @@ final class ModulesController
                 'handle' => $m['handle'], 'label' => $labels[$m['handle']], 'switchable' => $m['switchable'], 'enabled' => $this->backend->moduleEnabled($m['handle'], $site),
                 'api' => is_int($m['manifest']['api'] ?? null) ? $m['manifest']['api'] : null,
                 'requires' => array_values(array_map(static fn (string $h): string => $labels[$h] ?? $h, array_filter((array) ($m['manifest']['requires'] ?? []), 'is_string'))),
+                'works_with' => array_map(fn (string $package): array => isset($packages[$package])
+                    ? ['label' => $labels[$packages[$package]], 'installed' => true, 'enabled' => $this->backend->moduleEnabled($packages[$package], $site)]
+                    : ['label' => $package, 'installed' => false, 'enabled' => false], $m['suggest']),
             ], $modules),
             'site' => ['name' => $site->name, 'edit_url' => route('basalto.sites.edit', $site)],
             'marketplace' => ['url' => $this->client->baseUrl(), 'host' => $this->client->host(), 'repository' => $this->client->baseUrl().'/composer'],

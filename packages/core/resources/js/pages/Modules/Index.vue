@@ -66,6 +66,7 @@ const props = defineProps<{
         enabled: boolean;
         api: number | null;
         requires: string[];
+        works_with: { label: string; installed: boolean; enabled: boolean }[];
     }[];
     site: { name: string; edit_url: string };
     marketplace: { url: string; host: string; repository: string };
@@ -396,6 +397,22 @@ function priceLabel(entry: Entry): string {
                                 }}</template
                             ><template v-if="!m.switchable">
                                 · {{ $t('immer an') }}</template
+                            ><template v-if="m.works_with.length > 0">
+                                ·
+                                {{
+                                    $t('arbeitet zusammen mit :modules', {
+                                        modules: m.works_with
+                                            .map((w) =>
+                                                w.installed
+                                                    ? w.label
+                                                    : $t(
+                                                          ':name (nicht installiert)',
+                                                          { name: w.label },
+                                                      ),
+                                            )
+                                            .join(', '),
+                                    })
+                                }}</template
                             >
                         </p>
                     </div>

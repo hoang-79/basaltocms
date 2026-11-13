@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { mergeServerValues, sectionKey } from './state';
+import { mergeServerValues, pageErrors, sectionKey } from './state';
 import type { AdminSection } from './types';
 
 const form = (url: string): AdminSection => ({
@@ -42,5 +42,27 @@ describe('Verwaltungsseiten aus Beschreibung (TB 101)', () => {
             updates: {},
             clean: true,
         });
+    });
+
+    it('zeigt oben nur Fehler, die zu keinem Feld gehören (CR-020)', () => {
+        const withField: AdminSection = {
+            kind: 'form',
+            title: null,
+            url: '/admin/karte/1',
+            method: 'put',
+            autosave: true,
+            submit: 'Speichern',
+            fields: [{ name: 'title', label: 'Titel', type: 'text' }],
+            values: {},
+        };
+        expect(
+            pageErrors([withField, { kind: 'text', title: null, text: '' }], {
+                title: 'Der Titel fehlt.',
+                card: 'Die Spalte ist voll.',
+                'ids.0': 'Unbekannt.',
+                action: 'Die Spalte ist voll.',
+            }),
+        ).toEqual(['Die Spalte ist voll.', 'Unbekannt.']);
+        expect(pageErrors([], {})).toEqual([]);
     });
 });
