@@ -12,7 +12,8 @@ The content of a page consists of **blocks**: text sections, images, stages, for
 
 At the top there is a tab with the number of entries for every **content type** of the theme. A warning sign on a tab
 means: the theme no longer has this type — the entries stay saved but can only be edited again once the theme knows the
-type again (Setup › Content types).
+type again (Setup › Content types). Content that exists only once — such as the **footer** with address and email —
+also has a tab: **“edit”** opens it like any other content; you do not create a second one.
 
 - **Filters:** status and language apply at once, the search (across the titles of all versions) with Enter.
 - **Columns:** a hexagon with the status per language, plus the badge “outdated” if the translation is based on an older

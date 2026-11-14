@@ -12,7 +12,9 @@ Der Inhalt einer Seite besteht aus **Blöcken**: Textabschnitte, Bilder, Bühnen
 
 Oben steht je **Inhaltstyp** des Themes ein Reiter mit der Zahl seiner Einträge. Ein Warnzeichen am Reiter heisst: Diesen
 Typ gibt es im Theme nicht mehr — die Einträge bleiben gespeichert, lassen sich aber erst wieder bearbeiten, wenn das
-Theme den Typ wieder kennt (Einrichtung › Inhaltstypen).
+Theme den Typ wieder kennt (Einrichtung › Inhaltstypen). Inhalte, die es nur einmal gibt — etwa den **Fuss** mit Anschrift
+und Mailadresse —, stehen ebenfalls als Reiter da: **«bearbeiten»** öffnet sie wie jeden anderen Inhalt, ein zweites
+Exemplar legen Sie nicht an.
 
 - **Filter:** Status und Sprache wirken sofort, die Suche (über die Titel aller Fassungen) mit Enter.
 - **Spalten:** je Sprache ein Sechseck mit dem Status, dazu die Marke «veraltet», wenn die Übersetzung auf einer älteren

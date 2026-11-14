@@ -444,6 +444,6 @@ final class WorkflowController
     {
         $schema = $this->schema($site);
 
-        return $schema === null ? [] : array_map(static fn (array $t): string => $t['label'], $schema->types);
+        return $schema === null ? [] : array_map(static fn (array $t): string => $t['label'], $schema->types + $schema->globals);
     }
 }

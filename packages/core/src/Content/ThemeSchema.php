@@ -20,8 +20,9 @@ final class ThemeSchema
      * @param  array<string, array{name: string, label: string, group: string|null, hint: string|null, fields: list<Field>}>  $blocks
      * @param  array<string, array{name: string, label: string, template: string, routes: array<string, string>, allowed: list<string>, fields: list<Field>}>  $types
      * @param  list<string>  $parts  Lava-Teile des Themes — als Block `@part` in Seiten und Bausteinen (M-28)
+     * @param  array<string, array{name: string, label: string, template: string, routes: array<string, string>, allowed: list<string>, fields: list<Field>}>  $globals  Einzelinhalte (`global`, L-11) — eigene Liste, damit sie nie als Seitentyp oder «Neuer Inhalt» erscheinen
      */
-    private function __construct(public readonly array $blocks, public readonly array $types, public readonly array $parts = []) {}
+    private function __construct(public readonly array $blocks, public readonly array $types, public readonly array $parts = [], public readonly array $globals = []) {}
 
     /** Pflichtfelder prüfen? Beim Autosave eines Entwurfs nicht — erst beim Einreichen (TB 05, Autosave). */
     private bool $requireFilled = true;
@@ -61,7 +62,26 @@ final class ThemeSchema
                 'template' => $type->value('template') ?? 'default', 'routes' => $routes, 'allowed' => $allowed, 'fields' => self::fields($type, $theme->document->names('form'))];
         }
 
-        return new self($blocks, $types, $theme->document->names('part'));
+        // TB 119: Einzelinhalte wie der Fuss brauchen ihre Felder im Editor — vorher kannte das Schema nur `type`, die
+        // Liste meldete «Typ nicht mehr definiert» und bot kein «bearbeiten» an
+        $globals = [];
+        foreach ($theme->document->all('global') as $global) {
+            $globals[(string) $global->name] = ['name' => (string) $global->name, 'label' => $global->value('label', app()->getLocale()) ?? ucfirst((string) $global->name),
+                'template' => 'default', 'routes' => [], 'allowed' => [], 'fields' => self::fields($global, $theme->document->names('form'))];
+        }
+
+        return new self($blocks, $types, $theme->document->names('part'), $globals);
+    }
+
+    /**
+     * Der Typ eines Eintrags fürs Bearbeiten: ein Inhaltstyp oder ein Einzelinhalt (`global`); null, wenn das Theme ihn
+     * nicht (mehr) kennt.
+     *
+     * @return array{name: string, label: string, template: string, routes: array<string, string>, allowed: list<string>, fields: list<Field>}|null
+     */
+    public function entryType(string $type): ?array
+    {
+        return $this->types[$type] ?? $this->globals[$type] ?? null;
     }
 
     /** @return list<Field> */
@@ -78,7 +98,7 @@ final class ThemeSchema
      */
     public function validateTypeFields(string $type, array $data): array
     {
-        $fields = array_values(array_filter($this->types[$type]['fields'] ?? [], static fn (array $f): bool => $f['type'] !== 'blocks' && $f['name'] !== 'title'));
+        $fields = array_values(array_filter($this->entryType($type)['fields'] ?? [], static fn (array $f): bool => $f['type'] !== 'blocks' && $f['name'] !== 'title'));
 
         return $this->validateFields($fields, $data, 'fields');
     }
@@ -123,7 +143,7 @@ final class ThemeSchema
     /** @return list<string> */
     public function allowedBlocks(string $type): array
     {
-        return $this->types[$type]['allowed'] ?? array_keys($this->blocks);
+        return $this->entryType($type)['allowed'] ?? array_keys($this->blocks);
     }
 
     /** @return array<string, mixed> */

@@ -12,7 +12,9 @@ Il contenuto di una pagina è composto da **blocchi**: sezioni di testo, immagin
 
 In alto c’è, per ogni **Tipo di contenuto** del tema, una scheda con il numero delle sue voci. Un segnale di avvertimento sulla scheda significa: questo
 tipo non esiste più nel tema — le voci restano salvate, ma si possono modificare di nuovo solo quando il
-tema riconosce di nuovo il tipo (Configurazione › Tipi di contenuto).
+tema riconosce di nuovo il tipo (Configurazione › Tipi di contenuto). I contenuti che esistono una sola volta — per esempio il
+**piè di pagina** con indirizzo ed e-mail — hanno anch’essi una scheda: **«modifica»** li apre come ogni altro contenuto;
+non se ne crea un secondo.
 
 - **Filtro:** stato e lingua agiscono subito, la ricerca (sui titoli di tutte le versioni) con Invio.
 - **Colonne:** per ogni lingua un esagono con lo stato, più l’etichetta «obsoleta» se la traduzione si basa su una

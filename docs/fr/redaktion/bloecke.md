@@ -12,7 +12,9 @@ Le contenu d’une page se compose de **blocs** : sections de texte, images, sc�
 
 En haut figure, pour chaque **type de contenu** du thème, un onglet avec le nombre de ses entrées. Un signe d’avertissement sur l’onglet signifie : ce
 type n’existe plus dans le thème — les entrées restent enregistrées, mais ne peuvent de nouveau être modifiées que lorsque le
-thème connaît de nouveau le type (Configuration › Types de contenu).
+thème connaît de nouveau le type (Configuration › Types de contenu). Les contenus qui n’existent qu’une fois — par exemple le
+**pied de page** avec l’adresse et l’e-mail — ont aussi leur onglet : **« modifier »** les ouvre comme tout autre contenu ;
+on n’en crée pas un deuxième.
 
 - **Filtres :** le statut et la langue ont un effet immédiat, la recherche (sur les titres de toutes les versions) se lance avec Entrée.
 - **Colonnes :** pour chaque langue, un hexagone avec le statut, plus la marque « obsolète » si la traduction repose sur une version

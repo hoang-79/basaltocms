@@ -90,7 +90,7 @@ final class EntryController
             'pagination' => ['next' => $page->nextPageUrl(), 'prev' => $page->previousPageUrl(), 'page' => $page->currentPage(), 'per_page' => $page->perPage(),
                 'sort' => Preferences::labels()['list_sorts'][Preferences::of($request->user())['list_sort']]],
             'locales' => $locales, 'site' => $site->only(['handle', 'name']),
-            'create_url' => route('basalto.entries.store'), 'missing_type' => $active !== null && ! isset($schemaTypes[$active]),
+            'create_url' => route('basalto.entries.store'), 'missing_type' => $active !== null && ! isset($schemaTypes[$active]) && $theme?->global($active) === null,
             'can_create' => Gate::allows('create', new Entry(['site_id' => $site->id])), 'types_url' => route('basalto.setup.types.index'),
         ]);
     }
@@ -165,9 +165,9 @@ final class EntryController
                 'status_label' => $version->status->label(), 'title' => $version->title, 'slug' => $version->slug, 'data' => $version->data,
                 'can_edit' => $version->status->value === 'draft', 'preview_url' => route('basalto.entries.preview', [$entry, $version])],
             'schema' => $schema->toArray(),
-            'fields' => array_values(array_filter($schema->types[$entry->type]['fields'] ?? [], static fn (array $f): bool => $f['type'] !== 'blocks' && ! in_array($f['name'], ['title', 'slug', 'intro'], true) && ! ($f['type'] === 'seo' && $entry->pageType() !== null))),
-            'type_label' => $schema->types[$entry->type]['label'] ?? $entry->type,
-            'has_content' => ($schema->types[$entry->type]['allowed'] ?? []) !== [] || PageType::isPageType($entry->type),
+            'fields' => array_values(array_filter($schema->entryType($entry->type)['fields'] ?? [], static fn (array $f): bool => $f['type'] !== 'blocks' && ! in_array($f['name'], ['title', 'slug', 'intro'], true) && ! ($f['type'] === 'seo' && $entry->pageType() !== null))),
+            'type_label' => $schema->entryType($entry->type)['label'] ?? $entry->type,
+            'has_content' => ($schema->entryType($entry->type)['allowed'] ?? []) !== [] || PageType::isPageType($entry->type),
             'settings_url' => $entry->pageType() !== null ? route('basalto.pages.edit', $entry) : null,
             'allowed' => $schema->allowedBlocks($entry->type),
             'blocked' => $this->blocked($schema, $entry),

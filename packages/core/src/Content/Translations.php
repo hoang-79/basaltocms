@@ -126,7 +126,7 @@ final class Translations
         $schema = $this->schema($entry->site);
         $sections = [];
         $page = [['path' => 'title', 'label' => (string) __('Titel'), 'type' => 'text', 'translatable' => true]];
-        $typeFields = $schema?->types[$entry->type]['fields'] ?? [];
+        $typeFields = $schema?->entryType($entry->type)['fields'] ?? [];
         $hasIntro = false;
         foreach ($typeFields as $field) {
             if (in_array($field['name'], ['title', 'slug'], true) || in_array($field['type'], ['blocks', 'seo', 'slug'], true)) {
@@ -138,7 +138,7 @@ final class Translations
         if (! $hasIntro && (PageType::isPageType($entry->type) || array_key_exists('intro', $source->data))) {
             $page[] = ['path' => 'intro', 'label' => (string) __('Einleitung'), 'type' => 'richtext', 'translatable' => true];
         }
-        $sections[] = ['key' => 'page', 'title' => PageType::isPageType($entry->type) ? (string) __('Seite') : ($schema?->types[$entry->type]['label'] ?? (string) __('Inhalt')), 'subtitle' => null, 'fields' => $page];
+        $sections[] = ['key' => 'page', 'title' => PageType::isPageType($entry->type) ? (string) __('Seite') : ($schema?->entryType($entry->type)['label'] ?? (string) __('Inhalt')), 'subtitle' => null, 'fields' => $page];
         if (PageType::isPageType($entry->type)) {
             $sections[] = ['key' => 'meta', 'title' => (string) __('Metadaten'), 'subtitle' => (string) __('Suchergebnis'), 'fields' => [
                 ['path' => 'settings.meta.title', 'label' => (string) __('Seitentitel'), 'type' => 'text', 'translatable' => true],
