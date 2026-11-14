@@ -120,7 +120,7 @@ final class SiteController
             'modules' => array_map(static fn (array $m): array => ['handle' => $m['handle'], 'label' => __($m['label']), 'switchable' => $m['switchable']], $modules),
             'timezones' => DateTimeZone::listIdentifiers(DateTimeZone::EUROPE),
             'themes' => $themes,
-            'available_locales' => ['de', 'en', 'it', 'fr', 'rm', 'es', 'pt', 'nl'],
+            'available_locales' => ['de', 'en', 'it', 'fr', 'rm', 'es', 'pt', 'nl', 'vi'],
             'submit_url' => $site === null ? route('basalto.sites.store') : route('basalto.sites.update', $site),
             'method' => $site === null ? 'post' : 'put',
             'back_url' => route('basalto.sites.index'),

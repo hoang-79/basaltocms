@@ -27,7 +27,10 @@ configurazione. Maggiori dettagli in [Menu](../einrichtung/menues.md).
 ![Le lingue del sito: tedesco come predefinita, inglese con il tedesco come lingua di riserva](bilder/sprachen.webp)
 
 1. Modalità «Amministrazione» › **Siti** › il Suo sito › scheda **«Lingue»**.
-2. **«+ Lingua»** e scegliere la lingua, per esempio l’inglese.
+2. **«+ Lingua»** e scegliere la lingua, per esempio l’inglese. Si può scegliere tra tedesco, inglese, italiano,
+   francese, romancio, spagnolo, portoghese, olandese e vietnamita. Ciò che Basalto scrive da sé sul sito (avviso sui
+   cookie, ricerca, messaggi dei moduli) esiste in tedesco, inglese, francese, italiano e vietnamita; nelle altre
+   lingue questi testi compaiono in tedesco o in inglese.
 3. Per ogni lingua imposta:
    - **Predefinita** — la lingua principale da cui nascono tutte le traduzioni. Ce n’è esattamente una.
    - **Obbligatoria** — senza questa lingua Basalto non approva alcun contenuto. All’inizio lasci la casella vuota, così

@@ -28,7 +28,11 @@ configuration. Plus d’informations sous [Menus](../einrichtung/menues.md).
 ![Les langues du site : l’allemand par défaut, l’anglais avec repli sur l’allemand](bilder/sprachen.webp)
 
 1. Mode « Administration » › **Sites** › votre site › onglet **« Langues »**.
-2. **« + Langue »** et choisir la langue, par exemple l’anglais.
+2. **« + Langue »** et choisir la langue, par exemple l’anglais. Vous avez le choix entre l’allemand, l’anglais,
+   l’italien, le français, le romanche, l’espagnol, le portugais, le néerlandais et le vietnamien. Ce que Basalto écrit
+   lui-même sur le site (avis sur les cookies, recherche, messages des formulaires) existe en allemand, en anglais, en
+   français, en italien et en vietnamien ; dans les autres langues, ces textes apparaissent en allemand
+   ou en anglais.
 3. Pour chaque langue, vous réglez :
    - **Par défaut** — la langue principale, dont naissent toutes les traductions. Il y en a exactement une.
    - **Obligatoire** — sans cette langue, Basalto ne valide aucun contenu. Laissez la case décochée au début, pour

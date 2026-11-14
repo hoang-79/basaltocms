@@ -27,7 +27,10 @@ Some themes also have **freely maintained menus** whose entries you put together
 ![The site's languages: German as default, English with fallback to German](bilder/sprachen.webp)
 
 1. “Administration” mode › **Sites** › your site › **“Languages”** tab.
-2. **“+ Language”** and choose the language, for example English.
+2. **“+ Language”** and choose the language, for example English. You can choose German, English, Italian, French,
+   Romansh, Spanish, Portuguese, Dutch and Vietnamese. What Basalto itself writes on the website (cookie notice,
+   search, form messages) exists in German, English, French, Italian and Vietnamese; in the other languages these
+   texts appear in German or English.
 3. For each language set:
    - **Default** — the main language all translations are made from. There is exactly one.
    - **Required** — without this language Basalto does not approve any content. Leave it unticked at first so that

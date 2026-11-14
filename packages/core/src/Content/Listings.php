@@ -233,6 +233,7 @@ final class Listings
             'en' => ['pages' => 'Pages', 'prev' => 'Newer', 'next' => 'Older', 'categories' => 'Categories', 'archive' => 'Archive'],
             'it' => ['pages' => 'Pagine', 'prev' => 'Più recenti', 'next' => 'Meno recenti', 'categories' => 'Categorie', 'archive' => 'Archivio'],
             'fr' => ['pages' => 'Pages', 'prev' => 'Plus récents', 'next' => 'Plus anciens', 'categories' => 'Catégories', 'archive' => 'Archives'],
+            'vi' => ['pages' => 'Trang', 'prev' => 'Mới hơn', 'next' => 'Cũ hơn', 'categories' => 'Chuyên mục', 'archive' => 'Lưu trữ'],
             default => ['pages' => 'Seiten', 'prev' => 'Neuere', 'next' => 'Ältere', 'categories' => 'Kategorien', 'archive' => 'Archiv'],
         };
     }

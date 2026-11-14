@@ -154,6 +154,7 @@ final class SiteSearch
             'en' => ['label' => 'Search', 'one' => '%d result for «%s»', 'many' => '%d results for «%s»', 'pages' => 'Result pages', 'short' => 'Please enter at least two characters.', 'all' => 'All', 'filter' => 'Filter results'],
             'it' => ['label' => 'Cerca', 'one' => '%d risultato per «%s»', 'many' => '%d risultati per «%s»', 'pages' => 'Pagine dei risultati', 'short' => 'Inserire almeno due caratteri.', 'all' => 'Tutto', 'filter' => 'Filtra i risultati'],
             'fr' => ['label' => 'Rechercher', 'one' => '%d résultat pour « %s »', 'many' => '%d résultats pour « %s »', 'pages' => 'Pages de résultats', 'short' => 'Veuillez saisir au moins deux caractères.', 'all' => 'Tout', 'filter' => 'Filtrer les résultats'],
+            'vi' => ['label' => 'Tìm kiếm', 'one' => '%d kết quả cho “%s”', 'many' => '%d kết quả cho “%s”', 'pages' => 'Trang kết quả', 'short' => 'Vui lòng nhập ít nhất hai ký tự.', 'all' => 'Tất cả', 'filter' => 'Lọc kết quả'],
             default => ['label' => 'Suchen', 'one' => '%d Treffer für «%s»', 'many' => '%d Treffer für «%s»', 'pages' => 'Trefferseiten', 'short' => 'Bitte mindestens zwei Zeichen eingeben.', 'all' => 'Alle', 'filter' => 'Treffer filtern'],
         };
     }

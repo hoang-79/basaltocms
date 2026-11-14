@@ -19,6 +19,24 @@ use Illuminate\Support\ViewErrorBag;
  */
 final class FormRenderer
 {
+    /**
+     * Vorgaben je Sprache (TB 118: Französisch, Italienisch und Vietnamesisch statt Deutsch).
+     *
+     * @var array<string, array{consent: string, submit: string, thanks: string, errors: string, failed: string, consent_name: string, consent_required: string}>
+     */
+    private const TEXTS = [
+        'de' => ['consent' => 'Ich bin einverstanden, dass meine Angaben zur Beantwortung gespeichert werden.', 'submit' => 'Senden', 'thanks' => 'Danke — Ihre Nachricht ist angekommen.',
+            'errors' => 'Bitte die markierten Felder prüfen.', 'failed' => 'Senden ging nicht — bitte später nochmals versuchen.', 'consent_name' => 'Zustimmung', 'consent_required' => 'Bitte der Speicherung Ihrer Angaben zustimmen.'],
+        'en' => ['consent' => 'I agree to my details being stored to answer my request.', 'submit' => 'Send', 'thanks' => 'Thank you — your message has been sent.',
+            'errors' => 'Please check the marked fields.', 'failed' => 'Sending did not work — please try again later.', 'consent_name' => 'consent', 'consent_required' => 'Please agree to your details being stored.'],
+        'fr' => ['consent' => 'J’accepte que mes données soient enregistrées pour répondre à ma demande.', 'submit' => 'Envoyer', 'thanks' => 'Merci — votre message a bien été envoyé.',
+            'errors' => 'Veuillez vérifier les champs signalés.', 'failed' => 'L’envoi n’a pas fonctionné — veuillez réessayer plus tard.', 'consent_name' => 'consentement', 'consent_required' => 'Veuillez accepter l’enregistrement de vos données.'],
+        'it' => ['consent' => 'Acconsento alla memorizzazione dei miei dati per rispondere alla richiesta.', 'submit' => 'Invia', 'thanks' => 'Grazie — il suo messaggio è stato inviato.',
+            'errors' => 'Verifichi i campi segnalati.', 'failed' => 'L’invio non è riuscito — riprovi più tardi.', 'consent_name' => 'consenso', 'consent_required' => 'Acconsenta alla memorizzazione dei suoi dati.'],
+        'vi' => ['consent' => 'Tôi đồng ý để thông tin của tôi được lưu lại nhằm trả lời yêu cầu.', 'submit' => 'Gửi', 'thanks' => 'Cảm ơn bạn — tin nhắn đã được gửi.',
+            'errors' => 'Vui lòng kiểm tra các trường được đánh dấu.', 'failed' => 'Gửi không thành công — vui lòng thử lại sau.', 'consent_name' => 'sự đồng ý', 'consent_required' => 'Vui lòng đồng ý cho lưu thông tin của bạn.'],
+    ];
+
     /** Feldmarken für die Live-Vorschau des Baukastens (TB 31): `data-basalto-field` am Rahmen jedes Feldes */
     private bool $marks = false;
 
@@ -58,12 +76,12 @@ final class FormRenderer
         foreach ($form->fields as $field) {
             $html .= $this->field($form, $field, $lang, $old, $errors);
         }
-        $consent = $form->text('consent', $lang) ?? ($lang === 'en' ? 'I agree to my details being stored to answer my request.' : 'Ich bin einverstanden, dass meine Angaben zur Beantwortung gespeichert werden.');
+        $consent = $form->text('consent', $lang) ?? self::text('consent', $lang);
         $consentError = $errors->first('_consent');
         $html .= sprintf('<div class="form-field form-consent%5$s"><label><input type="checkbox" name="_consent" value="1" required%1$s%2$s> %3$s</label>%4$s</div>',
             ($old['_consent'] ?? null) ? ' checked' : '', $consentError !== '' ? ' aria-invalid="true" aria-describedby="'.$id.'-_consent-fehler"' : '', $e($consent),
             $consentError !== '' ? sprintf('<p class="form-error" id="%s-_consent-fehler">%s</p>', $id, $e($consentError)) : '', $consentError !== '' ? ' has-error' : '');
-        $submit = $form->text('submit', $lang) ?? ($lang === 'en' ? 'Send' : 'Senden');
+        $submit = $form->text('submit', $lang) ?? self::text('submit', $lang);
         // TB 50: Spamschutz im Browser, wenn er für die Site an ist (nicht in der Vorschau des Baukastens)
         if (! $this->marks && $this->pow->enabled(app(CurrentSite::class)->get(), 'formular')) {
             $html .= $this->pow->field('formular', $lang);
@@ -75,13 +93,26 @@ final class FormRenderer
     /** Der Danke-Text nach dem Senden — aus dem Formular (`thanks`) oder der Vorgabe der Sprache. */
     public static function thanks(FormDefinition $form, string $lang): string
     {
-        return $form->text('thanks', $lang) ?? ($lang === 'en' ? 'Thank you — your message has been sent.' : 'Danke — Ihre Nachricht ist angekommen.');
+        return $form->text('thanks', $lang) ?? self::text('thanks', $lang);
     }
 
     /** Der Kopf der Fehlerliste — im HTML und in der JSON-Antwort. */
     public static function errorSummary(string $lang): string
     {
-        return $lang === 'en' ? 'Please check the marked fields.' : 'Bitte die markierten Felder prüfen.';
+        return self::text('errors', $lang);
+    }
+
+    /**
+     * Vorgaben des Formulars in der Sprache der Seite — Deutsch für Sprachen ohne eigene Zeile. Formular und Theme
+     * überschreiben Zustimmung, Knopf und Danke (`consent`, `submit`, `thanks`).
+     *
+     * @param  'consent'|'submit'|'thanks'|'errors'|'failed'|'consent_name'|'consent_required'  $key
+     */
+    public static function text(string $key, string $lang): string
+    {
+        $texts = self::TEXTS[$lang] ?? self::TEXTS['de'];
+
+        return $texts[$key];
     }
 
     /**
@@ -103,7 +134,7 @@ final class FormRenderer
 
     private static function script(string $lang): string
     {
-        $failed = json_encode($lang === 'en' ? 'Sending did not work — please try again later.' : 'Senden ging nicht — bitte später nochmals versuchen.', JSON_UNESCAPED_UNICODE | JSON_HEX_TAG);
+        $failed = json_encode(self::text('failed', $lang), JSON_UNESCAPED_UNICODE | JSON_HEX_TAG);
 
         return <<<JS
 (function(){

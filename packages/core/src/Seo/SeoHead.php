@@ -41,7 +41,7 @@ final class SeoHead
     /** Länder je Sprache, in denen die Sprache Amtssprache ist — das erste ist die Vorgabe. */
     private const TERRITORIES = [
         'de' => ['DE', 'AT', 'CH', 'LI', 'LU', 'BE'], 'fr' => ['FR', 'CH', 'BE', 'LU', 'CA', 'MC'], 'it' => ['IT', 'CH', 'SM', 'VA'],
-        'en' => ['US', 'GB', 'IE', 'CA', 'AU', 'NZ'], 'rm' => ['CH'], 'es' => ['ES', 'MX', 'AR'], 'pt' => ['PT', 'BR'], 'nl' => ['NL', 'BE'],
+        'en' => ['US', 'GB', 'IE', 'CA', 'AU', 'NZ'], 'rm' => ['CH'], 'es' => ['ES', 'MX', 'AR'], 'pt' => ['PT', 'BR'], 'nl' => ['NL', 'BE'], 'vi' => ['VN'],
     ];
 
     public function __construct(private readonly ShareImage $images, private readonly ThemeAssets $assets) {}

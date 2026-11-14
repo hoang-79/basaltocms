@@ -38,6 +38,8 @@ final class FormSubmissionController
         abort_if($site === null || $form === null, 404);
         $page = self::pagePath((string) $request->input('_seite', '/'));
         $lang = in_array($request->input('_sprache'), $site->localeCodes(), true) ? (string) $request->input('_sprache') : $site->default_locale;
+        // Fehlermeldungen in der Sprache des Formulars, nicht der Standardsprache der Site (TB 118)
+        app()->setLocale($lang);
         $record = $this->catalog->record($site, $handle);
         $thanks = $this->target($form, $page, $handle);
         $json = $request->wantsJson();
@@ -130,7 +132,7 @@ final class FormSubmissionController
     private static function allOptions(FormField $field): array
     {
         $all = [];
-        foreach (['de', 'en', 'it', 'fr'] as $lang) {
+        foreach (['de', 'en', 'it', 'fr', 'vi'] as $lang) {
             $all = array_merge($all, $field->options($lang));
         }
 
@@ -140,7 +142,7 @@ final class FormSubmissionController
     /** @return array<string, string> */
     private function attributes(FormDefinition $form, string $lang): array
     {
-        $out = ['_consent' => $lang === 'en' ? 'consent' : 'Zustimmung'];
+        $out = ['_consent' => FormRenderer::text('consent_name', $lang)];
         foreach ($form->inputs() as $field) {
             $out[$field->name] = $field->label($lang);
         }
@@ -151,7 +153,7 @@ final class FormSubmissionController
     /** @return array<string, string> */
     private function messages(string $lang): array
     {
-        return $lang === 'en' ? ['_consent.accepted' => 'Please agree to your details being stored.'] : ['_consent.accepted' => 'Bitte der Speicherung Ihrer Angaben zustimmen.'];
+        return ['_consent.accepted' => FormRenderer::text('consent_required', $lang)];
     }
 
     /** @return list<string> */

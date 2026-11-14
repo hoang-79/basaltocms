@@ -27,7 +27,11 @@ zusammenstellen. Mehr unter [Menüs](../einrichtung/menues.md).
 ![Die Sprachen der Site: Deutsch als Standard, Englisch mit Fallback auf Deutsch](bilder/sprachen.webp)
 
 1. Modus «Verwaltung» › **Sites** › Ihre Site › Reiter **«Sprachen»**.
-2. **«+ Sprache»** und die Sprache wählen, zum Beispiel Englisch.
+2. **«+ Sprache»** und die Sprache wählen, zum Beispiel Englisch. Zur Wahl stehen Deutsch, Englisch, Italienisch,
+   Französisch, Rätoromanisch, Spanisch, Portugiesisch, Niederländisch und Vietnamesisch. Was Basalto selbst auf der
+   Website schreibt (Cookie-Hinweis, Suche, Meldungen der Formulare), gibt es auf Deutsch, Englisch, Französisch,
+   Italienisch und Vietnamesisch; in den übrigen Sprachen erscheinen diese Texte auf Deutsch
+   oder Englisch.
 3. Für jede Sprache stellen Sie ein:
    - **Standard** — die Hauptsprache, aus der alle Übersetzungen entstehen. Es gibt genau eine.
    - **Pflicht** — ohne diese Sprache gibt Basalto keinen Inhalt frei. Lassen Sie den Haken anfangs weg, damit Sie
