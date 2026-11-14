@@ -29,6 +29,11 @@ use Illuminate\Support\Str;
  *
  * Fehlt eine Voraussetzung (1, 3, 5), folgt der nächste Versuch nach zwei Minuten — so lange braucht LiteSpeed bei cyon
  * für eine neue Unterdomain oder ein neues Zertifikat —, sonst nach `retry_minutes`.
+ *
+ * Mit Caddy (`panel` = `caddy`, eigener Server, Leitstand T-03) gibt es weder Panel noch eigenes ACME: Caddy holt das
+ * Zertifikat beim ersten Abruf selbst (Zertifikate auf Abruf, *On-Demand TLS*) und fragt vorher Basalto, ob es den Host
+ * gibt ({@see self::allowsCertificate()}). Eingerichtet heisst dann: DNS zeigt hierher (1), `https://<host>/up`
+ * antwortet (5) — dieser Abruf löst das Zertifikat aus. Erneuern macht Caddy.
  */
 final class Hostnames
 {
@@ -36,9 +41,41 @@ final class Hostnames
 
     public function __construct(private readonly Cpanel $panel, private readonly AcmeClient $acme, private readonly Dns $dns) {}
 
+    public const PANEL_CPANEL = 'cpanel';
+
+    public const PANEL_CADDY = 'caddy';
+
     public static function enabled(): bool
     {
-        return config('basalto.hosting.panel') === 'cpanel';
+        return in_array(config('basalto.hosting.panel'), [self::PANEL_CPANEL, self::PANEL_CADDY], true);
+    }
+
+    /** Zertifikate holt der Webserver selbst (Caddy, On-Demand TLS) — Basalto gibt nur frei. */
+    public static function onDemand(): bool
+    {
+        return config('basalto.hosting.panel') === self::PANEL_CADDY;
+    }
+
+    /**
+     * Darf der Webserver für diesen Host ein Zertifikat holen? Nur für Hosts, die Basalto kennt: Unterdomains der Zone, die
+     * Basalto einrichtet (vorgemerkt oder bereit), und bestätigte eigene Domains von Sites. Eine Abfrage über den
+     * eindeutigen Index — Caddy fragt bei jedem Handschlag eines unbekannten Namens neu (Leitstand F-9).
+     */
+    public static function allowsCertificate(string $host): bool
+    {
+        $host = strtolower(trim($host));
+        if (! self::onDemand() || $host === '' || strlen($host) > 253) {
+            return false;
+        }
+        $domain = SiteDomain::query()->withoutGlobalScopes()->where('host', $host)->first(['host', 'kind', 'verified_at', 'hosting_status']);
+        if ($domain === null) {
+            return false;
+        }
+        if (in_array($domain->hosting_status, [SiteDomain::HOSTING_PENDING, SiteDomain::HOSTING_READY], true)) {
+            return self::manages($host);
+        }
+
+        return $domain->kind === SiteDomain::KIND_CUSTOM && $domain->verified_at !== null;
     }
 
     public static function zone(): string
@@ -91,10 +128,11 @@ final class Hostnames
     {
         $renew = now()->addDays((int) config('basalto.hosting.acme.renew_days', 30));
 
+        // Mit Caddy erneuert der Webserver selbst — fällig sind nur vorgemerkte Hosts
         return SiteDomain::query()->withoutGlobalScopes()
             ->where(static fn (Builder $q) => $q->where('hosting_status', SiteDomain::HOSTING_PENDING)
-                ->orWhere(static fn (Builder $q) => $q->where('hosting_status', SiteDomain::HOSTING_READY)
-                    ->where(static fn (Builder $q) => $q->whereNull('certificate_expires_at')->orWhere('certificate_expires_at', '<=', $renew))))
+                ->when(! self::onDemand(), static fn (Builder $q) => $q->orWhere(static fn (Builder $q) => $q->where('hosting_status', SiteDomain::HOSTING_READY)
+                    ->where(static fn (Builder $q) => $q->whereNull('certificate_expires_at')->orWhere('certificate_expires_at', '<=', $renew)))))
             ->when(! $now, static fn (Builder $q) => $q->where(static fn (Builder $q) => $q->whereNull('hosting_retry_at')->orWhere('hosting_retry_at', '<=', now())));
     }
 
@@ -114,6 +152,9 @@ final class Hostnames
             }
             $zone = self::zone();
             $this->pointsHere($host, $zone);
+            if (self::onDemand()) {
+                return $this->readyOnDemand($domain, $host);
+            }
             $root = $this->panel->documentRoot($zone);
             if (! in_array($host, $this->panel->subdomains(), true)) {
                 $this->panel->addSubdomain($host, $zone, substr($root['root'], strlen($root['home']) + 1));
@@ -146,6 +187,25 @@ final class Hostnames
 
             return ['host' => $host, 'ok' => false, 'waiting' => $waiting, 'message' => $e->getMessage()];
         }
+    }
+
+    /**
+     * Caddy: Der erste Abruf über https holt das Zertifikat (Basalto hat den Host schon freigegeben, er ist vorgemerkt) —
+     * antwortet `/up`, ist der Host bereit. Das Ablaufdatum kennt nur Caddy; es bleibt leer.
+     *
+     * @return array{host: string, ok: bool, waiting: bool, message: string}
+     */
+    private function readyOnDemand(SiteDomain $domain, string $host): array
+    {
+        $this->answersOverHttps($host);
+        $becomesReady = $domain->hosting_status !== SiteDomain::HOSTING_READY;
+        $domain->forceFill(['hosting_status' => SiteDomain::HOSTING_READY, 'hosting_error' => null, 'hosting_checked_at' => now(), 'hosting_retry_at' => null,
+            'certificate_expires_at' => null])->save();
+        if ($becomesReady) {
+            event(new HostnameReady($domain));
+        }
+
+        return ['host' => $host, 'ok' => true, 'waiting' => false, 'message' => 'bereit, Zertifikat vom Webserver (Caddy)'];
     }
 
     private function pointsHere(string $host, string $zone): void

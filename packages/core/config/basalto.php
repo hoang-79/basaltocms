@@ -97,9 +97,11 @@ return [
      * etwa bei cyon) mit dem Dokumentstamm der Zone, Zertifikat von Let's Encrypt (HTTP-01 über Dateien im
      * Dokumentstamm), Erneuerung `renew_days` vor dem Ablauf. Leer = aus (Download, lokal, Cloud). Voraussetzung: Ein
      * DNS-Platzhalter `*` der Zone zeigt auf den Server.
+     * `caddy` (eigener Server): Caddy holt Zertifikate auf Abruf (On-Demand TLS) und fragt vorher den Prüfendpunkt
+     * `/_zertifikat/erlaubt?domain=` (nur vom Server selbst); Basalto ruft weder Panel noch Let's Encrypt auf.
      */
     'hosting' => [
-        'panel' => env('BASALTO_HOSTING_PANEL'),
+        'panel' => env('BASALTO_HOSTING_PANEL'),   // cpanel | caddy
         // die Zone, unter der Unterdomains entstehen; leer = die Alias-Zone (saas.alias_domain)
         'zone' => env('BASALTO_HOSTING_ZONE'),
         'uapi' => env('BASALTO_HOSTING_UAPI', 'uapi'),

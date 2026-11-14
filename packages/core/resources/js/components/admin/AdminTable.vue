@@ -6,6 +6,7 @@ import { controlClasses } from '../control';
 import EmptyState from '../EmptyState.vue';
 import StateTag from '../StateTag.vue';
 import Table from '../Table.vue';
+import { keepsTogether, numeric } from './table';
 import { tagTone, withQuery } from './types';
 import type { AdminTableSection, RunAction } from './types';
 
@@ -62,15 +63,6 @@ watch(term, (value) => {
 
 const search = controlClasses({ small: true });
 const checkbox = 'h-4 w-4 accent-lava-dark';
-const numeric = (type: string): boolean =>
-    type === 'number' || type === 'money';
-/*
- * Breite: Der Browser verteilt sie nach dem Inhalt. Früher nahm die erste Spalte allen Platz («w-full») — gut, wenn
- * sie der Name ist, schlecht, wenn sie eine kurze Nummer ist (CRM, Bilanz, Rechnungen): Dann brachen alle anderen
- * Spalten Wort für Wort um. Kurze Werte (Nummern, Beträge, Stände) brechen nie um.
- */
-const short = (type: string): boolean =>
-    numeric(type) || type === 'mono' || type === 'badge';
 </script>
 
 <template>
@@ -204,7 +196,9 @@ const short = (type: string): boolean =>
                         numeric(c.type) ? 'text-right tabular-nums' : '',
                         c.type === 'mono' ? 'font-mono text-[12.5px]' : '',
                         c.type === 'date' ? 'md:whitespace-nowrap' : '',
-                        short(c.type) ? 'whitespace-nowrap' : '',
+                        keepsTogether(c.type, row.cells[c.key]?.text ?? '')
+                            ? 'whitespace-nowrap'
+                            : '',
                     ]"
                 >
                     <template v-if="row.cells[c.key]">

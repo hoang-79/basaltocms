@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Basalto\Core\Backend\Backend;
 use Basalto\Core\Help\HelpImages;
 use Basalto\Core\Http\Controllers\CancellationController;
+use Basalto\Core\Http\Controllers\CertificatePermissionController;
 use Basalto\Core\Http\Controllers\DocsImageController;
 use Basalto\Core\Http\Controllers\FormSubmissionController;
 use Basalto\Core\Http\Controllers\FrontendController;
@@ -27,6 +28,9 @@ Route::post('forms/{handle}', FormSubmissionController::class)->where('handle', 
 // Betrieb (K-17): Readiness mit Datenbank und Herzschlag, Liveness ohne Datenbank — ohne Sitzung, vor der Auslieferung
 Route::get('up', [UpController::class, 'ready'])->name('basalto.up');
 Route::get('up/live', [UpController::class, 'live'])->name('basalto.up.live');
+
+// Leitstand T-03: Prüfendpunkt für Zertifikate auf Abruf (Caddy) — nur vom Server selbst, nur mit BASALTO_HOSTING_PANEL=caddy
+Route::get('_zertifikat/erlaubt', CertificatePermissionController::class)->name('basalto.certificate.permission');
 
 // TB 11 Scheibe 3 (G-07): Rechtstexte öffentlich — ohne Sitzung, Cookies und Datenbank, damit der Installer sie
 // schon vor der Datenbank verlinken kann; der Unterstrich hält den Pfad frei von Seiten einer Site (wie «_theme»)
