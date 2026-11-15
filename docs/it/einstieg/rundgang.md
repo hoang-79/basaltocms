@@ -39,6 +39,11 @@ Sotto l’intestazione si trovano le **stazioni** della modalità:
 Un numero color ambra accanto a una stazione significa: lì qualcosa La attende. Un numero grigio serve solo a titolo
 informativo.
 
+La barra mostra le stazioni che usa spesso — di serie Panoramica, Pagine, Contenuti, Approvazione, Traduzione e Media.
+**«Tutti»** alla fine apre tutte le stazioni per gruppo («Redazione», «Processi», «Affari», «Estensioni»); un numero su
+«Tutti» somma ciò che attende nelle altre. La **puntina** accanto a una stazione stabilisce se compare nella barra — per
+Lei, su tutti i dispositivi. La pagina su cui si trova compare sempre nella barra.
+
 ## Modalità «Configurazione»
 
 ![Il percorso di configurazione con il rapporto di verifica sotto](bilder/rundgang-einrichtung.webp)
@@ -54,7 +59,9 @@ configurazione non Le serve: il tema Starter è già configurato. Maggiori detta
 ![L’amministrazione con l’elenco dei siti](bilder/rundgang-verwaltung.webp)
 
 Qui gestisce l’installazione: **Siti** con lingue e domini, **Moduli**, **Utenti** e **Ruoli**, **Impostazioni**,
-**Aggiornamenti**, **Licenza**, **Esercizio** e il **Registro** di tutte le modifiche. Maggiori dettagli in
+**Aggiornamenti**, **Licenza**, **Esercizio** e il **Registro** di tutte le modifiche. Di serie la barra mostra Siti,
+Utenti, Impostazioni e Aggiornamenti; **«Tutti»** mostra il resto per gruppo («Sito», «Persone», «Sistema»,
+«Monitoraggio», «Estensioni»), e si fissa come nella modalità «Contenuti». Maggiori dettagli in
 [Amministrazione](../verwaltung/README.md).
 
 ## Salvare

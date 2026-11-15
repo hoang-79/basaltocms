@@ -65,7 +65,7 @@ final class SaasServiceProvider extends ServiceProvider
         $this->routes($backend);
 
         // Verwaltung › Konto nur für Konto-Rollen eines Kundenkontos; «Lizenz» gibt es auf der SaaS nicht (Lizenz im Abo)
-        $backend->menu('Konto', 'basalto.saas.account.index', 15, Backend::MODE_ADMIN, icon: 'user');
+        $backend->menu('Konto', 'basalto.saas.account.index', 15, Backend::MODE_ADMIN, icon: 'user', group: 'site');
         $backend->visibleWhen('basalto.saas.account.index', static fn (?Authenticatable $user, ?Site $site): bool => Saas::enabled() && $user !== null && AccountContext::resolve($user, $site) !== null);
         $backend->visibleWhen('basalto.license', static fn (): bool => ! Saas::enabled());
         // Betrieb und Module gehören auf der SaaS der Instanz (GuardSaasInstanceAreas) — im Menü nur für den Betreiber

@@ -17,6 +17,9 @@ export type MenuItem = {
     module: string | null;
     icon: string | null;
     badge?: number | null;
+    /** TB 120: Gruppe im Panel «Alle» und ob der Eintrag in der Leiste steht */
+    group?: string;
+    pinned?: boolean;
 };
 
 export type ModuleInfo = { handle: string; label: string; switchable: boolean };
@@ -170,6 +173,11 @@ export type BackendProps = {
         /** CR-011 TB 59: «Verträge hier kündigen» — nur für Gäste der SaaS, sonst null */
         cancellation?: string | null;
         menus: { content: MenuItem[]; setup: MenuItem[]; admin: MenuItem[] };
+        menu_groups: {
+            content: { key: string; label: string }[];
+            admin: { key: string; label: string }[];
+        };
+        pins_url: string;
         modules: ModuleInfo[];
         site: {
             id: number;

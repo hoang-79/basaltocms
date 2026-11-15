@@ -4832,5 +4832,15 @@
     ":card nach unten verschieben": "Sposta :card in basso",
     ":card nach rechts verschieben": "Sposta :card a destra",
     "arbeitet zusammen mit :modules": "funziona con :modules",
-    ":name (nicht installiert)": ":name (non installato)"
+    ":name (nicht installiert)": ":name (non installato)",
+    "Nicht angeheftet — im Panel «Alle»": "Non fissato — nel pannello «Tutti»",
+    "In der Leiste: :label": "Nella barra: :label",
+    "Aus der Leiste nehmen": "Togli dalla barra",
+    "In der Leiste zeigen": "Mostra nella barra",
+    "Mit der Nadel legen Sie fest, was in der Leiste steht — für Sie auf allen Geräten.": "Con la puntina stabilisce che cosa compare nella barra — per Lei, su tutti i dispositivi.",
+    "Abläufe": "Processi",
+    "Geschäft": "Affari",
+    "Erweiterungen": "Estensioni",
+    "Personen": "Persone",
+    "Überwachung": "Monitoraggio"
 }

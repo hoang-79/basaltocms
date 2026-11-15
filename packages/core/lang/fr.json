@@ -4832,5 +4832,15 @@
     ":card nach unten verschieben": "Déplacer :card vers le bas",
     ":card nach rechts verschieben": "Déplacer :card vers la droite",
     "arbeitet zusammen mit :modules": "fonctionne avec :modules",
-    ":name (nicht installiert)": ":name (non installé)"
+    ":name (nicht installiert)": ":name (non installé)",
+    "Nicht angeheftet — im Panel «Alle»": "Non épinglé — dans le panneau « Tous »",
+    "In der Leiste: :label": "Dans la barre : :label",
+    "Aus der Leiste nehmen": "Retirer de la barre",
+    "In der Leiste zeigen": "Afficher dans la barre",
+    "Mit der Nadel legen Sie fest, was in der Leiste steht — für Sie auf allen Geräten.": "L’épingle détermine ce qui figure dans la barre — pour vous, sur tous les appareils.",
+    "Abläufe": "Processus",
+    "Geschäft": "Affaires",
+    "Erweiterungen": "Extensions",
+    "Personen": "Personnes",
+    "Überwachung": "Surveillance"
 }

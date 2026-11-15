@@ -33,6 +33,7 @@ use Basalto\Core\Support\Avatars;
 use Basalto\Core\Support\Preferences;
 use Basalto\Core\Theme\ThemeStatus;
 use Basalto\Core\Vendor;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -97,7 +98,10 @@ final class HandleBackendRequests extends Middleware
                 'locale' => app()->getLocale(),
                 'mode' => $mode,
                 'menu' => $backend->menuItems($site),
-                'menus' => $this->withCounts($menus, $site),
+                'menus' => $this->withPins($this->withCounts($menus, $site), $user),
+                // TB 120: Gruppen des Panels «Alle» und wohin das Anheften gespeichert wird
+                'menu_groups' => [Backend::MODE_CONTENT => $backend->menuGroups(Backend::MODE_CONTENT), Backend::MODE_ADMIN => $backend->menuGroups(Backend::MODE_ADMIN)],
+                'pins_url' => route('basalto.profile.menu-pins'),
                 'modules' => array_map(static fn (array $m): array => ['handle' => $m['handle'], 'label' => __($m['label']), 'switchable' => $m['switchable']], $backend->modules()),
                 'site' => $site?->only(['id', 'handle', 'name', 'default_locale']),
                 'sites' => $this->sitesOf($request),
@@ -159,6 +163,25 @@ final class HandleBackendRequests extends Middleware
                 'extranet_url' => self::extranetUrl($request),
             ],
         ];
+    }
+
+    /**
+     * TB 120: je Eintrag, ob er in der Leiste steht — nach dem Profil, sonst wie ab Werk.
+     *
+     * @param  array<string, list<array<string, mixed>>>  $menus
+     * @return array<string, list<array<string, mixed>>>
+     */
+    private function withPins(array $menus, ?Authenticatable $user): array
+    {
+        $stored = Preferences::of($user)['menu_pins'];
+        foreach ($menus as $mode => $items) {
+            $pins = $stored[$mode] ?? Backend::DEFAULT_PINS[$mode] ?? null;
+            foreach ($items as $i => $item) {
+                $menus[$mode][$i]['pinned'] = $pins === null || in_array($item['route'] ?? null, $pins, true);
+            }
+        }
+
+        return $menus;
     }
 
     /**

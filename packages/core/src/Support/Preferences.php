@@ -64,7 +64,7 @@ final class Preferences
     /** TB 29: Breite der Hilfe-Leiste in Pixeln (mit der Maus gezogen) — kleinste und grösste erlaubte. */
     public const HELP_WIDTH = [320, 1600];
 
-    /** @return array{date_format: string, time_format: string, start_page: string, per_page: int, list_sort: string, help_shortcuts: bool, theme: string, help_width: int} */
+    /** @return array{date_format: string, time_format: string, start_page: string, per_page: int, list_sort: string, help_shortcuts: bool, theme: string, help_width: int, menu_pins: array<string, list<string>|null>} */
     public static function of(?Authenticatable $user): array
     {
         $stored = $user instanceof Model ? $user->getAttribute('preferences') : null;
@@ -82,6 +82,9 @@ final class Preferences
             'help_shortcuts' => is_bool($stored['help_shortcuts'] ?? null) ? $stored['help_shortcuts'] : self::DEFAULTS['help_shortcuts'],
             'theme' => array_key_exists((string) ($stored['theme'] ?? ''), self::THEMES) ? (string) $stored['theme'] : self::DEFAULTS['theme'],
             'help_width' => is_int($stored['help_width'] ?? null) ? max(self::HELP_WIDTH[0], min(self::HELP_WIDTH[1], $stored['help_width'])) : self::DEFAULTS['help_width'],
+            // TB 120: angeheftete Einträge der Leiste je Modus — null heisst «wie ab Werk» (Backend::DEFAULT_PINS)
+            'menu_pins' => array_map(static fn (mixed $routes): ?array => is_array($routes) ? array_values(array_filter($routes, 'is_string')) : null,
+                ['content' => $stored['menu_pins']['content'] ?? null, 'admin' => $stored['menu_pins']['admin'] ?? null]),
         ];
     }
 

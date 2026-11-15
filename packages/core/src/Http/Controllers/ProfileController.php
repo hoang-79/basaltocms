@@ -8,6 +8,7 @@ use Basalto\Core\Activity\Recorder;
 use Basalto\Core\Auth\ApiTokenException;
 use Basalto\Core\Auth\ApiTokens;
 use Basalto\Core\Auth\Sessions;
+use Basalto\Core\Backend\Backend;
 use Basalto\Core\Models\ApiToken;
 use Basalto\Core\Models\Site;
 use Basalto\Core\Notifications\CoreNotifications;
@@ -16,6 +17,7 @@ use Basalto\Core\Notifications\NotificationTypes;
 use Basalto\Core\Privacy\PersonData;
 use Basalto\Core\Rules\PhoneNumber;
 use Basalto\Core\Rules\PostalCode;
+use Basalto\Core\Sites\CurrentSite;
 use Basalto\Core\Support\Avatars;
 use Basalto\Core\Support\Countries;
 use Basalto\Core\Support\Preferences;
@@ -322,6 +324,27 @@ final class ProfileController
         $user->forceFill(['preferences' => ['help_width' => (int) $data['width']] + $prefs])->save();
 
         return response()->json(['width' => (int) $data['width']]);
+    }
+
+    /**
+     * TB 120: Was in der Leiste eines Modus steht — die Reihenfolge folgt dem Menü, nicht der Liste. Nur Einträge,
+     * die diese Person in diesem Modus sieht; gilt auf allen Geräten.
+     */
+    public function menuPins(Request $request): JsonResponse
+    {
+        $user = $this->user($request);
+        $mode = (string) $request->input('mode');
+        abort_unless(isset(Backend::DEFAULT_PINS[$mode]), 422);
+        $site = app(CurrentSite::class)->get();
+        $known = array_column(array_filter(app(Backend::class)->menuItems($site), static fn (array $item): bool => $item['mode'] === $mode), 'route');
+        $data = $request->validate(['routes' => ['present', 'array'], 'routes.*' => ['string', Rule::in($known)]]);
+        $routes = array_values(array_filter($known, static fn (string $route): bool => in_array($route, $data['routes'], true)));
+        $prefs = is_array($user->getAttribute('preferences')) ? $user->getAttribute('preferences') : [];
+        $pins = is_array($prefs['menu_pins'] ?? null) ? $prefs['menu_pins'] : [];
+        $pins[$mode] = $routes;
+        $user->forceFill(['preferences' => ['menu_pins' => $pins] + $prefs])->save();
+
+        return response()->json(['mode' => $mode, 'routes' => $routes]);
     }
 
     private function user(Request $request): Model

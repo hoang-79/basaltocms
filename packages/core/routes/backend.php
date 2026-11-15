@@ -208,6 +208,8 @@ app(Backend::class)->routes(static function (): void {
     Route::delete('benachrichtigungen/{notification}', [NotificationController::class, 'destroy'])->whereUuid('notification')->name('notifications.destroy');
     Route::put('profil', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('profil/hilfe-breite', [ProfileController::class, 'helpWidth'])->name('profile.help-width');
+    // TB 120: was in der Leiste unter der Kopfzeile steht (Panel «Alle», Nadel je Eintrag)
+    Route::put('profil/leiste', [ProfileController::class, 'menuPins'])->name('profile.menu-pins');
     Route::delete('profil/sitzungen', [ProfileController::class, 'endOthers'])->name('profile.sessions.others');
     Route::get('profil/auskunft', [ProfileController::class, 'export'])->name('profile.export');
     // TB 21: Profilbild hochladen, entfernen, ausliefern (für alle Angemeldeten — die Benutzerliste zeigt es auch)

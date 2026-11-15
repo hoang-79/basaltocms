@@ -4827,5 +4827,15 @@
     ":card nach unten verschieben": "Move :card down",
     ":card nach rechts verschieben": "Move :card right",
     "arbeitet zusammen mit :modules": "works with :modules",
-    ":name (nicht installiert)": ":name (not installed)"
+    ":name (nicht installiert)": ":name (not installed)",
+    "Nicht angeheftet — im Panel «Alle»": "Not pinned — in the “All” panel",
+    "In der Leiste: :label": "In the bar: :label",
+    "Aus der Leiste nehmen": "Remove from the bar",
+    "In der Leiste zeigen": "Show in the bar",
+    "Mit der Nadel legen Sie fest, was in der Leiste steht — für Sie auf allen Geräten.": "Use the pin to choose what appears in the bar — for you, on all devices.",
+    "Abläufe": "Workflow",
+    "Geschäft": "Business",
+    "Erweiterungen": "Extensions",
+    "Personen": "People",
+    "Überwachung": "Monitoring"
 }

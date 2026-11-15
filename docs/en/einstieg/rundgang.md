@@ -37,6 +37,11 @@ Below the header are the mode's **stations**:
 
 An amber number next to a station means something is waiting for you there. A grey number is for information only.
 
+The bar shows the stations you use often — out of the box Overview, Pages, Content, Review, Translation and Media.
+**“All”** at the end opens every station by group (“Editorial”, “Workflow”, “Business”, “Extensions”); a number on
+“All” adds up what is waiting in the others. The **pin** next to a station decides whether it appears in the bar — for
+you, on all devices. The page you are on always appears in the bar.
+
 ## The “Setup” mode
 
 ![The setup route with the check report below](bilder/rundgang-einrichtung.webp)
@@ -51,7 +56,9 @@ is fully set up. More in [Setup](../einrichtung/README.md).
 ![Administration with the list of sites](bilder/rundgang-verwaltung.webp)
 
 This is where you look after the installation: **Sites** with languages and domains, **Modules**, **Users** and
-**Roles**, **Settings**, **Updates**, **Licence**, **Operations** and the **Activity log** of all changes. More in
+**Roles**, **Settings**, **Updates**, **Licence**, **Operations** and the **Activity log** of all changes. Out of the
+box the bar shows Sites, Users, Settings and Updates; **“All”** shows the rest by group (“Site”, “People”, “System”,
+“Monitoring”, “Extensions”), and pinning works as in “Content” mode. More in
 [Administration](../verwaltung/README.md).
 
 ## Saving

@@ -444,13 +444,13 @@ final class CoreServiceProvider extends ServiceProvider
         $backend = $this->app->make(Backend::class);
         $backend->pages('core', $this->root.'/resources/js/pages');
         $backend->module('core', 'basalto::backend.core', switchable: false, composerJson: $this->root.'/composer.json');
-        $backend->menu('basalto::backend.dashboard', 'basalto.dashboard', 0, Backend::MODE_CONTENT, icon: 'overview');
-        $backend->menu('basalto::backend.pages', 'basalto.pages.index', 3, Backend::MODE_CONTENT, icon: 'pages');
-        $backend->menu('basalto::backend.entries', 'basalto.entries.index', 5, Backend::MODE_CONTENT, icon: 'blog');
-        $backend->menu('basalto::backend.reviews', 'basalto.reviews.index', 6, Backend::MODE_CONTENT, icon: 'review');
-        $backend->menu('basalto::backend.translations', 'basalto.translations.index', 7, Backend::MODE_CONTENT, icon: 'translation');
-        $backend->menu('basalto::backend.forms', 'basalto.forms.index', 8, Backend::MODE_CONTENT, icon: 'forms');
-        $backend->menu('basalto::backend.media', 'basalto.media.index', 10, Backend::MODE_CONTENT, icon: 'media');
+        $backend->menu('basalto::backend.dashboard', 'basalto.dashboard', 0, Backend::MODE_CONTENT, icon: 'overview', group: 'editorial');
+        $backend->menu('basalto::backend.pages', 'basalto.pages.index', 3, Backend::MODE_CONTENT, icon: 'pages', group: 'editorial');
+        $backend->menu('basalto::backend.entries', 'basalto.entries.index', 5, Backend::MODE_CONTENT, icon: 'blog', group: 'editorial');
+        $backend->menu('basalto::backend.reviews', 'basalto.reviews.index', 6, Backend::MODE_CONTENT, icon: 'review', group: 'workflow');
+        $backend->menu('basalto::backend.translations', 'basalto.translations.index', 7, Backend::MODE_CONTENT, icon: 'translation', group: 'workflow');
+        $backend->menu('basalto::backend.forms', 'basalto.forms.index', 8, Backend::MODE_CONTENT, icon: 'forms', group: 'editorial');
+        $backend->menu('basalto::backend.media', 'basalto.media.index', 10, Backend::MODE_CONTENT, icon: 'media', group: 'editorial');
         $backend->menu('basalto::backend.themes', 'basalto.setup.themes', 20, Backend::MODE_SETUP, icon: 'theme');
         $backend->menu('basalto::backend.design', 'basalto.setup.design', 25, Backend::MODE_SETUP, icon: 'theme');
         $backend->menu('basalto::backend.theme_editor', 'basalto.setup.theme-editor', 27, Backend::MODE_SETUP, icon: 'theme');
@@ -458,32 +458,32 @@ final class CoreServiceProvider extends ServiceProvider
         $backend->menu('basalto::backend.snippets', 'basalto.setup.snippets.index', 55, Backend::MODE_SETUP, icon: 'module'); // TB 10 Scheibe 3
         $backend->menu('basalto::backend.navigation', 'basalto.setup.navigation.index', 40, Backend::MODE_SETUP, icon: 'line');
         $backend->menu('basalto::backend.types', 'basalto.setup.types.index', 50, Backend::MODE_SETUP, icon: 'type');
-        $backend->menu('basalto::backend.sites', 'basalto.sites.index', 20, Backend::MODE_ADMIN, icon: 'sites');
-        $backend->menu('Module', 'basalto.modules', 22, Backend::MODE_ADMIN, icon: 'module'); // TB 11 Scheibe 2 (M-20): Module und Marktplatz
-        $backend->menu('basalto::backend.users', 'basalto.users.index', 30, Backend::MODE_ADMIN, icon: 'users');
-        $backend->menu('Rollen', 'basalto.roles.index', 31, Backend::MODE_ADMIN, icon: 'users'); // CR-005 (R-08)
-        $backend->menu('basalto::backend.settings', 'basalto.settings.index', 40, Backend::MODE_ADMIN, icon: 'settings');
-        $backend->menu('basalto::backend.license', 'basalto.license', 45, Backend::MODE_ADMIN, icon: 'settings');
+        $backend->menu('basalto::backend.sites', 'basalto.sites.index', 20, Backend::MODE_ADMIN, icon: 'sites', group: 'site');
+        $backend->menu('Module', 'basalto.modules', 22, Backend::MODE_ADMIN, icon: 'module', group: 'site'); // TB 11 Scheibe 2 (M-20): Module und Marktplatz
+        $backend->menu('basalto::backend.users', 'basalto.users.index', 30, Backend::MODE_ADMIN, icon: 'users', group: 'people');
+        $backend->menu('Rollen', 'basalto.roles.index', 31, Backend::MODE_ADMIN, icon: 'users', group: 'people'); // CR-005 (R-08)
+        $backend->menu('basalto::backend.settings', 'basalto.settings.index', 40, Backend::MODE_ADMIN, icon: 'settings', group: 'system');
+        $backend->menu('basalto::backend.license', 'basalto.license', 45, Backend::MODE_ADMIN, icon: 'settings', group: 'system');
         // CR-007: Updates — die Zahl kommt aus dem letzten Check (ohne Netz)
-        $backend->menu('Updates', 'basalto.updates', 41, Backend::MODE_ADMIN, icon: 'updates');
+        $backend->menu('Updates', 'basalto.updates', 41, Backend::MODE_ADMIN, icon: 'updates', group: 'system');
         $backend->count('basalto.updates', static fn (): int => (int) (app(UpdateCheck::class)->cached()['count'] ?? 0));
         // TB 54: Statistik der Website (Seitenaufrufe, wie Fristo)
-        $backend->menu('Statistik', 'basalto.statistics', 46, Backend::MODE_ADMIN, icon: 'statistics');
+        $backend->menu('Statistik', 'basalto.statistics', 46, Backend::MODE_ADMIN, icon: 'statistics', group: 'monitoring');
         // CR-019 TB 108: Abschnitte der Statistik einer Site wie im Extranet
         $backend->statistics('suchmaschinen', 'Suchmaschinen', 'publishing', 10, SiteStatistics::searchEngines(...))
             ->statistics('formulare', 'Formulare', 'forms', 20, SiteStatistics::forms(...))
             ->statistics('kundenkonten', 'Kundenkonten', null, 30, SiteStatistics::accounts(...))
             ->statistics('zahlungen', 'Zahlungen', 'payments', 40, SiteStatistics::payments(...), when: SiteStatistics::hasPayments(...));
         // CR-011 TB 61: Anliegen zum Datenschutz — die Zahl nennt die offenen
-        $backend->menu('Datenschutz', 'basalto.privacy.requests.index', 48, Backend::MODE_ADMIN, icon: 'user');
+        $backend->menu('Datenschutz', 'basalto.privacy.requests.index', 48, Backend::MODE_ADMIN, icon: 'user', group: 'people');
         $backend->count('basalto.privacy.requests.index', static fn (Site $site): int => PrivacyRequest::query()->withoutGlobalScopes()->where('site_id', $site->id)->where('status', PrivacyRequest::OPEN)->count());
-        $backend->menu('basalto::backend.operations', 'basalto.operations', 47, Backend::MODE_ADMIN, icon: 'activity');
+        $backend->menu('basalto::backend.operations', 'basalto.operations', 47, Backend::MODE_ADMIN, icon: 'activity', group: 'monitoring');
         // CR-018 TB 103: das Stripe-Konto der Site für Plugins (Anzahlung, Gutscheine) und die Liste der Zahlungen
-        $backend->menu('Zahlungen', 'basalto.payments', 44, Backend::MODE_ADMIN, icon: 'license');
+        $backend->menu('Zahlungen', 'basalto.payments', 44, Backend::MODE_ADMIN, icon: 'license', group: 'site');
         // CR-019 TB 107: was Suchmaschinen sehen, Vorschaubild, Bestätigungscodes, IndexNow
-        $backend->menu('Suchmaschinen', 'basalto.search_engines', 43, Backend::MODE_ADMIN, icon: 'statistics');
-        $backend->menu('basalto::backend.activity', 'basalto.activity.index', 50, Backend::MODE_ADMIN, icon: 'activity');
-        $backend->menu('basalto::backend.passkeys', 'basalto.passkeys', 90, Backend::MODE_ADMIN, icon: 'user');
+        $backend->menu('Suchmaschinen', 'basalto.search_engines', 43, Backend::MODE_ADMIN, icon: 'statistics', group: 'site');
+        $backend->menu('basalto::backend.activity', 'basalto.activity.index', 50, Backend::MODE_ADMIN, icon: 'activity', group: 'monitoring');
+        $backend->menu('basalto::backend.passkeys', 'basalto.passkeys', 90, Backend::MODE_ADMIN, icon: 'user', group: 'people');
 
         // Inertia-Seiten mit Namensraum («core::Dashboard», «example::Hello») — Kern und Module liefern je ein Verzeichnis.
         $this->app->extend('inertia.view-finder', static function (FileViewFinder $finder) use ($backend): FileViewFinder {

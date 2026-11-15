@@ -38,7 +38,7 @@ final class AiModuleServiceProvider extends ServiceProvider
         $backend = $this->app->make(Backend::class);
         $backend->module('ai', 'ai::backend.module', switchable: true, composerJson: $root.'/composer.json', enabledByDefault: false);
         $backend->pages('ai', $root.'/resources/js/pages');
-        $backend->menu('ai::backend.title', 'basalto.ai.index', 47, Backend::MODE_ADMIN, module: 'ai', icon: 'module');
+        $backend->menu('ai::backend.title', 'basalto.ai.index', 47, Backend::MODE_ADMIN, module: 'ai', icon: 'module', group: 'system');
         $backend->visibleWhen('basalto.ai.index', static fn (?Authenticatable $user, ?Site $site): bool => $user !== null && $site !== null && Gate::forUser($user)->allows('area', [$site, 'ai', Level::All]));
         $backend->share('ai', static fn (?Site $site): ?array => self::shared($site, $backend));
         $backend->routes(static function (): void {

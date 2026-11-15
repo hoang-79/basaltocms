@@ -40,6 +40,12 @@ Sous l’en-tête figurent les **stations** du mode :
 Un nombre couleur ambre à côté d’une station signifie : quelque chose vous y attend. Un nombre gris sert uniquement
 d’information.
 
+La barre affiche les stations dont vous avez souvent besoin — par défaut Vue d’ensemble, Pages, Contenus, Validation,
+Traduction et Médias. **« Tous »** à la fin ouvre toutes les stations par groupe (« Rédaction », « Processus »,
+« Affaires », « Extensions ») ; un nombre sur « Tous » additionne ce qui attend dans les autres. L’**épingle** à côté
+d’une station détermine si elle figure dans la barre — pour vous, sur tous les appareils. La page sur laquelle vous vous
+trouvez figure toujours dans la barre.
+
 ## Mode « Configuration »
 
 ![Le parcours de configuration avec le rapport de vérification en dessous](bilder/rundgang-einrichtung.webp)
@@ -56,8 +62,10 @@ thème Starter est entièrement configuré. Plus d’informations sous
 ![L’administration avec la liste des sites](bilder/rundgang-verwaltung.webp)
 
 Ici, vous gérez l’installation : **Sites** avec leurs langues et domaines, **Modules**, **Utilisateurs** et **Rôles**,
-**Paramètres**, **Mises à jour**, **Licence**, **Exploitation** et le **Journal** de toutes les modifications. Plus
-d’informations sous [Administration](../verwaltung/README.md).
+**Paramètres**, **Mises à jour**, **Licence**, **Exploitation** et le **Journal** de toutes les modifications. Par
+défaut, la barre affiche Sites, Utilisateurs, Paramètres et Mises à jour ; **« Tous »** montre le reste par groupe
+(« Site », « Personnes », « Système », « Surveillance », « Extensions »), l’épinglage fonctionne comme en mode
+« Contenus ». Plus d’informations sous [Administration](../verwaltung/README.md).
 
 ## Enregistrer
 

@@ -53,7 +53,7 @@ final class CommentsServiceProvider extends ServiceProvider
         $backend = $this->app->make(Backend::class);
         $backend->module('comments', 'comments::backend.module', switchable: true, composerJson: $root.'/composer.json');
         $backend->pages('comments', $root.'/resources/js/pages');
-        $backend->menu('comments::backend.title', 'basalto.comments.index', 60, Backend::MODE_CONTENT, module: 'comments', icon: 'comments');
+        $backend->menu('comments::backend.title', 'basalto.comments.index', 60, Backend::MODE_CONTENT, module: 'comments', icon: 'comments', group: 'workflow');
         $backend->count('basalto.comments.index', static fn (Site $site): int => Comment::query()->withoutGlobalScopes()->where('site_id', $site->id)
             ->where('status', CommentStatus::Pending->value)->count());
         $backend->routes(static function (): void {

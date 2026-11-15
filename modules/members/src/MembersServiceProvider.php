@@ -67,7 +67,7 @@ final class MembersServiceProvider extends ServiceProvider
         $backend = $this->app->make(Backend::class);
         $backend->module(Members::MODULE, 'members::backend.module', switchable: true, composerJson: $root.'/composer.json', enabledByDefault: false);
         $backend->pages('members', $root.'/resources/js/pages');
-        $backend->menu('members::backend.title', 'basalto.members.index', 62, Backend::MODE_CONTENT, module: Members::MODULE, icon: 'users');
+        $backend->menu('members::backend.title', 'basalto.members.index', 62, Backend::MODE_CONTENT, module: Members::MODULE, icon: 'users', group: 'workflow');
         $backend->count('basalto.members.index', static fn (Site $site): int => Member::query()->withoutGlobalScopes()->where('site_id', $site->id)
             ->where('status', MemberStatus::Pending->value)->count());
         $backend->routes(static function (): void {

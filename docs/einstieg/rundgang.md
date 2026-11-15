@@ -39,6 +39,12 @@ Unter der Kopfzeile stehen die **Stationen** des Modus:
 Eine Zahl in Bernstein neben einer Station heisst: Dort wartet etwas auf Sie. Eine graue Zahl dient nur zur
 Information.
 
+In der Leiste stehen die Stationen, die Sie oft brauchen — ab Werk Übersicht, Seiten, Inhalte, Freigabe, Übersetzung
+und Medien. **«Alle»** am Ende öffnet alle Stationen nach Gruppen («Redaktion», «Abläufe», «Geschäft»,
+«Erweiterungen»); eine Zahl an «Alle» zählt zusammen, was in den übrigen wartet. Mit der **Nadel** neben einer
+Station legen Sie fest, ob sie in der Leiste steht — das gilt für Sie auf allen Geräten. Die Seite, auf der Sie gerade
+sind, steht immer in der Leiste.
+
 ## Modus «Einrichtung»
 
 ![Der Fahrplan der Einrichtung mit dem Prüfbericht darunter](bilder/rundgang-einrichtung.webp)
@@ -54,7 +60,9 @@ Einrichtung nicht: Das Theme Starter ist fertig eingerichtet. Mehr unter
 ![Die Verwaltung mit der Liste der Sites](bilder/rundgang-verwaltung.webp)
 
 Hier betreuen Sie die Installation: **Sites** mit Sprachen und Domains, **Module**, **Benutzer** und **Rollen**,
-**Einstellungen**, **Updates**, **Lizenz**, **Betrieb** und das **Protokoll** aller Änderungen. Mehr unter
+**Einstellungen**, **Updates**, **Lizenz**, **Betrieb** und das **Protokoll** aller Änderungen. In der Leiste stehen ab
+Werk Sites, Benutzer, Einstellungen und Updates; **«Alle»** zeigt den Rest nach Gruppen («Site», «Personen», «System»,
+«Überwachung», «Erweiterungen»), angeheftet wird wie im Modus «Inhalte». Mehr unter
 [Verwaltung](../verwaltung/README.md).
 
 ## Speichern

@@ -38,7 +38,29 @@ final class Backend
     /** @var array<string, string> Namensraum → Verzeichnis mit Vue-Seiten */
     private array $pages = [];
 
-    /** @var list<array{label: string, route: string, order: int, mode: string, module: ?string, icon: ?string}> */
+    /**
+     * TB 120: Gruppen der Leiste je Modus — in dieser Reihenfolge im Panel «Alle». Einträge ohne Gruppe: Plugins der
+     * Kategorie «geschaeft» unter «Geschäft», alle übrigen Module und Plugins unter «Erweiterungen».
+     *
+     * @var array<string, array<string, string>>
+     */
+    public const GROUPS = [
+        self::MODE_CONTENT => ['editorial' => 'Redaktion', 'workflow' => 'Abläufe', 'business' => 'Geschäft', 'extensions' => 'Erweiterungen'],
+        self::MODE_ADMIN => ['site' => 'Site', 'people' => 'Personen', 'system' => 'System', 'monitoring' => 'Überwachung', 'extensions' => 'Erweiterungen'],
+    ];
+
+    /**
+     * TB 120: Was ab Werk in der Leiste steht — der Rest im Panel «Alle». Jede Person heftet dort selbst an
+     * (`Preferences::of()['menu_pins']`).
+     *
+     * @var array<string, list<string>>
+     */
+    public const DEFAULT_PINS = [
+        self::MODE_CONTENT => ['basalto.dashboard', 'basalto.pages.index', 'basalto.entries.index', 'basalto.reviews.index', 'basalto.translations.index', 'basalto.media.index'],
+        self::MODE_ADMIN => ['basalto.sites.index', 'basalto.users.index', 'basalto.settings.index', 'basalto.updates'],
+    ];
+
+    /** @var list<array{label: string, route: string, order: int, mode: string, module: ?string, icon: ?string, group: ?string}> */
     private array $menu = [];
 
     /** @var array<string, array{handle: string, label: string, switchable: bool, manifest: array<string, mixed>, default: bool, package: string|null, suggest: list<string>}> */
@@ -129,10 +151,13 @@ final class Backend
         return array_values($this->modules);
     }
 
-    /** @param  string  $label  Übersetzungsschlüssel, wird beim Lesen übersetzt */
-    public function menu(string $label, string $route, int $order = 100, string $mode = self::MODE_CONTENT, ?string $module = null, ?string $icon = null): self
+    /**
+     * @param  string  $label  Übersetzungsschlüssel, wird beim Lesen übersetzt
+     * @param  string|null  $group  Gruppe im Panel «Alle» (Schlüssel aus `GROUPS`); ohne nach der Kategorie des Moduls (TB 120)
+     */
+    public function menu(string $label, string $route, int $order = 100, string $mode = self::MODE_CONTENT, ?string $module = null, ?string $icon = null, ?string $group = null): self
     {
-        $this->menu[] = ['label' => $label, 'route' => $route, 'order' => $order, 'mode' => $mode, 'module' => $module, 'icon' => $icon];
+        $this->menu[] = ['label' => $label, 'route' => $route, 'order' => $order, 'mode' => $mode, 'module' => $module, 'icon' => $icon, 'group' => $group];
 
         return $this;
     }
@@ -187,7 +212,7 @@ final class Backend
     /**
      * Alle Menüeinträge, die für eine Site gelten (Module je Site schaltbar), sortiert — flach.
      *
-     * @return list<array{label: string, href: string, route: string, mode: string, module: ?string, icon: ?string}>
+     * @return list<array{label: string, href: string, route: string, mode: string, module: ?string, icon: ?string, group: string}>
      */
     public function menuItems(?Site $site = null): array
     {
@@ -198,11 +223,40 @@ final class Backend
             && ($user === null || $site === null || $this->accessible($item['route'], $user, $site))));
         usort($items, static fn (array $a, array $b): int => $a['order'] <=> $b['order']);
 
-        return array_map(static function (array $item): array {
+        return array_map(function (array $item): array {
             $label = __($item['label']);
 
-            return ['label' => is_string($label) ? $label : $item['label'], 'href' => route($item['route']), 'route' => $item['route'], 'mode' => $item['mode'], 'module' => $item['module'], 'icon' => $item['icon']];
+            return ['label' => is_string($label) ? $label : $item['label'], 'href' => route($item['route']), 'route' => $item['route'], 'mode' => $item['mode'], 'module' => $item['module'], 'icon' => $item['icon'],
+                'group' => $this->groupOf($item)];
         }, $items);
+    }
+
+    /**
+     * Die Gruppen eines Modus mit übersetzter Beschriftung, in der Reihenfolge des Panels «Alle» (TB 120).
+     *
+     * @return list<array{key: string, label: string}>
+     */
+    public function menuGroups(string $mode): array
+    {
+        $out = [];
+        foreach (self::GROUPS[$mode] ?? [] as $key => $label) {
+            $translated = __($label);
+            $out[] = ['key' => $key, 'label' => is_string($translated) ? $translated : $label];
+        }
+
+        return $out;
+    }
+
+    /** @param  array{mode: string, module: ?string, group: ?string}  $item */
+    private function groupOf(array $item): string
+    {
+        $groups = self::GROUPS[$item['mode']] ?? [];
+        if ($item['group'] !== null && isset($groups[$item['group']])) {
+            return $item['group'];
+        }
+        $category = $item['module'] === null ? null : ($this->modules[$item['module']]['manifest']['category'] ?? null);
+
+        return $category === 'geschaeft' && isset($groups['business']) ? 'business' : 'extensions';
     }
 
     /** Ob die Person die Route einer Menüzeile öffnen darf (CR-005). */
@@ -220,7 +274,7 @@ final class Backend
     /**
      * Menüeinträge je Modus: Inhalte (Redaktion), Einrichtung (rote Linie), Verwaltung.
      *
-     * @return array<string, list<array{label: string, href: string, route: string, mode: string, module: ?string, icon: ?string}>>
+     * @return array<string, list<array{label: string, href: string, route: string, mode: string, module: ?string, icon: ?string, group: string}>>
      */
     public function menuByMode(?Site $site = null): array
     {
