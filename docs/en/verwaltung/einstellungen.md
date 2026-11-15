@@ -4,7 +4,7 @@ Under **Settings** are Basalto’s periods, switches and limits — no fixed val
 
 ## Where
 
-“Administration” mode › **Settings**. At the top a tab per group with the number of its values: Approval, Media, Cache, Sign-in, Retention, Languages, Operations.
+“Administration” mode › **Settings**. At the top a tab per group with the number of its values: Approval, Media, Cache, Sign-in, Retention, Languages, Lookup, Operations.
 
 ![Group “Retention” with the history of a value](bilder/einstellungen-verlauf.webp)
 
@@ -48,6 +48,8 @@ Changes save themselves (“saving …”, then “saved”). If a value is outs
 | Retention | Keep statistics | 400 days | 30–1095 | Installation | the cleanup deletes older page views |
 | Retention | Keep backups | 7 | 1–365 | installation | older backups in the same folder are dropped |
 | Languages | Required languages before approval | — | — | site | a reference: required languages and fallback are in the site’s languages (“Open →”) |
+| Lookup | Company search | on | on/off | site | while a company name is typed, suggestions from registers: Switzerland UID register (Federal Statistical Office), France “Recherche d’entreprises”, other countries GLEIF (only companies with an LEI); what is typed goes to this service via the server |
+| Lookup | Address search | on | on/off | site | while street and house number are typed, suggestions with postcode and town: Switzerland swisstopo (official register of building addresses), France Base Adresse Nationale, other countries OpenStreetMap (Photon); what is typed goes to this service via the server |
 | Operations | Heartbeat threshold | 5 minutes | 2–60 | installation | if the last heartbeat is older, the status address reports “disturbed” |
 | Operations | Error alarm from | 20 exceptions | 0–100,000 | installation | that many errors in the window trigger an email to the installation account’s owner and administration; 0 = no alarm |
 | Operations | Error alarm window | 5 minutes | 1–60 | installation | the time over which errors are counted |

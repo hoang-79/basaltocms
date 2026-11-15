@@ -20,20 +20,41 @@ ou avant.
 ## Créer un client
 
 1. Sous **CRM**, cliquez sur **« Nouveau client »**.
-2. Choisissez le **Type** : **Entreprise** ou **Personne**. Pour une entreprise, saisissez la **Raison sociale** ; pour
-   une personne, le **Prénom** et le **Nom** — ils forment alors le nom.
-3. Choisissez le **Cycle de vie** (voir ci-dessous) et cochez **« Aussi fournisseur »** si vous achetez aussi chez ce
-   client.
-4. Complétez adresse, e-mail, téléphone et, si vous le souhaitez, **IDE**, **Langue**, **Site web**, **Responsable** et
-   **Notes**.
-5. **« Créer »**.
+2. Choisissez le **Type** : **Entreprise** ou **Personne**. Le **Pays** est réglé sur la Suisse — si le client se
+   trouve dans un autre pays, choisissez-le d’abord (liste avec drapeaux ; la saisie lance la recherche).
+3. Pour une entreprise, tapez la **Raison sociale** : dès trois lettres, des propositions du registre du commerce du
+   pays apparaissent en dessous. Choisissez-en une, et le CRM remplit rue, NPA, localité et IDE. Pour une personne,
+   saisissez le **Prénom** et le **Nom** — ils forment alors le nom.
+4. Dès que vous quittez le champ, le client est créé — il n’y a pas de bouton « Créer ». La page du client s’ouvre, le
+   curseur reste dans le champ où vous étiez, et ce que vous avez saisi entre-temps est conservé.
+5. Complétez le reste : **Cycle de vie** (voir ci-dessous), **« Aussi fournisseur »** si vous achetez aussi chez ce
+   client, e-mail, téléphone, adresse et, si vous le souhaitez, **Langue**, **Site web**, **Responsable** et **Notes**.
 
-Le CRM attribue lui-même le **numéro de client** : « K-0001 », « K-0002 » et ainsi de suite, sans lacune. Le client
-s’ouvre ensuite ; tout ce que vous y modifiez s’enregistre de lui-même.
+Chaque champ s’enregistre de lui-même : « enregistré » apparaît brièvement au champ. Si quelque chose ne va pas, le
+message apparaît en rouge au champ, et ce champ n’est pas enregistré tant qu’il n’est pas correct. Le CRM attribue
+lui-même le **numéro de client** : « K-0001 », « K-0002 » et ainsi de suite, sans lacune.
+
+### Aides à la saisie
+
+- **Rue et numéro :** tapez la rue et le numéro, et le CRM propose des adresses correspondantes dans le pays. Le choix
+  remplit le NPA et la localité.
+- **Téléphone :** le drapeau avec l’indicatif se trouve devant le champ. Le champ n’accepte que des chiffres, autant
+  qu’en ont les numéros du pays, et les groupe comme il est d’usage (« 79 123 45 67 »). Le drapeau suit le pays du
+  client ; si vous choisissez un autre drapeau dans le champ du téléphone, le pays change aussi — tant qu’aucun NPA
+  n’est saisi.
+- **Notes :** un clic dans le champ ouvre l’éditeur avec tous les outils (titres, listes, liens, tableaux et plus) dans
+  une fenêtre. Ce que vous écrivez est repris aussitôt ; « Terminé » ou Échap ferme la fenêtre.
+- **D’où viennent les propositions :** les entreprises du registre IDE de l’Office fédéral de la statistique (Suisse),
+  de « Recherche d’entreprises » (France) et sinon de GLEIF (seulement les entreprises avec un LEI) ; les adresses du
+  répertoire officiel des adresses de bâtiments via swisstopo (Suisse), de la Base Adresse Nationale (France) et sinon
+  d’OpenStreetMap. Votre site interroge ces services par son serveur — votre navigateur ne leur parle pas directement.
+  Les deux se désactivent sous **Administration › Paramètres › Recherche**. Si rien ne correspond, ce que vous avez
+  saisi reste.
 
 | Champ | Ce qui est vérifié |
 | --- | --- |
-| **Pays** | code ISO à deux lettres, par exemple CH, LI, DE, AT, FR ou IT ; vide signifie la Suisse |
+| **Pays** | choix avec drapeau ; la Suisse par défaut |
+| **Téléphone** | uniquement des chiffres, autant qu’en ont les numéros du pays ; enregistré au format international (« +41 79 123 45 67 ») |
 | **NPA** | Suisse et Liechtenstein : quatre chiffres de 1000 à 9658 · Autriche : quatre chiffres · Allemagne, France, Italie : cinq chiffres · autres pays : jusqu’à 12 caractères |
 | **IDE** | s’il commence par « CHE », il a la forme CHE-123.456.789, suivi au besoin de « TVA » |
 | **E-mail** | une adresse valide ; elle est enregistrée en minuscules |
@@ -53,7 +74,7 @@ Changez l’étape sur le client ou pour plusieurs à la fois : sélectionnez-le
 ## Personnes de contact
 
 Pour une entreprise, notez sous **Personnes de contact** les personnes avec qui vous êtes en contact : prénom, nom,
-**Fonction**, e-mail et téléphone. L’une d’elles est le **Contact principal** — la première automatiquement ; cochez
+**Fonction**, e-mail et téléphone (dans le pays du client). L’une d’elles est le **Contact principal** — la première automatiquement ; cochez
 **« Contact principal »** chez une autre pour changer. Un clic sur une personne de contact l’ouvre pour la modifier ; on
 peut aussi la supprimer à cet endroit.
 
@@ -69,6 +90,10 @@ Sous **« Saisir une activité »**, vous notez ce qui s’est passé avec le cl
 | **Note** | ce que vous voulez retenir |
 | **Appel**, **Réunion**, **E-mail** | échanges avec date et, au besoin, personne de contact |
 | **Tâche** | quelque chose à faire — avec **« Échéance le »** |
+
+La **note** d’une activité s’écrit, comme les notes du client, dans l’éditeur avec tous les outils — un clic dans le
+champ l’ouvre. Avec **« Saisir »**, l’activité figure dans la liste ; il y a ici un bouton, car une activité n’est
+complète qu’avec le type, la date et la note.
 
 Les tâches ouvertes figurent en tête chez le client ; une fois la date passée, elles sont rouges. **« Marquer comme
 terminée »** termine une tâche. Le chiffre clé **« Tâches échues »** au-dessus de la liste et le nombre à côté de l’entrée
@@ -106,6 +131,8 @@ ne doivent pas être présentes. À l’importation :
 - Toutes les autres lignes deviennent de nouveaux clients avec le numéro de client suivant.
 - Une ligne avec des erreurs — par exemple un NPA erroné — est ignorée ; le message l’indique avec son numéro. Les autres
   lignes sont reprises.
+
+Les notes figurent dans l’export sous forme de texte sans mise en forme, les numéros de téléphone au format de leur pays.
 
 **Bon à savoir :** les valeurs qu’Excel lirait comme une formule (par exemple un numéro de téléphone commençant par
 « + ») reçoivent une apostrophe devant à l’exportation. Elle disparaît à l’importation.

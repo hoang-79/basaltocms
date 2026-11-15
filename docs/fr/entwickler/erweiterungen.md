@@ -231,8 +231,8 @@ L’exemple complet avec modification, suppression et action groupée se trouve 
 | `Column` | `text`, `mono`, `number`, `money`, `date`, `badge`, `link` | Colonne ; `number` et `money` sont alignés à droite |
 | `Row` | `make($id)`, `cell()`, `badge($clé, $texte, $ton)`, `link($clé, $texte, $url)`, `url()`, `action()` | Ligne ; avec `url()`, la première colonne devient un lien vers l’enregistrement |
 | `Filter` | `make($paramètre, $libellé, $valeur)`, `option($valeur, $libellé, $nombre)` | Choix au-dessus de la liste, comme paramètre de requête dans l’adresse |
-| `Form` | `make($url, $méthode)`, `title()`, `fields()`, `values()`, `autosave()`, `submit()` | Formulaire ; avec `autosave()`, il s’enregistre seul après chaque pause, sinon avec le bouton |
-| `FormField` | `text`, `email`, `url`, `number`, `password`, `textarea`, `select($nom, $libellé, $choix)`, `checkbox`, `date`, `time`, `datetime`, `color`, `richtext`, `file($nom, $libellé, $accept)` ; en plus `help()`, `placeholder()`, `required()`, `min()`, `max()`, `step()`, `rows()`, `mono()`, `onLeave()`, `half()` | Champ ; avec l’enregistrement automatique, `password` n’est enregistré qu’en quittant le champ |
+| `Form` | `make($url, $méthode)`, `title()`, `fields()`, `values()`, `autosave()`, `creates($champs)`, `submit()` | Formulaire ; avec `autosave()`, il s’enregistre seul après chaque pause, avec `creates()` il crée l’enregistrement sans bouton, sinon avec le bouton |
+| `FormField` | `text`, `email`, `url`, `number`, `password`, `textarea`, `select($nom, $libellé, $choix)`, `checkbox`, `date`, `time`, `datetime`, `color`, `richtext`, `file($nom, $libellé, $accept)`, `country`, `phone`, `postalCode` ; en plus `help()`, `placeholder()`, `required()`, `min()`, `max()`, `step()`, `rows()`, `mono()`, `onLeave()`, `half()`, `countryFrom($champ)`, `inCountry($code)`, `lookup($type, $correspondance)` | Champ ; avec l’enregistrement automatique, `password` n’est enregistré qu’en quittant le champ |
 | `Action` | `link`, `post`, `put`, `delete`, `bulk($clé, $libellé, $url)` ; en plus `confirm($question)`, `variant()`, `with($données)` | Bouton ; avec `confirm()`, le noyau demande d’abord |
 
 Ce qui compte :
@@ -245,7 +245,25 @@ Ce qui compte :
   vérifie les deux et indique combien d’entrées sont concernées.
 - **L’enregistrement automatique** (`Form::autosave()`) est prévu pour les enregistrements existants : après une pause,
   le noyau envoie les champs avec la méthode du formulaire (le plus souvent `put`) et indique au champ que c’est
-  enregistré. Pour créer, utilisez un formulaire avec bouton.
+  enregistré.
+- **Créer sans bouton** (`Form::creates(['name'])`) : l’enregistrement est créé dès qu’un des champs obligatoires
+  nommés est rempli et quitté. Le noyau envoie tous les champs à l’adresse du formulaire comme le ferait le bouton ; la
+  réponse mène à la page du nouvel enregistrement, dont le formulaire continue de s’enregistrer avec `autosave()`. Ce
+  qui a été saisi entre-temps est repris et le focus reste dans le champ. Les entrées de journal (une activité, une
+  écriture), complètes seulement avec toutes les indications, gardent le bouton.
+- **Pays, téléphone, code postal :** `FormField::country()` est un choix avec drapeau, nom et recherche (valeur : code
+  ISO). `FormField::phone()->countryFrom('country')` n’accepte que des chiffres, dans la longueur et le groupement du
+  pays ; le drapeau du champ définit le pays du formulaire (tant qu’aucun code postal n’est saisi), un nouveau pays
+  définit l’indicatif d’un champ vide. La valeur arrive au format international (« +41 79 123 45 67 ») — l’enregistrer
+  en E.164 avec `Countries::parsePhone()`, la valider avec `Rules\PhoneNumber`.
+  `FormField::postalCode()->countryFrom('country')` met le code postal au format du pays. Sans champ pour le pays,
+  `inCountry('CH')` le fixe.
+- **Recherche** (`->lookup('company'|'address', [résultat → champ])`) : dès trois caractères, le champ propose des
+  entrées des registres du commerce ou des adresses de bâtiments du pays du formulaire ; le choix remplit les champs
+  associés (`name`, `street` (avec numéro), `street_name` et `house_number` (séparés), `postal_code`, `city`, `country`,
+  `uid`, `vat_number`, `legal_form`, `website`). La requête passe par le serveur de Basalto, jamais du navigateur vers
+  des tiers. Si le service est désactivé pour le site (Administration › Paramètres › Recherche), le champ reste un
+  simple champ de texte.
 - **Les droits** s’appliquent comme pour toute route ([Domaines et droits](#domaines-et-droits)) ; le contrôleur omet
   les boutons qu’un utilisateur n’a pas le droit d’utiliser.
 
@@ -553,15 +571,18 @@ avec `BASALTO_PLUGINS_WORKSHOP=false`). Une version publiée ne contient jamais 
 
 ```sh
 php artisan basalto:plugin install --archiv=chemin/vers/plugin.zip
+php artisan basalto:plugin update --archiv=chemin/vers/plugin-plus-recent.zip
 php artisan basalto:plugin check editeur/paquet
 php artisan basalto:plugin remove editeur/paquet --daten-loeschen
 ```
 
 `--archiv` installe sans catalogue et sans signature du Marketplace, sinon comme dans le backend (forme, compatibilité,
-sauvegarde, migrations, test de démarrage). `check` appelle chaque page GET du plugin sans paramètre obligatoire —
-connecté en tant que propriétaire du site par défaut, avec `--benutzer=<e-mail>` en tant qu’une autre personne — et
-échoue dès qu’une page répond par une erreur serveur (`--json` pour une sortie lisible par machine). Après le retrait
-avec `--daten-loeschen`, aucune table du plugin ne doit rester. Le Marketplace effectue exactement ces étapes lors du
+sauvegarde, migrations, test de démarrage). Avec `update --archiv`, une version plus récente tirée d’une archive
+remplace celle qui est installée — avec sauvegarde, migrations, test de démarrage et retour en arrière comme pour une
+mise à jour depuis le Marketplace. `check` appelle chaque page GET du plugin sans paramètre obligatoire — connecté en
+tant que propriétaire du site par défaut, avec `--benutzer=<e-mail>` en tant qu’une autre personne — et échoue dès
+qu’une page répond par une erreur serveur (`--json` pour une sortie lisible par machine). Après le retrait avec
+`--daten-loeschen`, aucune table du plugin ne doit rester. Le Marketplace effectue exactement ces étapes lors du
 **passage au banc d’essai** dans sa sandbox, avant de valider un plugin.
 
 ## Obligations d’une extension

@@ -95,6 +95,8 @@ final class CoreAreas
             // TB 27: Glocke und Center — jede Person sieht nur ihre eigenen Benachrichtigungen
             'basalto.notifications.',
             // TB 30: Hilfen der Block-Formulare (Linkziele, Vorschau) — für Seiten und Bausteine; der Controller prüft beides
-            'basalto.editor.');
+            'basalto.editor.',
+            // CR-021: Vorschläge für Firmen- und Adressfelder — die Formulare selbst prüfen ihre Rechte
+            'basalto.lookup');
     }
 }

@@ -24,6 +24,10 @@ L’entrée **« Cotisations »** apparaît ensuite sous **Contenus**. Le nombre
 Sous **Cotisations › Paramètres**, vous saisissez les indications pour chaque facture et la section paiement QR. Elles
 s’enregistrent d’elles-mêmes.
 
+Pour le **Nom** et la **Rue**, le plugin recherche pendant la saisie — dans les registres du commerce et les données
+officielles d’adresses, comme dans le [CRM](plugin-crm.md#aides-à-la-saisie). Le choix remplit rue, numéro, NPA et
+localité.
+
 | Champ | |
 | --- | --- |
 | **Nom de l’association**, **Rue**, **Numéro**, **NPA**, **Localité**, **Pays** | expéditeur de la facture et « Compte / Payable à » dans la section paiement ; Suisse ou Liechtenstein |

@@ -118,6 +118,18 @@ final class Countries
     }
 
     /**
+     * Die Länder für Formulare im Browser (Profil, Verwaltungsseiten CR-021): Name, Vorwahl, Längen und Gruppen der
+     * Rufnummer, Beispiel und Regeln der Postleitzahl — in der Reihenfolge von `ordered()`.
+     *
+     * @return list<array{code: string, name: string, dial: string, dial_main: bool, min: int, max: int, groups: list<int>, keep_zero: bool, postal_example: string|null, postal_numeric: bool, postal_max: int}>
+     */
+    public static function forForms(): array
+    {
+        return array_map(static fn (array $c): array => ['code' => $c['code'], 'name' => $c['name'], 'dial' => $c['dial'], 'dial_main' => $c['dial_main'], 'min' => $c['min'], 'max' => $c['max'],
+            'groups' => $c['groups'], 'keep_zero' => $c['keep_zero'], 'postal_example' => $c['postal_example'], 'postal_numeric' => $c['postal_numeric'], 'postal_max' => $c['postal_max']], self::ordered());
+    }
+
+    /**
      * Eine eingegebene Rufnummer lesen: «079 123 45 67» mit Land CH, «+41 79 …», «0041 79 …» — Ergebnis E.164 und Land,
      * oder null, wenn es keine anrufbare Nummer ist (Buchstaben, falsche Länge, unbekannte Vorwahl).
      *

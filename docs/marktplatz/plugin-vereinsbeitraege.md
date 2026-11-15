@@ -24,6 +24,9 @@ Rechnungen.
 Unter **Mitgliederbeiträge › Einstellungen** stehen die Angaben für jede Rechnung und den QR-Zahlteil. Sie speichern sich
 selbst.
 
+Bei **Name** und **Strasse** schlägt das Plugin beim Tippen nach — in Firmenregistern und amtlichen Adressdaten, wie
+im [CRM](plugin-crm.md#hilfen-beim-ausfüllen). Die Auswahl füllt Strasse, Hausnummer, PLZ und Ort.
+
 | Feld | |
 | --- | --- |
 | **Name des Vereins**, **Strasse**, **Hausnummer**, **PLZ**, **Ort**, **Land** | Absender der Rechnung und «Konto / Zahlbar an» im Zahlteil; Schweiz oder Liechtenstein |

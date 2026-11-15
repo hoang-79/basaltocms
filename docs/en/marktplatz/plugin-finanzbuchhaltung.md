@@ -20,6 +20,9 @@ Afterwards **“Accounting”** appears under **Content**. The number next to it
 
 Under **Accounting › Settings** you enter the details for every invoice and the QR payment part. They save themselves.
 
+For **Name** and **Street**, the plugin looks things up while you type — in company registers and official address data,
+as in the [CRM](plugin-crm.md#help-while-filling-in). Choosing one fills in street, house number, postcode and town.
+
 | Field | |
 | --- | --- |
 | **Company name**, **Street**, **House number**, **Postcode**, **Town**, **Country** | sender of the invoice and “Account / Payable to” in the payment part; Switzerland or Liechtenstein |
@@ -57,7 +60,9 @@ invoices. The **Open items** column shows what is still outstanding; a click ope
 invoices.
 
 - **Without a CRM** you create personal accounts here: type, name or company, contact person, address, email and
-  UID/VAT number. The accounting assigns the number itself (“DEB-0001”, “KRE-0001”).
+  UID/VAT number. The accounting assigns the number itself (“DEB-0001”, “KRE-0001”). The personal account is created
+  without a button as soon as the name is entered and the field is left; after that every field saves itself. Name and
+  street are looked up as in the CRM.
 - **With the “CRM” plugin** you choose a customer straight from your customer list on an invoice. The personal account
   is created on first use; you maintain name and address in the CRM and the accounting follows every change. For
   supplier invoices you can choose the customers marked as **“Supplier”** in the CRM. A personal account that existed

@@ -22,6 +22,7 @@ use Basalto\Core\Http\Controllers\LegalController;
 use Basalto\Core\Http\Controllers\LicenseAccountController;
 use Basalto\Core\Http\Controllers\LicenseController;
 use Basalto\Core\Http\Controllers\LoginController;
+use Basalto\Core\Http\Controllers\LookupController;
 use Basalto\Core\Http\Controllers\MediaController;
 use Basalto\Core\Http\Controllers\ModulesController;
 use Basalto\Core\Http\Controllers\NavigationController;
@@ -210,6 +211,8 @@ app(Backend::class)->routes(static function (): void {
     Route::put('profil/hilfe-breite', [ProfileController::class, 'helpWidth'])->name('profile.help-width');
     // TB 120: was in der Leiste unter der Kopfzeile steht (Panel «Alle», Nadel je Eintrag)
     Route::put('profil/leiste', [ProfileController::class, 'menuPins'])->name('profile.menu-pins');
+    // CR-021: Vorschläge für Firmen- und Adressfelder der Verwaltungsseiten
+    Route::get('nachschlagen/{kind}', LookupController::class)->whereIn('kind', ['company', 'address'])->name('lookup');
     Route::delete('profil/sitzungen', [ProfileController::class, 'endOthers'])->name('profile.sessions.others');
     Route::get('profil/auskunft', [ProfileController::class, 'export'])->name('profile.export');
     // TB 21: Profilbild hochladen, entfernen, ausliefern (für alle Angemeldeten — die Benutzerliste zeigt es auch)

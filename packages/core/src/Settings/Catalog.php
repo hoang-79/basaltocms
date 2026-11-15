@@ -13,12 +13,12 @@ namespace Basalto\Core\Settings;
 final class Catalog
 {
     /** @var array<string, string> Gruppe → Beschriftung, in dieser Reihenfolge (Deutsch; übersetzt über groups()) */
-    public const GROUPS = ['workflow' => 'Freigabe', 'media' => 'Medien', 'cache' => 'Cache', 'auth' => 'Anmeldung', 'spam' => 'Spamschutz', 'statistics' => 'Statistik', 'retention' => 'Aufbewahrung', 'languages' => 'Sprachen', 'operations' => 'Betrieb'];
+    public const GROUPS = ['workflow' => 'Freigabe', 'media' => 'Medien', 'cache' => 'Cache', 'auth' => 'Anmeldung', 'spam' => 'Spamschutz', 'statistics' => 'Statistik', 'retention' => 'Aufbewahrung', 'languages' => 'Sprachen', 'lookup' => 'Nachschlagen', 'operations' => 'Betrieb'];
 
     /** @return array<string, string> Gruppe → Beschriftung in der Sprache der Oberfläche (N-01) */
     public static function groups(): array
     {
-        return ['workflow' => __('Freigabe'), 'media' => __('Medien'), 'cache' => __('Cache'), 'auth' => __('Anmeldung'), 'spam' => __('Spamschutz'), 'statistics' => __('Statistik'), 'retention' => __('Aufbewahrung'), 'languages' => __('Sprachen'), 'operations' => __('Betrieb')];
+        return ['workflow' => __('Freigabe'), 'media' => __('Medien'), 'cache' => __('Cache'), 'auth' => __('Anmeldung'), 'spam' => __('Spamschutz'), 'statistics' => __('Statistik'), 'retention' => __('Aufbewahrung'), 'languages' => __('Sprachen'), 'lookup' => __('Nachschlagen'), 'operations' => __('Betrieb')];
     }
 
     /** @return list<Item> */
@@ -43,6 +43,9 @@ final class Catalog
             self::item('spam.sfs_confidence', 'spam', __('Stop Forum Spam: Treffer ab'), __('Zuversicht der Liste, ab der ein Eintrag als Spam gilt.'), 'int', 80, __('Prozent'), 1, 100, 'site'),
             // TB 54: Statistik im Frontend (wie Fristo) und die Cookie-Einstellungen dazu
             self::item('statistics.enabled', 'statistics', __('Besuche zählen'), __('Seitenaufrufe der Website zählen (Verwaltung › Statistik) und die Cookie-Einstellungen zeigen. Besucher und Sitzungen nur mit Einwilligung; ohne Einwilligung zählt ein Aufruf anonym — ohne Cookie, ohne IP-Adresse.'), 'bool', true, scope: 'site'),
+            // CR-021: Vorschläge in Formularen der Verwaltungsseiten — Anfragen gehen über diesen Server an die Dienste
+            self::item('lookup.companies', 'lookup', __('Firmensuche'), __('Beim Tippen eines Firmennamens Vorschläge aus Registern: Schweiz UID-Register (BFS), Frankreich «Recherche d’entreprises», übrige Länder GLEIF (Firmen mit LEI). Was getippt wird, geht an diesen Dienst.'), 'bool', true, scope: 'site'),
+            self::item('lookup.addresses', 'lookup', __('Adresssuche'), __('Beim Tippen von Strasse und Hausnummer Vorschläge mit PLZ und Ort: Schweiz swisstopo (amtliches Gebäudeadressverzeichnis), Frankreich Base Adresse Nationale, übrige Länder OpenStreetMap (Photon). Was getippt wird, geht an diesen Dienst.'), 'bool', true, scope: 'site'),
             self::item('statistics.retention_days', 'retention', __('Statistik aufbewahren'), __('Ältere Seitenaufrufe löscht der nächtliche Löschlauf endgültig.'), 'int', 400, __('Tage'), 30, 1095),
             self::item('forms.retention_days', 'retention', __('Formulareingänge aufbewahren'), __('Gilt für Formulare ohne eigene Frist («retain»); danach löscht der Löschlauf Eingang und Dateien endgültig.'), 'int', 90, __('Tage'), 1, 3650, 'site'),
             self::item('comments.retention_days', 'retention', __('Gelöschte Kommentare und Spam aufbewahren'), __('Modul Kommentare: gelöschte und als Spam markierte Kommentare löscht der nächtliche Löschlauf danach endgültig; freigegebene und wartende bleiben.'), 'int', 365, __('Tage'), 1, 3650, 'site'),

@@ -64,7 +64,10 @@ export type AdminField = {
         | 'color'
         | 'richtext'
         | 'file'
-        | 'image';
+        | 'image'
+        | 'country'
+        | 'phone'
+        | 'postal';
     help?: string;
     placeholder?: string;
     required?: boolean;
@@ -78,6 +81,12 @@ export type AdminField = {
     accept?: string;
     choices?: { value: string; label: string }[];
     images?: { id: number; name: string; url: string }[];
+    /** CR-021: Feld des Formulars mit dem Land (Telefon, PLZ, Nachschlagen) */
+    country_field?: string;
+    /** CR-021: Land ohne Feld im Formular */
+    default_country?: string;
+    /** CR-021: Vorschläge aus einem Nachschlagedienst; die Auswahl füllt Felder (Ergebnis → Feld) */
+    lookup?: { kind: 'company' | 'address'; fill: Record<string, string> };
     none?: string;
 };
 
@@ -90,6 +99,27 @@ export type AdminFormSection = {
     submit: string;
     fields: AdminField[];
     values: Record<string, unknown>;
+    /** CR-021: Anlegen ohne Knopf — der erste Eintrag in einem dieser Felder legt an */
+    creates?: string[];
+    /** CR-021: Länder für Land, Telefon und PLZ (nur, wenn ein Feld sie braucht) */
+    countries?: AdminCountry[] | null;
+    /** CR-021: Adressen der eingeschalteten Nachschlagedienste */
+    lookups?: Record<string, string> | null;
+};
+
+/** CR-021: ein Land mit den Regeln für Telefon und Postleitzahl. */
+export type AdminCountry = {
+    code: string;
+    name: string;
+    dial: string;
+    dial_main?: boolean;
+    min: number;
+    max: number;
+    groups: number[];
+    keep_zero: boolean;
+    postal_example: string | null;
+    postal_numeric: boolean;
+    postal_max: number;
 };
 
 /** CR-020: eine Karte eines Boards (Kanban). */

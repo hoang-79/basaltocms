@@ -22,6 +22,10 @@ L’entrée **« Comptabilité »** apparaît ensuite sous **Contenus**. Le nomb
 Sous **Comptabilité › Paramètres** se trouvent les indications pour chaque facture et la section paiement QR. Elles
 s’enregistrent d’elles-mêmes.
 
+Pour le **Nom** et la **Rue**, le plugin recherche pendant la saisie — dans les registres du commerce et les données
+officielles d’adresses, comme dans le [CRM](plugin-crm.md#aides-à-la-saisie). Le choix remplit rue, numéro, NPA et
+localité.
+
 | Champ | |
 | --- | --- |
 | **Nom de l’entreprise**, **Rue**, **Numéro**, **NPA**, **Localité**, **Pays** | expéditeur de la facture et « Compte / Payable à » dans la section paiement ; Suisse ou Liechtenstein |
@@ -60,7 +64,9 @@ vous envoient des factures. La colonne **Postes ouverts** montre ce qui reste ou
 avec ses factures.
 
 - **Sans CRM**, vous créez les comptes de tiers ici : type, nom ou entreprise, personne de contact, adresse, e-mail et
-  numéro IDE/TVA. La comptabilité attribue le numéro elle-même (« DEB-0001 », « KRE-0001 »).
+  numéro IDE/TVA. La comptabilité attribue le numéro elle-même (« DEB-0001 », « KRE-0001 »). Le compte de tiers est
+  créé sans bouton dès que le nom est saisi et le champ quitté ; ensuite chaque champ s’enregistre de lui-même. Le nom
+  et la rue sont recherchés comme dans le CRM.
 - **Avec le plugin « CRM »**, vous choisissez directement un client de votre liste de clients sur une facture. Le compte
   de tiers est créé à la première utilisation ; vous gérez nom et adresse dans le CRM et la comptabilité suit chaque
   modification. Pour les factures fournisseurs, vous pouvez choisir les clients marqués **« Fournisseur »** dans le

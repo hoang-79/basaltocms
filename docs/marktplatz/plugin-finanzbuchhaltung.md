@@ -21,6 +21,9 @@ Danach steht unter **Inhalte** der Menüpunkt **«Finanzbuchhaltung»**. Die Zah
 Unter **Finanzbuchhaltung › Einstellungen** stehen die Angaben für jede Rechnung und den QR-Zahlteil. Sie speichern
 sich selbst.
 
+Bei **Name** und **Strasse** schlägt das Plugin beim Tippen nach — in Firmenregistern und amtlichen Adressdaten, wie
+im [CRM](plugin-crm.md#hilfen-beim-ausfüllen). Die Auswahl füllt Strasse, Hausnummer, PLZ und Ort.
+
 | Feld | |
 | --- | --- |
 | **Name der Firma**, **Strasse**, **Hausnummer**, **PLZ**, **Ort**, **Land** | Absender der Rechnung und «Konto / Zahlbar an» im Zahlteil; Schweiz oder Liechtenstein |
@@ -58,7 +61,9 @@ schicken Ihnen Rechnungen. Die Spalte **Offene Posten** zeigt, was noch offen is
 mit seinen Rechnungen.
 
 - **Ohne CRM** legen Sie Personenkonten hier an: Art, Name oder Firma, Kontaktperson, Anschrift, E-Mail und
-  UID/MWST-Nummer. Die Nummer vergibt die Buchhaltung selbst («DEB-0001», «KRE-0001»).
+  UID/MWST-Nummer. Die Nummer vergibt die Buchhaltung selbst («DEB-0001», «KRE-0001»). Das Personenkonto entsteht
+  ohne Knopf, sobald der Name eingetragen und das Feld verlassen ist; danach speichert jedes Feld selbst. Name und
+  Strasse schlagen nach wie im CRM.
 - **Mit dem Plugin «CRM»** wählen Sie bei einer Rechnung direkt einen Kunden aus Ihrer Kundenliste. Das Personenkonto
   entsteht beim ersten Gebrauch; Name und Anschrift pflegen Sie im CRM, die Buchhaltung folgt jeder Änderung. Für
   Eingangsrechnungen stehen die Kunden zur Wahl, die im CRM als **«Lieferant»** markiert sind. Ein Personenkonto, das

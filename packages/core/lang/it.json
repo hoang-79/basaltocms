@@ -4842,5 +4842,14 @@
     "Geschäft": "Affari",
     "Erweiterungen": "Estensioni",
     "Personen": "Persone",
-    "Überwachung": "Monitoraggio"
+    "Überwachung": "Monitoraggio",
+    "Wird angelegt …": "Creazione in corso …",
+    "Wird angelegt, sobald :fields ausgefüllt ist — danach speichert jedes Feld selbst.": "Creato non appena :fields è compilato — poi ogni campo si salva da sé.",
+    "Keine Vorschläge — so übernehmen, wie getippt.": "Nessun suggerimento — mantenere come digitato.",
+    "Nachschlagen": "Ricerca",
+    "Firmensuche": "Ricerca aziende",
+    "Adresssuche": "Ricerca indirizzi",
+    "Beim Tippen eines Firmennamens Vorschläge aus Registern: Schweiz UID-Register (BFS), Frankreich «Recherche d’entreprises», übrige Länder GLEIF (Firmen mit LEI). Was getippt wird, geht an diesen Dienst.": "Suggerimenti dai registri mentre si digita il nome di un’azienda: Svizzera registro IDI (UST), Francia «Recherche d’entreprises», altri Paesi GLEIF (aziende con LEI). Ciò che digita viene inviato a questo servizio.",
+    "Beim Tippen von Strasse und Hausnummer Vorschläge mit PLZ und Ort: Schweiz swisstopo (amtliches Gebäudeadressverzeichnis), Frankreich Base Adresse Nationale, übrige Länder OpenStreetMap (Photon). Was getippt wird, geht an diesen Dienst.": "Suggerimenti con NPA e località mentre si digitano via e numero civico: Svizzera swisstopo (elenco ufficiale degli indirizzi degli edifici), Francia Base Adresse Nationale, altri Paesi OpenStreetMap (Photon). Ciò che digita viene inviato a questo servizio.",
+    "Fliesstext · wird mit «:button» gespeichert": "Testo formattato · salvato con «:button»"
 }

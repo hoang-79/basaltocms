@@ -22,6 +22,9 @@ Afterwards **“Membership fees”** appears under **Content**. The number next 
 Under **Membership fees › Settings** you enter the details for every invoice and the QR payment part. They save
 themselves.
 
+For **Name** and **Street**, the plugin looks things up while you type — in company registers and official address data,
+as in the [CRM](plugin-crm.md#help-while-filling-in). Choosing one fills in street, house number, postcode and town.
+
 | Field | |
 | --- | --- |
 | **Name of the club**, **Street**, **House number**, **Postcode**, **Town**, **Country** | sender of the invoice and “Account / Payable to” in the payment part; Switzerland or Liechtenstein |

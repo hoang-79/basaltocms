@@ -142,51 +142,102 @@ final class PluginInstaller
         $this->guard($name);
 
         return $this->locked(function () use ($name, $by): string {
-            $records = $this->loader->all();
-            $old = $records[$name] ?? throw new RuntimeException((string) __(':name wurde nicht im Backend installiert.', ['name' => $name]));
+            $old = $this->loader->all()[$name] ?? throw new RuntimeException((string) __(':name wurde nicht im Backend installiert.', ['name' => $name]));
             $entry = $this->entry($name);
             if (! Versions::newer($entry['version'], $old['version'])) {
                 throw new RuntimeException((string) __('Für :name gibt es keine neuere Version.', ['name' => $name]));
             }
             $work = $this->work();
-            $target = $this->loader->directory($name);
             try {
-                $package = $this->fetch($name, $entry['version'], $entry['sha256'], $work);
-                $this->backup->create($this->installation->root().'/storage/app/backups');
-                if (! rename($target, $work.'/vorher') || ! rename($work.'/neu', $target)) {
-                    throw new RuntimeException((string) __('Die Dateien des Plugins lassen sich nicht tauschen.'));
-                }
-                $restore = function () use ($target, $work, $records): void {
-                    ArchiveUpdate::remove($target);
-                    @rename($work.'/vorher', $target);
-                    $this->loader->save($records);
-                    $this->clearCaches();
-                };
-                try {
-                    $this->artisan('migrate', ['--force' => true]);
-                    $this->artisan('vendor:publish', ['--tag' => 'basalto-assets', '--force' => true]);
-                } catch (Throwable $e) {
-                    $restore();
-
-                    throw new RuntimeException((string) __('Update zurückgenommen: :reason', ['reason' => $e->getMessage()]), 0, $e);
-                }
-                $updated = $records;
-                $updated[$name] = $package->record() + ['enabled' => $old['enabled'], 'installed_at' => $old['installed_at']];
-                $this->loader->save($updated);
-                $this->clearCaches();
-                $failure = $old['enabled'] ? $this->startProbe() : null;
-                if ($failure !== null) {
-                    $restore();
-
-                    throw new RuntimeException((string) __('Update zurückgenommen: Die Site startet mit :version nicht (:reason).', ['version' => $package->version, 'reason' => $failure]));
-                }
-                $this->recorder->record('system.plugin_updated', null, null, ['plugin' => $name, 'version' => $package->version, 'vorher' => $old['version'], 'von' => $by]);
-
-                return (string) __(':label ist auf :version aktualisiert.', ['label' => $package->label, 'version' => $package->version]);
+                return $this->swap($name, $this->fetch($name, $entry['version'], $entry['sha256'], $work), $work, $by);
             } finally {
                 ArchiveUpdate::remove($work);
             }
         });
+    }
+
+    /**
+     * Ein Plugin aus einem neueren Archiv auf diesem Server aktualisieren (ohne Signatur, wie `installArchive`) — für
+     * Plugins, die nicht aus dem Marktplatz kommen; Sicherung, Migration, Startprobe und Rückweg wie bei `update`.
+     */
+    public function updateArchive(string $archive, ?string $by = null): string
+    {
+        $problems = $this->problems();
+        if ($problems !== []) {
+            throw new RuntimeException(implode(' ', $problems));
+        }
+        if (! is_file($archive)) {
+            throw new RuntimeException((string) __('Das Archiv :path gibt es nicht.', ['path' => $archive]));
+        }
+
+        return $this->locked(function () use ($archive, $by): string {
+            $work = $this->work();
+            try {
+                ArchiveDownload::extract($archive, $work.'/auspacken');
+                $dir = PluginPackage::rootIn($work.'/auspacken') ?? throw new RuntimeException((string) __('Im Archiv fehlt eine gültige composer.json.'));
+                $composer = json_decode((string) file_get_contents($dir.'/composer.json'), true);
+                $name = is_array($composer) && is_string($composer['name'] ?? null) ? $composer['name'] : '';
+                $version = is_array($composer) && is_string($composer['version'] ?? null) ? $composer['version'] : '';
+                if ($version === '') {
+                    throw new RuntimeException((string) __('In composer.json fehlt die Version.'));
+                }
+                $old = $this->loader->all()[$name] ?? throw new RuntimeException((string) __(':name wurde nicht im Backend installiert.', ['name' => $name]));
+                if (! Versions::newer($version, $old['version'])) {
+                    throw new RuntimeException((string) __('Für :name gibt es keine neuere Version.', ['name' => $name]));
+                }
+                if (! rename($dir, $work.'/neu')) {
+                    throw new RuntimeException((string) __('Die Dateien des Plugins lassen sich nicht tauschen.'));
+                }
+                $package = PluginPackage::read($work.'/neu', $name, $version);
+                $problems = $package->problems(Core::VERSION);
+                if ($problems !== []) {
+                    throw new RuntimeException(implode(' ', $problems));
+                }
+
+                return $this->swap($name, $package, $work, $by);
+            } finally {
+                ArchiveUpdate::remove($work);
+            }
+        });
+    }
+
+    /** Die neue Fassung aus `$work/neu` an den Platz der alten: Sicherung, Tausch, Migration, Liste, Startprobe — sonst zurück. */
+    private function swap(string $name, PluginPackage $package, string $work, ?string $by): string
+    {
+        $records = $this->loader->all();
+        $old = $records[$name];
+        $target = $this->loader->directory($name);
+        $this->backup->create($this->installation->root().'/storage/app/backups');
+        if (! rename($target, $work.'/vorher') || ! rename($work.'/neu', $target)) {
+            throw new RuntimeException((string) __('Die Dateien des Plugins lassen sich nicht tauschen.'));
+        }
+        $restore = function () use ($target, $work, $records): void {
+            ArchiveUpdate::remove($target);
+            @rename($work.'/vorher', $target);
+            $this->loader->save($records);
+            $this->clearCaches();
+        };
+        try {
+            $this->artisan('migrate', ['--force' => true]);
+            $this->artisan('vendor:publish', ['--tag' => 'basalto-assets', '--force' => true]);
+        } catch (Throwable $e) {
+            $restore();
+
+            throw new RuntimeException((string) __('Update zurückgenommen: :reason', ['reason' => $e->getMessage()]), 0, $e);
+        }
+        $updated = $records;
+        $updated[$name] = $package->record() + ['enabled' => $old['enabled'], 'installed_at' => $old['installed_at']];
+        $this->loader->save($updated);
+        $this->clearCaches();
+        $failure = $old['enabled'] ? $this->startProbe() : null;
+        if ($failure !== null) {
+            $restore();
+
+            throw new RuntimeException((string) __('Update zurückgenommen: Die Site startet mit :version nicht (:reason).', ['version' => $package->version, 'reason' => $failure]));
+        }
+        $this->recorder->record('system.plugin_updated', null, null, ['plugin' => $name, 'version' => $package->version, 'vorher' => $old['version'], 'von' => $by]);
+
+        return (string) __(':label ist auf :version aktualisiert.', ['label' => $package->label, 'version' => $package->version]);
     }
 
     /** Ein- oder ausschalten — für die ganze Installation (je Site schaltet die Verwaltung der Site). */

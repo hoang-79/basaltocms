@@ -21,6 +21,9 @@ In seguito compare la voce **«Quote sociali»** in **Contenuti**. Il numero acc
 
 In **Quote sociali › Impostazioni** inserisce i dati per ogni fattura e per la sezione pagamento QR. Si salvano da soli.
 
+Per **Nome** e **Via**, il plugin cerca mentre digita — nei registri di commercio e nei dati ufficiali degli indirizzi,
+come nel [CRM](plugin-crm.md#aiuti-nella-compilazione). La scelta compila via, numero civico, NPA e località.
+
 | Campo | |
 | --- | --- |
 | **Nome dell’associazione**, **Via**, **Numero civico**, **NPA**, **Località**, **Paese** | mittente della fattura e «Conto / Pagabile a» nella sezione pagamento; Svizzera o Liechtenstein |

@@ -20,20 +20,40 @@ fällig sind.
 ## Einen Kunden anlegen
 
 1. Unter **CRM** auf **«Neuer Kunde»**.
-2. Die **Art** wählen: **Firma** oder **Person**. Bei einer Firma tragen Sie den **Firmennamen** ein, bei einer Person
-   **Vorname** und **Nachname** — sie bilden dann den Namen.
-3. Den **Lebenszyklus** wählen (siehe unten) und, wenn Sie bei diesem Kunden auch einkaufen, **«Auch Lieferant»**
-   ankreuzen.
-4. Anschrift, E-Mail, Telefon und auf Wunsch **UID**, **Sprache**, **Website**, **Verantwortlich** und **Notizen**
-   ergänzen.
-5. **«Anlegen»**.
+2. Die **Art** wählen: **Firma** oder **Person**. Das **Land** steht auf Schweiz — liegt der Kunde in einem anderen Land,
+   wählen Sie es zuerst (Liste mit Flagge; Tippen sucht).
+3. Bei einer Firma den **Firmennamen** tippen: Ab drei Buchstaben stehen darunter Vorschläge aus dem Firmenregister
+   des Landes. Wählen Sie einen, füllt das CRM Strasse, PLZ, Ort und UID aus. Bei einer Person tragen Sie **Vorname**
+   und **Nachname** ein — sie bilden dann den Namen.
+4. Sobald Sie das Feld verlassen, ist der Kunde angelegt — einen Knopf «Anlegen» gibt es nicht. Die Seite des Kunden
+   öffnet sich, der Cursor bleibt im Feld, in dem Sie gerade waren, und was Sie inzwischen getippt haben, ist dabei.
+5. Den Rest ergänzen: **Lebenszyklus** (siehe unten), **«Auch Lieferant»**, wenn Sie bei diesem Kunden auch einkaufen,
+   E-Mail, Telefon, Anschrift und auf Wunsch **Sprache**, **Website**, **Verantwortlich** und **Notizen**.
 
-Die **Kundennummer** vergibt das CRM selbst: «K-0001», «K-0002» und so weiter, ohne Lücken. Danach öffnet sich der
-Kunde; alles, was Sie dort ändern, speichert sich selbst.
+Jedes Feld speichert sich selbst: Am Feld erscheint kurz «gespeichert». Ist etwas nicht in Ordnung, steht die Meldung
+rot am Feld, und dieses Feld bleibt ungespeichert, bis es stimmt. Die **Kundennummer** vergibt das CRM selbst: «K-0001»,
+«K-0002» und so weiter, ohne Lücken.
+
+### Hilfen beim Ausfüllen
+
+- **Strasse und Nummer:** Tippen Sie Strasse und Hausnummer, schlägt das CRM passende Adressen im Land vor. Die Auswahl
+  füllt PLZ und Ort.
+- **Telefon:** Vor dem Feld steht die Flagge mit der Vorwahl. Das Feld nimmt nur Ziffern, so viele, wie Nummern im
+  Land haben, und gruppiert sie wie dort üblich («79 123 45 67»). Die Flagge folgt dem Land des Kunden; wählen Sie
+  im Telefonfeld eine andere Flagge, wechselt auch das Land — solange noch keine PLZ eingetragen ist.
+- **Notizen:** Ein Klick ins Feld öffnet den Editor mit allen Werkzeugen (Überschriften, Listen, Links, Tabellen und
+  mehr) in einem Fenster. Was Sie schreiben, ist sofort übernommen; «Fertig» oder Escape schliesst das Fenster.
+- **Woher die Vorschläge kommen:** Firmen aus dem UID-Register des Bundesamts für Statistik (Schweiz), aus «Recherche
+  d’entreprises» (Frankreich) und sonst aus GLEIF (nur Firmen mit einer LEI-Nummer); Adressen aus dem amtlichen
+  Gebäudeadressverzeichnis über swisstopo (Schweiz), aus der Base Adresse Nationale (Frankreich) und sonst aus
+  OpenStreetMap. Ihre Website fragt diese Dienste über ihren Server — Ihr Browser spricht nicht direkt mit ihnen.
+  Abschalten lässt sich beides unter **Verwaltung › Einstellungen › Nachschlagen**. Findet sich nichts Passendes,
+  bleibt, was Sie getippt haben.
 
 | Feld | Was geprüft wird |
 | --- | --- |
-| **Land** | ISO-Code mit zwei Buchstaben, zum Beispiel CH, LI, DE, AT, FR oder IT; leer heisst Schweiz |
+| **Land** | Auswahl mit Flagge; ab Werk Schweiz |
+| **Telefon** | nur Ziffern, so viele, wie Nummern im Land haben; gespeichert international («+41 79 123 45 67») |
 | **PLZ** | Schweiz und Liechtenstein: vier Ziffern von 1000 bis 9658 · Österreich: vier Ziffern · Deutschland, Frankreich, Italien: fünf Ziffern · andere Länder: bis 12 Zeichen |
 | **UID** | beginnt sie mit «CHE», hat sie die Form CHE-123.456.789, auf Wunsch mit «MWST» dahinter |
 | **E-Mail** | eine gültige Adresse; sie wird klein geschrieben gespeichert |
@@ -53,7 +73,7 @@ wählen.
 ## Kontaktpersonen
 
 Bei einer Firma halten Sie unter **Kontaktpersonen** die Menschen fest, mit denen Sie zu tun haben: Vorname, Nachname,
-**Funktion**, E-Mail und Telefon. Eine davon ist der **Hauptkontakt** — die erste von selbst; kreuzen Sie bei einer
+**Funktion**, E-Mail und Telefon (im Land des Kunden). Eine davon ist der **Hauptkontakt** — die erste von selbst; kreuzen Sie bei einer
 anderen **«Hauptkontakt»** an, wechselt er. Ein Klick auf eine Kontaktperson öffnet sie zum Bearbeiten; dort lässt sie
 sich auch löschen.
 
@@ -69,6 +89,10 @@ Unter **«Aktivität erfassen»** halten Sie fest, was mit dem Kunden geschehen 
 | **Notiz** | was Sie sich merken wollen |
 | **Anruf**, **Besprechung**, **E-Mail** | Gespräche mit Datum und auf Wunsch mit Kontaktperson |
 | **Aufgabe** | etwas, das zu tun ist — mit **«Fällig am»** |
+
+Die **Notiz** einer Aktivität schreiben Sie wie die Notizen des Kunden im Editor mit allen Werkzeugen — ein Klick ins
+Feld öffnet ihn. Mit **«Erfassen»** steht die Aktivität in der Liste; hier gibt es einen Knopf, weil eine Aktivität erst
+mit Art, Datum und Notiz vollständig ist.
 
 Offene Aufgaben stehen beim Kunden zuoberst; ist das Datum vorbei, sind sie rot. Mit **«Als erledigt markieren»** ist
 eine Aufgabe erledigt. Die Kennzahl **«Fällige Aufgaben»** über der Liste und die Zahl am Menüeintrag zählen alle offenen
@@ -106,6 +130,8 @@ alle müssen vorhanden sein. Beim Einlesen gilt:
 - Alle anderen Zeilen werden neue Kunden mit der nächsten Kundennummer.
 - Eine Zeile mit Fehlern — etwa einer falschen PLZ — wird übersprungen; die Meldung nennt sie mit ihrer Nummer. Die
   übrigen Zeilen werden übernommen.
+
+Notizen stehen im Export als Text ohne Formatierung, Telefonnummern im Format ihres Landes.
 
 **Gut zu wissen:** Werte, die Excel als Formel lesen würde (etwa eine Telefonnummer mit «+»), tragen im Export ein
 Hochkomma davor. Beim Einlesen fällt es wieder weg.

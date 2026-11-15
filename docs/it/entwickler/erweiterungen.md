@@ -233,8 +233,8 @@ L’esempio completo con modifica, eliminazione e azione multipla si trova nel m
 | `Column` | `text`, `mono`, `number`, `money`, `date`, `badge`, `link` | Colonna; `number` e `money` sono allineati a destra |
 | `Row` | `make($id)`, `cell()`, `badge($chiave, $testo, $tono)`, `link($chiave, $testo, $url)`, `url()`, `action()` | Riga; con `url()` la prima colonna diventa un link al record |
 | `Filter` | `make($parametro, $etichetta, $valore)`, `option($valore, $etichetta, $numero)` | Scelta sopra l’elenco, come parametro di query nell’indirizzo |
-| `Form` | `make($url, $metodo)`, `title()`, `fields()`, `values()`, `autosave()`, `submit()` | Modulo; con `autosave()` si salva da solo dopo ogni pausa, altrimenti con il pulsante |
-| `FormField` | `text`, `email`, `url`, `number`, `password`, `textarea`, `select($nome, $etichetta, $scelte)`, `checkbox`, `date`, `time`, `datetime`, `color`, `richtext`, `file($nome, $etichetta, $accept)`; inoltre `help()`, `placeholder()`, `required()`, `min()`, `max()`, `step()`, `rows()`, `mono()`, `onLeave()`, `half()` | Campo; con il salvataggio automatico, `password` viene salvato solo lasciando il campo |
+| `Form` | `make($url, $metodo)`, `title()`, `fields()`, `values()`, `autosave()`, `creates($campi)`, `submit()` | Modulo; con `autosave()` si salva da solo dopo ogni pausa, con `creates()` crea il record senza pulsante, altrimenti con il pulsante |
+| `FormField` | `text`, `email`, `url`, `number`, `password`, `textarea`, `select($nome, $etichetta, $scelte)`, `checkbox`, `date`, `time`, `datetime`, `color`, `richtext`, `file($nome, $etichetta, $accept)`, `country`, `phone`, `postalCode`; inoltre `help()`, `placeholder()`, `required()`, `min()`, `max()`, `step()`, `rows()`, `mono()`, `onLeave()`, `half()`, `countryFrom($campo)`, `inCountry($codice)`, `lookup($tipo, $corrispondenza)` | Campo; con il salvataggio automatico, `password` viene salvato solo lasciando il campo |
 | `Action` | `link`, `post`, `put`, `delete`, `bulk($chiave, $etichetta, $url)`; inoltre `confirm($domanda)`, `variant()`, `with($dati)` | Pulsante; con `confirm()` il nucleo chiede prima conferma |
 
 Cosa conta:
@@ -246,8 +246,23 @@ Cosa conta:
 - **Le azioni multiple** inviano `action` (la chiave di `Action::bulk`) e `ids` all’indirizzo indicato — il controller
   verifica entrambi e indica quante voci sono state interessate.
 - **Il salvataggio automatico** (`Form::autosave()`) è pensato per record esistenti: dopo una pausa il nucleo invia i
-  campi con il metodo del modulo (di solito `put`) e mostra al campo che è salvato. Per creare si usa un modulo con
-  pulsante.
+  campi con il metodo del modulo (di solito `put`) e mostra al campo che è salvato.
+- **Creare senza pulsante** (`Form::creates(['name'])`): il record nasce non appena uno dei campi obbligatori indicati è
+  compilato e lasciato. Il nucleo invia tutti i campi all'indirizzo del modulo come farebbe il pulsante; la risposta
+  porta alla pagina del nuovo record, il cui modulo continua a salvarsi con `autosave()`. Ciò che è stato digitato nel
+  frattempo viene ripreso e il focus resta nel campo. Le voci di registro (un'attività, una registrazione), complete
+  solo con tutti i dati, mantengono il pulsante.
+- **Paese, telefono, NPA:** `FormField::country()` è una scelta con bandiera, nome e ricerca (valore: codice ISO).
+  `FormField::phone()->countryFrom('country')` accetta solo cifre, nella lunghezza e nel raggruppamento del paese; la
+  bandiera nel campo imposta il paese del modulo (finché non è inserito un NPA), un nuovo paese imposta il prefisso di
+  un campo vuoto. Il valore arriva in formato internazionale («+41 79 123 45 67») — salvarlo come E.164 con
+  `Countries::parsePhone()`, verificarlo con `Rules\PhoneNumber`. `FormField::postalCode()->countryFrom('country')`
+  formatta il codice postale come il paese. Senza campo per il paese, `inCountry('CH')` lo fissa.
+- **Ricerca** (`->lookup('company'|'address', [risultato → campo])`): da tre caratteri il campo propone voci dai
+  registri di commercio o dagli indirizzi degli edifici del paese del modulo; la scelta compila i campi associati
+  (`name`, `street` (con numero), `street_name` e `house_number` (separati), `postal_code`, `city`, `country`, `uid`,
+  `vat_number`, `legal_form`, `website`). La richiesta passa dal server di Basalto, mai dal browser a terzi. Se il
+  servizio è disattivato per il sito (Amministrazione › Impostazioni › Ricerca), resta un normale campo di testo.
 - **I permessi** valgono come per ogni route ([Sezioni e permessi](#sezioni-e-permessi)); il controller omette i
   pulsanti che un utente non può usare.
 
@@ -552,16 +567,19 @@ carica all’avvio con le stesse regole di uno installato — nello sviluppo e n
 
 ```sh
 php artisan basalto:plugin install --archiv=percorso/del/plugin.zip
+php artisan basalto:plugin update --archiv=percorso/del/plugin-piu-recente.zip
 php artisan basalto:plugin check produttore/pacchetto
 php artisan basalto:plugin remove produttore/pacchetto --daten-loeschen
 ```
 
 `--archiv` installa senza catalogo e senza firma del Marketplace, per il resto come nel backend (forma, compatibilità,
-backup, migrazioni, prova di avvio). `check` apre ogni pagina GET del plugin senza parametri obbligatori — con
-l’accesso del titolare del sito predefinito, con `--benutzer=<e-mail>` come un’altra persona — e fallisce appena una
-pagina risponde con un errore del server (`--json` per un output leggibile dalla macchina). Dopo la rimozione con
-`--daten-loeschen` non deve restare alcuna tabella del plugin. Il Marketplace esegue esattamente questi passi nella
-**prova al banco** nella sua sandbox, prima di approvare un plugin.
+backup, migrazioni, prova di avvio). Con `update --archiv` una versione più recente da un archivio sostituisce quella
+installata — con backup, migrazioni, prova di avvio e ritorno indietro come per un aggiornamento dal Marketplace.
+`check` apre ogni pagina GET del plugin senza parametri obbligatori — con l’accesso del titolare del sito predefinito,
+con `--benutzer=<e-mail>` come un’altra persona — e fallisce appena una pagina risponde con un errore del server
+(`--json` per un output leggibile dalla macchina). Dopo la rimozione con `--daten-loeschen` non deve restare alcuna
+tabella del plugin. Il Marketplace esegue esattamente questi passi nella **prova al banco** nella sua sandbox, prima di
+approvare un plugin.
 
 ## Obblighi di un’estensione
 

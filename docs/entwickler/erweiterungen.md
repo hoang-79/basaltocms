@@ -231,8 +231,8 @@ Das vollständige Beispiel mit Bearbeiten, Löschen und Sammelaktion steht im Be
 | `Column` | `text`, `mono`, `number`, `money`, `date`, `badge`, `link` | Spalte; `number` und `money` stehen rechtsbündig |
 | `Row` | `make($id)`, `cell()`, `badge($schlüssel, $text, $ton)`, `link($schlüssel, $text, $url)`, `url()`, `action()` | Zeile; mit `url()` wird die erste Spalte zum Link auf den Datensatz |
 | `Filter` | `make($parameter, $bezeichnung, $wert)`, `option($wert, $bezeichnung, $anzahl)` | Auswahl über der Liste, als Abfrageparameter in der Adresse |
-| `Form` | `make($url, $methode)`, `title()`, `fields()`, `values()`, `autosave()`, `submit()` | Formular; mit `autosave()` speichert es nach jeder Pause selbst, sonst mit dem Knopf |
-| `FormField` | `text`, `email`, `url`, `number`, `password`, `textarea`, `select($name, $bezeichnung, $auswahl)`, `checkbox`, `date`, `time`, `datetime`, `color`, `richtext`, `file($name, $bezeichnung, $accept)`; dazu `help()`, `placeholder()`, `required()`, `min()`, `max()`, `step()`, `rows()`, `mono()`, `onLeave()`, `half()` | Feld; `password` speichert beim Autosave erst beim Verlassen des Feldes |
+| `Form` | `make($url, $methode)`, `title()`, `fields()`, `values()`, `autosave()`, `creates($felder)`, `submit()` | Formular; mit `autosave()` speichert es nach jeder Pause selbst, mit `creates()` legt es den Eintrag ohne Knopf an, sonst mit dem Knopf |
+| `FormField` | `text`, `email`, `url`, `number`, `password`, `textarea`, `select($name, $bezeichnung, $auswahl)`, `checkbox`, `date`, `time`, `datetime`, `color`, `richtext`, `file($name, $bezeichnung, $accept)`, `country`, `phone`, `postalCode`; dazu `help()`, `placeholder()`, `required()`, `min()`, `max()`, `step()`, `rows()`, `mono()`, `onLeave()`, `half()`, `countryFrom($feld)`, `inCountry($code)`, `lookup($art, $zuordnung)` | Feld; `password` speichert beim Autosave erst beim Verlassen des Feldes |
 | `Action` | `link`, `post`, `put`, `delete`, `bulk($schlüssel, $bezeichnung, $url)`; dazu `confirm($frage)`, `variant()`, `with($daten)` | Knopf; mit `confirm()` fragt der Kern vorher nach |
 
 Worauf es ankommt:
@@ -244,8 +244,23 @@ Worauf es ankommt:
 - **Sammelaktionen** schicken `action` (der Schlüssel aus `Action::bulk`) und `ids` an die angegebene Adresse — der
   Controller prüft beides und meldet, wie viele Einträge betroffen waren.
 - **Autosave** (`Form::autosave()`) ist für bestehende Datensätze gedacht: Der Kern schickt nach einer Pause die Felder
-  mit der Methode des Formulars (meist `put`) und zeigt am Feld, dass gespeichert ist. Zum Anlegen dient ein Formular
-  mit Knopf.
+  mit der Methode des Formulars (meist `put`) und zeigt am Feld, dass gespeichert ist.
+- **Anlegen ohne Knopf** (`Form::creates(['name'])`): Der Eintrag entsteht, sobald eines der genannten Pflichtfelder
+  ausgefüllt und verlassen ist. Der Kern schickt alle Felder an die Adresse des Formulars wie beim Knopf; die Antwort
+  führt auf die Seite des neuen Eintrags, deren Formular mit `autosave()` weiterspeichert. Was unterwegs noch getippt
+  wurde, geht mit, der Fokus bleibt im Feld. Für Protokolleinträge (eine Aktivität, eine Buchung), die erst mit allen
+  Angaben vollständig sind, bleibt der Knopf.
+- **Land, Telefon, Postleitzahl:** `FormField::country()` ist eine Auswahl mit Flagge, Name und Suche (Wert: ISO-Code).
+  `FormField::phone()->countryFrom('country')` nimmt nur Ziffern in Länge und Gruppierung des Landes; die Flagge im
+  Feld setzt das Land des Formulars (solange keine Postleitzahl steht), ein neues Land die Vorwahl eines leeren
+  Felds. Der Wert kommt international («+41 79 123 45 67») — speichern mit `Countries::parsePhone()` als E.164, prüfen
+  mit `Rules\PhoneNumber`. `FormField::postalCode()->countryFrom('country')` formatiert die Postleitzahl wie das Land.
+  Ohne Feld für das Land nennt `inCountry('CH')` es fest.
+- **Nachschlagen** (`->lookup('company'|'address', [Ergebnis → Feld])`): Ab drei Zeichen zeigt das Feld Vorschläge aus
+  Firmenregistern oder Gebäudeadressen im Land des Formulars; die Auswahl füllt die zugeordneten Felder (`name`,
+  `street` (mit Nummer), `street_name` und `house_number` (getrennt), `postal_code`, `city`, `country`, `uid`,
+  `vat_number`, `legal_form`, `website`). Die Anfrage geht an den Server von Basalto, nie aus dem Browser zu Dritten.
+  Ist der Dienst für die Site aus (Verwaltung › Einstellungen › Nachschlagen), bleibt es ein gewöhnliches Textfeld.
 - **Rechte** gelten wie für jede Route ([Bereiche und Rechte](#bereiche-und-rechte)); Knöpfe, die ein Benutzer nicht
   nutzen darf, lässt der Controller weg.
 
@@ -549,16 +564,18 @@ Basalto es beim Start mit denselben Regeln wie ein installiertes — in der Entw
 
 ```sh
 php artisan basalto:plugin install --archiv=pfad/zum/plugin.zip
+php artisan basalto:plugin update --archiv=pfad/zum/plugin-neuer.zip
 php artisan basalto:plugin check hersteller/paket
 php artisan basalto:plugin remove hersteller/paket --daten-loeschen
 ```
 
 `--archiv` installiert ohne Katalog und ohne Signatur des Marktplatzes, sonst wie im Backend (Form, Verträglichkeit,
-Sicherung, Migrationen, Startprobe). `check` ruft jede GET-Seite des Plugins ohne Pflicht-Parameter auf — angemeldet
-als Inhaberin oder Inhaber der Standard-Site, mit `--benutzer=<E-Mail>` als jemand anderes — und scheitert, sobald eine
-Seite mit einem Serverfehler antwortet (`--json` für eine maschinenlesbare Ausgabe). Nach dem Entfernen mit
-`--daten-loeschen` darf keine Tabelle des Plugins übrig sein. Genau diese Schritte macht der Marktplatz im
-**Prüfstand-Lauf** in seiner Sandbox, bevor er ein Plugin freigibt.
+Sicherung, Migrationen, Startprobe). Mit `update --archiv` kommt eine neuere Fassung aus einem Archiv an den Platz der
+installierten — mit Sicherung, Migrationen, Startprobe und Rückweg wie beim Update aus dem Marktplatz. `check` ruft jede
+GET-Seite des Plugins ohne Pflicht-Parameter auf — angemeldet als Inhaberin oder Inhaber der Standard-Site, mit
+`--benutzer=<E-Mail>` als jemand anderes — und scheitert, sobald eine Seite mit einem Serverfehler antwortet (`--json`
+für eine maschinenlesbare Ausgabe). Nach dem Entfernen mit `--daten-loeschen` darf keine Tabelle des Plugins übrig sein.
+Genau diese Schritte macht der Marktplatz im **Prüfstand-Lauf** in seiner Sandbox, bevor er ein Plugin freigibt.
 
 ## Pflichten einer Erweiterung
 

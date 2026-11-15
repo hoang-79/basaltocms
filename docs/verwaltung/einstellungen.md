@@ -4,7 +4,7 @@ Unter **Einstellungen** stehen die Fristen, Schalter und Grenzen von Basalto —
 
 ## Wo
 
-Modus «Verwaltung» › **Einstellungen**. Oben je Gruppe ein Reiter mit der Zahl ihrer Werte: Freigabe, Medien, Cache, Anmeldung, Aufbewahrung, Sprachen, Betrieb.
+Modus «Verwaltung» › **Einstellungen**. Oben je Gruppe ein Reiter mit der Zahl ihrer Werte: Freigabe, Medien, Cache, Anmeldung, Aufbewahrung, Sprachen, Nachschlagen, Betrieb.
 
 ![Gruppe «Aufbewahrung» mit dem Verlauf eines Werts](bilder/einstellungen-verlauf.webp)
 
@@ -48,6 +48,8 @@ Je Wert eine Karte:
 | Aufbewahrung | Statistik aufbewahren | 400 Tage | 30–1095 | Installation | ältere Seitenaufrufe löscht der Löschlauf |
 | Aufbewahrung | Sicherungen behalten | 7 | 1–365 | Installation | ältere Sicherungen im selben Ordner fallen weg |
 | Sprachen | Pflichtsprachen vor der Freigabe | — | — | Site | ein Verweis: Pflichtsprachen und Fallback stehen bei den Sprachen der Site («Öffnen →») |
+| Nachschlagen | Firmensuche | an | an/aus | Site | beim Tippen eines Firmennamens Vorschläge aus Registern: Schweiz UID-Register (Bundesamt für Statistik), Frankreich «Recherche d’entreprises», übrige Länder GLEIF (nur Firmen mit LEI); das Getippte geht über den Server an diesen Dienst |
+| Nachschlagen | Adresssuche | an | an/aus | Site | beim Tippen von Strasse und Hausnummer Vorschläge mit PLZ und Ort: Schweiz swisstopo (amtliches Gebäudeadressverzeichnis), Frankreich Base Adresse Nationale, übrige Länder OpenStreetMap (Photon); das Getippte geht über den Server an diesen Dienst |
 | Betrieb | Herzschlag-Schwelle | 5 Minuten | 2–60 | Installation | ist der letzte Herzschlag älter, meldet die Statusadresse «gestört» |
 | Betrieb | Fehleralarm ab | 20 Ausnahmen | 0–100'000 | Installation | so viele Fehler im Fenster lösen eine Mail an Besitz und Verwaltung des Installationskontos aus; 0 = kein Alarm |
 | Betrieb | Fenster des Fehleralarms | 5 Minuten | 1–60 | Installation | über welche Zeit gezählt wird |

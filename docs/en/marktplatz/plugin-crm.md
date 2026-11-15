@@ -19,18 +19,40 @@ Afterwards **“CRM”** appears under **Content**. The number next to it counts
 ## Create a customer
 
 1. Under **CRM**, click **“New customer”**.
-2. Choose the **Type**: **Company** or **Person**. For a company enter the **Company name**, for a person **First name**
-   and **Last name** — they then form the name.
-3. Choose the **Lifecycle** (see below) and tick **“Also a supplier”** if you also buy from this customer.
-4. Add address, email, phone and, if you like, **UID**, **Language**, **Website**, **Responsible** and **Notes**.
-5. **“Create”**.
+2. Choose the **Type**: **Company** or **Person**. The **Country** is set to Switzerland — if the customer is in
+   another country, choose it first (list with flags; typing searches).
+3. For a company, type the **Company name**: from three letters, suggestions from the country’s company register appear
+   below. Choose one and the CRM fills in street, postcode, town and UID. For a person, enter **First name** and
+   **Last name** — they then form the name.
+4. As soon as you leave the field, the customer is created — there is no “Create” button. The customer’s page opens,
+   the cursor stays in the field you were in, and anything you typed in the meantime is kept.
+5. Add the rest: **Lifecycle** (see below), **“Also a supplier”** if you also buy from this customer, email, phone,
+   address and, if you like, **Language**, **Website**, **Responsible** and **Notes**.
 
-The CRM assigns the **customer number** itself: “K-0001”, “K-0002” and so on, without gaps. The customer then opens;
-everything you change there saves itself.
+Every field saves itself: “saved” briefly appears at the field. If something is not right, the message appears in red
+at the field, and that field stays unsaved until it is correct. The CRM assigns the **customer number** itself:
+“K-0001”, “K-0002” and so on, without gaps.
+
+### Help while filling in
+
+- **Street and number:** type street and house number and the CRM suggests matching addresses in the country.
+  Choosing one fills in postcode and town.
+- **Phone:** the flag with the dialling code stands in front of the field. The field accepts digits only, as many as
+  numbers in that country have, and groups them as is usual there (“79 123 45 67”). The flag follows the customer’s
+  country; if you choose another flag in the phone field, the country changes too — as long as no postcode is entered.
+- **Notes:** a click into the field opens the editor with all tools (headings, lists, links, tables and more) in a
+  window. What you write is taken over at once; “Done” or Escape closes the window.
+- **Where the suggestions come from:** companies from the UID register of the Federal Statistical Office (Switzerland),
+  from “Recherche d’entreprises” (France) and otherwise from GLEIF (only companies with an LEI); addresses from the
+  official register of building addresses via swisstopo (Switzerland), from the Base Adresse Nationale (France) and
+  otherwise from OpenStreetMap. Your website asks these services through its server — your browser does not talk to
+  them directly. Both can be switched off under **Administration › Settings › Lookup**. If nothing matches, what you
+  typed stays.
 
 | Field | What is checked |
 | --- | --- |
-| **Country** | two-letter ISO code, for example CH, LI, DE, AT, FR or IT; empty means Switzerland |
+| **Country** | choice with flag; Switzerland by default |
+| **Phone** | digits only, as many as numbers in the country have; stored in international format (“+41 79 123 45 67”) |
 | **Postcode** | Switzerland and Liechtenstein: four digits from 1000 to 9658 · Austria: four digits · Germany, France, Italy: five digits · other countries: up to 12 characters |
 | **UID** | if it starts with “CHE”, it has the form CHE-123.456.789, optionally followed by “MWST” |
 | **Email** | a valid address; it is stored in lower case |
@@ -50,7 +72,7 @@ bottom.
 ## Contact persons
 
 For a company, record under **Contact persons** the people you deal with: first name, last name, **Function**, email
-and phone. One of them is the **Main contact** — the first one automatically; tick **“Main contact”** on another one to
+and phone (in the customer’s country). One of them is the **Main contact** — the first one automatically; tick **“Main contact”** on another one to
 switch. A click on a contact person opens it for editing; it can also be deleted there.
 
 **Good to know:** With the “Project management” plugin, the email address of a contact person opens this customer’s
@@ -65,6 +87,10 @@ Under **“Record activity”** you note what has happened with the customer or 
 | **Note** | what you want to remember |
 | **Call**, **Meeting**, **Email** | conversations with date and optionally a contact person |
 | **Task** | something to do — with **“Due on”** |
+
+You write the **note** of an activity in the editor with all tools, like the customer’s notes — a click into the field
+opens it. With **“Record”** the activity appears in the list; there is a button here because an activity is only
+complete with type, date and note.
 
 Open tasks are listed first on the customer; once the date has passed they turn red. **“Mark as done”** completes a
 task. The key figure **“Tasks due”** above the list and the number next to the menu entry count all open tasks due today
@@ -101,6 +127,8 @@ the header row may also be in German, French or Italian, and not every column ha
 - All other rows become new customers with the next customer number.
 - A row with errors — such as a wrong postcode — is skipped; the message names it with its row number. The other rows
   are imported.
+
+Notes appear in the export as text without formatting, phone numbers in the format of their country.
 
 **Good to know:** values that Excel would read as a formula (such as a phone number starting with “+”) get an
 apostrophe in front in the export. It is removed again on import.

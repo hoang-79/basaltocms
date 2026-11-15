@@ -4,7 +4,7 @@ Sotto **Impostazioni** si trovano i termini, gli interruttori e i limiti di Basa
 
 ## Dove
 
-Modalità «Amministrazione» › **Impostazioni**. In alto una scheda per gruppo con il numero dei suoi valori: Approvazione, Media, Cache, Accesso, Conservazione, Lingue, Esercizio.
+Modalità «Amministrazione» › **Impostazioni**. In alto una scheda per gruppo con il numero dei suoi valori: Approvazione, Media, Cache, Accesso, Conservazione, Lingue, Ricerca, Esercizio.
 
 ![Gruppo «Conservazione» con la cronologia di un valore](bilder/einstellungen-verlauf.webp)
 
@@ -48,6 +48,8 @@ Le modifiche si salvano da sole («salvataggio …», poi «salvato»). Se un va
 | Conservazione | Conservare le statistiche | 400 giorni | 30–1095 | Installazione | la pulizia elimina le visualizzazioni più vecchie |
 | Conservazione | Conservare i backup | 7 | 1–365 | Installazione | i backup più vecchi nella stessa cartella vengono eliminati |
 | Lingue | Lingue obbligatorie prima dell’approvazione | — | — | Sito | un rimando: lingue obbligatorie e lingua di riserva si trovano presso le lingue del sito («Apri →») |
+| Ricerca | Ricerca aziende | attivo | attivo/disattivo | Sito | mentre si digita il nome di un’azienda, proposte dai registri: Svizzera registro IDI (Ufficio federale di statistica), Francia «Recherche d’entreprises», altri paesi GLEIF (solo aziende con un LEI); ciò che si digita passa dal server a questo servizio |
+| Ricerca | Ricerca indirizzi | attivo | attivo/disattivo | Sito | mentre si digitano via e numero civico, proposte con NPA e località: Svizzera swisstopo (elenco ufficiale degli indirizzi degli edifici), Francia Base Adresse Nationale, altri paesi OpenStreetMap (Photon); ciò che si digita passa dal server a questo servizio |
 | Esercizio | Soglia del battito | 5 minuti | 2–60 | Installazione | se l’ultimo battito è più vecchio, l’indirizzo di stato segnala «con problemi» |
 | Esercizio | Allarme errori da | 20 eccezioni | 0–100'000 | Installazione | tanti errori nella finestra fanno partire un’e-mail a titolare e amministrazione dell’account dell’installazione; 0 = nessun allarme |
 | Esercizio | Finestra dell’allarme errori | 5 minuti | 1–60 | Installazione | su quale periodo si conta |

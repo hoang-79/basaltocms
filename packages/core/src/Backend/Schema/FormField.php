@@ -87,6 +87,31 @@ final class FormField
         return new self($name, $label, 'richtext');
     }
 
+    /**
+     * CR-021: Land mit Flagge, Name und Suche (wie im Profil) — Wert ist der ISO-Code mit zwei Buchstaben.
+     */
+    public static function country(string $name, string $label): self
+    {
+        return new self($name, $label, 'country');
+    }
+
+    /**
+     * CR-021: Telefon je Land — nur Ziffern, Länge und Gruppierung des Landes, Flagge mit Vorwahl. Mit `countryFrom('land')`
+     * an das Land des Formulars gekoppelt: Die Flagge setzt das Land, ein neues Land die Vorwahl eines leeren Felds.
+     * Der Wert kommt international («+41 79 123 45 67»); speichern mit `Countries::parsePhone()` als E.164, prüfen mit
+     * `Rules\PhoneNumber`.
+     */
+    public static function phone(string $name, string $label): self
+    {
+        return new self($name, $label, 'phone');
+    }
+
+    /** CR-021: Postleitzahl im Format des Landes aus `countryFrom('land')` (nur Ziffern, wo das Land es so will). */
+    public static function postalCode(string $name, string $label): self
+    {
+        return (new self($name, $label, 'postal'))->set('on_leave', true);
+    }
+
     public static function file(string $name, string $label, string $accept = ''): self
     {
         $field = new self($name, $label, 'file');
@@ -155,6 +180,33 @@ final class FormField
     public function onLeave(): self
     {
         return $this->set('on_leave', true);
+    }
+
+    /** CR-021: Das Feld des Formulars mit dem Land (für Telefon, PLZ und Nachschlagen). */
+    public function countryFrom(string $field): self
+    {
+        return $this->set('country_field', $field);
+    }
+
+    /** CR-021: Land, wenn das Formular kein Feld dafür hat (etwa die Kontaktperson im Land ihres Kunden). */
+    public function inCountry(string $code): self
+    {
+        return $this->set('default_country', strtoupper($code));
+    }
+
+    /**
+     * CR-021: Vorschläge beim Tippen aus einem Nachschlagedienst des Kerns — `company` (Firmenregister) oder `address`
+     * (Gebäudeadressen) im Land aus `countryFrom('land')`. Die Auswahl füllt die Felder des Formulars nach `$fill`
+     * (Ergebnis → Feld; Ergebnis: name, street — Strasse mit Nummer —, street_name und house_number getrennt, postal_code, city,
+     * country, uid, vat_number, legal_form, website).
+     * Ist der Dienst für die Site aus, bleibt es ein gewöhnliches Textfeld.
+     *
+     * @param  'company'|'address'  $kind
+     * @param  array<string, string>  $fill
+     */
+    public function lookup(string $kind, array $fill): self
+    {
+        return $this->set('lookup', ['kind' => $kind, 'fill' => $fill]);
     }
 
     /** Halbe Breite: zwei Felder nebeneinander. */

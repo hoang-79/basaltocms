@@ -20,6 +20,9 @@ In seguito compare la voce **«Contabilità»** in **Contenuti**. Il numero acca
 
 In **Contabilità › Impostazioni** si trovano i dati per ogni fattura e per la sezione di pagamento QR. Si salvano da soli.
 
+Per **Nome** e **Via**, il plugin cerca mentre digita — nei registri di commercio e nei dati ufficiali degli indirizzi,
+come nel [CRM](plugin-crm.md#aiuti-nella-compilazione). La scelta compila via, numero civico, NPA e località.
+
 | Campo | |
 | --- | --- |
 | **Nome dell’azienda**, **Via**, **Numero civico**, **NPA**, **Località**, **Paese** | mittente della fattura e «Conto / Pagabile a» nella sezione di pagamento; Svizzera o Liechtenstein |
@@ -56,7 +59,8 @@ gli importi registrati mantengono la loro aliquota.
 fatture. La colonna **Partite aperte** mostra ciò che resta aperto; un clic apre il conto individuale con le sue fatture.
 
 - **Senza CRM** crea i conti individuali qui: tipo, nome o azienda, persona di contatto, indirizzo, e-mail e numero
-  IDI/IVA. Il numero lo assegna la contabilità («DEB-0001», «KRE-0001»).
+  IDI/IVA. Il numero lo assegna la contabilità («DEB-0001», «KRE-0001»). Il conto individuale nasce senza pulsante non
+  appena il nome è inserito e il campo lasciato; poi ogni campo si salva da sé. Nome e via vengono cercati come nel CRM.
 - **Con il plugin «CRM»** sceglie direttamente un cliente dal Suo elenco clienti in una fattura. Il conto individuale
   viene creato al primo utilizzo; nome e indirizzo li gestisce nel CRM e la contabilità segue ogni modifica. Per le
   fatture fornitori può scegliere i clienti contrassegnati come **«Fornitore»** nel CRM. Un conto individuale che

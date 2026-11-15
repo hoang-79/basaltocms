@@ -4837,5 +4837,14 @@
     "Geschäft": "Business",
     "Erweiterungen": "Extensions",
     "Personen": "People",
-    "Überwachung": "Monitoring"
+    "Überwachung": "Monitoring",
+    "Wird angelegt …": "Creating …",
+    "Wird angelegt, sobald :fields ausgefüllt ist — danach speichert jedes Feld selbst.": "Created as soon as :fields is filled in — after that every field saves itself.",
+    "Keine Vorschläge — so übernehmen, wie getippt.": "No suggestions — keep it as typed.",
+    "Nachschlagen": "Lookup",
+    "Firmensuche": "Company search",
+    "Adresssuche": "Address search",
+    "Beim Tippen eines Firmennamens Vorschläge aus Registern: Schweiz UID-Register (BFS), Frankreich «Recherche d’entreprises», übrige Länder GLEIF (Firmen mit LEI). Was getippt wird, geht an diesen Dienst.": "Suggestions from registers while typing a company name: Switzerland UID register (FSO), France “Recherche d’entreprises”, other countries GLEIF (companies with an LEI). What you type is sent to this service.",
+    "Beim Tippen von Strasse und Hausnummer Vorschläge mit PLZ und Ort: Schweiz swisstopo (amtliches Gebäudeadressverzeichnis), Frankreich Base Adresse Nationale, übrige Länder OpenStreetMap (Photon). Was getippt wird, geht an diesen Dienst.": "Suggestions with postcode and town while typing a street and house number: Switzerland swisstopo (official building address register), France Base Adresse Nationale, other countries OpenStreetMap (Photon). What you type is sent to this service.",
+    "Fliesstext · wird mit «:button» gespeichert": "Rich text · saved with “:button”"
 }

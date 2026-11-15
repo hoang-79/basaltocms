@@ -231,8 +231,8 @@ The complete example with editing, deleting and a bulk action is in the example 
 | `Column` | `text`, `mono`, `number`, `money`, `date`, `badge`, `link` | Column; `number` and `money` are right-aligned |
 | `Row` | `make($id)`, `cell()`, `badge($key, $text, $tone)`, `link($key, $text, $url)`, `url()`, `action()` | Row; with `url()` the first column becomes a link to the record |
 | `Filter` | `make($param, $label, $value)`, `option($value, $label, $count)` | Choice above the list, as a query parameter in the address |
-| `Form` | `make($url, $method)`, `title()`, `fields()`, `values()`, `autosave()`, `submit()` | Form; with `autosave()` it saves itself after every pause, otherwise with the button |
-| `FormField` | `text`, `email`, `url`, `number`, `password`, `textarea`, `select($name, $label, $choices)`, `checkbox`, `date`, `time`, `datetime`, `color`, `richtext`, `file($name, $label, $accept)`; plus `help()`, `placeholder()`, `required()`, `min()`, `max()`, `step()`, `rows()`, `mono()`, `onLeave()`, `half()` | Field; with autosave, `password` is only saved when the field is left |
+| `Form` | `make($url, $method)`, `title()`, `fields()`, `values()`, `autosave()`, `creates($fields)`, `submit()` | Form; with `autosave()` it saves itself after every pause, with `creates()` it creates the record without a button, otherwise with the button |
+| `FormField` | `text`, `email`, `url`, `number`, `password`, `textarea`, `select($name, $label, $choices)`, `checkbox`, `date`, `time`, `datetime`, `color`, `richtext`, `file($name, $label, $accept)`, `country`, `phone`, `postalCode`; plus `help()`, `placeholder()`, `required()`, `min()`, `max()`, `step()`, `rows()`, `mono()`, `onLeave()`, `half()`, `countryFrom($field)`, `inCountry($code)`, `lookup($kind, $mapping)` | Field; with autosave, `password` is only saved when the field is left |
 | `Action` | `link`, `post`, `put`, `delete`, `bulk($key, $label, $url)`; plus `confirm($question)`, `variant()`, `with($data)` | Button; with `confirm()` the core asks first |
 
 What matters:
@@ -244,7 +244,23 @@ What matters:
 - **Bulk actions** send `action` (the key from `Action::bulk`) and `ids` to the given address — the controller checks
   both and reports how many entries were affected.
 - **Autosave** (`Form::autosave()`) is meant for existing records: after a pause the core sends the fields with the
-  form's method (usually `put`) and shows at the field that it has been saved. Use a form with a button for creating.
+  form's method (usually `put`) and shows at the field that it has been saved.
+- **Creating without a button** (`Form::creates(['name'])`): the record is created as soon as one of the named required
+  fields is filled in and left. The core sends all fields to the form's address as the button would; the response leads
+  to the new record's page, whose form keeps saving with `autosave()`. Anything typed in the meantime is carried over and
+  the focus stays in the field. Log entries (an activity, a booking) that are only complete with all details keep the
+  button.
+- **Country, phone, postcode:** `FormField::country()` is a choice with flag, name and search (value: ISO code).
+  `FormField::phone()->countryFrom('country')` accepts digits only, in the length and grouping of the country; the flag
+  in the field sets the form's country (as long as no postcode is entered), a new country sets the dialling code of an
+  empty field. The value arrives in international format ("+41 79 123 45 67") — store it as E.164 with
+  `Countries::parsePhone()`, validate with `Rules\PhoneNumber`. `FormField::postalCode()->countryFrom('country')` formats
+  the postcode like the country does. Without a country field, `inCountry('CH')` fixes it.
+- **Lookup** (`->lookup('company'|'address', [result → field])`): from three characters the field suggests entries from
+  company registers or building addresses in the form's country; choosing one fills the mapped fields (`name`, `street`
+  (with number), `street_name` and `house_number` (separate), `postal_code`, `city`, `country`, `uid`, `vat_number`,
+  `legal_form`, `website`). The request goes to the Basalto server, never from the browser to third parties. If the
+  service is off for the site (Administration › Settings › Lookup), it stays a plain text field.
 - **Rights** apply as for every route ([Areas and rights](#areas-and-rights)); the controller leaves out buttons a user
   may not use.
 
@@ -548,16 +564,18 @@ it at start-up with the same rules as an installed one — in development and in
 
 ```sh
 php artisan basalto:plugin install --archiv=path/to/plugin.zip
+php artisan basalto:plugin update --archiv=path/to/plugin-newer.zip
 php artisan basalto:plugin check vendor/package
 php artisan basalto:plugin remove vendor/package --daten-loeschen
 ```
 
 `--archiv` installs without the catalogue and without the marketplace signature, otherwise as in the backend (form,
-compatibility, backup, migrations, start probe). `check` calls every GET page of the plugin without required
-parameters — signed in as the owner of the default site, with `--benutzer=<e-mail>` as someone else — and fails as soon
-as a page answers with a server error (`--json` for machine-readable output). After removing with `--daten-loeschen`, no
-table of the plugin may be left. The marketplace takes exactly these steps in the **trial run** in its sandbox before
-it approves a plugin.
+compatibility, backup, migrations, start probe). With `update --archiv` a newer version from an archive replaces the
+installed one — with backup, migrations, start probe and way back as for an update from the marketplace. `check` calls
+every GET page of the plugin without required parameters — signed in as the owner of the default site, with
+`--benutzer=<e-mail>` as someone else — and fails as soon as a page answers with a server error (`--json` for
+machine-readable output). After removing with `--daten-loeschen`, no table of the plugin may be left. The marketplace
+takes exactly these steps in the **trial run** in its sandbox before it approves a plugin.
 
 ## Obligations of an extension
 

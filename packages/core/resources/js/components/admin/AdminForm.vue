@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { useForm, usePage } from '@inertiajs/vue3';
-import { computed, watch } from 'vue';
+import { computed, nextTick, onMounted, reactive, ref, watch } from 'vue';
+import { t } from '../../i18n';
+import { formatPostal } from '../address';
 import { useAutosave } from '../autosave';
 import Button from '../Button.vue';
 import { controlClasses } from '../control';
+import CountrySelect from '../CountrySelect.vue';
 import Field from '../Field.vue';
+import PhoneInput from '../PhoneInput.vue';
 import RichTextField from '../RichTextField.vue';
+import { fillFrom, filled, handoff, typedSince } from './lookup';
+import LookupInput from './LookupInput.vue';
 import { mergeServerValues } from './state';
 import type { AdminField, AdminFormSection } from './types';
 
@@ -59,6 +65,161 @@ watch(
     },
 );
 
+/* ── CR-021: Land, Telefon, PLZ, Nachschlagen, Anlegen ohne Knopf ── */
+
+const countries = props.section.countries ?? [];
+const root = ref<HTMLElement | null>(null);
+const countryOf = (f: AdminField): string =>
+    f.country_field &&
+    typeof form[f.country_field] === 'string' &&
+    form[f.country_field] !== ''
+        ? String(form[f.country_field])
+        : (f.default_country ?? 'CH');
+const lookupUrl = (f: AdminField): string | null =>
+    f.lookup ? (props.section.lookups?.[f.lookup.kind] ?? null) : null;
+
+function onPostal(f: AdminField, value: string): void {
+    form[f.name] = formatPostal(
+        value,
+        countries.find((c) => c.code === countryOf(f)),
+    );
+}
+
+// Telefon und Land: Die Flagge im Telefonfeld setzt das Land des Formulars; ein neues Land setzt die Vorwahl, solange
+// das Telefonfeld leer ist. Beim Laden liest das Telefonfeld sein Land aus der Nummer — das zählt nicht als Wahl.
+const phoneCountry = reactive<Record<string, string>>({});
+for (const f of props.section.fields.filter((x) => x.type === 'phone')) {
+    phoneCountry[f.name] = countryOf(f);
+}
+let phoneReady = false;
+function onPhoneCountry(f: AdminField, code: string): void {
+    phoneCountry[f.name] = code;
+    const countryField = f.country_field;
+    if (!phoneReady || !countryField || form[countryField] === code) {
+        return;
+    }
+    // Die Vorwahl setzt das Land nur, solange keine PLZ dieses Lands steht — sonst würde die PLZ ungültig
+    const postalTaken = props.section.fields.some(
+        (x) =>
+            x.type === 'postal' &&
+            x.country_field === countryField &&
+            filled(form[x.name]),
+    );
+    if (!postalTaken) {
+        form[countryField] = code;
+    }
+}
+watch(
+    () =>
+        props.section.fields
+            .filter((x) => x.type === 'phone' && x.country_field)
+            .map((x) => form[x.country_field as string] as unknown),
+    () => {
+        for (const f of props.section.fields.filter(
+            (x) => x.type === 'phone' && x.country_field,
+        )) {
+            if (!filled(form[f.name])) {
+                phoneCountry[f.name] = countryOf(f);
+            }
+        }
+    },
+);
+
+function onLookup(f: AdminField, values: Record<string, string>): void {
+    if (!f.lookup) {
+        return;
+    }
+    Object.assign(form, fillFrom(values, f.lookup.fill));
+    void nextTick(() => maybeCreate());
+}
+
+// Anlegen ohne Knopf: der erste Eintrag in einem der genannten Felder legt an; die Antwort führt auf die Seite des
+// neuen Eintrags. Was unterwegs noch getippt wird, übernimmt dort das Formular mit denselben Feldern.
+const creates = props.section.creates ?? [];
+/** Hinweis im Modal des Fliesstexts: Formulare mit Knopf übernehmen erst mit dem Knopf (leer = «wird automatisch gespeichert»). */
+const richTextNote =
+    props.section.autosave || creates.length > 0
+        ? ''
+        : t('Fliesstext · wird mit «:button» gespeichert', {
+              button: props.section.submit,
+          });
+const creating = ref(false);
+const createLabels = creates
+    .map((n) => props.section.fields.find((f) => f.name === n)?.label ?? n)
+    .map((label) => `«${label}»`)
+    .join(` ${t('oder')} `);
+
+function maybeCreate(): void {
+    if (creates.length === 0 || creating.value) {
+        return;
+    }
+    if (!creates.some((n) => filled(form[n]))) {
+        return;
+    }
+    creating.value = true;
+    handoff.from = props.section.url;
+    handoff.sent = JSON.parse(JSON.stringify(form.data())) as Record<
+        string,
+        unknown
+    >;
+    handoff.latest = handoff.sent;
+    form.submit(props.section.method, props.section.url, {
+        preserveScroll: true,
+        forceFormData: hasFile,
+        onError: () => {
+            creating.value = false;
+            handoff.from = null;
+        },
+    });
+}
+watch(
+    () => form.data(),
+    (data) => {
+        if (creating.value && handoff.from === props.section.url) {
+            handoff.latest = JSON.parse(JSON.stringify(data)) as Record<
+                string,
+                unknown
+            >;
+        }
+    },
+    { deep: true },
+);
+function onFocusIn(event: FocusEvent): void {
+    if (!creating.value) {
+        return;
+    }
+    const holder = (event.target as HTMLElement | null)?.closest('[data-feld]');
+    handoff.focus = holder?.getAttribute('data-feld') ?? null;
+}
+
+onMounted(() => {
+    void nextTick(() => {
+        phoneReady = true;
+    });
+    // Das Formular des eben angelegten Eintrags: was beim Anlegen noch dazukam, übernehmen und weiter fokussieren
+    if (handoff.from === null || handoff.from === props.section.url) {
+        return;
+    }
+    const names = props.section.fields.map((f) => f.name);
+    const sentNames = Object.keys(handoff.sent);
+    if (sentNames.length === 0 || sentNames.some((n) => !names.includes(n))) {
+        return;
+    }
+    const typed = typedSince(handoff.sent, handoff.latest);
+    const focus = handoff.focus;
+    handoff.from = null;
+    void nextTick(() => {
+        Object.assign(form, typed);
+        if (focus) {
+            root.value
+                ?.querySelector<HTMLElement>(
+                    `[data-feld="${focus}"] input, [data-feld="${focus}"] select, [data-feld="${focus}"] textarea, [data-feld="${focus}"] button`,
+                )
+                ?.focus();
+        }
+    });
+});
+
 function submit(): void {
     form.submit(props.section.method, props.section.url, {
         preserveScroll: true,
@@ -83,14 +244,18 @@ const inputType = (f: AdminField): string =>
             {{ section.title }}
         </h2>
         <form
+            ref="root"
             class="grid gap-x-4 gap-y-3 md:grid-cols-2"
             novalidate
-            @submit.prevent="submit"
+            @submit.prevent="creates.length > 0 ? maybeCreate() : submit()"
+            @focusin="onFocusIn"
         >
             <div
                 v-for="f in section.fields"
                 :key="f.name"
+                :data-feld="f.name"
                 :class="f.half ? '' : 'md:col-span-2'"
+                @focusout="creates.includes(f.name) && maybeCreate()"
             >
                 <label
                     v-if="f.type === 'checkbox'"
@@ -198,6 +363,102 @@ const inputType = (f: AdminField): string =>
                             :label="f.label"
                             :placeholder="f.placeholder"
                             :invalid="invalid"
+                            :subtitle="richTextNote"
+                        />
+                    </template>
+                </Field>
+                <Field
+                    v-else-if="f.type === 'country'"
+                    :label="f.label"
+                    :help="f.help"
+                    :error="errors[f.name]"
+                    :required="f.required"
+                    :saved="save?.saved(f.name)"
+                    :waiting="save?.waiting(f.name)"
+                >
+                    <template #default="{ id, invalid }">
+                        <CountrySelect
+                            :id="id"
+                            v-model="form[f.name]"
+                            :countries="countries"
+                            :label="f.label"
+                            :invalid="invalid"
+                        />
+                    </template>
+                </Field>
+                <Field
+                    v-else-if="f.type === 'phone'"
+                    :label="f.label"
+                    :help="f.help"
+                    :error="errors[f.name]"
+                    :required="f.required"
+                    :saved="save?.saved(f.name)"
+                    :waiting="save?.waiting(f.name)"
+                >
+                    <template #default="{ id, invalid }">
+                        <PhoneInput
+                            :id="id"
+                            v-model="form[f.name]"
+                            :country="phoneCountry[f.name]"
+                            :countries="countries"
+                            :invalid="invalid"
+                            @update:country="onPhoneCountry(f, $event)"
+                        />
+                    </template>
+                </Field>
+                <Field
+                    v-else-if="f.type === 'postal'"
+                    :label="f.label"
+                    :help="f.help"
+                    :error="errors[f.name]"
+                    :required="f.required"
+                    :saved="save?.saved(f.name)"
+                    :waiting="save?.waiting(f.name)"
+                >
+                    <template #default="{ id, invalid, describedby }">
+                        <input
+                            :id="id"
+                            :value="form[f.name]"
+                            type="text"
+                            inputmode="text"
+                            autocomplete="postal-code"
+                            :placeholder="
+                                countries.find((c) => c.code === countryOf(f))
+                                    ?.postal_example ?? f.placeholder
+                            "
+                            :class="[control, 'font-mono']"
+                            :aria-invalid="invalid ? 'true' : undefined"
+                            :aria-describedby="describedby"
+                            v-bind="save ? save.leave(f.name) : {}"
+                            @input="
+                                onPostal(
+                                    f,
+                                    ($event.target as HTMLInputElement).value,
+                                )
+                            "
+                        />
+                    </template>
+                </Field>
+                <Field
+                    v-else-if="f.lookup && lookupUrl(f)"
+                    :label="f.label"
+                    :help="f.help"
+                    :error="errors[f.name]"
+                    :required="f.required"
+                    :saved="save?.saved(f.name)"
+                    :waiting="save?.waiting(f.name)"
+                >
+                    <template #default="{ id, invalid, describedby }">
+                        <LookupInput
+                            :id="id"
+                            v-model="form[f.name]"
+                            :url="lookupUrl(f) as string"
+                            :country="countryOf(f)"
+                            :invalid="invalid"
+                            :describedby="describedby"
+                            :placeholder="f.placeholder"
+                            :mono="f.mono"
+                            @select="onLookup(f, $event)"
                         />
                     </template>
                 </Field>
@@ -264,7 +525,21 @@ const inputType = (f: AdminField): string =>
                     v-bind="f.on_leave && save ? save.leave(f.name) : {}"
                 />
             </div>
-            <div v-if="!section.autosave" class="md:col-span-2">
+            <p
+                v-if="creates.length > 0"
+                class="text-[12px] text-basalt-light md:col-span-2"
+                role="status"
+            >
+                {{
+                    creating
+                        ? t('Wird angelegt …')
+                        : t(
+                              'Wird angelegt, sobald :fields ausgefüllt ist — danach speichert jedes Feld selbst.',
+                              { fields: createLabels },
+                          )
+                }}
+            </p>
+            <div v-else-if="!section.autosave" class="md:col-span-2">
                 <Button type="submit" :disabled="form.processing">{{
                     section.submit
                 }}</Button>

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Basalto\Core\Backend\Schema;
 
+use Basalto\Core\Lookup\Lookups;
+use Basalto\Core\Support\Countries;
+
 /**
  * Ein Formular auf einer Verwaltungsseite (CR-018, TB 99). Mit `autosave()` speichert es nach jeder Pause selbst —
  * für Bestehendes (CR-013); ohne mit einem Knopf, etwa beim Anlegen. Geprüft wird im Controller des Plugins wie immer
@@ -22,6 +25,9 @@ final class Form
     private bool $autosave = false;
 
     private string $submit = '';
+
+    /** @var list<string> CR-021: Felder, deren erster Eintrag den Datensatz anlegt (Anlegen ohne Knopf) */
+    private array $creates = [];
 
     private function __construct(private readonly string $url, private readonly string $method) {}
 
@@ -61,6 +67,21 @@ final class Form
         return $this;
     }
 
+    /**
+     * CR-021: Anlegen ohne Knopf — der Eintrag entsteht, sobald eines dieser Felder ausgefüllt und verlassen ist (die
+     * Adresse des Formulars nimmt alle Werte wie beim Knopf); die Antwort führt auf die Seite des neuen Eintrags, dort
+     * speichert das Formular selbst. Getipptes, das unterwegs dazukam, geht mit.
+     *
+     * @param  list<string>  $fields
+     */
+    public function creates(array $fields): self
+    {
+        $this->creates = $fields;
+        $this->autosave = false;
+
+        return $this;
+    }
+
     public function submit(string $label): self
     {
         $this->submit = $label;
@@ -76,10 +97,17 @@ final class Form
             $values[$field->name] = $this->values[$field->name] ?? null;
         }
 
+        $fields = array_map(static fn (FormField $f): array => $f->toArray(), $this->fields);
+        $types = array_column($fields, 'type');
+        $kinds = array_values(array_unique(array_filter(array_map(static fn (array $f): ?string => $f['lookup']['kind'] ?? null, $fields))));
+
         return [
             'kind' => 'form', 'title' => $this->title, 'url' => $this->url, 'method' => $this->method, 'autosave' => $this->autosave,
             'submit' => $this->submit !== '' ? $this->submit : (string) __('Speichern'),
-            'fields' => array_map(static fn (FormField $f): array => $f->toArray(), $this->fields), 'values' => $values,
+            'fields' => $fields, 'values' => $values, 'creates' => $this->creates,
+            // CR-021: Länder nur, wenn ein Feld sie braucht — einmal je Formular
+            'countries' => array_intersect(['country', 'phone', 'postal'], $types) !== [] ? Countries::forForms() : null,
+            'lookups' => $kinds === [] ? null : Lookups::urls($kinds),
         ];
     }
 }

@@ -4,7 +4,7 @@ Sous **Paramètres** figurent les délais, interrupteurs et limites de Basalto �
 
 ## Où
 
-Mode « Administration » › **Paramètres**. En haut, un onglet par groupe avec le nombre de ses valeurs : Validation, Médias, Cache, Connexion, Conservation, Langues, Exploitation.
+Mode « Administration » › **Paramètres**. En haut, un onglet par groupe avec le nombre de ses valeurs : Validation, Médias, Cache, Connexion, Conservation, Langues, Recherche, Exploitation.
 
 ![Groupe « Conservation » avec l’historique d’une valeur](bilder/einstellungen-verlauf.webp)
 
@@ -48,6 +48,8 @@ Les modifications s’enregistrent d’elles-mêmes (« enregistrement … », p
 | Conservation | Conserver les statistiques | 400 jours | 30–1095 | Installation | le nettoyage supprime les pages vues plus anciennes |
 | Conservation | Conserver les sauvegardes | 7 | 1–365 | Installation | les sauvegardes plus anciennes du même dossier disparaissent |
 | Langues | Langues obligatoires avant la validation | — | — | Site | un renvoi : les langues obligatoires et la langue de repli se trouvent dans les langues du site (« Ouvrir → ») |
+| Recherche | Recherche d’entreprises | activée | oui/non | Site | pendant la saisie d’un nom d’entreprise, des propositions des registres : Suisse registre IDE (Office fédéral de la statistique), France « Recherche d’entreprises », autres pays GLEIF (seulement les entreprises avec un LEI) ; la saisie passe par le serveur vers ce service |
+| Recherche | Recherche d’adresses | activée | oui/non | Site | pendant la saisie de la rue et du numéro, des propositions avec NPA et localité : Suisse swisstopo (répertoire officiel des adresses de bâtiments), France Base Adresse Nationale, autres pays OpenStreetMap (Photon) ; la saisie passe par le serveur vers ce service |
 | Exploitation | Seuil de pulsation | 5 minutes | 2–60 | Installation | si la dernière pulsation est plus ancien, l’adresse de statut indique « perturbé » |
 | Exploitation | Alerte d’erreurs à partir de | 20 exceptions | 0–100'000 | Installation | ce nombre d’erreurs dans la fenêtre déclenche un e-mail au propriétaire et à l’administration du compte de l’installation ; 0 = pas d’alerte |
 | Exploitation | Fenêtre de l’alerte d’erreurs | 5 minutes | 1–60 | Installation | sur quelle durée le comptage a lieu |

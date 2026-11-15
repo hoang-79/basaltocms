@@ -20,19 +20,40 @@ prima.
 ## Creare un cliente
 
 1. In **CRM**, clicchi su **«Nuovo cliente»**.
-2. Scelga il **Tipo**: **Azienda** o **Persona**. Per un’azienda inserisca la **Ragione sociale**, per una persona
-   **Nome** e **Cognome** — formano poi il nome.
-3. Scelga il **Ciclo di vita** (vedi sotto) e spunti **«Anche fornitore»** se acquista anche da questo cliente.
-4. Completi indirizzo, e-mail, telefono e, se lo desidera, **IDI**, **Lingua**, **Sito web**, **Responsabile** e
-   **Note**.
-5. **«Crea»**.
+2. Scelga il **Tipo**: **Azienda** o **Persona**. Il **Paese** è impostato sulla Svizzera — se il cliente si trova in un
+   altro paese, lo scelga prima (elenco con bandiere; digitando si cerca).
+3. Per un’azienda digiti la **Ragione sociale**: da tre lettere compaiono sotto proposte dal registro di commercio del
+   paese. Ne scelga una e il CRM compila via, NPA, località e IDI. Per una persona inserisca **Nome** e **Cognome** —
+   formano poi il nome.
+4. Appena lascia il campo, il cliente è creato — non c’è un pulsante «Crea». Si apre la pagina del cliente, il cursore
+   resta nel campo in cui si trovava e ciò che ha digitato nel frattempo è conservato.
+5. Completi il resto: **Ciclo di vita** (vedi sotto), **«Anche fornitore»** se acquista anche da questo cliente,
+   e-mail, telefono, indirizzo e, se lo desidera, **Lingua**, **Sito web**, **Responsabile** e **Note**.
 
-Il **numero cliente** lo assegna il CRM stesso: «K-0001», «K-0002» e così via, senza lacune. Poi si apre il cliente;
-tutto ciò che vi modifica si salva da sé.
+Ogni campo si salva da sé: al campo compare brevemente «salvato». Se qualcosa non va, il messaggio appare in rosso al
+campo e quel campo resta non salvato finché non è corretto. Il **numero cliente** lo assegna il CRM stesso: «K-0001»,
+«K-0002» e così via, senza lacune.
+
+### Aiuti nella compilazione
+
+- **Via e numero:** digiti via e numero civico e il CRM propone indirizzi corrispondenti nel paese. La scelta compila
+  NPA e località.
+- **Telefono:** davanti al campo c’è la bandiera con il prefisso. Il campo accetta solo cifre, tante quante ne hanno i
+  numeri del paese, e le raggruppa come d’uso («79 123 45 67»). La bandiera segue il paese del cliente; se sceglie
+  un’altra bandiera nel campo del telefono, cambia anche il paese — finché non è inserito un NPA.
+- **Note:** un clic nel campo apre l’editor con tutti gli strumenti (titoli, elenchi, link, tabelle e altro) in una
+  finestra. Ciò che scrive è ripreso subito; «Fatto» o Esc chiude la finestra.
+- **Da dove vengono le proposte:** aziende dal registro IDI dell’Ufficio federale di statistica (Svizzera), da
+  «Recherche d’entreprises» (Francia) e altrimenti da GLEIF (solo aziende con un LEI); indirizzi dall’elenco ufficiale
+  degli indirizzi degli edifici tramite swisstopo (Svizzera), dalla Base Adresse Nationale (Francia) e altrimenti da
+  OpenStreetMap. Il Suo sito interroga questi servizi tramite il proprio server — il Suo browser non parla direttamente
+  con loro. Entrambi si disattivano in **Amministrazione › Impostazioni › Ricerca**. Se non c’è nulla di adatto, resta
+  ciò che ha digitato.
 
 | Campo | Che cosa viene verificato |
 | --- | --- |
-| **Paese** | codice ISO di due lettere, per esempio CH, LI, DE, AT, FR o IT; vuoto significa Svizzera |
+| **Paese** | scelta con bandiera; di fabbrica Svizzera |
+| **Telefono** | solo cifre, tante quante ne hanno i numeri del paese; salvato in formato internazionale («+41 79 123 45 67») |
 | **NPA** | Svizzera e Liechtenstein: quattro cifre da 1000 a 9658 · Austria: quattro cifre · Germania, Francia, Italia: cinque cifre · altri paesi: fino a 12 caratteri |
 | **IDI** | se inizia con «CHE», ha la forma CHE-123.456.789, eventualmente seguita da «IVA» |
 | **E-mail** | un indirizzo valido; viene salvato in minuscolo |
@@ -52,7 +73,7 @@ Cambi la fase sul cliente o per più clienti alla volta: li selezioni nell’ele
 ## Persone di contatto
 
 Per un’azienda registri in **Persone di contatto** le persone con cui ha a che fare: nome, cognome, **Funzione**,
-e-mail e telefono. Una di esse è il **Contatto principale** — la prima automaticamente; spunti **«Contatto principale»**
+e-mail e telefono (nel paese del cliente). Una di esse è il **Contatto principale** — la prima automaticamente; spunti **«Contatto principale»**
 per un’altra per cambiare. Un clic su una persona di contatto la apre per la modifica; lì la si può anche eliminare.
 
 **Buono a sapersi:** con il plugin «Gestione progetti», l’indirizzo e-mail di una persona di contatto apre i progetti di
@@ -67,6 +88,10 @@ In **«Registra attività»** annota ciò che è successo con il cliente o che r
 | **Nota** | ciò che vuole ricordare |
 | **Chiamata**, **Riunione**, **E-mail** | colloqui con data ed eventualmente persona di contatto |
 | **Attività** (compito) | qualcosa da fare — con **«Scadenza il»** |
+
+La **nota** di un’attività la scrive, come le note del cliente, nell’editor con tutti gli strumenti — un clic nel campo
+lo apre. Con **«Registra»** l’attività compare nell’elenco; qui c’è un pulsante perché un’attività è completa solo con
+tipo, data e nota.
 
 I compiti aperti sono in cima presso il cliente; passata la data diventano rossi. **«Segna come completato»** conclude un
 compito. La cifra chiave **«Compiti scaduti»** sopra l’elenco e il numero accanto alla voce di menu contano tutti i
@@ -104,6 +129,8 @@ Nell’importazione vale:
 - Tutte le altre righe diventano nuovi clienti con il numero cliente successivo.
 - Una riga con errori — per esempio un NPA sbagliato — viene saltata; il messaggio la indica con il suo numero. Le altre
   righe vengono riprese.
+
+Le note compaiono nell’export come testo senza formattazione, i numeri di telefono nel formato del loro paese.
 
 **Buono a sapersi:** i valori che Excel leggerebbe come formula (per esempio un numero di telefono che inizia con «+»)
 ricevono un apostrofo davanti nell’esportazione. Nell’importazione sparisce di nuovo.

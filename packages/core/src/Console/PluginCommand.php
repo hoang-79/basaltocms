@@ -13,15 +13,15 @@ use RuntimeException;
 /**
  * Plugins aus dem Marktplatz ohne Composer (CR-018, TB 98) — dasselbe wie im Backend unter Verwaltung › Module, für
  * die Kommandozeile: installieren, aktualisieren, ein- und ausschalten, entfernen, auflisten. Dazu (TB 100): mit
- * `--archiv` aus einem Archiv auf diesem Server installieren und mit `check` die Seiten eines Plugins aufrufen — so
- * erproben Autorinnen ihr Plugin, und so läuft der Prüfstand in der Sandbox des Marktplatzes.
+ * `--archiv` aus einem Archiv auf diesem Server installieren (CR-021: auch aktualisieren) und mit `check` die Seiten
+ * eines Plugins aufrufen — so erproben Autorinnen ihr Plugin, und so läuft der Prüfstand in der Sandbox des Marktplatzes.
  */
 final class PluginCommand extends Command
 {
     protected $signature = 'basalto:plugin
         {aktion : install, update, enable, disable, remove, check oder list}
         {name? : Plugin als hersteller/paket}
-        {--archiv= : beim Installieren: ZIP auf diesem Server statt aus dem Marktplatz (ohne Signatur)}
+        {--archiv= : beim Installieren oder Aktualisieren: ZIP auf diesem Server statt aus dem Marktplatz (ohne Signatur)}
         {--daten-loeschen : beim Entfernen auch die Tabellen des Plugins löschen}
         {--benutzer= : bei check: angemeldet als diese E-Mail (sonst Inhaber der Standard-Site)}
         {--json : bei check: Ergebnis als JSON}';
@@ -48,6 +48,9 @@ final class PluginCommand extends Command
         $archive = (string) $this->option('archiv');
         if ($action === 'install' && $archive !== '') {
             return $this->report(fn (): string => $installer->installArchive($archive, 'Kommandozeile'));
+        }
+        if ($action === 'update' && $archive !== '') {
+            return $this->report(fn (): string => $installer->updateArchive($archive, 'Kommandozeile'));
         }
         if (! in_array($action, ['install', 'update', 'enable', 'disable', 'remove', 'check'], true) || $name === '') {
             $this->error('Aktion install, update, enable, disable, remove, check oder list — ausser bei list (und install mit --archiv) mit dem Namen des Plugins.');
