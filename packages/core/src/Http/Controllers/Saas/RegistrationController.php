@@ -8,6 +8,7 @@ use Basalto\Core\Events\UserLoggedIn;
 use Basalto\Core\Forms\SpamGuard;
 use Basalto\Core\Help\LegalTexts;
 use Basalto\Core\Models\SaasRegistration;
+use Basalto\Core\Rules\EmailAddress;
 use Basalto\Core\Saas\AliasCheck;
 use Basalto\Core\Saas\Plan;
 use Basalto\Core\Saas\Registrar;
@@ -99,7 +100,7 @@ final class RegistrationController
         $data = $request->validate([
             'name' => ['required', 'string', 'max:120'],
             'company' => ['nullable', 'string', 'max:160'],
-            'email' => ['required', 'email', 'max:200'],
+            'email' => ['required', new EmailAddress, 'max:200'],
             'terms' => ['accepted'],
         ], ['terms.accepted' => __('Bitte stimmen Sie den AGB und der Datenschutzerklärung zu.')]);
         if ($this->guard->reason($request, self::SPAM_HANDLE, 0, 'registrierung') !== null) {

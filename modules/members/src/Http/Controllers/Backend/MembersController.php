@@ -10,6 +10,7 @@ use Basalto\Core\Backend\Backend;
 use Basalto\Core\Backend\Dates;
 use Basalto\Core\Content\Pages;
 use Basalto\Core\Models\Site;
+use Basalto\Core\Rules\EmailAddress;
 use Basalto\Core\Settings\Settings;
 use Basalto\Core\Sites\CurrentSite;
 use Basalto\Core\Support\Text;
@@ -90,7 +91,7 @@ final class MembersController
     public function invite(Request $request): RedirectResponse
     {
         $site = $this->site();
-        $data = $request->validate(['email' => ['required', 'string', 'email', 'max:254'], 'name' => ['nullable', 'string', 'max:120'], 'locale' => ['required', Rule::in($site->localeCodes())]],
+        $data = $request->validate(['email' => ['required', 'string', new EmailAddress, 'max:254'], 'name' => ['nullable', 'string', 'max:120'], 'locale' => ['required', Rule::in($site->localeCodes())]],
             [], ['email' => __('E-Mail'), 'name' => __('Name'), 'locale' => __('Sprache')]);
         $name = is_string($data['name'] ?? null) && trim($data['name']) !== '' ? trim($data['name']) : null;
         $member = $this->members->invite($site, (string) $data['email'], $name, (string) $data['locale'], $request->user());

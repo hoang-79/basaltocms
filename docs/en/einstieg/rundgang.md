@@ -68,8 +68,13 @@ field; an error stays until it is fixed. A rejected field does not hold up the o
 
 - **Immediately:** switches, selections, options and dates.
 - **After a short pause:** text and numbers, at the latest when you leave the field.
-- **When you leave the field or press Enter:** identifiers, addresses, keys and prices — half a value would take
+- **When you leave the field or press Enter:** identifiers, addresses, email addresses, keys and prices — half a value would take
   effect at once. While it waits, the field says “Enter or leaving the field saves”; **Esc** undoes the change.
+
+**New entries and empty settings:** while required fields are still missing, the form does not save yet. Below the form
+it says what is missing, bottom right “Not saved yet”. Only a field you have already worked on is marked in red. Once
+all required fields are filled in, it saves itself. Basalto checks **email addresses** for the usual format
+name@company.com when you leave the field.
 
 There is still a button where something new is created (**“Create”**) or a step is deliberate: submitting, approving,
 sending, paying, deleting. Text in such forms is kept as a draft in the browser until it is sent.

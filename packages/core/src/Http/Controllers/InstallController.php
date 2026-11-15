@@ -7,6 +7,7 @@ namespace Basalto\Core\Http\Controllers;
 use Basalto\Core\Help\LegalTexts;
 use Basalto\Core\Http\Middleware\PrepareInstallation;
 use Basalto\Core\Install\Installer;
+use Basalto\Core\Rules\EmailAddress;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -55,7 +56,7 @@ final class InstallController
             'locale' => ['required', 'in:de,en,fr,it'],
             'timezone' => ['required', 'timezone:all'],
             'user' => ['required', 'string', 'max:120'],
-            'email' => ['required', 'email', 'max:190'],
+            'email' => ['required', new EmailAddress, 'max:190'],
         ], [
             'handle.regex' => __('Kleinbuchstaben, Ziffern und Bindestriche, ohne Bindestrich am Anfang oder Ende.'),
         ], ['handle' => __('Handle'), 'name' => __('Name'), 'user' => __('Ihr Name'), 'email' => __('E-Mail')]);

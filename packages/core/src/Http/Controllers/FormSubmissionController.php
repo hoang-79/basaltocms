@@ -11,6 +11,7 @@ use Basalto\Core\Forms\FormRenderer;
 use Basalto\Core\Forms\SpamGuard;
 use Basalto\Core\Jobs\DeliverFormSubmission;
 use Basalto\Core\Models\FormSubmission;
+use Basalto\Core\Rules\EmailAddress;
 use Basalto\Core\Sites\CurrentSite;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -107,7 +108,7 @@ final class FormSubmissionController
             $max = $field->number('max');
             $min = $field->number('min');
             $rules[$field->name] = array_merge($base, match ($field->type) {
-                'email' => ['string', 'email', 'max:254'],
+                'email' => ['string', new EmailAddress, 'max:254'],
                 'number', 'range' => array_filter(['numeric', $min !== null ? 'min:'.$min : null, $max !== null ? 'max:'.$max : null]),
                 'tel' => ['string', 'max:40', 'regex:/^[0-9 +()\/.-]+$/'],
                 'url' => ['string', 'url', 'max:500'],

@@ -4,7 +4,13 @@ import type { InertiaForm } from '@inertiajs/vue3';
 
 vi.mock('@inertiajs/vue3', () => ({ router: { on: () => () => undefined } }));
 
-import { AUTOSAVE_HEADER, expandPath, useAutosave, useDraft } from './autosave';
+import {
+    AUTOSAVE_HEADER,
+    autosaveToast,
+    expandPath,
+    useAutosave,
+    useDraft,
+} from './autosave';
 
 type Data = { title: string; slug: string; note: string };
 type Sent = { data: Data; headers: Record<string, string> };
@@ -65,6 +71,7 @@ function fakeForm(
 
 function setup(
     respond: (data: Data) => Record<string, string> | null = () => null,
+    extra: Partial<Parameters<typeof useAutosave<Data>>[1]> = {},
 ) {
     const { form, sent } = fakeForm(
         { title: 'Titel', slug: 'alt', note: '' },
@@ -78,6 +85,7 @@ function setup(
                 save = useAutosave(form as unknown as InertiaForm<Data>, {
                     url: '/x',
                     onLeave: ['slug'],
+                    ...extra,
                 });
 
                 return () => h('div');
@@ -169,6 +177,49 @@ describe('Autosave mit Speicherarten (CR-013)', () => {
             note: 'Eine Notiz',
         });
         expect(form.errors.title).toBeUndefined();
+    });
+
+    it('hält zurück, solange Pflichtfelder fehlen, und speichert danach von selbst', async () => {
+        let missing = true;
+        const { form, sent } = setup(undefined, {
+            blocked: () => (missing ? 'Es fehlt noch: «Notiz».' : null),
+        });
+        form.title = 'Neu';
+        await vi.advanceTimersByTimeAsync(700);
+        expect(sent).toHaveLength(0);
+        expect(autosaveToast.status).toBe('waiting');
+        expect(autosaveToast.text).toBe('Es fehlt noch: «Notiz».');
+
+        missing = false;
+        form.note = 'da';
+        await vi.advanceTimersByTimeAsync(700);
+        expect(sent).toHaveLength(1);
+        expect(sent[0]?.data).toMatchObject({ title: 'Neu', note: 'da' });
+        expect(autosaveToast.status).toBe('saved');
+    });
+
+    it('ein Wert aus einer Suche gilt als übernommen, ohne das Feld zu betreten', async () => {
+        const { form, sent, save } = setup();
+        form.slug = 'aus-der-suche';
+        save.accept('slug');
+        await vi.advanceTimersByTimeAsync(700);
+        expect(sent).toHaveLength(1);
+        expect(sent[0]?.data.slug).toBe('aus-der-suche');
+        expect(save.waiting('slug')).toBe(false);
+    });
+
+    it('die Meldung nennt zuerst den Fehler an einem bearbeiteten Feld', async () => {
+        const { form } = setup(
+            () => ({
+                note: 'Die Notiz fehlt.',
+                title: 'Der Titel ist zu kurz.',
+            }),
+            { preferError: (key) => key === 'title' },
+        );
+        form.title = 'X';
+        await vi.advanceTimersByTimeAsync(700);
+        expect(autosaveToast.status).toBe('error');
+        expect(autosaveToast.text).toContain('Der Titel ist zu kurz.');
     });
 
     it('Muster mit «*» treffen jede Zeile einer Liste', () => {

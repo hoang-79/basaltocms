@@ -15,6 +15,7 @@ use Basalto\Core\Models\Site;
 use Basalto\Core\Notifications\InvitationNotification;
 use Basalto\Core\Privacy\LastOwnerException;
 use Basalto\Core\Privacy\PersonData;
+use Basalto\Core\Rules\EmailAddress;
 use Basalto\Core\Settings\Settings;
 use Basalto\Core\Sites\CurrentSite;
 use Basalto\Core\Sites\SiteRole;
@@ -113,7 +114,7 @@ final class UserController
         $site = $this->current->require();
         Gate::authorize('manageMembers', $site);
         $validated = $request->validate([
-            'email' => ['required', 'email', 'max:200'],
+            'email' => ['required', new EmailAddress, 'max:200'],
             'role' => ['required', Rule::in(app(Access::class)->keys($site->account_id))],
         ], [], ['email' => __('E-Mail'), 'role' => __('Rolle')]);
         $this->guardGrant($request, $site, $validated['role']);

@@ -14,6 +14,7 @@ use Basalto\Core\Extranet\Notifications\ExtranetWelcome;
 use Basalto\Core\Install\Installer;
 use Basalto\Core\Models\Account;
 use Basalto\Core\Models\ExtranetMember;
+use Basalto\Core\Rules\EmailAddress;
 use Basalto\Core\Vendor;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -57,7 +58,7 @@ final class TeamController
         $account = Account::installation();
         $data = $request->validate([
             'name' => ['required', 'string', 'max:120'],
-            'email' => ['required', 'email', 'max:254'],
+            'email' => ['required', new EmailAddress, 'max:254'],
             'role' => ['required', Rule::in($this->access->keys($account->id, true))],
         ], [], ['name' => __('Name'), 'email' => __('E-Mail'), 'role' => __('Rolle')]);
         $this->guard($request, $data['role']);

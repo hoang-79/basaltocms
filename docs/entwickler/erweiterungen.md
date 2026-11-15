@@ -261,6 +261,12 @@ Worauf es ankommt:
   `street` (mit Nummer), `street_name` und `house_number` (getrennt), `postal_code`, `city`, `country`, `uid`,
   `vat_number`, `legal_form`, `website`). Die Anfrage geht an den Server von Basalto, nie aus dem Browser zu Dritten.
   Ist der Dienst für die Site aus (Verwaltung › Einstellungen › Nachschlagen), bleibt es ein gewöhnliches Textfeld.
+- **Pflichtfelder und Fehler ohne Knopf:** Ein Formular mit `autosave()` speichert nicht, solange Felder mit
+  `required()` leer sind, die auch gespeichert leer waren (neuer Eintrag, leere Einstellungen) — es nennt unten und in
+  der Meldung, was fehlt, und speichert danach von selbst. Fehler stehen nur an Feldern, die bearbeitet wurden; erklärt
+  keines davon die Ablehnung, stehen alle. **E-Mail:** `FormField::email()` speichert beim Verlassen und prüft dann das
+  Format name@firma.ch; auf dem Server prüft `new Rules\EmailAddress` statt Laravels `email` (das «anna@firma»
+  durchlässt) — dieselbe Regel wie im Browser.
 - **Rechte** gelten wie für jede Route ([Bereiche und Rechte](#bereiche-und-rechte)); Knöpfe, die ein Benutzer nicht
   nutzen darf, lässt der Controller weg.
 

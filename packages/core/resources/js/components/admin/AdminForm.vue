@@ -7,6 +7,7 @@ import { useAutosave } from '../autosave';
 import Button from '../Button.vue';
 import { controlClasses } from '../control';
 import CountrySelect from '../CountrySelect.vue';
+import { isEmailAddress } from '../email';
 import Field from '../Field.vue';
 import PhoneInput from '../PhoneInput.vue';
 import RichTextField from '../RichTextField.vue';
@@ -19,6 +20,10 @@ import type { AdminField, AdminFormSection } from './types';
  * Ein Formular aus Beschreibung (CR-018, TB 99) mit den Feldern des Kerns. Mit `autosave` speichert es nach jeder
  * Pause selbst (CR-013; Felder «beim Verlassen» erst mit Enter oder beim Verlassen), sonst mit dem Knopf. Die Fehler
  * kommen aus der Prüfung im Controller des Plugins und stehen am Feld.
+ *
+ * Wunsch Hoang 15.11.2026: Ohne Knopf zeigt das Formular Fehler nur an Feldern, die man bearbeitet hat. Fehlen einem
+ * neuen Eintrag (etwa den Einstellungen eines Plugins) noch Pflichtfelder, speichert es nicht und sagt neutral, was
+ * fehlt — sind sie da, speichert es von selbst. E-Mail-Felder prüfen beim Verlassen das Format name@firma.ch.
  */
 const props = defineProps<{ section: AdminFormSection }>();
 
@@ -30,16 +35,101 @@ const hasFile = props.section.fields.some((f) => f.type === 'file');
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const form = useForm<Record<string, any>>({ ...props.section.values });
 
+/* ── Bearbeitete Felder, Pflichtfelder, E-Mail-Format ── */
+
+/** Ohne Knopf (Autosave oder Anlegen ohne Knopf): Fehler nur an bearbeiteten Feldern */
+const quiet =
+    props.section.autosave || (props.section.creates ?? []).length > 0;
+/** Geändert oder verlassen */
+const touched = reactive(new Set<string>());
+/** Verlassen — erst dann zeigt ein E-Mail-Feld, dass das Format nicht stimmt */
+const left = reactive(new Set<string>());
+/** Gespeicherter Stand je Feld: Ein Pflichtfeld, das schon einen Wert hatte, hält das Speichern nicht auf */
+const stored = JSON.parse(JSON.stringify(props.section.values)) as Record<
+    string,
+    unknown
+>;
+const emailText = t(
+    'Bitte eine E-Mail-Adresse im Format name@firma.ch angeben.',
+);
+const leaves = (f: AdminField): boolean => f.on_leave || f.type === 'email';
+const emailWrong = (f: AdminField): boolean =>
+    f.type === 'email' &&
+    typeof form[f.name] === 'string' &&
+    form[f.name].trim() !== '' &&
+    !isEmailAddress(form[f.name] as string);
+const missing = computed(() =>
+    props.section.fields.filter(
+        (f) =>
+            f.required &&
+            !['checkbox', 'file'].includes(f.type) &&
+            !filled(form[f.name]) &&
+            !filled(stored[f.name]),
+    ),
+);
+const missingLabels = computed(() =>
+    missing.value.map((f) => `«${f.label}»`).join(', '),
+);
+function leaveField(name: string): void {
+    left.add(name);
+    touched.add(name);
+}
+watch(
+    () => props.section.fields.map((f) => JSON.stringify(form[f.name])),
+    (now, before) => {
+        props.section.fields.forEach((f, i) => {
+            if (now[i] !== before[i]) {
+                touched.add(f.name);
+            }
+        });
+    },
+);
+const anyTouchedError = computed(() =>
+    Object.keys(errors.value).some((key) =>
+        touched.has(key.split('.')[0] ?? key),
+    ),
+);
+/** Der Fehler, der am Feld steht — vom Server, sonst aus der Prüfung im Browser. */
+function fieldError(f: AdminField): string {
+    const server = errors.value[f.name];
+    // Ohne Knopf nur an bearbeiteten Feldern — ausser kein bearbeitetes Feld erklärt, warum nicht gespeichert wurde
+    if (server && (!quiet || touched.has(f.name) || !anyTouchedError.value)) {
+        return server;
+    }
+    if (left.has(f.name) && emailWrong(f)) {
+        return emailText;
+    }
+    if (quiet && left.has(f.name) && missing.value.includes(f)) {
+        return t('Bitte ausfüllen — erst dann wird gespeichert.');
+    }
+
+    return '';
+}
+
 const save = props.section.autosave
     ? useAutosave(form, {
           url: props.section.url,
           method: props.section.method,
-          onLeave: props.section.fields
-              .filter((f) => f.on_leave)
-              .map((f) => f.name),
+          onLeave: props.section.fields.filter(leaves).map((f) => f.name),
           labels: Object.fromEntries(
               props.section.fields.map((f) => [f.name, f.label]),
           ),
+          blocked: () =>
+              missing.value.length > 0
+                  ? t(
+                        'Noch nicht gespeichert — es fehlt noch: :fields. Danach speichert das Formular selbst.',
+                        { fields: missingLabels.value },
+                    )
+                  : null,
+          preferError: (key) => touched.has(key.split('.')[0] ?? key),
+          onSaved: (keys) => {
+              for (const key of keys) {
+                  const name = key.split('.')[0] ?? key;
+                  stored[name] = JSON.parse(
+                      JSON.stringify(form[name] ?? null),
+                  ) as unknown;
+              }
+          },
       })
     : null;
 
@@ -129,7 +219,12 @@ function onLookup(f: AdminField, values: Record<string, string>): void {
     if (!f.lookup) {
         return;
     }
-    Object.assign(form, fillFrom(values, f.lookup.fill));
+    const filledIn = fillFrom(values, f.lookup.fill);
+    Object.assign(form, filledIn);
+    // Felder «beim Verlassen» (PLZ, E-Mail) gelten als übernommen — niemand muss sie betreten
+    for (const name of Object.keys(filledIn)) {
+        save?.accept(name);
+    }
     void nextTick(() => maybeCreate());
 }
 
@@ -210,6 +305,9 @@ onMounted(() => {
     handoff.from = null;
     void nextTick(() => {
         Object.assign(form, typed);
+        for (const name of Object.keys(typed)) {
+            save?.accept(name);
+        }
         if (focus) {
             root.value
                 ?.querySelector<HTMLElement>(
@@ -221,6 +319,10 @@ onMounted(() => {
 });
 
 function submit(): void {
+    // Mit dem Knopf gilt alles als bearbeitet: jeder Fehler steht am Feld
+    for (const f of props.section.fields) {
+        leaveField(f.name);
+    }
     form.submit(props.section.method, props.section.url, {
         preserveScroll: true,
         forceFormData: hasFile,
@@ -255,6 +357,7 @@ const inputType = (f: AdminField): string =>
                 :key="f.name"
                 :data-feld="f.name"
                 :class="f.half ? '' : 'md:col-span-2'"
+                @focusout.capture="leaveField(f.name)"
                 @focusout="creates.includes(f.name) && maybeCreate()"
             >
                 <label
@@ -278,10 +381,10 @@ const inputType = (f: AdminField): string =>
                             >{{ f.help }}</span
                         >
                         <span
-                            v-if="errors[f.name]"
+                            v-if="fieldError(f)"
                             class="text-danger block text-[11.5px]"
                             role="alert"
-                            >{{ errors[f.name] }}</span
+                            >{{ fieldError(f) }}</span
                         >
                     </span>
                 </label>
@@ -340,18 +443,18 @@ const inputType = (f: AdminField): string =>
                         </label>
                     </div>
                     <p
-                        v-if="errors[f.name]"
+                        v-if="fieldError(f)"
                         class="text-danger mt-1 text-[11.5px]"
                         role="alert"
                     >
-                        {{ errors[f.name] }}
+                        {{ fieldError(f) }}
                     </p>
                 </fieldset>
                 <Field
                     v-else-if="f.type === 'richtext'"
                     :label="f.label"
                     :help="f.help"
-                    :error="errors[f.name]"
+                    :error="fieldError(f)"
                     :required="f.required"
                     :saved="save?.saved(f.name)"
                     :waiting="save?.waiting(f.name)"
@@ -371,7 +474,7 @@ const inputType = (f: AdminField): string =>
                     v-else-if="f.type === 'country'"
                     :label="f.label"
                     :help="f.help"
-                    :error="errors[f.name]"
+                    :error="fieldError(f)"
                     :required="f.required"
                     :saved="save?.saved(f.name)"
                     :waiting="save?.waiting(f.name)"
@@ -390,7 +493,7 @@ const inputType = (f: AdminField): string =>
                     v-else-if="f.type === 'phone'"
                     :label="f.label"
                     :help="f.help"
-                    :error="errors[f.name]"
+                    :error="fieldError(f)"
                     :required="f.required"
                     :saved="save?.saved(f.name)"
                     :waiting="save?.waiting(f.name)"
@@ -410,7 +513,7 @@ const inputType = (f: AdminField): string =>
                     v-else-if="f.type === 'postal'"
                     :label="f.label"
                     :help="f.help"
-                    :error="errors[f.name]"
+                    :error="fieldError(f)"
                     :required="f.required"
                     :saved="save?.saved(f.name)"
                     :waiting="save?.waiting(f.name)"
@@ -443,7 +546,7 @@ const inputType = (f: AdminField): string =>
                     v-else-if="f.lookup && lookupUrl(f)"
                     :label="f.label"
                     :help="f.help"
-                    :error="errors[f.name]"
+                    :error="fieldError(f)"
                     :required="f.required"
                     :saved="save?.saved(f.name)"
                     :waiting="save?.waiting(f.name)"
@@ -466,7 +569,7 @@ const inputType = (f: AdminField): string =>
                     v-else-if="native(f) || f.type === 'file'"
                     :label="f.label"
                     :help="f.help"
-                    :error="errors[f.name]"
+                    :error="fieldError(f)"
                     :required="f.required"
                     :saved="save?.saved(f.name)"
                     :waiting="save?.waiting(f.name)"
@@ -516,13 +619,13 @@ const inputType = (f: AdminField): string =>
                     :options="f.choices"
                     :placeholder="f.placeholder"
                     :help="f.help"
-                    :error="errors[f.name]"
+                    :error="fieldError(f)"
                     :required="f.required"
                     :mono="f.mono"
                     :rows="f.rows"
                     :saved="save?.saved(f.name)"
                     :waiting="save?.waiting(f.name)"
-                    v-bind="f.on_leave && save ? save.leave(f.name) : {}"
+                    v-bind="leaves(f) && save ? save.leave(f.name) : {}"
                 />
             </div>
             <p
@@ -537,6 +640,18 @@ const inputType = (f: AdminField): string =>
                               'Wird angelegt, sobald :fields ausgefüllt ist — danach speichert jedes Feld selbst.',
                               { fields: createLabels },
                           )
+                }}
+            </p>
+            <p
+                v-else-if="section.autosave && missing.length > 0"
+                class="text-[12px] text-basalt-light md:col-span-2"
+                role="status"
+            >
+                {{
+                    t(
+                        'Wird gespeichert, sobald die Pflichtfelder ausgefüllt sind — es fehlt noch: :fields.',
+                        { fields: missingLabels },
+                    )
                 }}
             </p>
             <div v-else-if="!section.autosave" class="md:col-span-2">

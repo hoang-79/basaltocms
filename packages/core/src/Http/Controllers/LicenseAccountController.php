@@ -8,6 +8,7 @@ use Basalto\Core\Activity\Recorder;
 use Basalto\Core\License\VendorAccount;
 use Basalto\Core\License\VendorAccountException;
 use Basalto\Core\Models\Site;
+use Basalto\Core\Rules\EmailAddress;
 use Basalto\Core\Saas\Saas;
 use Basalto\Core\Security\CodeResend;
 use Basalto\Core\Sites\CurrentSite;
@@ -35,7 +36,7 @@ final class LicenseAccountController
     public function code(Request $request): RedirectResponse
     {
         $this->site();
-        $data = $request->validate(['email' => ['required', 'string', 'email', 'max:254']], [], ['email' => __('E-Mail')]);
+        $data = $request->validate(['email' => ['required', 'string', new EmailAddress, 'max:254']], [], ['email' => __('E-Mail')]);
         $email = mb_strtolower(trim((string) $data['email']));
         try {
             $minutes = $this->account->requestCode($email, $request->getHost());

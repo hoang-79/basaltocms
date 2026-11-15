@@ -264,6 +264,13 @@ Ce qui compte :
   `uid`, `vat_number`, `legal_form`, `website`). La requête passe par le serveur de Basalto, jamais du navigateur vers
   des tiers. Si le service est désactivé pour le site (Administration › Paramètres › Recherche), le champ reste un
   simple champ de texte.
+- **Champs obligatoires et erreurs sans bouton :** un formulaire avec `autosave()` n’enregistre pas tant que des champs
+  avec `required()` sont vides et l’étaient aussi à l’enregistrement (nouvelle entrée, paramètres vides) — il indique
+  sous le formulaire et dans le message ce qui manque, puis s’enregistre de lui-même. Les erreurs n’apparaissent qu’aux
+  champs modifiés ; si aucun d’eux n’explique le refus, toutes apparaissent. **E-mail :** `FormField::email()`
+  enregistre en quittant le champ et vérifie alors le format nom@entreprise.ch ; sur le serveur, `new
+  Rules\EmailAddress` vérifie à la place du `email` de Laravel (qui laisse passer « anna@firma ») — la même règle que
+  dans le navigateur.
 - **Les droits** s’appliquent comme pour toute route ([Domaines et droits](#domaines-et-droits)) ; le contrôleur omet
   les boutons qu’un utilisateur n’a pas le droit d’utiliser.
 

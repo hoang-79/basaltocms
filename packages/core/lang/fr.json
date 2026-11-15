@@ -4851,5 +4851,9 @@
     "Adresssuche": "Recherche d’adresses",
     "Beim Tippen eines Firmennamens Vorschläge aus Registern: Schweiz UID-Register (BFS), Frankreich «Recherche d’entreprises», übrige Länder GLEIF (Firmen mit LEI). Was getippt wird, geht an diesen Dienst.": "Suggestions issues de registres lors de la saisie d’un nom d’entreprise : Suisse registre IDE (OFS), France « Recherche d’entreprises », autres pays GLEIF (entreprises avec LEI). Ce que vous saisissez est transmis à ce service.",
     "Beim Tippen von Strasse und Hausnummer Vorschläge mit PLZ und Ort: Schweiz swisstopo (amtliches Gebäudeadressverzeichnis), Frankreich Base Adresse Nationale, übrige Länder OpenStreetMap (Photon). Was getippt wird, geht an diesen Dienst.": "Suggestions avec NPA et localité lors de la saisie de la rue et du numéro : Suisse swisstopo (répertoire officiel des adresses de bâtiments), France Base Adresse Nationale, autres pays OpenStreetMap (Photon). Ce que vous saisissez est transmis à ce service.",
-    "Fliesstext · wird mit «:button» gespeichert": "Texte enrichi · enregistré avec « :button »"
+    "Fliesstext · wird mit «:button» gespeichert": "Texte enrichi · enregistré avec « :button »",
+    "Bitte eine E-Mail-Adresse im Format name@firma.ch angeben.": "Veuillez indiquer une adresse e-mail au format nom@entreprise.ch.",
+    "Bitte ausfüllen — erst dann wird gespeichert.": "Veuillez remplir — l’enregistrement se fera ensuite.",
+    "Noch nicht gespeichert — es fehlt noch: :fields. Danach speichert das Formular selbst.": "Pas encore enregistré — il manque encore : :fields. Ensuite, le formulaire s’enregistre de lui-même.",
+    "Wird gespeichert, sobald die Pflichtfelder ausgefüllt sind — es fehlt noch: :fields.": "Enregistré dès que les champs obligatoires sont remplis — il manque encore : :fields."
 }

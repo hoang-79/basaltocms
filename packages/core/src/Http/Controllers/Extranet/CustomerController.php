@@ -9,6 +9,7 @@ use Basalto\Core\Activity\Recorder;
 use Basalto\Core\Extranet\ExtranetAccess;
 use Basalto\Core\Extranet\ExtranetRegistry;
 use Basalto\Core\Models\ExtranetNote;
+use Basalto\Core\Rules\EmailAddress;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -78,7 +79,7 @@ final class CustomerController
 
     public function note(Request $request, Recorder $recorder): RedirectResponse
     {
-        $data = $request->validate(['email' => ['required', 'email', 'max:254'], 'body' => ['required', 'string', 'max:5000']], [], ['body' => __('Notiz')]);
+        $data = $request->validate(['email' => ['required', new EmailAddress, 'max:254'], 'body' => ['required', 'string', 'max:5000']], [], ['body' => __('Notiz')]);
         $note = ExtranetNote::query()->create(['email' => strtolower($data['email']), 'user_id' => $request->user()?->getAuthIdentifier(), 'body' => trim($data['body'])]);
         $recorder->record('extranet.note', $note, null, ['email' => $note->email]);
 

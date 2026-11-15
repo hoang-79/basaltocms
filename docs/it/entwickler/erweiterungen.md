@@ -263,6 +263,12 @@ Cosa conta:
   (`name`, `street` (con numero), `street_name` e `house_number` (separati), `postal_code`, `city`, `country`, `uid`,
   `vat_number`, `legal_form`, `website`). La richiesta passa dal server di Basalto, mai dal browser a terzi. Se il
   servizio è disattivato per il sito (Amministrazione › Impostazioni › Ricerca), resta un normale campo di testo.
+- **Campi obbligatori ed errori senza pulsante:** un modulo con `autosave()` non salva finché sono vuoti campi con
+  `required()` che erano vuoti anche al salvataggio (nuova voce, impostazioni vuote) — indica sotto il modulo e nel
+  messaggio cosa manca, poi si salva da sé. Gli errori compaiono solo ai campi modificati; se nessuno di essi spiega il
+  rifiuto, compaiono tutti. **E-mail:** `FormField::email()` salva uscendo dal campo e verifica allora il formato
+  nome@azienda.ch; sul server verifica `new Rules\EmailAddress` al posto di `email` di Laravel (che lascia passare
+  «anna@firma») — la stessa regola del browser.
 - **I permessi** valgono come per ogni route ([Sezioni e permessi](#sezioni-e-permessi)); il controller omette i
   pulsanti che un utente non può usare.
 

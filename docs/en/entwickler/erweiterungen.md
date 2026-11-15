@@ -261,6 +261,12 @@ What matters:
   (with number), `street_name` and `house_number` (separate), `postal_code`, `city`, `country`, `uid`, `vat_number`,
   `legal_form`, `website`). The request goes to the Basalto server, never from the browser to third parties. If the
   service is off for the site (Administration › Settings › Lookup), it stays a plain text field.
+- **Required fields and errors without a button:** a form with `autosave()` does not save while fields with `required()`
+  are empty that were also empty when saved (new entry, empty settings) — it says below the form and in the message what
+  is missing, and saves itself afterwards. Errors only appear at fields that were worked on; if none of them explains
+  the rejection, all appear. **Email:** `FormField::email()` saves when the field is left and then checks the format
+  name@company.com; on the server `new Rules\EmailAddress` checks instead of Laravel’s `email` (which lets “anna@firma”
+  through) — the same rule as in the browser.
 - **Rights** apply as for every route ([Areas and rights](#areas-and-rights)); the controller leaves out buttons a user
   may not use.
 

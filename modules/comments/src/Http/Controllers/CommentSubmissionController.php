@@ -8,6 +8,7 @@ use Basalto\Core\Backend\Backend;
 use Basalto\Core\Cache\PageCache;
 use Basalto\Core\Forms\SpamGuard;
 use Basalto\Core\Models\Entry;
+use Basalto\Core\Rules\EmailAddress;
 use Basalto\Core\Security\StopForumSpam;
 use Basalto\Core\Sites\CurrentSite;
 use Basalto\Modules\Comments\CommentStatus;
@@ -56,7 +57,7 @@ final class CommentSubmissionController
             : null;
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:120'],
-            'email' => ['required', 'string', 'email', 'max:254'],
+            'email' => ['required', 'string', new EmailAddress, 'max:254'],
             'website' => ['nullable', 'string', 'url:http,https', 'max:500'],
             'comment' => ['required', 'string', 'min:2', 'max:5000'],
             '_consent' => ['accepted'],

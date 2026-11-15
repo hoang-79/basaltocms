@@ -41,8 +41,16 @@ const open = ref(false);
 const active = ref(-1);
 const loading = ref(false);
 const searched = ref('');
+const input = ref<HTMLInputElement | null>(null);
 let timer: number | undefined;
 let request = 0;
+
+/** Keine Vorschläge mehr erwarten: Pause und laufende Anfrage gelten nicht mehr (Escape, Feld verlassen). */
+function stop(): void {
+    window.clearTimeout(timer);
+    request++;
+    loading.value = false;
+}
 
 const control = controlClasses();
 const expanded = computed(
@@ -77,7 +85,8 @@ async function search(query: string): Promise<void> {
         results.value = response.results ?? [];
         searched.value = query;
         active.value = results.value.length > 0 ? 0 : -1;
-        open.value = true;
+        // Nur aufklappen, solange man im Feld ist — Antworten nach dem Verlassen bleiben zu
+        open.value = document.activeElement === input.value;
     } catch {
         // Dienst nicht erreichbar oder gedrosselt — still, das Feld bleibt ein Textfeld
         if (mine === request) {
@@ -103,6 +112,11 @@ function choose(index: number): void {
 }
 
 function onKey(event: KeyboardEvent): void {
+    if (event.key === 'Escape' && !expanded.value) {
+        stop();
+
+        return;
+    }
     if (!expanded.value) {
         return;
     }
@@ -117,11 +131,13 @@ function onKey(event: KeyboardEvent): void {
         choose(active.value);
     } else if (event.key === 'Escape') {
         event.preventDefault();
+        stop();
         open.value = false;
     }
 }
 
 function onBlur(): void {
+    stop();
     // Ein Klick in die Liste kommt nach dem Verlassen — kurz warten, damit er zählt
     window.setTimeout(() => {
         open.value = false;
@@ -136,6 +152,7 @@ onBeforeUnmount(() => window.clearTimeout(timer));
     <div class="relative">
         <input
             :id="id"
+            ref="input"
             :value="model"
             type="text"
             role="combobox"

@@ -12,6 +12,7 @@ use Basalto\Core\Legal\Cancellation\ContractSources;
 use Basalto\Core\Mail\MailBrand;
 use Basalto\Core\Models\ContractCancellation;
 use Basalto\Core\Models\Site;
+use Basalto\Core\Rules\EmailAddress;
 use Basalto\Core\Sites\CurrentSite;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\RedirectResponse;
@@ -66,7 +67,7 @@ final class CancellationController
             'kind' => ['required', Rule::in([ContractCancellation::ORDINARY, ContractCancellation::EXTRAORDINARY])],
             'reason' => ['nullable', 'required_if:kind,'.ContractCancellation::EXTRAORDINARY, 'string', 'max:2000'],
             'name' => ['required', 'string', 'max:160'],
-            'email' => ['required', 'email:rfc', 'max:254'],
+            'email' => ['required', new EmailAddress, 'max:254'],
             'contract' => ['required', Rule::in([...$keys, ContractCancellation::OTHER])],
             'reference' => ['nullable', 'string', 'max:200', 'required_if:contract,'.ContractCancellation::OTHER],
             'when' => ['required', Rule::in(['next', 'date'])],

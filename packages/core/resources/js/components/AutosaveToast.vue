@@ -5,7 +5,7 @@ import { autosaveToast } from './autosave';
 /**
  * Die Meldung des Autosave unten rechts: dezent (klein, Papier-Grund), aber nicht zu übersehen — sie erscheint bei
  * jedem Speichern für drei Sekunden mit Häkchen und Uhrzeit; ein Fehler bleibt stehen, bis das nächste Speichern
- * gelingt. Für Screenreader eine höfliche Live-Region.
+ * gelingt; «wartet» (Pflichtfelder fehlen noch) steht neutral in Bernstein. Für Screenreader eine höfliche Live-Region.
  */
 const visible = ref(false);
 let timer: ReturnType<typeof setTimeout> | undefined;
@@ -51,7 +51,9 @@ watch(
                 :class="
                     autosaveToast.status === 'error'
                         ? 'border-danger/40 text-danger bg-white'
-                        : 'border-success/40 bg-white text-basalt'
+                        : autosaveToast.status === 'waiting'
+                          ? 'border-warning/50 bg-white text-basalt'
+                          : 'border-success/40 bg-white text-basalt'
                 "
             >
                 <span
@@ -65,10 +67,18 @@ watch(
                     :class="
                         autosaveToast.status === 'error'
                             ? 'bg-danger'
-                            : 'bg-success'
+                            : autosaveToast.status === 'waiting'
+                              ? 'bg-warning'
+                              : 'bg-success'
                     "
                     aria-hidden="true"
-                    >{{ autosaveToast.status === 'error' ? '!' : '✓' }}</span
+                    >{{
+                        autosaveToast.status === 'error'
+                            ? '!'
+                            : autosaveToast.status === 'waiting'
+                              ? '…'
+                              : '✓'
+                    }}</span
                 >
                 <span
                     class="line-clamp-2 min-w-0"

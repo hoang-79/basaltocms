@@ -8,6 +8,7 @@ use Basalto\Core\Help\LegalTexts;
 use Basalto\Core\Invoices\Money;
 use Basalto\Core\Models\Account;
 use Basalto\Core\Models\AccountInvoice;
+use Basalto\Core\Rules\EmailAddress;
 use Basalto\Core\Saas\AccountContext;
 use Basalto\Core\Saas\Billing\AccountBilling;
 use Basalto\Core\Saas\Billing\BillingException;
@@ -261,7 +262,7 @@ final class AccountBillingController
             'postal_code' => ['required', 'string', 'max:16'],
             'city' => ['required', 'string', 'max:80'],
             'country' => ['required', 'string', Rule::in(Countries::codes())],
-            'email' => ['nullable', 'email', 'max:254'],
+            'email' => ['nullable', new EmailAddress, 'max:254'],
             'vat_id' => ['nullable', 'string', 'max:40'],
         ];
     }

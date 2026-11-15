@@ -75,9 +75,14 @@ champ refusé ne retient pas les autres.
 
 - **Immédiatement :** interrupteurs, sélections, options et dates.
 - **Après une courte pause :** texte et nombres, au plus tard en quittant le champ.
-- **En quittant le champ ou avec Entrée :** identifiants, adresses, clés et prix — une valeur à moitié saisie
+- **En quittant le champ ou avec Entrée :** identifiants, adresses, adresses e-mail, clés et prix — une valeur à moitié saisie
   s’appliquerait aussitôt. Tant qu’il attend, le champ indique « Entrée ou quitter le champ enregistre » ; **Échap**
   annule la modification.
+
+**Nouvelles entrées et paramètres vides :** tant que des champs obligatoires manquent, le formulaire n’enregistre pas
+encore. Sous le formulaire figure ce qui manque, en bas à droite « Pas encore enregistré ». Seul un champ que vous avez
+déjà modifié est marqué en rouge. Dès que tous les champs obligatoires sont remplis, il s’enregistre de lui-même.
+Basalto vérifie le format habituel nom@entreprise.ch des **adresses e-mail** en quittant le champ.
 
 Un bouton reste là où quelque chose de nouveau est créé (**« Créer »**) ou une étape est délibérée : soumettre,
 valider, envoyer, payer, supprimer. Le texte de ces formulaires est conservé comme brouillon dans le navigateur

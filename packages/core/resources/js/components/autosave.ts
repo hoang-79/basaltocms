@@ -204,6 +204,13 @@ type Options<T> = {
      */
     keepRejected?: boolean;
     transform?: (data: T) => object;
+    /**
+     * Noch nicht speichern — mit Begründung für die Meldung unten rechts (etwa: Pflichtfelder eines neuen Eintrags
+     * fehlen noch). Solange ein Text kommt, bleibt alles ungespeichert; danach speichert das Formular von selbst.
+     */
+    blocked?: () => string | null;
+    /** Welcher Fehler in der Meldung steht: zuerst einer, den dies bejaht (etwa an einem bearbeiteten Feld). */
+    preferError?: (key: string) => boolean;
 };
 
 export function useAutosave<T extends object>(
@@ -225,6 +232,8 @@ export function useAutosave<T extends object>(
     let timer: ReturnType<typeof setTimeout> | undefined;
     let clearTimer: ReturnType<typeof setTimeout> | undefined;
     let queued = false;
+    /** Zurückgehalten (`blocked`) mit ungespeicherten Änderungen — der Browser fragt beim Schliessen nach */
+    let held = false;
 
     /** Was gespeichert werden darf: Felder «beim Verlassen» erst nach dem Verlassen, abgelehnte erst neu bearbeitet. */
     function payload(): T {
@@ -302,6 +311,21 @@ export function useAutosave<T extends object>(
 
             return Promise.resolve(status.value === 'idle');
         }
+        const reason = options.blocked?.() ?? null;
+        if (reason !== null) {
+            const unsaved = JSON.stringify(payload()) !== lastSavedJson;
+            held = unsaved;
+            status.value = unsaved ? 'pending' : 'idle';
+            if (unsaved) {
+                announceWaiting(reason);
+            } else if (autosaveToast.status === 'waiting') {
+                autosaveToast.status = 'idle';
+                autosaveToast.seq++;
+            }
+
+            return Promise.resolve(!unsaved);
+        }
+        held = false;
         if (form.processing) {
             queued = true;
 
@@ -404,8 +428,12 @@ export function useAutosave<T extends object>(
                 }
                 status.value = 'error';
                 autosaveToast.status = 'error';
+                const preferred = Object.entries(errors).find(([key]) =>
+                    options.preferError ? options.preferError(key) : true,
+                );
                 autosaveToast.text = t('Nicht gespeichert — :message', {
                     message:
+                        preferred?.[1] ??
                         Object.values(errors)[0] ??
                         t('bitte das markierte Feld prüfen'),
                 });
@@ -478,6 +506,14 @@ export function useAutosave<T extends object>(
         return flush();
     }
 
+    /**
+     * Einen Wert, den nicht die Tastatur gesetzt hat (Auswahl aus einer Suche, Übergabe beim Anlegen), wie verlassen
+     * behandeln: Er geht mit dem nächsten Speichern mit, ohne dass jemand das Feld betreten muss.
+     */
+    function accept(path: string): void {
+        committed.set(path, JSON.stringify(getPath(form.data(), path)));
+    }
+
     /** Esc: zurück auf den gespeicherten Wert. */
     function revert(path: string): void {
         const saved = getPath(lastSaved, path);
@@ -538,7 +574,7 @@ export function useAutosave<T extends object>(
         }
     });
     const onUnload = (event: BeforeUnloadEvent): void => {
-        if (timer || form.processing || waitingPaths.value.length > 0) {
+        if (timer || held || form.processing || waitingPaths.value.length > 0) {
             event.preventDefault();
         }
     };
@@ -557,6 +593,7 @@ export function useAutosave<T extends object>(
         flush,
         rebase,
         commit,
+        accept,
         revert,
         leave,
         waiting,
@@ -574,6 +611,14 @@ export function announceSaved(what: string): void {
     autosaveToast.status = 'saved';
     autosaveToast.text = t(':what gespeichert', { what });
     autosaveToast.at = now();
+    autosaveToast.seq++;
+}
+
+/** Noch nicht gespeichert, aus gutem Grund (etwa fehlende Pflichtfelder) — neutral, bleibt stehen bis zum Speichern. */
+export function announceWaiting(text: string): void {
+    autosaveToast.status = 'waiting';
+    autosaveToast.text = text;
+    autosaveToast.at = null;
     autosaveToast.seq++;
 }
 

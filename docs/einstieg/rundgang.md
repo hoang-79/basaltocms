@@ -72,9 +72,14 @@ am Feld ein Häkchen; ein Fehler bleibt stehen, bis er behoben ist. Ein abgelehn
 
 - **Sofort:** Schalter, Auswahlen, Optionen und Daten.
 - **Nach einer kurzen Pause:** Text und Zahlen, spätestens beim Verlassen des Felds.
-- **Beim Verlassen des Felds oder mit Enter:** Kennungen, Adressen, Schlüssel und Preise — ein halber Wert würde
+- **Beim Verlassen des Felds oder mit Enter:** Kennungen, Adressen, E-Mail-Adressen, Schlüssel und Preise — ein halber Wert würde
   sofort wirken. Solange es wartet, steht am Feld «Enter oder Feld verlassen speichert»; **Esc** nimmt die Änderung
   zurück.
+
+**Neue Einträge und leere Einstellungen:** Fehlen noch Pflichtfelder, speichert das Formular noch nicht. Unter dem
+Formular steht, was fehlt, unten rechts «Noch nicht gespeichert». Rot markiert ist nur ein Feld, das Sie schon
+bearbeitet haben. Sind alle Pflichtfelder ausgefüllt, speichert es von selbst. **E-Mail-Adressen** prüft Basalto beim
+Verlassen des Felds auf das übliche Format name@firma.ch.
 
 Einen Knopf gibt es weiter, wo etwas Neues entsteht (**«Anlegen»**) oder ein Schritt bewusst ist: Einreichen, Freigeben,
 Senden, Bezahlen, Löschen. Text in solchen Formularen hält Basalto als Entwurf im Browser, bis er gesendet ist.

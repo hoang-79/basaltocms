@@ -71,8 +71,13 @@ una spunta al campo; un errore resta visibile finché non viene corretto. Un cam
 
 - **Subito:** interruttori, selezioni, opzioni e date.
 - **Dopo una breve pausa:** testo e numeri, al più tardi uscendo dal campo.
-- **Uscendo dal campo o con Invio:** identificativi, indirizzi, chiavi e prezzi — un valore a metà avrebbe subito
+- **Uscendo dal campo o con Invio:** identificativi, indirizzi, indirizzi e-mail, chiavi e prezzi — un valore a metà avrebbe subito
   effetto. Finché attende, il campo indica «Invio o uscire dal campo salva»; **Esc** annulla la modifica.
+
+**Nuove voci e impostazioni vuote:** finché mancano campi obbligatori, il modulo non salva ancora. Sotto il modulo è
+indicato cosa manca, in basso a destra «Non ancora salvato». È segnato in rosso solo un campo che ha già modificato.
+Quando tutti i campi obbligatori sono compilati, si salva da sé. Basalto verifica il formato abituale nome@azienda.ch
+degli **indirizzi e-mail** uscendo dal campo.
 
 Un pulsante resta dove nasce qualcosa di nuovo (**«Crea»**) o un passo è voluto: inviare per approvazione, approvare,
 inviare, pagare, eliminare. Il testo di questi moduli resta come bozza nel browser finché non viene inviato.
