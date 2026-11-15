@@ -44,7 +44,7 @@ Was Ihre Rolle nicht darf, erscheint nicht im Menü. Fehlt Ihnen ein Recht inner
 3. **Suchen …** — die Suche (siehe [Suche](#suche)).
 4. Die **Glocke** — Ihre Benachrichtigungen (siehe [Benachrichtigungen](#benachrichtigungen)).
 5. Ihr **Profilbild** und Name — das Menü mit Profil, Einstellungen, Hilfe und «Abmelden».
-6. Die **Stationen** des Modus, hier mit Zahl (siehe unten).
+6. Die **Stationen** des Modus in der Leiste, dahinter **«Alle»** (siehe unten).
 7. Das runde **«?»** — die Hilfe zu dieser Seite.
 
 ### Modus «Inhalte»
@@ -60,7 +60,13 @@ Hier findet die Redaktionsarbeit statt. Unter der Kopfzeile stehen die Stationen
 - **Medien** — die Mediathek.
 - **Kommentare** und **Mitglieder** — erscheinen nur, wenn das jeweilige Modul für die Site eingeschaltet ist.
 
-Eine Zahl in **Bernstein** neben einer Station bedeutet: Dort wartet etwas auf Sie — bei «Freigabe» Fassungen zum Prüfen, bei «Übersetzung» Lücken, bei «Formulare» neue Eingänge, bei «Kommentare» und «Mitglieder» Wartendes. Eine **graue** Zahl ist nur zur Information. Die Zahlen werden alle 30 Sekunden neu gezählt.
+In der Leiste stehen ab Werk Übersicht, Seiten, Inhalte, Freigabe, Übersetzung und Medien. **«Alle»** öffnet alle
+Stationen nach Gruppen — «Redaktion», «Abläufe», dazu «Geschäft» und «Erweiterungen» für Plugins. Mit der **Nadel**
+neben einer Station holen Sie sie in die Leiste oder nehmen sie heraus; das gilt für Sie auf allen Geräten. Die Seite,
+auf der Sie gerade sind, steht immer in der Leiste.
+
+Eine Zahl in **Bernstein** neben einer Station bedeutet: Dort wartet etwas auf Sie — bei «Freigabe» Fassungen zum Prüfen, bei «Übersetzung» Lücken, bei «Formulare» neue Eingänge, bei «Kommentare» und «Mitglieder» Wartendes. Eine **graue** Zahl ist nur zur Information. Die Zahlen werden alle 30 Sekunden neu gezählt. Eine Zahl an «Alle» zählt
+zusammen, was in Stationen wartet, die nicht in der Leiste stehen.
 
 ### Die Übersicht
 

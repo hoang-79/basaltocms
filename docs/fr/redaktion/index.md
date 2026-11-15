@@ -44,7 +44,7 @@ Ce que votre rôle ne peut pas faire n’apparaît pas dans le menu. S’il vous
 3. **Rechercher …** — la recherche (voir [Recherche](#recherche)).
 4. La **cloche** — vos notifications (voir [Notifications](#notifications)).
 5. Votre **photo de profil** et votre nom — le menu avec le profil, les paramètres, l’aide et « Se déconnecter ».
-6. Les **stations** du mode, ici avec un nombre (voir ci-dessous).
+6. Les **stations** du mode dans la barre, suivies de **« Tous »** (voir ci-dessous).
 7. Le **« ? »** rond — l’aide pour cette page.
 
 ### Mode « Contenus »
@@ -59,6 +59,11 @@ C’est ici que se déroule le travail de rédaction. Sous l’en-tête figurent
 - **Formulaires** — les formulaires et leurs envois.
 - **Médias** — la médiathèque.
 - **Commentaires** et **Membres** — n’apparaissent que si le module concerné est activé pour le site.
+
+Par défaut, la barre affiche Vue d’ensemble, Pages, Contenus, Validation, Traduction et Médias. **« Tous »** ouvre toutes
+les stations par groupe — « Rédaction », « Processus », ainsi que « Affaires » et « Extensions » pour les plugins.
+L’**épingle** à côté d’une station l’ajoute à la barre ou l’en retire ; cela vaut pour vous sur tous les appareils. La
+page sur laquelle vous vous trouvez figure toujours dans la barre.
 
 Un nombre en **ambre** à côté d’une station signifie : quelque chose vous y attend — pour « Validation », des versions à vérifier, pour « Traduction », des lacunes, pour « Formulaires », de nouveaux envois, pour « Commentaires » et « Membres », des éléments en attente. Un nombre **gris** est purement informatif. Les nombres sont recomptés toutes les 30 secondes.
 

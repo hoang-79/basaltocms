@@ -44,7 +44,7 @@ Ciò che il Suo ruolo non può fare non compare nel menu. Se all’interno di un
 3. **Cerca …** — la ricerca (vedi [Ricerca](#ricerca)).
 4. La **Campanella** — le Sue notifiche (vedi [Notifiche](#notifiche)).
 5. La Sua **Immagine del profilo** e il nome — il menu con profilo, impostazioni, guida ed «Esci».
-6. Le **Stazioni** della modalità, qui con un numero (vedi sotto).
+6. Le **Stazioni** della modalità nella barra, seguite da **«Tutti»** (vedi sotto).
 7. Il **«?»** rotondo — la guida a questa pagina.
 
 ### Modalità «Contenuti»
@@ -59,6 +59,11 @@ Qui si svolge il lavoro redazionale. Sotto l’intestazione ci sono le stazioni:
 - **Moduli** — i moduli e i loro invii.
 - **Media** — la mediateca.
 - **Commenti** e **Membri** — compaiono solo se il rispettivo modulo è attivato per il sito.
+
+Di serie la barra mostra Panoramica, Pagine, Contenuti, Approvazione, Traduzione e Media. **«Tutti»** apre tutte le
+stazioni per gruppo — «Redazione», «Processi», più «Affari» ed «Estensioni» per i plugin. La **puntina** accanto a una
+stazione la mette nella barra o la toglie; vale per Lei su tutti i dispositivi. La pagina su cui si trova compare sempre
+nella barra.
 
 Un numero in **ambra** accanto a una stazione significa: lì qualcosa La attende — in «Approvazione» versioni da verificare, in «Traduzione» lacune, in «Moduli» nuovi invii, in «Commenti» e «Membri» elementi in attesa. Un numero **grigio** è solo informativo. I numeri vengono ricontati ogni 30 secondi.
 

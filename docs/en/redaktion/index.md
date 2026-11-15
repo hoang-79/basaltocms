@@ -44,7 +44,7 @@ What your role may not do does not appear in the menu. If you lack a right withi
 3. **Search …** — the search (see [Search](#search)).
 4. The **bell** — your notifications (see [Notifications](#notifications)).
 5. Your **profile picture** and name — the menu with profile, settings, help and “Sign out”.
-6. The **stations** of the mode, here with a number (see below).
+6. The **stations** of the mode in the bar, followed by **“All”** (see below).
 7. The round **“?”** — help for this page.
 
 ### “Content” mode
@@ -59,6 +59,10 @@ This is where editorial work happens. Below the header are the stations:
 - **Forms** — forms and their submissions.
 - **Media** — the media library.
 - **Comments** and **Members** — only appear if the respective module is switched on for the site.
+
+Out of the box the bar shows Overview, Pages, Content, Review, Translation and Media. **“All”** opens every station by
+group — “Editorial”, “Workflow”, plus “Business” and “Extensions” for plugins. The **pin** next to a station puts it in
+the bar or takes it out; this applies to you on all devices. The page you are on always appears in the bar.
 
 An **amber** number next to a station means: something is waiting for you there — for “Approval” versions to review, for “Translation” gaps, for “Forms” new submissions, for “Comments” and “Members” what is waiting. A **grey** number is for information only. The numbers are recounted every 30 seconds.
 
