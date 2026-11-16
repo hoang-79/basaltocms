@@ -17,6 +17,8 @@ use Basalto\Core\Auth\QuietDatabaseSessionHandler;
 use Basalto\Core\Backend\Backend;
 use Basalto\Core\Business\Connections;
 use Basalto\Core\Cache\PageCacheInvalidation;
+use Basalto\Core\Choices\ChoiceLists;
+use Basalto\Core\Choices\Choices;
 use Basalto\Core\Cloud\CloudCli;
 use Basalto\Core\Cloud\CommandRunner;
 use Basalto\Core\Cloud\ProcessRunner;
@@ -176,6 +178,9 @@ final class CoreServiceProvider extends ServiceProvider
         $this->app->extend('translator', static fn (Translator $translator): Translator => $translator instanceof SourceLocaleTranslator ? $translator : SourceLocaleTranslator::from($translator));
         // CR-005: Verzeichnis der Bereiche (für die Laufzeit der App) und Prüfstelle der Rechte (je Anfrage neu)
         $this->app->singleton(Areas::class);
+        // CR-022: Auswahllisten, die Sites selbst ergänzen
+        $this->app->singleton(ChoiceLists::class);
+        $this->app->scoped(Choices::class);
         $this->app->scoped(Access::class);
         // CR-006 (TB 41, FO-K12): Quellen der Suche aus den Modulen
         $this->app->singleton(SearchSources::class);
@@ -460,6 +465,7 @@ final class CoreServiceProvider extends ServiceProvider
         $backend->menu('basalto::backend.types', 'basalto.setup.types.index', 50, Backend::MODE_SETUP, icon: 'type');
         $backend->menu('basalto::backend.sites', 'basalto.sites.index', 20, Backend::MODE_ADMIN, icon: 'sites', group: 'site');
         $backend->menu('Module', 'basalto.modules', 22, Backend::MODE_ADMIN, icon: 'module', group: 'site'); // TB 11 Scheibe 2 (M-20): Module und Marktplatz
+        $backend->menu('Auswahllisten', 'basalto.choices.index', 23, Backend::MODE_ADMIN, icon: 'settings', group: 'site'); // CR-022
         $backend->menu('basalto::backend.users', 'basalto.users.index', 30, Backend::MODE_ADMIN, icon: 'users', group: 'people');
         $backend->menu('Rollen', 'basalto.roles.index', 31, Backend::MODE_ADMIN, icon: 'users', group: 'people'); // CR-005 (R-08)
         $backend->menu('basalto::backend.settings', 'basalto.settings.index', 40, Backend::MODE_ADMIN, icon: 'settings', group: 'system');

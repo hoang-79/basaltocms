@@ -12,7 +12,10 @@ import Field from '../Field.vue';
 import PhoneInput from '../PhoneInput.vue';
 import RichTextField from '../RichTextField.vue';
 import { fillFrom, filled, handoff, typedSince } from './lookup';
+import ChoiceSelect from './ChoiceSelect.vue';
+import type { AdminChoice } from './choice';
 import LookupInput from './LookupInput.vue';
+import SuggestInput from './SuggestInput.vue';
 import { mergeServerValues } from './state';
 import type { AdminField, AdminFormSection } from './types';
 
@@ -214,6 +217,18 @@ watch(
         }
     },
 );
+
+/** CR-022: Ein Vorschlag mit Werten für andere Felder (Ort → Adresse) füllt sie aus — wie eine Auswahl aus der Suche. */
+function onSuggest(option: AdminChoice): void {
+    const fill = option.fill ?? {};
+    const names = props.section.fields.map((f) => f.name);
+    for (const [name, value] of Object.entries(fill)) {
+        if (names.includes(name)) {
+            form[name] = value;
+            save?.accept(name);
+        }
+    }
+}
 
 function onLookup(f: AdminField, values: Record<string, string>): void {
     if (!f.lookup) {
@@ -539,6 +554,60 @@ const inputType = (f: AdminField): string =>
                                     ($event.target as HTMLInputElement).value,
                                 )
                             "
+                        />
+                    </template>
+                </Field>
+                <Field
+                    v-else-if="f.type === 'choice'"
+                    :label="f.label"
+                    :help="f.help"
+                    :error="fieldError(f)"
+                    :required="f.required"
+                    :saved="save?.saved(f.name)"
+                    :waiting="save?.waiting(f.name)"
+                >
+                    <template #default="{ id, invalid, describedby }">
+                        <ChoiceSelect
+                            :id="id"
+                            v-model="form[f.name]"
+                            :options="
+                                f.none
+                                    ? [
+                                          {
+                                              value: '',
+                                              label: f.none,
+                                              group: null,
+                                          },
+                                          ...(f.options ?? []),
+                                      ]
+                                    : (f.options ?? [])
+                            "
+                            :add-url="f.choice_add ?? null"
+                            :label="f.label"
+                            :invalid="invalid"
+                            :describedby="describedby"
+                        />
+                    </template>
+                </Field>
+                <Field
+                    v-else-if="f.choice_list && f.options"
+                    :label="f.label"
+                    :help="f.help"
+                    :error="fieldError(f)"
+                    :required="f.required"
+                    :saved="save?.saved(f.name)"
+                    :waiting="save?.waiting(f.name)"
+                >
+                    <template #default="{ id, invalid, describedby }">
+                        <SuggestInput
+                            :id="id"
+                            v-model="form[f.name]"
+                            :options="f.options"
+                            :add-url="f.choice_add ?? null"
+                            :placeholder="f.placeholder"
+                            :invalid="invalid"
+                            :describedby="describedby"
+                            @pick="onSuggest($event)"
                         />
                     </template>
                 </Field>

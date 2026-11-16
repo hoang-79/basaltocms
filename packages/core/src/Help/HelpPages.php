@@ -111,6 +111,7 @@ final class HelpPages
         'basalto.users.' => 'verwaltung-benutzer',
         'basalto.invitations.' => 'verwaltung-benutzer',
         'basalto.settings.' => 'verwaltung-einstellungen',
+        'basalto.choices.' => 'verwaltung-einstellungen', // CR-022: Abschnitt «Auswahllisten"
         'basalto.license' => 'verwaltung-lizenz',
         'basalto.operations' => 'verwaltung-betrieb',
         'basalto.updates' => 'verwaltung-updates',

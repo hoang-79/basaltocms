@@ -70,6 +70,11 @@ campo e quel campo resta non salvato finché non è corretto. Il **numero client
 Cambi la fase sul cliente o per più clienti alla volta: li selezioni nell’elenco e scelga in basso **«Ciclo di vita:
 …»**.
 
+**Valori propri:** se manca una fase, la digiti nella scelta **Ciclo di vita** e scelga **«+ Aggiungi «…»»** — lo stesso
+per il **tipo** di un’attività. La **funzione** di una persona di contatto propone funzioni usuali per reparto
+(direzione, finanze, acquisti …); ne digiti semplicemente un’altra. Gli elenchi si gestiscono in **Amministrazione ›
+Elenchi di scelta**.
+
 ## Persone di contatto
 
 Per un’azienda registri in **Persone di contatto** le persone con cui ha a che fare: nome, cognome, **Funzione**,

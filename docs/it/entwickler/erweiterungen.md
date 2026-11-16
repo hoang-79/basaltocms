@@ -234,7 +234,7 @@ L’esempio completo con modifica, eliminazione e azione multipla si trova nel m
 | `Row` | `make($id)`, `cell()`, `badge($chiave, $testo, $tono)`, `link($chiave, $testo, $url)`, `url()`, `action()` | Riga; con `url()` la prima colonna diventa un link al record |
 | `Filter` | `make($parametro, $etichetta, $valore)`, `option($valore, $etichetta, $numero)` | Scelta sopra l’elenco, come parametro di query nell’indirizzo |
 | `Form` | `make($url, $metodo)`, `title()`, `fields()`, `values()`, `autosave()`, `creates($campi)`, `submit()` | Modulo; con `autosave()` si salva da solo dopo ogni pausa, con `creates()` crea il record senza pulsante, altrimenti con il pulsante |
-| `FormField` | `text`, `email`, `url`, `number`, `password`, `textarea`, `select($nome, $etichetta, $scelte)`, `checkbox`, `date`, `time`, `datetime`, `color`, `richtext`, `file($nome, $etichetta, $accept)`, `country`, `phone`, `postalCode`; inoltre `help()`, `placeholder()`, `required()`, `min()`, `max()`, `step()`, `rows()`, `mono()`, `onLeave()`, `half()`, `countryFrom($campo)`, `inCountry($codice)`, `lookup($tipo, $corrispondenza)` | Campo; con il salvataggio automatico, `password` viene salvato solo lasciando il campo |
+| `FormField` | `text`, `email`, `url`, `number`, `password`, `textarea`, `select($nome, $etichetta, $scelte)`, `checkbox`, `date`, `time`, `datetime`, `color`, `richtext`, `file($nome, $etichetta, $accept)`, `country`, `phone`, `postalCode`, `choice`; inoltre `help()`, `placeholder()`, `required()`, `min()`, `max()`, `step()`, `rows()`, `mono()`, `onLeave()`, `half()`, `countryFrom($campo)`, `inCountry($codice)`, `lookup($tipo, $corrispondenza)`, `suggest()`, `none()` | Campo; con il salvataggio automatico, `password` viene salvato solo lasciando il campo |
 | `Action` | `link`, `post`, `put`, `delete`, `bulk($chiave, $etichetta, $url)`; inoltre `confirm($domanda)`, `variant()`, `with($dati)` | Pulsante; con `confirm()` il nucleo chiede prima conferma |
 
 Cosa conta:
@@ -269,6 +269,26 @@ Cosa conta:
   rifiuto, compaiono tutti. **E-mail:** `FormField::email()` salva uscendo dal campo e verifica allora il formato
   nome@azienda.ch; sul server verifica `new Rules\EmailAddress` al posto di `email` di Laravel (che lascia passare
   «anna@firma») — la stessa regola del browser.
+- **Elenchi di scelta** (`Choices\ChoiceList`): valori che il sito completa da sé. `FormField::choice('stato', …,
+  'elenco')` è una scelta con ricerca, gruppi e «+ … Aggiungi» per chi può modificare una sezione dell’elenco; si salva
+  la chiave. `FormField::text(…)->suggest('elenco')` è testo con suggerimenti — ciò che è già usato nelle voci viene da
+  `->used(fn (Site $site) => …)`, un suggerimento può compilare altri campi con `fill`. Si verifica con
+  `Choices::values()`, si mostra con `Choices::label()`. Se più plugin condividono un elenco, ognuno lo registra e
+  aggiunge la sua sezione con `sharedWith($sezione, $modulo)`; se un plugin gestisce i valori da sé (con traduzioni),
+  `external()` li fornisce, ne crea di nuovi e indica la sua pagina. Gli elenchi si gestiscono in Amministrazione ›
+  Elenchi di scelta.
+  ```php
+  use Basalto\Core\Choices\{ChoiceList, ChoiceLists, Choices};
+
+  // Nel service provider: registrare l’elenco — valori predefiniti tradotti, sezione per il permesso «modificare», modulo
+  app(ChoiceLists::class)->register(ChoiceList::select('shop.status', fn () => __('Shop › Status'), 'shop', 'shop')
+      ->values(fn () => [['value' => 'neu', 'label' => __('Neu')], ['value' => 'versandt', 'label' => __('Versandt')]]));
+
+  // Nel modulo e nella verifica
+  FormField::choice('status', __('Status'), 'shop.status');
+  $request->validate(['status' => ['required', Rule::in(app(Choices::class)->values($site, 'shop.status'))]]);
+  app(Choices::class)->label($site, 'shop.status', $order->status); // etichetta per gli elenchi
+  ```
 - **I permessi** valgono come per ogni route ([Sezioni e permessi](#sezioni-e-permessi)); il controller omette i
   pulsanti che un utente non può usare.
 

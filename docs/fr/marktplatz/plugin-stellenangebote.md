@@ -55,6 +55,10 @@ formulaire avec toutes les indications. Les modifications s’enregistrent toute
 | **Retirer** | de nouveau un brouillon |
 | **Dupliquer** | une copie en tant que brouillon — pratique pour des postes semblables |
 
+**Vos propres valeurs :** s’il manque un type de contrat (par exemple « poste saisonnier »), saisissez-le dans le choix
+**Type de contrat** et choisissez **« + Ajouter « … » »**. **Service** et **Lieu de travail** proposent ce que des
+postes précédents portaient déjà.
+
 ## Candidatures
 
 Sans lien propre, le formulaire de candidature du site figure sous chaque poste ouvert :

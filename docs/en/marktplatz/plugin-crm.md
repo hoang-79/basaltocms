@@ -69,6 +69,10 @@ at the field, and that field stays unsaved until it is correct. The CRM assigns 
 Change the stage on the customer or for several at once: select them in the list and choose **“Lifecycle: …”** at the
 bottom.
 
+**Your own values:** if a stage is missing, type it into the **Lifecycle** choice and select **“+ Add “…””** — likewise
+for the **type** of an activity. The **role** of a contact person suggests common roles by department (management,
+finance, purchasing …); simply type any other. The lists are maintained under **Administration › Choice lists**.
+
 ## Contact persons
 
 For a company, record under **Contact persons** the people you deal with: first name, last name, **Function**, email

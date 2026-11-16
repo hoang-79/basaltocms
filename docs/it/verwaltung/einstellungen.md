@@ -58,6 +58,22 @@ Le modifiche si salvano da sole («salvataggio …», poi «salvato»). Se un va
 
 Il **ciclo di eliminazione** viene eseguito ogni notte ed elimina ciò che ha raggiunto i termini — definitivamente. Si annota da sé nel registro.
 
+## Elenchi di scelta
+
+Modalità «Amministrazione» › **Elenchi di scelta**: i valori proposti nei campi di scelta — ad esempio il ciclo di vita
+e il tipo di attività nel CRM, la funzione delle persone di contatto, il tipo d’impiego, il reparto e il luogo di lavoro
+delle offerte di lavoro o il luogo di un evento. Quali elenchi esistono dipende dai moduli attivati per il sito.
+
+- **Aggiungere** si fa direttamente nel campo: digiti il nuovo valore nella ricerca della scelta e scelga **«+ Aggiungi
+  «…»»**. Il valore è poi nell’elenco del sito ed è subito scelto. Può farlo chiunque possa modificare il modulo.
+- **I campi con suggerimenti** (funzione, reparto, luogo) accettano anche testo libero; ciò che è già usato nelle voci
+  compare da sé tra i suggerimenti.
+- Sulla pagina di un elenco: **Su** e **Giù** ordinano i valori, **Nascondi** toglie un valore dalla scelta — le voci
+  che lo portano lo mantengono. Un clic su un valore lo apre: i valori aggiunti si possono rinominare, ogni valore si
+  può assegnare a un gruppo. I valori predefiniti restano tradotti in tutte le lingue e quindi non si possono
+  rinominare.
+- **Le categorie dei documenti** le gestisce il modulo stesso (con traduzioni); l’elenco porta lì.
+
 ## Domande frequenti
 
 **Un valore vale per l’installazione — perché lo vedo in ogni sito?**

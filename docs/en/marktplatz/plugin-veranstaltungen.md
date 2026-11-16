@@ -60,6 +60,8 @@ form with all details opens. Changes save themselves.
 
 The list shows “Upcoming”, “Past”, “Drafts” and “All”, with search and bulk actions (publish, withdraw, delete).
 
+**Reuse venues:** the **Venue** suggests the venues of earlier events; choosing one fills in the **Address** as well.
+
 ## Upcoming events on other pages
 
 The Lava part **“Upcoming events”** shows the next dates — for example on the home page: under **Setup › Layouts ›

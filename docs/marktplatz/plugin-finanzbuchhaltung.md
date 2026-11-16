@@ -63,7 +63,7 @@ mit seinen Rechnungen.
 - **Ohne CRM** legen Sie Personenkonten hier an: Art, Name oder Firma, Kontaktperson, Anschrift, E-Mail und
   UID/MWST-Nummer. Die Nummer vergibt die Buchhaltung selbst («DEB-0001», «KRE-0001»). Das Personenkonto entsteht
   ohne Knopf, sobald der Name eingetragen und das Feld verlassen ist; danach speichert jedes Feld selbst. Name und
-  Strasse schlagen nach wie im CRM.
+  Strasse schlagen nach wie im CRM. Die **Funktion** der Kontaktperson schlägt dieselben Funktionen vor wie im CRM.
 - **Mit dem Plugin «CRM»** wählen Sie bei einer Rechnung direkt einen Kunden aus Ihrer Kundenliste. Das Personenkonto
   entsteht beim ersten Gebrauch; Name und Anschrift pflegen Sie im CRM, die Buchhaltung folgt jeder Änderung. Für
   Eingangsrechnungen stehen die Kunden zur Wahl, die im CRM als **«Lieferant»** markiert sind. Ein Personenkonto, das

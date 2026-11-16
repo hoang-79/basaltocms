@@ -55,6 +55,9 @@ tutti i dettagli. Le modifiche si salvano da sole.
 | **Ritira** | di nuovo una bozza |
 | **Duplica** | una copia come bozza — pratico per posti simili |
 
+**Valori propri:** se manca un tipo d’impiego (ad esempio «posto stagionale»), lo digiti nella scelta **Tipo d’impiego**
+e scelga **«+ Aggiungi «…»»**. **Reparto** e **Luogo di lavoro** propongono ciò che posti precedenti avevano già.
+
 ## Candidature
 
 Senza link proprio, sotto ogni posto aperto compare il modulo di candidatura del sito:

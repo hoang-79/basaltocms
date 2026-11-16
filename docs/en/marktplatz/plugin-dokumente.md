@@ -40,6 +40,8 @@ and images (JPEG, PNG, WebP) up to 20 MB are allowed.
 
 The **“Downloads”** column counts how often a file was downloaded.
 
+**New category while uploading:** type the name into the **Category** choice and select **“+ Add “…””**.
+
 ## Categories
 
 Under **Content › Documents › Categories** you create categories with a name, an ID (for `?kategorie=` and Lava) and an

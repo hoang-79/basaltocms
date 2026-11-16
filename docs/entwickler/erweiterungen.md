@@ -232,7 +232,7 @@ Das vollständige Beispiel mit Bearbeiten, Löschen und Sammelaktion steht im Be
 | `Row` | `make($id)`, `cell()`, `badge($schlüssel, $text, $ton)`, `link($schlüssel, $text, $url)`, `url()`, `action()` | Zeile; mit `url()` wird die erste Spalte zum Link auf den Datensatz |
 | `Filter` | `make($parameter, $bezeichnung, $wert)`, `option($wert, $bezeichnung, $anzahl)` | Auswahl über der Liste, als Abfrageparameter in der Adresse |
 | `Form` | `make($url, $methode)`, `title()`, `fields()`, `values()`, `autosave()`, `creates($felder)`, `submit()` | Formular; mit `autosave()` speichert es nach jeder Pause selbst, mit `creates()` legt es den Eintrag ohne Knopf an, sonst mit dem Knopf |
-| `FormField` | `text`, `email`, `url`, `number`, `password`, `textarea`, `select($name, $bezeichnung, $auswahl)`, `checkbox`, `date`, `time`, `datetime`, `color`, `richtext`, `file($name, $bezeichnung, $accept)`, `country`, `phone`, `postalCode`; dazu `help()`, `placeholder()`, `required()`, `min()`, `max()`, `step()`, `rows()`, `mono()`, `onLeave()`, `half()`, `countryFrom($feld)`, `inCountry($code)`, `lookup($art, $zuordnung)` | Feld; `password` speichert beim Autosave erst beim Verlassen des Feldes |
+| `FormField` | `text`, `email`, `url`, `number`, `password`, `textarea`, `select($name, $bezeichnung, $auswahl)`, `checkbox`, `date`, `time`, `datetime`, `color`, `richtext`, `file($name, $bezeichnung, $accept)`, `country`, `phone`, `postalCode`, `choice`; dazu `help()`, `placeholder()`, `required()`, `min()`, `max()`, `step()`, `rows()`, `mono()`, `onLeave()`, `half()`, `countryFrom($feld)`, `inCountry($code)`, `lookup($art, $zuordnung)`, `suggest()`, `none()` | Feld; `password` speichert beim Autosave erst beim Verlassen des Feldes |
 | `Action` | `link`, `post`, `put`, `delete`, `bulk($schlüssel, $bezeichnung, $url)`; dazu `confirm($frage)`, `variant()`, `with($daten)` | Knopf; mit `confirm()` fragt der Kern vorher nach |
 
 Worauf es ankommt:
@@ -267,6 +267,26 @@ Worauf es ankommt:
   keines davon die Ablehnung, stehen alle. **E-Mail:** `FormField::email()` speichert beim Verlassen und prüft dann das
   Format name@firma.ch; auf dem Server prüft `new Rules\EmailAddress` statt Laravels `email` (das «anna@firma»
   durchlässt) — dieselbe Regel wie im Browser.
+- **Auswahllisten** (`Choices\ChoiceList`): Werte, die die Site selbst ergänzt. `FormField::choice('stand', …, 'liste')`
+  ist eine Auswahl mit Suche, Gruppen und «+ … hinzufügen» für alle, die einen Bereich der Liste bearbeiten dürfen;
+  gespeichert wird der Schlüssel. `FormField::text(…)->suggest('liste')` ist Text mit Vorschlägen — was schon in
+  Einträgen steht, liefert `->used(fn (Site $site) => …)`, ein Vorschlag kann mit `fill` weitere Felder füllen. Geprüft
+  wird mit `Choices::values()`, angezeigt mit `Choices::label()`. Teilen mehrere Plugins eine Liste, meldet jedes sie an
+  und hängt mit `sharedWith($bereich, $modul)` seinen Bereich an; führt ein Plugin die Werte selbst (mit Übersetzungen),
+  liefert `external()` sie, legt neue an und nennt seine Seite. Gepflegt werden die Listen unter Verwaltung ›
+  Auswahllisten.
+  ```php
+  use Basalto\Core\Choices\{ChoiceList, ChoiceLists, Choices};
+
+  // Im Service-Provider: Liste anmelden — vorgegebene Werte übersetzt, Bereich für das Recht «bearbeiten», Modul
+  app(ChoiceLists::class)->register(ChoiceList::select('shop.status', fn () => __('Shop › Status'), 'shop', 'shop')
+      ->values(fn () => [['value' => 'neu', 'label' => __('Neu')], ['value' => 'versandt', 'label' => __('Versandt')]]));
+
+  // Im Formular und in der Prüfung
+  FormField::choice('status', __('Status'), 'shop.status');
+  $request->validate(['status' => ['required', Rule::in(app(Choices::class)->values($site, 'shop.status'))]]);
+  app(Choices::class)->label($site, 'shop.status', $order->status); // Bezeichnung für Listen
+  ```
 - **Rechte** gelten wie für jede Route ([Bereiche und Rechte](#bereiche-und-rechte)); Knöpfe, die ein Benutzer nicht
   nutzen darf, lässt der Controller weg.
 

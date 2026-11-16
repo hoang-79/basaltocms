@@ -58,6 +58,24 @@ Les modifications s’enregistrent d’elles-mêmes (« enregistrement … », p
 
 La **purge** s’exécute chaque nuit et supprime ce qui a atteint les délais — définitivement. Elle s’inscrit elle-même dans le journal.
 
+## Listes de choix
+
+Mode « Administration » › **Listes de choix** : les valeurs proposées dans les champs de choix — par exemple le cycle de
+vie et le type d’activité dans le CRM, la fonction des personnes de contact, le type de contrat, le service et le lieu
+de travail des offres d’emploi ou le lieu d’une manifestation. Les listes disponibles dépendent des modules activés pour
+le site.
+
+- **Ajouter** se fait directement dans le champ : saisissez la nouvelle valeur dans la recherche du choix et choisissez
+  **« + Ajouter « … » »**. La valeur figure ensuite dans la liste du site et est aussitôt choisie. Quiconque peut
+  modifier le formulaire peut le faire.
+- **Les champs avec suggestions** (fonction, département, lieu) acceptent aussi du texte libre ; ce qui figure déjà dans
+  des entrées apparaît de lui-même parmi les suggestions.
+- Sur la page d’une liste : **Monter** et **Descendre** ordonnent les valeurs, **Masquer** retire une valeur du choix —
+  les entrées qui la portent la gardent. Un clic sur une valeur l’ouvre : les valeurs ajoutées peuvent être renommées,
+  chaque valeur peut être rattachée à un groupe. Les valeurs prédéfinies restent traduites dans toutes les langues et ne
+  peuvent donc pas être renommées.
+- **Les catégories des documents** sont gérées par le module lui-même (avec traductions) ; la liste y mène.
+
 ## Questions fréquentes
 
 **Une valeur vaut pour l’installation — pourquoi la vois-je dans chaque site ?**

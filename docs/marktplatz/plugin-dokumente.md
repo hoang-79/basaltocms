@@ -41,6 +41,9 @@ Bilder (JPEG, PNG, WebP) bis 20 MB.
 
 Die Spalte **«Downloads»** zählt, wie oft eine Datei geladen wurde.
 
+**Neue Kategorie gleich beim Hochladen:** Tippen Sie den Namen in die Auswahl **Kategorie** und wählen Sie **«+ «…»
+hinzufügen»**.
+
 ## Kategorien
 
 Unter **Inhalte › Dokumente › Kategorien** legen Sie Kategorien mit Name, Kennung (für `?kategorie=` und Lava) und

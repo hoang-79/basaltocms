@@ -43,7 +43,7 @@ final class SiteExporter
      * @var list<string>
      */
     public const EXPORTED = ['site_locales', 'site_domains', 'site_user', 'invitations', 'settings', 'site_themes', 'lava_sources', 'theme_drafts', 'theme_versions', 'media_folders', 'media', 'entries',
-        'redirects', 'navigation_items', 'forms', 'form_submissions', 'snippets'];
+        'redirects', 'navigation_items', 'forms', 'form_submissions', 'snippets', 'choice_options'];
 
     /** @var array<string, string> Tabellen mit `site_id`, die bewusst nicht mitgehen — mit Grund */
     public const EXCLUDED = [
@@ -153,7 +153,7 @@ final class SiteExporter
             throw $e;
         }
         $counts = [];
-        foreach (['locales', 'domains', 'members', 'settings', 'site_themes', 'lava_sources', 'theme_drafts', 'theme_versions', 'media_folders', 'media', 'entries', 'media_usages', 'redirects', 'navigation', 'forms', 'submissions'] as $key) {
+        foreach (['locales', 'domains', 'members', 'settings', 'site_themes', 'lava_sources', 'theme_drafts', 'theme_versions', 'media_folders', 'media', 'entries', 'media_usages', 'redirects', 'navigation', 'forms', 'submissions', 'choices'] as $key) {
             $counts[$key] = is_array($payload[$key] ?? null) ? count($payload[$key]) : 0;
         }
         $counts['versions'] = array_sum(array_map(static fn (array $e): int => count($e['versions']), $payload['entries']));
@@ -335,6 +335,12 @@ final class SiteExporter
         $payload['snippets'] = DB::table('snippets')->where('site_id', $siteId)->orderBy('id')->get()
             ->map(static fn (object $r): array => ['handle' => (string) $r->handle, 'name' => (string) $r->name, 'blocks' => $refs->snippetBlocks((array) (self::json($r->blocks) ?? [])),
                 'updated_by' => $email($r->updated_by), 'created_at' => self::time($r->created_at), 'updated_at' => self::time($r->updated_at)])->values()->all();
+
+        // CR-022: Werte, die die Site in Auswahllisten ergänzt oder gepflegt hat
+        $payload['choices'] = DB::table('choice_options')->where('site_id', $siteId)->orderBy('id')->get()
+            ->map(static fn (object $r): array => ['list' => (string) $r->list, 'value' => (string) $r->value, 'label' => $r->label, 'group' => $r->group,
+                'position' => $r->position !== null ? (int) $r->position : null, 'hidden_at' => self::time($r->hidden_at), 'created_by' => $email($r->created_by),
+                'created_at' => self::time($r->created_at), 'updated_at' => self::time($r->updated_at)])->values()->all();
 
         // Das Webhook-Geheimnis geht nicht mit: im Klartext läge es offen im Archiv, verschlüsselt hängt es am APP_KEY der
         // Quelle. Der Import meldet die betroffenen Formulare; das Backend erzeugt ein neues (Formular → Webhook).

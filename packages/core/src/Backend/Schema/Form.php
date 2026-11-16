@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace Basalto\Core\Backend\Schema;
 
+use Basalto\Core\Access\Access;
+use Basalto\Core\Choices\ChoiceLists;
+use Basalto\Core\Choices\Choices;
+use Basalto\Core\Http\Controllers\ChoiceController;
 use Basalto\Core\Lookup\Lookups;
+use Basalto\Core\Sites\CurrentSite;
 use Basalto\Core\Support\Countries;
 
 /**
@@ -89,6 +94,28 @@ final class Form
         return $this;
     }
 
+    /**
+     * CR-022: Felder mit Auswahlliste bekommen die Werte der Site und — wer hinzufügen darf — die Adresse dafür.
+     *
+     * @param  array<string, mixed>  $field
+     * @return array<string, mixed>
+     */
+    private static function withChoices(array $field, mixed $current): array
+    {
+        $key = $field['choice_list'] ?? null;
+        $site = is_string($key) ? app(CurrentSite::class)->get() : null;
+        $list = is_string($key) ? app(ChoiceLists::class)->get($key) : null;
+        if ($site === null || $list === null) {
+            return $field;
+        }
+        $user = auth()->user();
+        $field['options'] = app(Choices::class)->options($site, $key, is_scalar($current) ? (string) $current : null);
+        $field['choice_add'] = $user !== null && ChoiceController::mayAdd(app(Access::class), $user, $site, $list->areas()) ? route('basalto.choice_add', ['list' => $key]) : null;
+        $field['choice_kind'] = $list->kind;
+
+        return $field;
+    }
+
     /** @return array<string, mixed> */
     public function toArray(): array
     {
@@ -97,7 +124,7 @@ final class Form
             $values[$field->name] = $this->values[$field->name] ?? null;
         }
 
-        $fields = array_map(static fn (FormField $f): array => $f->toArray(), $this->fields);
+        $fields = array_map(static fn (FormField $f): array => self::withChoices($f->toArray(), $values[$f->name] ?? null), $this->fields);
         $types = array_column($fields, 'type');
         $kinds = array_values(array_unique(array_filter(array_map(static fn (array $f): ?string => $f['lookup']['kind'] ?? null, $fields))));
 

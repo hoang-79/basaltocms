@@ -62,7 +62,7 @@ invoices.
 - **Without a CRM** you create personal accounts here: type, name or company, contact person, address, email and
   UID/VAT number. The accounting assigns the number itself (“DEB-0001”, “KRE-0001”). The personal account is created
   without a button as soon as the name is entered and the field is left; after that every field saves itself. Name and
-  street are looked up as in the CRM.
+  street are looked up as in the CRM. The contact person’s **role** suggests the same roles as in the CRM.
 - **With the “CRM” plugin** you choose a customer straight from your customer list on an invoice. The personal account
   is created on first use; you maintain name and address in the CRM and the accounting follows every change. For
   supplier invoices you can choose the customers marked as **“Supplier”** in the CRM. A personal account that existed

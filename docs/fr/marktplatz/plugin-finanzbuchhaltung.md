@@ -66,7 +66,7 @@ avec ses factures.
 - **Sans CRM**, vous créez les comptes de tiers ici : type, nom ou entreprise, personne de contact, adresse, e-mail et
   numéro IDE/TVA. La comptabilité attribue le numéro elle-même (« DEB-0001 », « KRE-0001 »). Le compte de tiers est
   créé sans bouton dès que le nom est saisi et le champ quitté ; ensuite chaque champ s’enregistre de lui-même. Le nom
-  et la rue sont recherchés comme dans le CRM.
+  et la rue sont recherchés comme dans le CRM. La **fonction** de la personne de contact propose les mêmes fonctions que dans le CRM.
 - **Avec le plugin « CRM »**, vous choisissez directement un client de votre liste de clients sur une facture. Le compte
   de tiers est créé à la première utilisation ; vous gérez nom et adresse dans le CRM et la comptabilité suit chaque
   modification. Pour les factures fournisseurs, vous pouvez choisir les clients marqués **« Fournisseur »** dans le

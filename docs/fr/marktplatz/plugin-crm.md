@@ -71,6 +71,11 @@ lui-même le **numéro de client** : « K-0001 », « K-0002 » et ainsi de suit
 Changez l’étape sur le client ou pour plusieurs à la fois : sélectionnez-les dans la liste et choisissez en bas
 **« Cycle de vie : … »**.
 
+**Vos propres valeurs :** s’il manque une étape, saisissez-la dans le choix **Cycle de vie** et choisissez **« + Ajouter
+« … » »** — de même pour le **type** d’une activité. La **fonction** d’une personne de contact propose des fonctions
+courantes par département (direction, finances, achats …) ; saisissez simplement une autre. Les listes se gèrent sous
+**Administration › Listes de choix**.
+
 ## Personnes de contact
 
 Pour une entreprise, notez sous **Personnes de contact** les personnes avec qui vous êtes en contact : prénom, nom,

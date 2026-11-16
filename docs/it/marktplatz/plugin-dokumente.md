@@ -41,6 +41,8 @@ testo, CSV, ZIP e immagini (JPEG, PNG, WebP) fino a 20 MB.
 
 La colonna **«Download»** conta quante volte un file è stato scaricato.
 
+**Nuova categoria già durante il caricamento:** digiti il nome nella scelta **Categoria** e scelga **«+ Aggiungi «…»»**.
+
 ## Categorie
 
 In **Contenuti › Documenti › Categorie** crea categorie con nome, ID (per `?kategorie=` e Lava) e ordine. Senza

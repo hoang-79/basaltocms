@@ -1,3 +1,5 @@
+import type { AdminChoice } from './choice';
+
 /**
  * Verwaltungsseiten aus Beschreibung (CR-018, TB 99): die Form, die `Basalto\Core\Backend\Schema\AdminPage` schickt.
  * Texte kommen schon übersetzt aus dem Plugin.
@@ -67,7 +69,8 @@ export type AdminField = {
         | 'image'
         | 'country'
         | 'phone'
-        | 'postal';
+        | 'postal'
+        | 'choice';
     help?: string;
     placeholder?: string;
     required?: boolean;
@@ -88,6 +91,11 @@ export type AdminField = {
     /** CR-021: Vorschläge aus einem Nachschlagedienst; die Auswahl füllt Felder (Ergebnis → Feld) */
     lookup?: { kind: 'company' | 'address'; fill: Record<string, string> };
     none?: string;
+    /** CR-022: Auswahlliste der Site — Werte (bei Text: Vorschläge) und, wer hinzufügen darf, die Adresse dafür */
+    choice_list?: string;
+    choice_kind?: 'select' | 'text';
+    options?: AdminChoice[];
+    choice_add?: string | null;
 };
 
 export type AdminFormSection = {

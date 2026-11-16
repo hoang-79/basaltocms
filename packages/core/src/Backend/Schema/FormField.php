@@ -57,6 +57,16 @@ final class FormField
         return $field;
     }
 
+    /**
+     * CR-022: Auswahl aus einer Auswahlliste der Site (`Choices\ChoiceList::select`) — Suche beim Tippen, Gruppen, und
+     * «+ … hinzufügen» für alle, die einen Bereich der Liste bearbeiten dürfen. Wert ist der Schlüssel; prüfen mit
+     * `Choices::values()`.
+     */
+    public static function choice(string $name, string $label, string $list): self
+    {
+        return (new self($name, $label, 'choice'))->set('choice_list', $list);
+    }
+
     public static function checkbox(string $name, string $label): self
     {
         return new self($name, $label, 'checkbox');
@@ -207,6 +217,22 @@ final class FormField
     public function lookup(string $kind, array $fill): self
     {
         return $this->set('lookup', ['kind' => $kind, 'fill' => $fill]);
+    }
+
+    /**
+     * CR-022: Text mit Vorschlägen aus einer Auswahlliste (`ChoiceList::text`) — Funktion, Abteilung, Ort. Freie Eingabe
+     * bleibt möglich; was schon in Einträgen steht, schlägt die Liste von selbst vor. Bringt ein Vorschlag Werte für
+     * andere Felder mit (`fill`, etwa die Adresse zum Ort), füllt die Wahl sie aus.
+     */
+    public function suggest(string $list): self
+    {
+        return $this->set('choice_list', $list);
+    }
+
+    /** CR-022: In einer Auswahl (`choice`) steht zuerst diese Wahl für «keiner» (leerer Wert). */
+    public function none(string $label): self
+    {
+        return $this->set('none', $label);
     }
 
     /** Halbe Breite: zwei Felder nebeneinander. */

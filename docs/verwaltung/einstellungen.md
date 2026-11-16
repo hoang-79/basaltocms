@@ -58,6 +58,23 @@ Je Wert eine Karte:
 
 Der **Löschlauf** läuft jede Nacht und löscht, was die Fristen erreicht hat — endgültig. Er schreibt sich selbst ins Protokoll.
 
+## Auswahllisten
+
+Modus «Verwaltung» › **Auswahllisten**: die Werte, die in Auswahlfeldern zur Wahl stehen — etwa Lebenszyklus und Art
+einer Aktivität im CRM, die Funktion von Kontaktpersonen, Anstellung, Abteilung und Arbeitsort der Stellenangebote oder
+der Ort einer Veranstaltung. Welche Listen es gibt, hängt von den Modulen ab, die für die Site an sind.
+
+- **Hinzufügen** geht direkt im Feld: Tippen Sie den neuen Wert ins Suchfeld der Auswahl und wählen Sie **«+ «…»
+  hinzufügen»**. Der Wert steht danach in der Liste der Site und ist gleich gewählt. Das darf, wer das Formular
+  bearbeiten darf.
+- **Felder mit Vorschlägen** (Funktion, Abteilung, Ort) nehmen auch freien Text; was schon in Einträgen steht, erscheint
+  von selbst unter den Vorschlägen.
+- Auf der Seite einer Liste: **Nach oben** und **Nach unten** ordnen die Werte, **Ausblenden** nimmt einen Wert aus der
+  Auswahl — Einträge, die ihn tragen, behalten ihn. Ein Klick auf einen Wert öffnet ihn: hinzugefügte Werte lassen sich
+  umbenennen, jeder Wert lässt sich einer Gruppe zuordnen. Vorgegebene Werte bleiben in allen Sprachen übersetzt und
+  lassen sich darum nicht umbenennen.
+- **Kategorien der Dokumente** pflegt das Modul selbst (mit Übersetzungen); die Liste führt dorthin.
+
 ## Häufige Fragen
 
 **Ein Wert gilt für die Installation — warum sehe ich ihn in jeder Site?**

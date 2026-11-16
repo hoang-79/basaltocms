@@ -62,6 +62,9 @@ Unter **Inhalte › Veranstaltungen** legen Sie eine Veranstaltung mit **Titel**
 Die Liste zeigt «Kommend», «Vergangen», «Entwürfe» und «Alle», mit Suche und Sammelaktionen (veröffentlichen,
 zurückziehen, löschen).
 
+**Orte wiederverwenden:** Der **Veranstaltungsort** schlägt die Orte früherer Veranstaltungen vor; die Wahl füllt die
+**Adresse** gleich mit.
+
 ## Nächste Veranstaltungen auf anderen Seiten
 
 Die nächsten Termine — etwa auf der Startseite — zeigt der Lava-Teil **«Nächste Veranstaltungen»**: unter

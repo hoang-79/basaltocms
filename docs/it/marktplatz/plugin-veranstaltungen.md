@@ -61,6 +61,8 @@ modulo con tutti i dettagli. Le modifiche si salvano da sole.
 L’elenco mostra «In programma», «Passati», «Bozze» e «Tutti», con ricerca e azioni multiple (pubblicare, ritirare,
 eliminare).
 
+**Riutilizzare i luoghi:** il **Luogo** propone i luoghi di eventi precedenti; la scelta compila anche l’**Indirizzo**.
+
 ## Prossimi eventi su altre pagine
 
 La parte Lava **«Prossimi eventi»** mostra i prossimi appuntamenti — per esempio sulla pagina iniziale: in

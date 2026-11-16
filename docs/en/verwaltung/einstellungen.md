@@ -58,6 +58,21 @@ Changes save themselves (“saving …”, then “saved”). If a value is outs
 
 The **cleanup** runs every night and permanently deletes whatever has reached its period. It records itself in the activity log.
 
+## Choice lists
+
+“Administration” mode › **Choice lists**: the values offered in choice fields — such as the lifecycle and the type of an
+activity in the CRM, the role of contact persons, the employment type, department and place of work of job vacancies, or
+the venue of an event. Which lists exist depends on the modules switched on for the site.
+
+- **Adding** happens directly in the field: type the new value into the search box of the choice and select **“+ Add
+  “…””**. The value is then in the site’s list and selected at once. Anyone who may edit the form may do so.
+- **Fields with suggestions** (role, department, venue) also accept free text; what is already used in entries appears
+  among the suggestions by itself.
+- On a list’s page: **Move up** and **Move down** order the values, **Hide** removes a value from the choice — entries
+  that carry it keep it. A click on a value opens it: added values can be renamed, every value can be assigned to a
+  group. Predefined values stay translated in all languages and therefore cannot be renamed.
+- **Document categories** are maintained by the module itself (with translations); the list leads there.
+
 ## Frequently asked questions
 
 **A value applies to the installation — why do I see it in every site?**

@@ -54,6 +54,9 @@ details opens. Changes save themselves.
 | **Withdraw** | a draft again |
 | **Duplicate** | a copy as a draft — handy for similar positions |
 
+**Your own values:** if a type of employment is missing (such as “seasonal job”), type it into the **Employment** choice
+and select **“+ Add “…””**. **Department** and **Place of work** suggest what earlier positions already used.
+
 ## Applications
 
 Without a link of its own, the site’s application form appears below every open position:

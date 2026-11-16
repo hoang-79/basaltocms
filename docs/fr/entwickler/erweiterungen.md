@@ -232,7 +232,7 @@ L’exemple complet avec modification, suppression et action groupée se trouve 
 | `Row` | `make($id)`, `cell()`, `badge($clé, $texte, $ton)`, `link($clé, $texte, $url)`, `url()`, `action()` | Ligne ; avec `url()`, la première colonne devient un lien vers l’enregistrement |
 | `Filter` | `make($paramètre, $libellé, $valeur)`, `option($valeur, $libellé, $nombre)` | Choix au-dessus de la liste, comme paramètre de requête dans l’adresse |
 | `Form` | `make($url, $méthode)`, `title()`, `fields()`, `values()`, `autosave()`, `creates($champs)`, `submit()` | Formulaire ; avec `autosave()`, il s’enregistre seul après chaque pause, avec `creates()` il crée l’enregistrement sans bouton, sinon avec le bouton |
-| `FormField` | `text`, `email`, `url`, `number`, `password`, `textarea`, `select($nom, $libellé, $choix)`, `checkbox`, `date`, `time`, `datetime`, `color`, `richtext`, `file($nom, $libellé, $accept)`, `country`, `phone`, `postalCode` ; en plus `help()`, `placeholder()`, `required()`, `min()`, `max()`, `step()`, `rows()`, `mono()`, `onLeave()`, `half()`, `countryFrom($champ)`, `inCountry($code)`, `lookup($type, $correspondance)` | Champ ; avec l’enregistrement automatique, `password` n’est enregistré qu’en quittant le champ |
+| `FormField` | `text`, `email`, `url`, `number`, `password`, `textarea`, `select($nom, $libellé, $choix)`, `checkbox`, `date`, `time`, `datetime`, `color`, `richtext`, `file($nom, $libellé, $accept)`, `country`, `phone`, `postalCode`, `choice` ; en plus `help()`, `placeholder()`, `required()`, `min()`, `max()`, `step()`, `rows()`, `mono()`, `onLeave()`, `half()`, `countryFrom($champ)`, `inCountry($code)`, `lookup($type, $correspondance)`, `suggest()`, `none()` | Champ ; avec l’enregistrement automatique, `password` n’est enregistré qu’en quittant le champ |
 | `Action` | `link`, `post`, `put`, `delete`, `bulk($clé, $libellé, $url)` ; en plus `confirm($question)`, `variant()`, `with($données)` | Bouton ; avec `confirm()`, le noyau demande d’abord |
 
 Ce qui compte :
@@ -271,6 +271,26 @@ Ce qui compte :
   enregistre en quittant le champ et vérifie alors le format nom@entreprise.ch ; sur le serveur, `new
   Rules\EmailAddress` vérifie à la place du `email` de Laravel (qui laisse passer « anna@firma ») — la même règle que
   dans le navigateur.
+- **Listes de choix** (`Choices\ChoiceList`) : des valeurs que le site complète lui-même. `FormField::choice('statut',
+  …, 'liste')` est un choix avec recherche, groupes et « + … Ajouter » pour toute personne pouvant modifier un domaine
+  de la liste ; la clé est enregistrée. `FormField::text(…)->suggest('liste')` est un texte avec suggestions — ce qui
+  figure déjà dans des entrées vient de `->used(fn (Site $site) => …)`, une suggestion peut remplir d’autres champs avec
+  `fill`. Valider avec `Choices::values()`, afficher avec `Choices::label()`. Si plusieurs plugins partagent une liste,
+  chacun l’enregistre et ajoute son domaine avec `sharedWith($domaine, $module)` ; si un plugin gère lui-même les
+  valeurs (avec traductions), `external()` les fournit, en crée de nouvelles et indique sa page. Les listes se gèrent
+  sous Administration › Listes de choix.
+  ```php
+  use Basalto\Core\Choices\{ChoiceList, ChoiceLists, Choices};
+
+  // Dans le service provider : enregistrer la liste — valeurs prédéfinies traduites, domaine pour le droit « modifier », module
+  app(ChoiceLists::class)->register(ChoiceList::select('shop.status', fn () => __('Shop › Status'), 'shop', 'shop')
+      ->values(fn () => [['value' => 'neu', 'label' => __('Neu')], ['value' => 'versandt', 'label' => __('Versandt')]]));
+
+  // Dans le formulaire et la validation
+  FormField::choice('status', __('Status'), 'shop.status');
+  $request->validate(['status' => ['required', Rule::in(app(Choices::class)->values($site, 'shop.status'))]]);
+  app(Choices::class)->label($site, 'shop.status', $order->status); // libellé pour les listes
+  ```
 - **Les droits** s’appliquent comme pour toute route ([Domaines et droits](#domaines-et-droits)) ; le contrôleur omet
   les boutons qu’un utilisateur n’a pas le droit d’utiliser.
 

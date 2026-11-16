@@ -54,6 +54,9 @@ sich das Formular mit allen Angaben. Änderungen speichern sich selbst.
 | **Zurückziehen** | wieder ein Entwurf |
 | **Duplizieren** | eine Kopie als Entwurf — praktisch für ähnliche Stellen |
 
+**Eigene Werte:** Fehlt eine Anstellungsart (etwa «Saisonstelle»), tippen Sie sie in die Auswahl **Anstellung** und
+wählen **«+ «…» hinzufügen»**. **Abteilung** und **Arbeitsort** schlagen vor, was frühere Stellen schon trugen.
+
 ## Bewerbungen
 
 Ohne eigenen Link steht unter jeder offenen Stelle das Bewerbungsformular der Site:

@@ -42,6 +42,9 @@ PowerPoint, OpenDocument, RTF, texte, CSV, ZIP et images (JPEG, PNG, WebP) jusqu
 
 La colonne **« Téléchargements »** compte combien de fois un fichier a été téléchargé.
 
+**Nouvelle catégorie dès le téléversement :** saisissez le nom dans le choix **Catégorie** et choisissez **« + Ajouter «
+… » »**.
+
 ## Catégories
 
 Sous **Contenus › Documents › Catégories**, vous créez des catégories avec un nom, un identifiant (pour `?kategorie=`

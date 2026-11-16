@@ -70,6 +70,11 @@ rot am Feld, und dieses Feld bleibt ungespeichert, bis es stimmt. Die **Kundennu
 Den Stand ändern Sie beim Kunden oder für mehrere auf einmal: in der Liste markieren und unten **«Lebenszyklus: …»**
 wählen.
 
+**Eigene Werte:** Fehlt Ihnen ein Stand, tippen Sie ihn in die Auswahl **Lebenszyklus** und wählen **«+ «…»
+hinzufügen»** — ebenso bei der **Art** einer Aktivität. Die **Funktion** einer Kontaktperson schlägt übliche Funktionen
+nach Abteilung vor (Geschäftsleitung, Finanzen, Einkauf …); eine andere tippen Sie einfach ein. Pflegen lassen sich die
+Listen unter **Verwaltung › Auswahllisten**.
+
 ## Kontaktpersonen
 
 Bei einer Firma halten Sie unter **Kontaktpersonen** die Menschen fest, mit denen Sie zu tun haben: Vorname, Nachname,

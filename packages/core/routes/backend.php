@@ -6,6 +6,8 @@ use Basalto\Core\Backend\Backend;
 use Basalto\Core\Http\Controllers\ActivityController;
 use Basalto\Core\Http\Controllers\BackendSearchController;
 use Basalto\Core\Http\Controllers\BlockAssistController;
+use Basalto\Core\Http\Controllers\ChoiceController;
+use Basalto\Core\Http\Controllers\ChoiceListsController;
 use Basalto\Core\Http\Controllers\ContentTypeController;
 use Basalto\Core\Http\Controllers\DashboardController;
 use Basalto\Core\Http\Controllers\DemoLoginController;
@@ -213,6 +215,15 @@ app(Backend::class)->routes(static function (): void {
     Route::put('profil/leiste', [ProfileController::class, 'menuPins'])->name('profile.menu-pins');
     // CR-021: Vorschläge für Firmen- und Adressfelder der Verwaltungsseiten
     Route::get('nachschlagen/{kind}', LookupController::class)->whereIn('kind', ['company', 'address'])->name('lookup');
+    // CR-022: Auswahllisten — «+ … hinzufügen» im Feld und Verwaltung › Auswahllisten
+    Route::post('auswahl/{list}', [ChoiceController::class, 'store'])->where('list', '[a-z0-9_.]+')->name('choice_add');
+    Route::get('auswahllisten', [ChoiceListsController::class, 'index'])->name('choices.index');
+    Route::get('auswahllisten/{list}', [ChoiceListsController::class, 'show'])->where('list', '[a-z0-9_.]+')->name('choices.show');
+    Route::post('auswahllisten/{list}', [ChoiceListsController::class, 'store'])->where('list', '[a-z0-9_.]+')->name('choices.store');
+    Route::get('auswahllisten/{list}/wert', [ChoiceListsController::class, 'edit'])->where('list', '[a-z0-9_.]+')->name('choices.edit');
+    Route::put('auswahllisten/{list}/wert', [ChoiceListsController::class, 'update'])->where('list', '[a-z0-9_.]+')->name('choices.update');
+    Route::post('auswahllisten/{list}/ausblenden', [ChoiceListsController::class, 'hide'])->where('list', '[a-z0-9_.]+')->name('choices.hide');
+    Route::post('auswahllisten/{list}/verschieben', [ChoiceListsController::class, 'move'])->where('list', '[a-z0-9_.]+')->name('choices.move');
     Route::delete('profil/sitzungen', [ProfileController::class, 'endOthers'])->name('profile.sessions.others');
     Route::get('profil/auskunft', [ProfileController::class, 'export'])->name('profile.export');
     // TB 21: Profilbild hochladen, entfernen, ausliefern (für alle Angemeldeten — die Benutzerliste zeigt es auch)

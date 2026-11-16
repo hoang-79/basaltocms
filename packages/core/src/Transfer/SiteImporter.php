@@ -373,6 +373,13 @@ final class SiteImporter
                 'created_at' => $row['created_at'] ?? $now, 'updated_at' => $row['updated_at'] ?? $now]);
         }
         $counts['snippets'] = count(self::rows($payload, 'snippets'));
+        // CR-022: Auswahllisten der Site
+        foreach (self::rows($payload, 'choices') as $row) {
+            DB::table('choice_options')->insert(['site_id' => $siteId, 'list' => (string) $row['list'], 'value' => (string) $row['value'], 'label' => $row['label'] ?? null,
+                'group' => $row['group'] ?? null, 'position' => $row['position'] ?? null, 'hidden_at' => $row['hidden_at'] ?? null, 'created_by' => $userId($row['created_by'] ?? null),
+                'created_at' => $row['created_at'] ?? $now, 'updated_at' => $row['updated_at'] ?? $now]);
+        }
+        $counts['choices'] = count(self::rows($payload, 'choices'));
         $forms = [];
         foreach (self::rows($payload, 'forms') as $row) {
             $forms[(string) $row['handle']] = (int) DB::table('forms')->insertGetId(['site_id' => $siteId, 'handle' => (string) $row['handle'], 'webhook_secret' => null,

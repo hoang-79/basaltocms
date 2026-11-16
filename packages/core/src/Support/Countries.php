@@ -16,7 +16,45 @@ final class Countries
     public const TOP = ['CH', 'LI', 'DE', 'AT', 'FR', 'IT'];
 
     /** Teilen sich Länder eine Vorwahl, gilt ohne gewähltes Land dieses — «+1» ist die USA, nicht Kanada. */
-    public const DIAL_MAIN = ['1' => 'US'];
+    public const DIAL_MAIN = ['1' => 'US', '7' => 'RU', '39' => 'IT', '44' => 'GB', '47' => 'NO', '61' => 'AU', '64' => 'NZ', '212' => 'MA', '246' => 'IO',
+        '262' => 'RE', '290' => 'SH', '358' => 'FI', '590' => 'GP', '599' => 'CW'];
+
+    /**
+     * CR-022: Landesvorwahlen (ITU-T E.164) aller übrigen Länder und Gebiete mit eigener Ländervorwahl — sie kommen mit
+     * allgemeinen Regeln dazu (Länge nach E.164, Gruppen zu drei, PLZ ohne Muster); die Namen liefert ICU in der Sprache
+     * der Oberfläche. Ohne Eintrag: Gebiete ohne eigene Rufnummern (Bouvetinsel, Heard, Clipperton …) und Teile eines
+     * Lands mit dessen Vorwahl (Kanaren, Ceuta und Melilla, Sark).
+     */
+    private const WORLD_DIAL = [
+        'AC' => '247', 'AD' => '376', 'AE' => '971', 'AF' => '93', 'AG' => '1', 'AI' => '1', 'AL' => '355', 'AM' => '374', 'AO' => '244', 'AR' => '54',
+        'AS' => '1', 'AU' => '61', 'AW' => '297', 'AX' => '358', 'AZ' => '994', 'BA' => '387', 'BB' => '1', 'BD' => '880', 'BF' => '226', 'BG' => '359',
+        'BH' => '973', 'BI' => '257', 'BJ' => '229', 'BL' => '590', 'BM' => '1', 'BN' => '673', 'BO' => '591', 'BQ' => '599', 'BR' => '55', 'BS' => '1',
+        'BT' => '975', 'BW' => '267', 'BY' => '375', 'BZ' => '501', 'CC' => '61', 'CD' => '243', 'CF' => '236', 'CG' => '242', 'CI' => '225', 'CK' => '682',
+        'CL' => '56', 'CM' => '237', 'CN' => '86', 'CO' => '57', 'CR' => '506', 'CU' => '53', 'CV' => '238', 'CW' => '599', 'CX' => '61', 'CY' => '357',
+        'DG' => '246', 'DJ' => '253', 'DM' => '1', 'DO' => '1', 'DZ' => '213', 'EC' => '593', 'EE' => '372', 'EG' => '20', 'EH' => '212', 'ER' => '291',
+        'ET' => '251', 'FJ' => '679', 'FK' => '500', 'FM' => '691', 'FO' => '298', 'GA' => '241', 'GD' => '1', 'GE' => '995', 'GF' => '594', 'GG' => '44',
+        'GH' => '233', 'GI' => '350', 'GL' => '299', 'GM' => '220', 'GN' => '224', 'GP' => '590', 'GQ' => '240', 'GT' => '502', 'GU' => '1', 'GW' => '245',
+        'GY' => '592', 'HK' => '852', 'HN' => '504', 'HT' => '509', 'ID' => '62', 'IL' => '972', 'IM' => '44', 'IN' => '91', 'IO' => '246', 'IQ' => '964',
+        'IR' => '98', 'IS' => '354', 'JE' => '44', 'JM' => '1', 'JO' => '962', 'JP' => '81', 'KE' => '254', 'KG' => '996', 'KH' => '855', 'KI' => '686',
+        'KM' => '269', 'KN' => '1', 'KP' => '850', 'KR' => '82', 'KW' => '965', 'KY' => '1', 'KZ' => '7', 'LA' => '856', 'LB' => '961', 'LC' => '1',
+        'LK' => '94', 'LR' => '231', 'LS' => '266', 'LT' => '370', 'LV' => '371', 'LY' => '218', 'MA' => '212', 'MC' => '377', 'MD' => '373', 'ME' => '382',
+        'MF' => '590', 'MG' => '261', 'MH' => '692', 'MK' => '389', 'ML' => '223', 'MM' => '95', 'MN' => '976', 'MO' => '853', 'MP' => '1', 'MQ' => '596',
+        'MR' => '222', 'MS' => '1', 'MT' => '356', 'MU' => '230', 'MV' => '960', 'MW' => '265', 'MX' => '52', 'MY' => '60', 'MZ' => '258', 'NA' => '264',
+        'NC' => '687', 'NE' => '227', 'NF' => '672', 'NG' => '234', 'NI' => '505', 'NP' => '977', 'NR' => '674', 'NU' => '683', 'NZ' => '64', 'OM' => '968',
+        'PA' => '507', 'PE' => '51', 'PF' => '689', 'PG' => '675', 'PH' => '63', 'PK' => '92', 'PM' => '508', 'PN' => '64', 'PR' => '1', 'PS' => '970',
+        'PW' => '680', 'PY' => '595', 'QA' => '974', 'RE' => '262', 'RO' => '40', 'RS' => '381', 'RU' => '7', 'RW' => '250', 'SA' => '966', 'SB' => '677',
+        'SC' => '248', 'SD' => '249', 'SG' => '65', 'SH' => '290', 'SJ' => '47', 'SL' => '232', 'SM' => '378', 'SN' => '221', 'SO' => '252', 'SR' => '597',
+        'SS' => '211', 'ST' => '239', 'SV' => '503', 'SX' => '1', 'SY' => '963', 'SZ' => '268', 'TA' => '290', 'TC' => '1', 'TD' => '235', 'TG' => '228',
+        'TH' => '66', 'TJ' => '992', 'TK' => '690', 'TL' => '670', 'TM' => '993', 'TN' => '216', 'TO' => '676', 'TT' => '1', 'TV' => '688', 'TW' => '886',
+        'TZ' => '255', 'UA' => '380', 'UG' => '256', 'UY' => '598', 'UZ' => '998', 'VA' => '39', 'VC' => '1', 'VE' => '58', 'VG' => '1', 'VI' => '1',
+        'VU' => '678', 'WF' => '681', 'WS' => '685', 'XK' => '383', 'YE' => '967', 'YT' => '262', 'ZA' => '27', 'ZM' => '260', 'ZW' => '263',
+    ];
+
+    /** @var array<string, array<string, Country>> je Sprache der Oberfläche */
+    private static array $cache = [];
+
+    /** @var array<string, list<Country>> je Sprache der Oberfläche */
+    private static array $orderedCache = [];
 
     /** EU und EWR — dort gilt das Widerrufsrecht für Verbraucher der Richtlinie 2011/83/EU (CR-011). */
     public const EU_EEA = ['AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GR', 'HR', 'HU', 'IE', 'IT', 'LT', 'LU', 'LV', 'MT', 'NL', 'PL', 'PT', 'RO',
@@ -29,6 +67,12 @@ final class Countries
 
     /** @return array<string, Country> */
     public static function all(): array
+    {
+        return self::$cache[app()->getLocale()] ??= self::build();
+    }
+
+    /** @return array<string, Country> */
+    private static function build(): array
     {
         $rows = [
             // Code, Name, Vorwahl, min, max, Gruppen, führende 0 gehört zur Nummer, PLZ-Muster, Beispiel
@@ -68,6 +112,15 @@ final class Countries
             $out[$code] = ['code' => $code, 'name' => self::localName($code, $name), 'dial' => $dial, 'dial_main' => (self::DIAL_MAIN[$dial] ?? $code) === $code, 'min' => $min, 'max' => $max, 'groups' => $groups, 'keep_zero' => $keepZero, 'postal' => $postal, 'postal_example' => $example,
                 'postal_numeric' => $postal !== null && $numeric, 'postal_max' => $example !== null ? strlen($example) : 10];
         }
+        // CR-022: alle übrigen Länder — Länge nach E.164 (höchstens 15 Ziffern mit Vorwahl), Gruppen zu drei, PLZ frei
+        foreach (self::WORLD_DIAL as $code => $dial) {
+            if (isset($out[$code])) {
+                continue;
+            }
+            $german = class_exists(\Locale::class) ? \Locale::getDisplayRegion('-'.$code, 'de') : $code;
+            $out[$code] = ['code' => $code, 'name' => self::localName($code, $german !== '' ? $german : $code), 'dial' => $dial, 'dial_main' => (self::DIAL_MAIN[$dial] ?? $code) === $code,
+                'min' => 4, 'max' => 15 - strlen($dial), 'groups' => [3, 3, 3, 3], 'keep_zero' => false, 'postal' => null, 'postal_example' => null, 'postal_numeric' => false, 'postal_max' => 10];
+        }
 
         return $out;
     }
@@ -106,6 +159,12 @@ final class Countries
      * @return list<Country>
      */
     public static function ordered(): array
+    {
+        return self::$orderedCache[app()->getLocale()] ??= self::sorted();
+    }
+
+    /** @return list<Country> */
+    private static function sorted(): array
     {
         $all = self::all();
         $top = array_map(static fn (string $c): array => $all[$c], self::TOP);

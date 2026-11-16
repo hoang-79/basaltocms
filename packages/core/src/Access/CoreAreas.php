@@ -72,6 +72,7 @@ final class CoreAreas
             ->route('basalto.roles.reset', 'users', Level::All)
             ->route('basalto.roles.destroy', 'users', Level::All)
             ->map('basalto.settings.', 'settings')
+            ->map('basalto.choices.', 'settings')
             ->map('basalto.modules', 'settings')
             ->map('basalto.sites.', 'settings')
             ->map('basalto.license', 'license')
@@ -97,6 +98,8 @@ final class CoreAreas
             // TB 30: Hilfen der Block-Formulare (Linkziele, Vorschau) — für Seiten und Bausteine; der Controller prüft beides
             'basalto.editor.',
             // CR-021: Vorschläge für Firmen- und Adressfelder — die Formulare selbst prüfen ihre Rechte
-            'basalto.lookup');
+            'basalto.lookup',
+            // CR-022: «+ … hinzufügen» in Auswahlfeldern — der Controller prüft das Recht «bearbeiten» der Liste
+            'basalto.choice_add');
     }
 }

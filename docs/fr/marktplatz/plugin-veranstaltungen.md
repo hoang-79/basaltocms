@@ -63,6 +63,9 @@ ensuite s’ouvre le formulaire avec toutes les indications. Les modifications s
 La liste affiche « À venir », « Passés », « Brouillons » et « Tous », avec recherche et actions groupées (publier,
 retirer, supprimer).
 
+**Réutiliser les lieux :** le **Lieu** propose les lieux de manifestations précédentes ; le choix remplit aussi
+l’**Adresse**.
+
 ## Prochains événements sur d’autres pages
 
 La partie Lava **« Prochains événements »** affiche les prochaines dates — par exemple sur la page d’accueil : sous
