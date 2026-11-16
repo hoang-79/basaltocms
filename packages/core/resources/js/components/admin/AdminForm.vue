@@ -61,9 +61,14 @@ const emailWrong = (f: AdminField): boolean =>
     typeof form[f.name] === 'string' &&
     form[f.name].trim() !== '' &&
     !isEmailAddress(form[f.name] as string);
+/** Felder mit `show_when` nur, solange das andere Feld passt (Vor- und Nachname nur bei einer Person) */
+const shown = (f: AdminField): boolean =>
+    !f.show_when ||
+    f.show_when.values.includes(String(form[f.show_when.field] ?? ''));
 const missing = computed(() =>
     props.section.fields.filter(
         (f) =>
+            shown(f) &&
             f.required &&
             !['checkbox', 'file'].includes(f.type) &&
             !filled(form[f.name]) &&
@@ -369,6 +374,7 @@ const inputType = (f: AdminField): string =>
         >
             <div
                 v-for="f in section.fields"
+                v-show="shown(f)"
                 :key="f.name"
                 :data-feld="f.name"
                 :class="f.half ? '' : 'md:col-span-2'"

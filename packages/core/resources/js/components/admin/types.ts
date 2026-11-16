@@ -91,6 +91,8 @@ export type AdminField = {
     /** CR-021: Vorschläge aus einem Nachschlagedienst; die Auswahl füllt Felder (Ergebnis → Feld) */
     lookup?: { kind: 'company' | 'address'; fill: Record<string, string> };
     none?: string;
+    /** Nur zeigen, solange das Feld `field` einen dieser Werte hat */
+    show_when?: { field: string; values: string[] };
     /** CR-022: Auswahlliste der Site — Werte (bei Text: Vorschläge) und, wer hinzufügen darf, die Adresse dafür */
     choice_list?: string;
     choice_kind?: 'select' | 'text';

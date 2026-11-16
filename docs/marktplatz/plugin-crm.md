@@ -20,11 +20,12 @@ fällig sind.
 ## Einen Kunden anlegen
 
 1. Unter **CRM** auf **«Neuer Kunde»**.
-2. Die **Art** wählen: **Firma** oder **Person**. Das **Land** steht auf Schweiz — liegt der Kunde in einem anderen Land,
-   wählen Sie es zuerst (Liste mit Flagge; Tippen sucht).
-3. Bei einer Firma den **Firmennamen** tippen: Ab drei Buchstaben stehen darunter Vorschläge aus dem Firmenregister
-   des Landes. Wählen Sie einen, füllt das CRM Strasse, PLZ, Ort und UID aus. Bei einer Person tragen Sie **Vorname**
-   und **Nachname** ein — sie bilden dann den Namen.
+2. Die **Art** wählen: **Firma** oder **Person**. Das **Land** steht auf Schweiz — liegt der Kunde in einem anderen
+   Land, wählen Sie es zuerst (Liste mit Flagge; Tippen sucht).
+3. Bei einer Firma den **Firmennamen** tippen: Ab drei Buchstaben stehen darunter Vorschläge aus dem Firmenregister des
+   Landes. Wählen Sie einen, füllt das CRM Strasse, PLZ, Ort und UID aus. Bei einer Person tragen Sie **Vorname** und
+   **Nachname** ein — sie bilden dann den Namen. Bei einer Firma gibt es diese Felder nicht; ihre Ansprechpersonen
+   erfassen Sie unter **Kontaktpersonen**.
 4. Sobald Sie das Feld verlassen, ist der Kunde angelegt — einen Knopf «Anlegen» gibt es nicht. Die Seite des Kunden
    öffnet sich, der Cursor bleibt im Feld, in dem Sie gerade waren, und was Sie inzwischen getippt haben, ist dabei.
 5. Den Rest ergänzen: **Lebenszyklus** (siehe unten), **«Auch Lieferant»**, wenn Sie bei diesem Kunden auch einkaufen,

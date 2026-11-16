@@ -4,7 +4,7 @@ Unter **Einstellungen** stehen die Fristen, Schalter und Grenzen von Basalto —
 
 ## Wo
 
-Modus «Verwaltung» › **Einstellungen**. Oben je Gruppe ein Reiter mit der Zahl ihrer Werte: Freigabe, Medien, Cache, Anmeldung, Aufbewahrung, Sprachen, Nachschlagen, Betrieb.
+Modus «Verwaltung» › **Einstellungen**. Oben je Gruppe ein Reiter mit der Zahl ihrer Werte: Freigabe, Medien, Cache, Anmeldung, Spamschutz, Statistik, Aufbewahrung, Sprachen, Nachschlagen, Betrieb.
 
 ![Gruppe «Aufbewahrung» mit dem Verlauf eines Werts](bilder/einstellungen-verlauf.webp)
 

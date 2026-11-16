@@ -4,7 +4,7 @@ Sous **Paramètres** figurent les délais, interrupteurs et limites de Basalto �
 
 ## Où
 
-Mode « Administration » › **Paramètres**. En haut, un onglet par groupe avec le nombre de ses valeurs : Validation, Médias, Cache, Connexion, Conservation, Langues, Recherche, Exploitation.
+Mode « Administration » › **Paramètres**. En haut, un onglet par groupe avec le nombre de ses valeurs : Validation, Médias, Cache, Connexion, Protection anti-spam, Statistiques, Conservation, Langues, Recherche, Exploitation.
 
 ![Groupe « Conservation » avec l’historique d’une valeur](bilder/einstellungen-verlauf.webp)
 

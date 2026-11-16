@@ -20,11 +20,12 @@ ou avant.
 ## Créer un client
 
 1. Sous **CRM**, cliquez sur **« Nouveau client »**.
-2. Choisissez le **Type** : **Entreprise** ou **Personne**. Le **Pays** est réglé sur la Suisse — si le client se
-   trouve dans un autre pays, choisissez-le d’abord (liste avec drapeaux ; la saisie lance la recherche).
+2. Choisissez le **Type** : **Entreprise** ou **Personne**. Le **Pays** est réglé sur la Suisse — si le client se trouve
+   dans un autre pays, choisissez-le d’abord (liste avec drapeaux ; la saisie lance la recherche).
 3. Pour une entreprise, tapez la **Raison sociale** : dès trois lettres, des propositions du registre du commerce du
    pays apparaissent en dessous. Choisissez-en une, et le CRM remplit rue, NPA, localité et IDE. Pour une personne,
-   saisissez le **Prénom** et le **Nom** — ils forment alors le nom.
+   saisissez le **Prénom** et le **Nom** — ils forment alors le nom. Une entreprise n’a pas ces champs ; saisissez ses
+   interlocuteurs sous **Personnes de contact**.
 4. Dès que vous quittez le champ, le client est créé — il n’y a pas de bouton « Créer ». La page du client s’ouvre, le
    curseur reste dans le champ où vous étiez, et ce que vous avez saisi entre-temps est conservé.
 5. Complétez le reste : **Cycle de vie** (voir ci-dessous), **« Aussi fournisseur »** si vous achetez aussi chez ce

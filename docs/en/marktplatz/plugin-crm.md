@@ -19,13 +19,13 @@ Afterwards **“CRM”** appears under **Content**. The number next to it counts
 ## Create a customer
 
 1. Under **CRM**, click **“New customer”**.
-2. Choose the **Type**: **Company** or **Person**. The **Country** is set to Switzerland — if the customer is in
-   another country, choose it first (list with flags; typing searches).
+2. Choose the **Type**: **Company** or **Person**. The **Country** is set to Switzerland — if the customer is in another
+   country, choose it first (list with flags; typing searches).
 3. For a company, type the **Company name**: from three letters, suggestions from the country’s company register appear
-   below. Choose one and the CRM fills in street, postcode, town and UID. For a person, enter **First name** and
-   **Last name** — they then form the name.
-4. As soon as you leave the field, the customer is created — there is no “Create” button. The customer’s page opens,
-   the cursor stays in the field you were in, and anything you typed in the meantime is kept.
+   below. Choose one and the CRM fills in street, postcode, town and UID. For a person, enter **First name** and **Last
+   name** — they then form the name. A company does not have these fields; enter its contacts under **Contact persons**.
+4. As soon as you leave the field, the customer is created — there is no “Create” button. The customer’s page opens, the
+   cursor stays in the field you were in, and anything you typed in the meantime is kept.
 5. Add the rest: **Lifecycle** (see below), **“Also a supplier”** if you also buy from this customer, email, phone,
    address and, if you like, **Language**, **Website**, **Responsible** and **Notes**.
 

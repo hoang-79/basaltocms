@@ -24,11 +24,11 @@ prima.
    altro paese, lo scelga prima (elenco con bandiere; digitando si cerca).
 3. Per un’azienda digiti la **Ragione sociale**: da tre lettere compaiono sotto proposte dal registro di commercio del
    paese. Ne scelga una e il CRM compila via, NPA, località e IDI. Per una persona inserisca **Nome** e **Cognome** —
-   formano poi il nome.
+   formano poi il nome. Un’azienda non ha questi campi; inserisca i suoi interlocutori in **Persone di contatto**.
 4. Appena lascia il campo, il cliente è creato — non c’è un pulsante «Crea». Si apre la pagina del cliente, il cursore
    resta nel campo in cui si trovava e ciò che ha digitato nel frattempo è conservato.
-5. Completi il resto: **Ciclo di vita** (vedi sotto), **«Anche fornitore»** se acquista anche da questo cliente,
-   e-mail, telefono, indirizzo e, se lo desidera, **Lingua**, **Sito web**, **Responsabile** e **Note**.
+5. Completi il resto: **Ciclo di vita** (vedi sotto), **«Anche fornitore»** se acquista anche da questo cliente, e-mail,
+   telefono, indirizzo e, se lo desidera, **Lingua**, **Sito web**, **Responsabile** e **Note**.
 
 Ogni campo si salva da sé: al campo compare brevemente «salvato». Se qualcosa non va, il messaggio appare in rosso al
 campo e quel campo resta non salvato finché non è corretto. Il **numero cliente** lo assegna il CRM stesso: «K-0001»,

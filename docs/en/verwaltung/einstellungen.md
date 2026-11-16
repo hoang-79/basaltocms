@@ -4,7 +4,7 @@ Under **Settings** are Basalto’s periods, switches and limits — no fixed val
 
 ## Where
 
-“Administration” mode › **Settings**. At the top a tab per group with the number of its values: Approval, Media, Cache, Sign-in, Retention, Languages, Lookup, Operations.
+“Administration” mode › **Settings**. At the top a tab per group with the number of its values: Approval, Media, Cache, Sign-in, Spam protection, Statistics, Retention, Languages, Lookup, Operations.
 
 ![Group “Retention” with the history of a value](bilder/einstellungen-verlauf.webp)
 

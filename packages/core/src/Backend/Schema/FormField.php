@@ -229,6 +229,15 @@ final class FormField
         return $this->set('choice_list', $list);
     }
 
+    /**
+     * Das Feld nur zeigen, solange ein anderes Feld einen dieser Werte hat (Vor- und Nachname nur bei Art «Person»).
+     * Verborgene Felder gehen weiter mit dem Formular — der Controller entscheidet, was gilt.
+     */
+    public function showWhen(string $field, string ...$values): self
+    {
+        return $this->set('show_when', ['field' => $field, 'values' => array_values($values)]);
+    }
+
     /** CR-022: In einer Auswahl (`choice`) steht zuerst diese Wahl für «keiner» (leerer Wert). */
     public function none(string $label): self
     {

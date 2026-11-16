@@ -4,7 +4,7 @@ Sotto **Impostazioni** si trovano i termini, gli interruttori e i limiti di Basa
 
 ## Dove
 
-Modalità «Amministrazione» › **Impostazioni**. In alto una scheda per gruppo con il numero dei suoi valori: Approvazione, Media, Cache, Accesso, Conservazione, Lingue, Ricerca, Esercizio.
+Modalità «Amministrazione» › **Impostazioni**. In alto una scheda per gruppo con il numero dei suoi valori: Approvazione, Media, Cache, Accesso, Protezione antispam, Statistiche, Conservazione, Lingue, Ricerca, Esercizio.
 
 ![Gruppo «Conservazione» con la cronologia di un valore](bilder/einstellungen-verlauf.webp)
 
