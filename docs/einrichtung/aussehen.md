@@ -93,7 +93,21 @@ Das Theme zeigt das Logo dort, wo es `{{ site.logo }}` setzt. Sie wählen:
 - **Bild aus der Mediathek** — ein eigenes Bild,
 - **kein Logo**.
 
-Sobald etwas vom Theme abweicht, erscheint oben rechts **«Alles wie im Theme»**: Es setzt die Farbvariante, alle Farben, Schriften und das Logo auf das Theme zurück.
+### Website-Symbol (Favicon)
+
+Das kleine Bild im Browser-Tab, in Lesezeichen und auf dem Home-Bildschirm von Handy und Tablet. Die Vorschau zeigt beides: links den Tab, rechts das Symbol auf dem Home-Bildschirm.
+
+![Website-Symbol: Vorschau im Tab und auf dem Home-Bildschirm, darunter die Wahl aus der Mediathek](bilder/design-favicon.webp)
+
+Ohne Wahl nimmt Basalto der Reihe nach:
+
+1. das **Symbol aus dem Theme**, wenn das Theme eines mitbringt,
+2. sonst das **Logo** — ein eigenes aus der Mediathek oder das des Themes,
+3. sonst das **Symbol von Basalto**.
+
+Ein eigenes Bild wählen Sie unter **Bild aus der Mediathek**. Am besten taugt ein quadratisches PNG ab 180 × 180 Pixel oder ein SVG; ein breites Bild setzt Basalto mittig auf eine durchsichtige Fläche. Aus einem PNG, JPEG, GIF oder WebP entstehen die nötigen Grössen von selbst: 32 Pixel für den Tab und 180 Pixel für den Home-Bildschirm von iPhone und iPad. Ein SVG erscheint als SVG — das zeigen nicht alle Geräte auf dem Home-Bildschirm; nehmen Sie dafür ein PNG.
+
+Sobald etwas vom Theme abweicht, erscheint oben rechts **«Alles wie im Theme»**: Es setzt die Farbvariante, alle Farben, Schriften, das Logo und das Website-Symbol auf das Theme zurück.
 
 ## Bildvarianten
 
@@ -133,8 +147,11 @@ Sie haben diese Farbe früher selbst gesetzt; eigene Farben gelten über der Var
 **Ich habe das Theme gewechselt, und ein Teil der Seiten sieht leer aus.**
 Das neue Theme kennt deren Blöcke oder Templates nicht. Nichts ist verloren: Wechseln Sie zurück, oder ergänzen Sie das neue Theme.
 
+**Im Browser-Tab steht noch das alte Symbol.**
+Browser behalten Website-Symbole lange. Laden Sie die Seite neu oder öffnen Sie sie in einem privaten Fenster; Besucher sehen das neue Symbol, sobald ihr Browser es wieder abfragt.
+
 **Was ist der Unterschied zwischen Design und Theme-Editor?**
-Im Design ändern Sie Werte, die das Theme freigibt (Farben, Schriften, Logo). Im Theme-Editor ändern Sie das Theme selbst, in Lava.
+Im Design ändern Sie Werte, die das Theme freigibt (Farben, Schriften, Logo, Website-Symbol). Im Theme-Editor ändern Sie das Theme selbst, in Lava.
 
 ## Weiter
 

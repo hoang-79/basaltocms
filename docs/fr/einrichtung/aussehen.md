@@ -93,7 +93,21 @@ Le thème affiche le logo là où il place `{{ site.logo }}`. Vous choisissez :
 - **Image de la médiathèque** — une image propre,
 - **pas de logo**.
 
-Dès que quelque chose s’écarte du thème, **« Tout comme dans le thème »** apparaît en haut à droite : il réinitialise la variante de couleurs, toutes les couleurs, polices et le logo selon le thème.
+### Icône du site (favicon)
+
+La petite image dans l’onglet du navigateur, dans les favoris et sur l’écran d’accueil des téléphones et tablettes. L’aperçu montre les deux : à gauche l’onglet, à droite l’icône sur l’écran d’accueil.
+
+![Icône du site : aperçu dans l’onglet et sur l’écran d’accueil, en dessous le choix dans la médiathèque](bilder/design-favicon.webp)
+
+Sans choix, Basalto prend dans cet ordre :
+
+1. l’**icône du thème**, si le thème en fournit une,
+2. sinon le **logo** — le vôtre depuis la médiathèque ou celui du thème,
+3. sinon l’**icône de Basalto**.
+
+Vous choisissez votre propre image sous **Image de la médiathèque**. Le mieux est un PNG carré d’au moins 180 × 180 pixels ou un SVG ; Basalto centre une image large sur un carré transparent. À partir d’un PNG, JPEG, GIF ou WebP, les tailles nécessaires sont créées automatiquement : 32 pixels pour l’onglet et 180 pixels pour l’écran d’accueil de l’iPhone et de l’iPad. Un SVG apparaît comme SVG — tous les appareils ne l’affichent pas sur l’écran d’accueil ; prenez un PNG pour cela.
+
+Dès que quelque chose s’écarte du thème, **« Tout comme dans le thème »** apparaît en haut à droite : il réinitialise la variante de couleurs, toutes les couleurs, polices, le logo et l’icône du site selon le thème.
 
 ## Variantes d’image
 
@@ -133,8 +147,11 @@ Vous avez défini cette couleur vous-même auparavant ; vos propres couleurs s�
 **J’ai changé de thème, et une partie des pages paraît vide.**
 Le nouveau thème ne connaît pas leurs blocs ou leurs modèles. Rien n’est perdu : revenez à l’ancien thème, ou complétez le nouveau.
 
+**L’onglet du navigateur affiche encore l’ancienne icône.**
+Les navigateurs conservent longtemps les icônes de site. Rechargez la page ou ouvrez-la dans une fenêtre privée ; les visiteurs voient la nouvelle icône dès que leur navigateur la demande à nouveau.
+
 **Quelle est la différence entre le design et l’éditeur de thème ?**
-Dans le design, vous modifiez les valeurs que le thème rend modifiables (couleurs, polices, logo). Dans l’éditeur de thème, vous modifiez le thème lui-même, en Lava.
+Dans le design, vous modifiez les valeurs que le thème rend modifiables (couleurs, polices, logo, icône du site). Dans l’éditeur de thème, vous modifiez le thème lui-même, en Lava.
 
 ## Pour continuer
 

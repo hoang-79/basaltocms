@@ -8,6 +8,7 @@ use Basalto\Core\Activity\Recorder;
 use Basalto\Core\Models\Media;
 use Basalto\Core\Models\Site;
 use Basalto\Core\Sites\CurrentSite;
+use Basalto\Core\Theme\SiteIcon;
 use Basalto\Core\Theme\ThemeAssets;
 use Basalto\Core\Theme\ThemeLoader;
 use Basalto\Lava\Structure\Printer;
@@ -27,7 +28,7 @@ use Inertia\Response;
  */
 final class DesignController
 {
-    public function __construct(private readonly CurrentSite $current, private readonly ThemeLoader $themes, private readonly ThemeAssets $assets, private readonly Recorder $recorder) {}
+    public function __construct(private readonly CurrentSite $current, private readonly ThemeLoader $themes, private readonly ThemeAssets $assets, private readonly Recorder $recorder, private readonly SiteIcon $icons) {}
 
     public function show(): Response
     {
@@ -41,6 +42,7 @@ final class DesignController
         $base = $themeDesign->palette($palette);
         $effective = $this->assets->design($site);
         $logoMedia = isset($overrides['logo_media_id']) ? Media::query()->find($overrides['logo_media_id']) : null;
+        $faviconMedia = isset($overrides['favicon_media_id']) ? Media::query()->find($overrides['favicon_media_id']) : null;
         $definition = $theme->document->find('design');
 
         return Inertia::render('core::Design', [
@@ -61,6 +63,14 @@ final class DesignController
             'logo' => [
                 'theme' => $base->logo !== null && str_starts_with($base->logo, 'assets/') ? $this->assets->url($site, $base->logo) : null,
                 'media' => $logoMedia === null ? null : ['id' => $logoMedia->id, 'name' => $logoMedia->name, 'url' => $logoMedia->url()],
+            ],
+            // Website-Symbol: eigenes aus der Mediathek, sonst `favicon` des Themes, sonst das Logo, sonst Basalto
+            'favicon' => [
+                'theme' => $base->favicon !== null && str_starts_with($base->favicon, 'assets/') ? $this->assets->url($site, $base->favicon) : null,
+                'media' => $faviconMedia === null ? null : ['id' => $faviconMedia->id, 'name' => $faviconMedia->name, 'url' => $faviconMedia->url()],
+                'origin' => $this->icons->origin($site),
+                'preview' => $this->icons->previewUrl($site),
+                'basalto' => route('basalto.icon', ['file' => 'favicon.svg'], false),
             ],
             'images' => Media::query()->where('mime', 'like', 'image/%')->orderByDesc('id')->limit(60)->get(['id', 'name', 'mime', 'path', 'disk', 'variants'])
                 ->map(static fn (Media $m): array => ['id' => $m->id, 'name' => $m->name, 'url' => $m->url('thumb')])->all(),
@@ -84,6 +94,7 @@ final class DesignController
             'fonts' => ['array'],
             'fonts.*' => ['nullable', 'string', 'max:80', 'regex:/^[\pL\pN _-]+$/u'],
             'logo_media_id' => ['nullable', 'integer', Rule::exists('media', 'id')->where('site_id', $site->id)->whereNull('deleted_at')],
+            'favicon_media_id' => ['nullable', 'integer', Rule::exists('media', 'id')->where('site_id', $site->id)->whereNull('deleted_at')],
         ], [
             'palette.in' => __('Diese Farbvariante kennt das Theme nicht.'),
             'colors.*.regex' => __('Farbe als #rgb oder #rrggbb.'),
@@ -119,7 +130,11 @@ final class DesignController
         if ($logo !== null && ! str_starts_with((string) Media::query()->whereKey($logo)->value('mime'), 'image/')) {
             return back()->withErrors(['logo_media_id' => __('Das Logo muss ein Bild sein.')]);
         }
-        $this->save($site, ['palette' => $palette, 'colors' => $colors, 'fonts' => $fonts, 'logo_media_id' => $logo]);
+        $favicon = isset($data['favicon_media_id']) ? (int) $data['favicon_media_id'] : null;
+        if ($favicon !== null && ! in_array((string) Media::query()->whereKey($favicon)->value('mime'), SiteIcon::MIMES, true)) {
+            return back()->withErrors(['favicon_media_id' => __('Das Website-Symbol muss ein PNG, JPEG, GIF, WebP oder SVG sein.')]);
+        }
+        $this->save($site, ['palette' => $palette, 'colors' => $colors, 'fonts' => $fonts, 'logo_media_id' => $logo, 'favicon_media_id' => $favicon]);
 
         return back()->with('status', __('Design gespeichert — die Site zeigt es sofort.'));
     }

@@ -4930,5 +4930,15 @@
     "Bestehende Gruppen: :groups": "Gruppi esistenti: :groups",
     "Leer: ohne Gruppe.": "Vuoto: senza gruppo.",
     "«:label» ist ausgeblendet.": "«:label» è nascosto.",
-    "«:label» steht wieder zur Wahl.": "«:label» è di nuovo proposto."
+    "«:label» steht wieder zur Wahl.": "«:label» è di nuovo proposto.",
+    "Das Website-Symbol muss ein PNG, JPEG, GIF, WebP oder SVG sein.": "L’icona del sito deve essere un PNG, JPEG, GIF, WebP o SVG.",
+    "Website-Symbol": "Icona del sito",
+    "Website-Symbol (Favicon)": "Icona del sito (favicon)",
+    "Vorschau im Browser-Tab": "Anteprima nella scheda del browser",
+    "Vorschau auf dem Home-Bildschirm": "Anteprima nella schermata Home",
+    "Erscheint im Browser-Tab, in Lesezeichen und auf dem Home-Bildschirm. Am besten quadratisch: PNG ab 180 × 180 Pixel oder SVG.": "Compare nella scheda del browser, nei segnalibri e nella schermata Home. Meglio quadrata: PNG di almeno 180 × 180 pixel, oppure SVG.",
+    "Ohne Wahl gilt :source.": "Senza scelta vale :source.",
+    "das Symbol aus dem Theme": "l’icona del tema",
+    "das Logo": "il logo",
+    "das Symbol von Basalto": "l’icona di Basalto"
 }

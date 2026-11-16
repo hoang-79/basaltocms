@@ -15,8 +15,10 @@ use Basalto\Core\Http\Controllers\LiveController;
 use Basalto\Core\Http\Controllers\PaymentReturnController;
 use Basalto\Core\Http\Controllers\ProofOfWorkController;
 use Basalto\Core\Http\Controllers\ShareImageController;
+use Basalto\Core\Http\Controllers\SiteIconController;
 use Basalto\Core\Http\Controllers\ThemeAssetController;
 use Basalto\Core\Http\Controllers\UpController;
+use Basalto\Core\Theme\SiteIcon;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Support\Facades\Route;
 
@@ -60,6 +62,14 @@ Route::post('_live/auth', [LiveController::class, 'auth'])->middleware('throttle
 
 // CR-019 TB 106: erzeugtes Vorschaubild einer Seite (og:image) — ohne Sitzung und Cookies wie die Dateien eines Themes
 Route::get('_teilen/{site}/{file}', ShareImageController::class)->whereNumber('site')->where('file', '[a-f0-9]{32}\.png')->name('basalto.share.image');
+
+// Website-Symbol (Favicon): `/favicon.ico` je Host, die erzeugten Grössen einer Site, die Symbole von Basalto fürs
+// Backend — ohne Sitzung und Cookies wie die Dateien eines Themes
+Route::get('favicon.ico', [SiteIconController::class, 'favicon'])->middleware('basalto.site')->name('basalto.favicon');
+Route::get('_symbol/basalto/{file}', [SiteIconController::class, 'basalto'])
+    ->where('file', implode('|', array_map('preg_quote', array_keys(SiteIcon::BASALTO))))->name('basalto.icon');
+Route::get('_symbol/{site}/{hash}/{file}', [SiteIconController::class, 'show'])->whereNumber('site')->where('hash', '[a-f0-9]{16}')
+    ->where('file', implode('|', array_map('preg_quote', array_keys(SiteIcon::FILES))))->name('basalto.site-icon');
 
 // Dateien aus «assets/» eines Themes (L-10): ohne Sitzung und Cookies, damit Browser und CDN sie behalten dürfen
 Route::get('_theme/{site}/{hash}/{path}', ThemeAssetController::class)->whereNumber('site')->where('hash', '[a-f0-9]{12}')

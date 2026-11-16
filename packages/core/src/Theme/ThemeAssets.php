@@ -20,7 +20,7 @@ use Basalto\Lava\Theme\Source;
  * Theme-Ordner gleichen Namens auf der Platte. Dazu `design` als CSS-Variablen mit den Überschreibungen der Site aus dem
  * Backend (`sites.settings.design`) — die wirken ohne Build und ohne Deployment.
  *
- * @phpstan-type Overrides array{palette?: string, colors?: array<string, string>, fonts?: array<string, string>, logo_media_id?: int|null}
+ * @phpstan-type Overrides array{palette?: string, colors?: array<string, string>, fonts?: array<string, string>, logo_media_id?: int|null, favicon_media_id?: int|null}
  */
 final class ThemeAssets
 {

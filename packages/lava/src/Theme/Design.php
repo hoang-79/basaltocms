@@ -55,6 +55,8 @@ final class Design
         public readonly array $dark = [],
         /** @var array<string, Palette> Name → Farbvariante (nur Farben, die das Theme kennt) */
         public readonly array $palettes = [],
+        /** Website-Symbol (Favicon) im Theme-Ordner, z. B. «assets/favicon.svg» — ohne gilt das Logo */
+        public readonly ?string $favicon = null,
     ) {}
 
     public static function of(Theme $theme): self
@@ -108,7 +110,7 @@ final class Design
             $styles[] = $value->text();
         }
 
-        return new self($colors, $fonts, $space, is_numeric($radius) ? (int) $radius : null, $styles, $design->value('logo'), $dark, $palettes);
+        return new self($colors, $fonts, $space, is_numeric($radius) ? (int) $radius : null, $styles, $design->value('logo'), $dark, $palettes, $design->value('favicon'));
     }
 
     /**
@@ -131,7 +133,7 @@ final class Design
             }
         }
 
-        return new self(array_merge($this->colors, $palette['colors']), $this->fonts, $this->space, $this->radius, $this->styles, $this->logo, $dark, $this->palettes);
+        return new self(array_merge($this->colors, $palette['colors']), $this->fonts, $this->space, $this->radius, $this->styles, $this->logo, $dark, $this->palettes, $this->favicon);
     }
 
     /** Beschriftung einer Farbvariante in der Sprache — sonst Englisch, dann Deutsch, zuletzt ihr Name in Lava. */
@@ -190,7 +192,7 @@ final class Design
         }
         $logo = $overrides['logo'] ?? null;
 
-        return new self($colors, $fonts, $this->space, $this->radius, $this->styles, is_string($logo) && $logo !== '' ? $logo : $this->logo, $this->dark, $this->palettes);
+        return new self($colors, $fonts, $this->space, $this->radius, $this->styles, is_string($logo) && $logo !== '' ? $logo : $this->logo, $this->dark, $this->palettes, $this->favicon);
     }
 
     /** @return array<string, string> CSS-Variable → Wert */

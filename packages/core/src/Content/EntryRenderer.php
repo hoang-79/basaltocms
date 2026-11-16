@@ -21,6 +21,7 @@ use Basalto\Core\Search\SiteSearch;
 use Basalto\Core\Seo\PageSeo;
 use Basalto\Core\Seo\SeoHead;
 use Basalto\Core\Support\DevServer;
+use Basalto\Core\Theme\SiteIcon;
 use Basalto\Core\Theme\ThemeAssets;
 use Basalto\Core\Theme\ThemeLoader;
 use Basalto\Lava\Runtime\Context;
@@ -116,7 +117,8 @@ final class EntryRenderer
         $pageSeo->reset();
         // «{% assets %}» (L-10): Zeichensatz und Viewport, Design-Tokens mit den Überschreibungen der Site, Stylesheets des Themes
         $themeAssets = app(ThemeAssets::class);
-        $registry->tag('assets', static fn (): string => self::assets().$themeAssets->head($entry->site));
+        $siteIcon = app(SiteIcon::class);
+        $registry->tag('assets', static fn (): string => self::assets().$themeAssets->head($entry->site).$siteIcon->head($entry->site));
         // «{% appearance %}» (TB 21): Umschalter hell/dunkel, nur mit dunklen Farben im Theme
         $registry->tag('appearance', static fn (array $args, array $named, Context $ctx): string => $themeAssets->appearanceToggle($entry->site, (string) ($ctx->get('site')['language'] ?? $version->locale)));
         // «asset("demo/editor.svg")»: Adresse einer Datei unter assets/ des Themes, mit Prüfsumme (TB 16 Nachtrag)

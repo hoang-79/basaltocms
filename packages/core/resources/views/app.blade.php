@@ -7,6 +7,10 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        {{-- Das Symbol von Basalto — im Backend auch auf der Domain einer Site, die ein eigenes hat --}}
+        <link rel="icon" href="{{ route('basalto.icon', ['file' => 'favicon.ico'], false) }}" sizes="32x32">
+        <link rel="icon" href="{{ route('basalto.icon', ['file' => 'favicon.svg'], false) }}" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="{{ route('basalto.icon', ['file' => 'apple-touch-icon.png'], false) }}">
         @if ($theme === 'system')
             <script>if (window.matchMedia('(prefers-color-scheme: dark)').matches) { document.documentElement.dataset.theme = 'dark'; }</script>
         @endif

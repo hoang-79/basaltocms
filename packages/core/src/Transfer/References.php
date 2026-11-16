@@ -130,8 +130,11 @@ final class References
                 $settings['home'][$locale] = $this->entry($id);
             }
         }
-        if (is_array($settings['design'] ?? null) && array_key_exists('logo_media_id', $settings['design'])) {
-            $settings['design']['logo_media_id'] = $this->media($settings['design']['logo_media_id']);
+        // Logo und Website-Symbol aus der Mediathek zeigen nach dem Übertragen auf die neuen Nummern
+        foreach (['logo_media_id', 'favicon_media_id'] as $key) {
+            if (is_array($settings['design'] ?? null) && array_key_exists($key, $settings['design'])) {
+                $settings['design'][$key] = $this->media($settings['design'][$key]);
+            }
         }
 
         return $settings;

@@ -77,7 +77,7 @@ affichent la même ligne (source : `Basalto\Lava\Diagnostics\Step`, `Basalto\Lav
 | Station | Mot-clé | Question | Propriétés · sous-éléments |
 | --- | --- | --- | --- |
 | A | `site` | Qui suis-je ? | `name languages default domain redirects timezone` |
-| B | `design` | À quoi est-ce que je ressemble ? | `space radius images css logo` · `color font images palette` |
+| B | `design` | À quoi est-ce que je ressemble ? | `space radius images css logo favicon` · `color font images palette` |
 | C | `layout` | Où se trouve quoi ? | `region`, balisage ; plus les parties Lava `part` |
 | D | `nav` | Comment s’oriente-t-on ? | `from items depth start exclude only label` · `item`, balisage |
 | E | `type` | Quels contenus existe-t-il ? | `label route template` · `field` ; plus `global` (`label` · `field`) |
@@ -119,6 +119,11 @@ site à côté ; sans PNG, le nom s’affiche. Un logo de la médiathèque appar
 sombre, placez-le dans le PNG sur une surface claire et arrondie en `#f6f4f0`, la couleur du fond de l’e-mail : en mode
 sombre, l’application Gmail et Outlook assombrissent elles-mêmes l’e-mail, mais pas les images — sans surface, un logo
 sombre disparaît ; avec elle, il se détache sur un écusson clair.
+
+**Icône du site :** `favicon: assets/favicon.svg` dans `design` donne au site son icône pour l’onglet du navigateur, les
+favoris et l’écran d’accueil ; sans elle, Basalto prend le logo. À partir d’un PNG, Basalto calcule lui-même les tailles
+(32 et 180 pixels) ; à côté d’un SVG, placez le même fichier en PNG carré d’au moins 180 pixels (`assets/favicon.png`),
+sinon seul le SVG apparaît. Sous Configuration › Design, le site peut choisir sa propre image — elle passe avant celle du thème.
 
 **Blocs dans la palette :** `group` attribue un bloc à un groupe de la palette dans l’éditeur, `hint` est une
 phrase en dessous — les deux avec des variantes linguistiques comme `label` :
@@ -184,7 +189,7 @@ Pour toutes les stations : un mot-clé inconnu est une **erreur** avec suggestio
 | Station | Erreurs (`✗`) | Avertissements (`!`) |
 | --- | --- | --- |
 | A `site` | — | propriété inconnue |
-| B `design` | valeur de couleur autre que `#rgb`, `#rrggbb` ou `#rrggbbaa` (aussi dans les variantes de couleurs) ; variante de couleurs sans nom ; `css` autre que `.css`, `logo` autre que `.svg/.png/.webp/.jpg/.jpeg`, `src` de police autre que `.woff2/.woff` ; fichier absent du dossier du thème | contraste inférieur à WCAG 2.2 AA (4,5:1 pour le texte) pour les paires `text`, `muted`, `link` sur `background` ainsi que `X-text`, `X-muted`, `X-link` ou `on-X` sur `X` — aussi pour chaque variante de couleurs ; variante de couleurs avec une couleur, une propriété ou un sous-élément inconnus |
+| B `design` | valeur de couleur autre que `#rgb`, `#rrggbb` ou `#rrggbbaa` (aussi dans les variantes de couleurs) ; variante de couleurs sans nom ; `css` autre que `.css`, `logo` autre que `.svg/.png/.webp/.jpg/.jpeg`, `favicon` autre que `.svg/.png`, `src` de police autre que `.woff2/.woff` ; fichier absent du dossier du thème | contraste inférieur à WCAG 2.2 AA (4,5:1 pour le texte) pour les paires `text`, `muted`, `link` sur `background` ainsi que `X-text`, `X-muted`, `X-link` ou `on-X` sur `X` — aussi pour chaque variante de couleurs ; variante de couleurs avec une couleur, une propriété ou un sous-élément inconnus |
 | C `layout`, `part` | `extends` vers une mise en page inconnue ; syntaxe du balisage ; région avec un `part`, `nav` ou `global` inexistant ; partie d’une sorte inconnue ; partie sans `source:` (pour `nav`, `global`, `form`, `sitemap`, `list`) ou avec une source inconnue | réglage que la sorte de la partie ne connaît pas ; balisage imbriqué sur plus de 6 niveaux `each`/`if` |
 | D `nav` | entrée de menu sans cible `-> …` ; la cible n’est pas une page issue de `seed` ; `only:`/`exclude:` nomme un modèle inconnu ; `from:` n’est ni `pages` ni un type ; `items:` autre que `db` ; syntaxe du balisage | imbrication |
 | E `type`, `global` | champ sans type ; type de champ inconnu (noyau et modules, avec suggestion) ; `blocks { allow: … }` avec un bloc inconnu ; `relation <typ>` avec un type inconnu (autorisés : `form`, `page`, `global` ou un type du thème) ; `template:` inconnu | — |

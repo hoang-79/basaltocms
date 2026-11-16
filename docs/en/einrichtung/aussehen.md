@@ -93,7 +93,21 @@ The theme shows the logo where it places `{{ site.logo }}`. You choose:
 - **image from the media library** — your own image,
 - **no logo**.
 
-As soon as something differs from the theme, **“Everything as in the theme”** appears at the top right: it resets the colour variant, all colours, fonts and the logo to the theme.
+### Site icon (favicon)
+
+The small image in the browser tab, in bookmarks and on the home screen of phones and tablets. The preview shows both: the tab on the left, the icon on the home screen on the right.
+
+![Site icon: preview in the tab and on the home screen, below the choice from the media library](bilder/design-favicon.webp)
+
+Without a choice, Basalto takes, in this order:
+
+1. the **icon from the theme**, if the theme brings one,
+2. otherwise the **logo** — your own from the media library or the theme’s,
+3. otherwise the **Basalto icon**.
+
+You choose your own image under **Image from the media library**. A square PNG of at least 180 × 180 pixels or an SVG works best; Basalto centres a wide image on a transparent square. From a PNG, JPEG, GIF or WebP, the sizes needed are created automatically: 32 pixels for the tab and 180 pixels for the home screen of iPhone and iPad. An SVG appears as an SVG — not every device shows that on the home screen; use a PNG for that.
+
+As soon as something differs from the theme, **“Everything as in the theme”** appears at the top right: it resets the colour variant, all colours, fonts, the logo and the site icon to the theme.
 
 ## Image variants
 
@@ -133,8 +147,11 @@ You set this colour yourself earlier; your own colours apply on top of the varia
 **I switched the theme, and some pages look empty.**
 The new theme does not know their blocks or templates. Nothing is lost: switch back, or extend the new theme.
 
+**The browser tab still shows the old icon.**
+Browsers keep site icons for a long time. Reload the page or open it in a private window; visitors see the new icon as soon as their browser asks for it again.
+
 **What is the difference between design and theme editor?**
-In Design you change values the theme exposes (colours, fonts, logo). In the theme editor you change the theme itself, in Lava.
+In Design you change values the theme exposes (colours, fonts, logo, site icon). In the theme editor you change the theme itself, in Lava.
 
 ## Next
 

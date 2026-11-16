@@ -77,7 +77,7 @@ mostrano la stessa linea (fonte: `Basalto\Lava\Diagnostics\Step`, `Basalto\Lava\
 | Stazione | Parola chiave | Domanda | Proprietà · sottoelementi |
 | --- | --- | --- | --- |
 | A | `site` | Chi sono? | `name languages default domain redirects timezone` |
-| B | `design` | Che aspetto ho? | `space radius images css logo` · `color font images palette` |
+| B | `design` | Che aspetto ho? | `space radius images css logo favicon` · `color font images palette` |
 | C | `layout` | Dove sta cosa? | `region`, markup; in più le parti Lava `part` |
 | D | `nav` | Come ci si orienta? | `from items depth start exclude only label` · `item`, markup |
 | E | `type` | Quali contenuti esistono? | `label route template` · `field`; in più `global` (`label` · `field`) |
@@ -119,6 +119,11 @@ nome del sito; senza PNG compare il nome. Un logo della mediateca appare se è u
 metta nel PNG su una superficie chiara e arrotondata in `#f6f4f0`, il colore dello sfondo dell’e-mail: in modalità scura
 l’app Gmail e Outlook scuriscono da sole l’e-mail, ma non le immagini — senza superficie un logo scuro scompare, con essa
 risalta su uno scudo chiaro.
+
+**Icona del sito:** `favicon: assets/favicon.svg` in `design` dà al sito la sua icona per la scheda del browser, i
+segnalibri e la schermata Home; senza, Basalto prende il logo. Da un PNG Basalto calcola da sé le dimensioni (32 e 180
+pixel); accanto a un SVG metta lo stesso file come PNG quadrato di almeno 180 pixel (`assets/favicon.png`), altrimenti
+compare solo l’SVG. In Configurazione › Design il sito può scegliere un’immagine propria — vale prima di quella del tema.
 
 **Blocchi nella palette:** `group` assegna un blocco a un gruppo della palette nell’editor, `hint` è una
 frase sotto di esso — entrambi con varianti linguistiche come `label`:
@@ -185,7 +190,7 @@ Per tutte le stazioni vale: una parola chiave sconosciuta è un **errore** con s
 | Stazione | Errori (`✗`) | Avvisi (`!`) |
 | --- | --- | --- |
 | A `site` | — | proprietà sconosciuta |
-| B `design` | valore di colore diverso da `#rgb`, `#rrggbb` o `#rrggbbaa` (anche nelle varianti di colori); variante di colori senza nome; `css` non `.css`, `logo` non `.svg/.png/.webp/.jpg/.jpeg`, `src` del carattere non `.woff2/.woff`; file mancante nella cartella del tema | contrasto sotto WCAG 2.2 AA (4,5:1 per il testo) per le coppie `text`, `muted`, `link` su `background` nonché `X-text`, `X-muted`, `X-link` o `on-X` su `X` — anche per ogni variante di colori; variante di colori con un colore, una proprietà o un sottoelemento sconosciuti |
+| B `design` | valore di colore diverso da `#rgb`, `#rrggbb` o `#rrggbbaa` (anche nelle varianti di colori); variante di colori senza nome; `css` non `.css`, `logo` non `.svg/.png/.webp/.jpg/.jpeg`, `favicon` non `.svg/.png`, `src` del carattere non `.woff2/.woff`; file mancante nella cartella del tema | contrasto sotto WCAG 2.2 AA (4,5:1 per il testo) per le coppie `text`, `muted`, `link` su `background` nonché `X-text`, `X-muted`, `X-link` o `on-X` su `X` — anche per ogni variante di colori; variante di colori con un colore, una proprietà o un sottoelemento sconosciuti |
 | C `layout`, `part` | `extends` su layout sconosciuto; sintassi del markup; regione con `part`, `nav` o `global` inesistente; parte di tipo sconosciuto; parte senza `source:` (per `nav`, `global`, `form`, `sitemap`, `list`) o con fonte sconosciuta | impostazione che il tipo della parte non conosce; markup annidato più di 6 livelli `each`/`if` |
 | D `nav` | voce di menu senza destinazione `-> …`; la destinazione non è una pagina da `seed`; `only:`/`exclude:` nomina un template sconosciuto; `from:` non è né `pages` né un tipo; `items:` diverso da `db`; sintassi del markup | annidamento |
 | E `type`, `global` | campo senza tipo; tipo di campo sconosciuto (nucleo e moduli, con suggerimento); `blocks { allow: … }` con blocco sconosciuto; `relation <typ>` con tipo sconosciuto (consentiti: `form`, `page`, `global` o un tipo del tema); `template:` sconosciuto | — |

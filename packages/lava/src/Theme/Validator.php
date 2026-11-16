@@ -31,7 +31,7 @@ final class Validator
      */
     public const SHAPE = [
         'site' => ['properties' => ['name', 'languages', 'default', 'domain', 'redirects', 'timezone'], 'children' => []],
-        'design' => ['properties' => ['space', 'radius', 'images', 'css', 'logo'], 'children' => ['color', 'font', 'images', 'palette']],
+        'design' => ['properties' => ['space', 'radius', 'images', 'css', 'logo', 'favicon'], 'children' => ['color', 'font', 'images', 'palette']],
         'layout' => ['properties' => [], 'children' => ['region']],
         'nav' => ['properties' => ['from', 'items', 'depth', 'start', 'exclude', 'only', 'label'], 'children' => ['item']],
         'type' => ['properties' => ['label', 'route', 'template'], 'children' => ['field']],
@@ -493,6 +493,9 @@ final class Validator
         }
         if (($logo = $design->value('logo')) !== null) {
             $files[] = [$logo, ['svg', 'png', 'webp', 'jpg', 'jpeg'], 'Logo'];
+        }
+        if (($favicon = $design->value('favicon')) !== null) {
+            $files[] = [$favicon, ['svg', 'png'], 'Website-Symbol'];
         }
         foreach (Design::fromDefinition($design)->fonts as $name => $font) {
             if ($font['src'] !== null) {

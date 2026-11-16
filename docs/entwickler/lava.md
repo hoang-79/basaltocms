@@ -77,7 +77,7 @@ zeigen dieselbe Linie (Quelle: `Basalto\Lava\Diagnostics\Step`, `Basalto\Lava\Th
 | Station | Schlüsselwort | Frage | Eigenschaften · Unterelemente |
 | --- | --- | --- | --- |
 | A | `site` | Wer bin ich? | `name languages default domain redirects timezone` |
-| B | `design` | Wie sehe ich aus? | `space radius images css logo` · `color font images palette` |
+| B | `design` | Wie sehe ich aus? | `space radius images css logo favicon` · `color font images palette` |
 | C | `layout` | Wo steht was? | `region`, Markup; dazu Lava-Teile `part` |
 | D | `nav` | Wie findet man sich zurecht? | `from items depth start exclude only label` · `item`, Markup |
 | E | `type` | Welche Inhalte gibt es? | `label route template` · `field`; dazu `global` (`label` · `field`) |
@@ -118,6 +118,11 @@ dem Namen der Site daneben; ohne PNG steht der Name. Ein Logo aus der Mediathek 
 ist. Ist Ihr Logo dunkel, legen Sie es im PNG auf eine helle, gerundete Fläche in `#f6f4f0`, der Farbe des Mailgrunds:
 Die Gmail-App und Outlook färben die Mail im Dunkelmodus selbst dunkel, Bilder aber nicht — ohne Fläche verschwindet
 ein dunkles Logo, mit ihr steht es auf einem hellen Schild.
+
+**Website-Symbol:** `favicon: assets/favicon.svg` in `design` gibt der Site ihr Symbol für Browser-Tab, Lesezeichen und
+Home-Bildschirm; ohne nimmt Basalto das Logo. Aus einem PNG rechnet Basalto die Grössen selbst (32 und 180 Pixel); zu
+einem SVG legen Sie dieselbe Datei als quadratisches PNG ab 180 Pixel daneben (`assets/favicon.png`), sonst erscheint nur
+das SVG. Unter Einrichtung › Design kann die Site ein eigenes Bild wählen — es gilt vor dem des Themes.
 
 **Blöcke in der Palette:** `group` ordnet einen Block einer Gruppe der Palette im Editor zu, `hint` ist ein
 Satz darunter — beides mit Sprachvarianten wie `label`:
@@ -183,7 +188,7 @@ Für alle Stationen gilt: Ein unbekanntes Schlüsselwort ist ein **Fehler** mit 
 | Station | Fehler (`✗`) | Warnungen (`!`) |
 | --- | --- | --- |
 | A `site` | — | unbekannte Eigenschaft |
-| B `design` | Farbwert kein `#rgb`, `#rrggbb` oder `#rrggbbaa` (auch in Farbvarianten); Farbvariante ohne Namen; `css` nicht `.css`, `logo` nicht `.svg/.png/.webp/.jpg/.jpeg`, Schrift-`src` nicht `.woff2/.woff`; Datei fehlt im Theme-Ordner | Kontrast unter WCAG 2.2 AA (4,5:1 für Text) für die Paare `text`, `muted`, `link` auf `background` sowie `X-text`, `X-muted`, `X-link` oder `on-X` auf `X` — auch je Farbvariante; Farbvariante mit unbekannter Farbe, Eigenschaft oder Unterelement |
+| B `design` | Farbwert kein `#rgb`, `#rrggbb` oder `#rrggbbaa` (auch in Farbvarianten); Farbvariante ohne Namen; `css` nicht `.css`, `logo` nicht `.svg/.png/.webp/.jpg/.jpeg`, `favicon` nicht `.svg/.png`, Schrift-`src` nicht `.woff2/.woff`; Datei fehlt im Theme-Ordner | Kontrast unter WCAG 2.2 AA (4,5:1 für Text) für die Paare `text`, `muted`, `link` auf `background` sowie `X-text`, `X-muted`, `X-link` oder `on-X` auf `X` — auch je Farbvariante; Farbvariante mit unbekannter Farbe, Eigenschaft oder Unterelement |
 | C `layout`, `part` | `extends` auf unbekanntes Layout; Markup-Syntax; Region mit `part`, `nav` oder `global`, das es nicht gibt; Teil mit unbekannter Art; Teil ohne `source:` (bei `nav`, `global`, `form`, `sitemap`, `list`) oder mit unbekannter Quelle | Einstellung, die die Art des Teils nicht kennt; Markup mehr als 6 Ebenen `each`/`if` tief |
 | D `nav` | Menüeintrag ohne Ziel `-> …`; Ziel ist keine Seite aus `seed`; `only:`/`exclude:` nennt unbekanntes Template; `from:` ist weder `pages` noch ein Typ; `items:` ausser `db`; Markup-Syntax | Verschachtelung |
 | E `type`, `global` | Feld ohne Typ; unbekannter Feldtyp (Kern und Module, mit Vorschlag); `blocks { allow: … }` mit unbekanntem Block; `relation <typ>` mit unbekanntem Typ (erlaubt: `form`, `page`, `global` oder ein Typ des Themes); `template:` unbekannt | — |

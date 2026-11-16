@@ -4925,5 +4925,15 @@
     "Bestehende Gruppen: :groups": "Existing groups: :groups",
     "Leer: ohne Gruppe.": "Empty: no group.",
     "«:label» ist ausgeblendet.": "“:label” is hidden.",
-    "«:label» steht wieder zur Wahl.": "“:label” is offered again."
+    "«:label» steht wieder zur Wahl.": "“:label” is offered again.",
+    "Das Website-Symbol muss ein PNG, JPEG, GIF, WebP oder SVG sein.": "The site icon must be a PNG, JPEG, GIF, WebP or SVG.",
+    "Website-Symbol": "Site icon",
+    "Website-Symbol (Favicon)": "Site icon (favicon)",
+    "Vorschau im Browser-Tab": "Preview in the browser tab",
+    "Vorschau auf dem Home-Bildschirm": "Preview on the home screen",
+    "Erscheint im Browser-Tab, in Lesezeichen und auf dem Home-Bildschirm. Am besten quadratisch: PNG ab 180 × 180 Pixel oder SVG.": "Appears in the browser tab, in bookmarks and on the home screen. Ideally square: PNG of at least 180 × 180 pixels, or SVG.",
+    "Ohne Wahl gilt :source.": "Without a choice, :source applies.",
+    "das Symbol aus dem Theme": "the icon from the theme",
+    "das Logo": "the logo",
+    "das Symbol von Basalto": "the Basalto icon"
 }

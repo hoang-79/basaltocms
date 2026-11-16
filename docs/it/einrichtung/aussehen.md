@@ -93,7 +93,21 @@ Il tema mostra il logo dove inserisce `{{ site.logo }}`. Lei sceglie:
 - **Immagine dalla mediateca** — un’immagine propria,
 - **nessun logo**.
 
-Non appena qualcosa si discosta dal tema, in alto a destra compare **«Tutto come nel tema»**: riporta la variante di colori, tutti i colori, i caratteri e il logo ai valori del tema.
+### Icona del sito (favicon)
+
+La piccola immagine nella scheda del browser, nei segnalibri e nella schermata Home di telefoni e tablet. L’anteprima mostra entrambe: a sinistra la scheda, a destra l’icona nella schermata Home.
+
+![Icona del sito: anteprima nella scheda e nella schermata Home, sotto la scelta dalla mediateca](bilder/design-favicon.webp)
+
+Senza scelta, Basalto prende in quest’ordine:
+
+1. l’**icona del tema**, se il tema ne porta una,
+2. altrimenti il **logo** — il Suo dalla mediateca o quello del tema,
+3. altrimenti l’**icona di Basalto**.
+
+Sceglie un’immagine propria sotto **Immagine dalla mediateca**. L’ideale è un PNG quadrato di almeno 180 × 180 pixel oppure un SVG; un’immagine larga viene centrata da Basalto su un quadrato trasparente. Da un PNG, JPEG, GIF o WebP nascono da sé le dimensioni necessarie: 32 pixel per la scheda e 180 pixel per la schermata Home di iPhone e iPad. Un SVG compare come SVG — non tutti i dispositivi lo mostrano nella schermata Home; per questo usi un PNG.
+
+Non appena qualcosa si discosta dal tema, in alto a destra compare **«Tutto come nel tema»**: riporta la variante di colori, tutti i colori, i caratteri, il logo e l’icona del sito ai valori del tema.
 
 ## Varianti d’immagine
 
@@ -133,8 +147,11 @@ Ha impostato Lei questo colore in precedenza; i Suoi colori valgono sopra la var
 **Ho cambiato tema e una parte delle pagine sembra vuota.**
 Il nuovo tema non ne conosce i blocchi o i template. Non è andato perso nulla: torni al tema precedente o completi il nuovo tema.
 
+**Nella scheda del browser compare ancora la vecchia icona.**
+I browser conservano a lungo le icone dei siti. Ricarichi la pagina o la apra in una finestra privata; i visitatori vedono la nuova icona non appena il loro browser la richiede di nuovo.
+
 **Qual è la differenza tra design ed editor del tema?**
-Nel design modifica valori che il tema mette a disposizione (colori, caratteri, logo). Nell’editor del tema modifica il tema stesso, in Lava.
+Nel design modifica valori che il tema mette a disposizione (colori, caratteri, logo, icona del sito). Nell’editor del tema modifica il tema stesso, in Lava.
 
 ## Per continuare
 

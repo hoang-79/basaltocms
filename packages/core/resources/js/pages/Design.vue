@@ -46,6 +46,13 @@ const props = defineProps<{
         theme: string | null;
         media: { id: number; name: string; url: string } | null;
     };
+    favicon: {
+        theme: string | null;
+        media: { id: number; name: string; url: string } | null;
+        origin: 'media' | 'theme' | 'logo' | null;
+        preview: string | null;
+        basalto: string;
+    };
     images: { id: number; name: string; url: string }[];
     lava: string;
     file: string | null;
@@ -59,6 +66,7 @@ const form = useForm({
     colors: Object.fromEntries(props.colors.map((c) => [c.name, c.value])),
     fonts: Object.fromEntries(props.fonts.map((f) => [f.name, f.value])),
     logo_media_id: props.logo.media?.id ?? null,
+    favicon_media_id: props.favicon.media?.id ?? null,
 });
 
 const labels: Record<string, string> = {
@@ -66,6 +74,7 @@ const labels: Record<string, string> = {
     colors: t('Farbe'),
     fonts: t('Schrift'),
     logo_media_id: t('Logo'),
+    favicon_media_id: t('Website-Symbol'),
 };
 const autosave = useAutosave(form, {
     url: () => props.urls.update,
@@ -204,7 +213,8 @@ const changed = computed(
         form.palette !== null ||
         props.colors.some((c) => form.colors[c.name] !== themeValue(c)) ||
         props.fonts.some((f) => form.fonts[f.name] !== f.theme) ||
-        form.logo_media_id !== null,
+        form.logo_media_id !== null ||
+        form.favicon_media_id !== null,
 );
 
 function resetAll(): void {
@@ -215,6 +225,7 @@ function resetAll(): void {
             props.colors.forEach((c) => (form.colors[c.name] = baseValue(c)));
             props.fonts.forEach((f) => (form.fonts[f.name] = f.theme));
             form.logo_media_id = null;
+            form.favicon_media_id = null;
             form.defaults();
         },
     });
@@ -228,6 +239,24 @@ const logoUrl = computed(
         props.images.find((i) => i.id === form.logo_media_id)?.url ??
         props.logo.media?.url ??
         props.logo.theme,
+);
+
+/* Website-Symbol: das gewählte Bild, sonst was gilt (Theme, Logo, Basalto) — nach dem Speichern vom Server */
+const faviconUrl = computed(() =>
+    form.favicon_media_id !== null
+        ? (props.images.find((i) => i.id === form.favicon_media_id)?.url ??
+          props.favicon.media?.url ??
+          props.favicon.basalto)
+        : props.favicon.origin === 'media'
+          ? (props.favicon.theme ?? logoUrl.value ?? props.favicon.basalto)
+          : (props.favicon.preview ?? props.favicon.basalto),
+);
+const faviconDefault = computed(() =>
+    props.favicon.theme
+        ? t('das Symbol aus dem Theme')
+        : logoUrl.value
+          ? t('das Logo')
+          : t('das Symbol von Basalto'),
 );
 </script>
 
@@ -639,6 +668,90 @@ const logoUrl = computed(
                         class="text-danger mt-1 text-[11.5px]"
                     >
                         {{ form.errors.logo_media_id }}
+                    </p>
+                </fieldset>
+            </Card>
+
+            <Card :title="$t('Website-Symbol (Favicon)')">
+                <div class="flex flex-wrap items-center gap-4">
+                    <div
+                        class="flex items-center gap-2 rounded-t-md border border-b-0 border-ash-light bg-paper px-3 py-2"
+                        :aria-label="$t('Vorschau im Browser-Tab')"
+                        role="img"
+                    >
+                        <img
+                            :src="faviconUrl"
+                            alt=""
+                            width="16"
+                            height="16"
+                            class="size-4 object-contain"
+                        />
+                        <span class="max-w-40 truncate text-[12px]">{{
+                            $t('Startseite')
+                        }}</span>
+                    </div>
+                    <img
+                        :src="faviconUrl"
+                        :alt="$t('Vorschau auf dem Home-Bildschirm')"
+                        width="56"
+                        height="56"
+                        class="size-14 rounded-xl border border-ash-light bg-white object-contain p-1"
+                    />
+                    <p class="min-w-48 flex-1 text-[12.5px] text-basalt-light">
+                        {{
+                            $t(
+                                'Erscheint im Browser-Tab, in Lesezeichen und auf dem Home-Bildschirm. Am besten quadratisch: PNG ab 180 × 180 Pixel oder SVG.',
+                            )
+                        }}
+                        {{
+                            $t('Ohne Wahl gilt :source.', {
+                                source: faviconDefault,
+                            })
+                        }}
+                    </p>
+                </div>
+                <fieldset v-if="can_edit" class="mt-3">
+                    <legend :class="labelClasses">
+                        {{ $t('Bild aus der Mediathek') }}
+                    </legend>
+                    <div
+                        class="mt-1 grid grid-cols-[repeat(auto-fill,minmax(5.5rem,1fr))] gap-2"
+                    >
+                        <label
+                            class="flex h-20 cursor-pointer items-center justify-center rounded-sm border px-1 text-center text-[11.5px] has-[:checked]:border-lava has-[:checked]:ring-2 has-[:checked]:ring-lava/40 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-basalt"
+                        >
+                            <input
+                                v-model="form.favicon_media_id"
+                                type="radio"
+                                :value="null"
+                                class="sr-only"
+                            />
+                            {{ faviconDefault }}
+                        </label>
+                        <label
+                            v-for="image in images"
+                            :key="image.id"
+                            class="flex h-20 cursor-pointer items-center justify-center rounded-sm border bg-white p-1 has-[:checked]:border-lava has-[:checked]:ring-2 has-[:checked]:ring-lava/40 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-basalt"
+                            :title="image.name"
+                        >
+                            <input
+                                v-model="form.favicon_media_id"
+                                type="radio"
+                                :value="image.id"
+                                class="sr-only"
+                            />
+                            <img
+                                :src="image.url"
+                                :alt="image.name"
+                                class="max-h-full max-w-full object-contain"
+                            />
+                        </label>
+                    </div>
+                    <p
+                        v-if="form.errors.favicon_media_id"
+                        class="text-danger mt-1 text-[11.5px]"
+                    >
+                        {{ form.errors.favicon_media_id }}
                     </p>
                 </fieldset>
             </Card>
