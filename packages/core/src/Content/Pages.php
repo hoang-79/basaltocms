@@ -667,6 +667,6 @@ final class Pages
             return null;
         }
 
-        return ['src' => $media->url($media->variants ? 'content' : null), 'alt' => (string) ($entry->setting('image.alt') ?? $media->name)];
+        return ['src' => $media->publicUrl($media->variants ? 'content' : null), 'alt' => (string) ($entry->setting('image.alt') ?? $media->name)];
     }
 }

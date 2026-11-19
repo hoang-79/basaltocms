@@ -112,7 +112,7 @@ final class MailBrand
             $media = Media::query()->withoutGlobalScopes()->where('site_id', $site->id)->whereKey($mediaId)->first();
 
             return $media !== null && in_array($media->mime, self::RASTER, true) && $media->width > 0 && $media->height > 0
-                ? self::sized($site->publicUrl(route('basalto.media.show', ['media' => $media->id], false)), $media->width, $media->height) : null;
+                ? self::sized($site->publicUrl($media->publicUrl(null, 'webp', 1, false)), $media->width, $media->height) : null;
         }
         $logo = $this->assets->design($site)->logo;
         if ($logo === null || ! str_starts_with($logo, 'assets/')) {

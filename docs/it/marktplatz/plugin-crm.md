@@ -102,6 +102,28 @@ I compiti aperti sono in cima presso il cliente; passata la data diventano rossi
 compito. La cifra chiave **«Compiti scaduti»** sopra l’elenco e il numero accanto alla voce di menu contano tutti i
 compiti aperti in scadenza oggi o prima.
 
+## Chiedere una recensione
+
+Le recensioni su Google o su altre piattaforme aiutano i nuovi clienti a scegliere. Il CRM invia la richiesta per Lei —
+manualmente, quando è il momento giusto, per esempio dopo un progetto concluso.
+
+1. Una volta, sotto **CRM › «Recensioni»**, inserisca il **link alla recensione**: idealmente una pagina del Suo sito che
+   porta al modulo di recensione — oppure direttamente il link del Suo Profilo dell’attività su Google («Chiedi
+   recensioni»). Se vuole, scriva lì un **testo proprio**; se resta vuoto, il testo arriva nella lingua del cliente.
+2. Nella scheda del cliente faccia clic su **«Chiedere una recensione»**. Come destinatario viene proposto prima il
+   contatto principale; può scegliere ogni persona di contatto con un indirizzo e-mail e l’indirizzo del cliente.
+   **Oggetto** e **testo** sono precompilati — in tedesco, inglese, francese o italiano secondo il campo **Lingua** del
+   cliente — e si possono modificare.
+3. **«Invia»** spedisce l’e-mail: saluto, il Suo testo, il pulsante **«Scrivere una recensione»** con il Suo link e il
+   Suo nome nei saluti. Nella scheda del cliente compare poi un’attività «Richiesta di recensione» con destinatario e
+   testo; riaprendo il modulo vede quando ha chiesto l’ultima volta.
+
+Nel plugin «Gestione progetti», per un progetto concluso con un cliente del CRM, **«Chiedere una recensione al
+cliente»** porta direttamente lì.
+
+**Chiedere in modo corretto:** chieda a tutti i clienti allo stesso modo, non solo a quelli soddisfatti, e non offra
+nulla in cambio — lo richiedono Google e le altre piattaforme.
+
 ## Trovare clienti
 
 L’elenco mostra tutti i clienti non archiviati, per nome. La **ricerca** trova nomi, numeri cliente, località,

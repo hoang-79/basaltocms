@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Basalto\Core\Content;
 
+use Basalto\Core\Models\Media;
+use Illuminate\Database\QueryException;
+
 /**
  * Fliesstext aus dem Block-Editor (TipTap/ProseMirror-JSON) → HTML für das Theme und → Text für Diff und Suche (M-04).
  * Der Editor speichert nur strukturiertes JSON, nie HTML. Hier ist die Liste der Knoten und Marken, die Basalto kennt;
@@ -288,6 +291,18 @@ final class RichText
      */
     private static function image(array $attrs): string
     {
+        // Aus der Mediathek: die dauerhafte Adresse von heute, nicht die beim Einfügen gespeicherte (sie war nur
+        // 30 Minuten gültig); nur Dateien der aktuellen Site, relativ (Mails wie der Newsletter setzen den Host davor)
+        if (is_numeric($attrs['mediaId'] ?? null)) {
+            try {
+                $media = Media::query()->withTrashed()->find((int) $attrs['mediaId']);
+            } catch (QueryException) {
+                $media = null; // ohne Datenbank (Vorschau aus Rohdaten, Tests): die gespeicherte Quelle
+            }
+            if ($media !== null && $media->isImage()) {
+                $attrs['src'] = $media->publicUrl(isset($media->variants['content']) ? 'content' : null, 'webp', 1, false);
+            }
+        }
         $src = self::safeSrc((string) ($attrs['src'] ?? ''));
         if ($src === null) {
             return '';

@@ -83,6 +83,8 @@ export default defineConfig({
             'packages/*/resources/dist/**',
             // Von stimme-bauen.py erzeugt (json.dumps, Einzug 2) — beim nächsten Lauf ohnehin neu geschrieben
             'tools/werbefilm/stimme/**',
+            'tools/firmenfilm/stimme/**',
+            'tools/firmenfilm/ereignisse.json',
         ],
         sortTailwindcss: {
             functions: ['clsx', 'cn', 'cva'],

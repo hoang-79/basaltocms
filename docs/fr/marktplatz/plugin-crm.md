@@ -105,6 +105,28 @@ Les tâches ouvertes figurent en tête chez le client ; une fois la date passée
 terminée »** termine une tâche. Le chiffre clé **« Tâches échues »** au-dessus de la liste et le nombre à côté de l’entrée
 du menu comptent toutes les tâches ouvertes échues aujourd’hui ou avant.
 
+## Demander un avis
+
+Les avis sur Google ou d’autres plateformes aident les nouveaux clients à choisir. Le CRM envoie la demande pour vous —
+manuellement, au bon moment, par exemple après un projet terminé.
+
+1. Une fois, sous **CRM › « Avis »**, indiquez le **lien vers l’avis** : idéalement une page de votre site qui mène au
+   formulaire d’avis — ou directement le lien de votre fiche d’établissement Google (« Demander des avis »). Si vous le
+   souhaitez, rédigez-y un **texte personnalisé** ; laissé vide, le texte est dans la langue du client.
+2. Sur la fiche du client, cliquez sur **« Demander un avis »**. Le contact principal est proposé en premier comme
+   destinataire ; vous pouvez choisir toute personne de contact avec une adresse e-mail ainsi que l’adresse du client.
+   L’**objet** et le **texte** sont préremplis — en allemand, anglais, français ou italien selon le champ **Langue** du
+   client — et peuvent être modifiés.
+3. **« Envoyer »** envoie l’e-mail : salutation, votre texte, le bouton **« Rédiger un avis »** avec votre lien et votre
+   nom dans la formule de politesse. Le client affiche ensuite une activité « Demande d’avis » avec destinataire et
+   texte ; en rouvrant le formulaire, vous voyez quand vous avez demandé pour la dernière fois.
+
+Dans le plugin « Gestion de projet », **« Demander un avis au client »** y mène directement pour un projet terminé avec
+un client du CRM.
+
+**Demander équitablement :** demandez à tous les clients de la même manière, pas seulement aux clients satisfaits, et
+n’offrez rien en échange — Google et les autres plateformes l’exigent.
+
 ## Trouver des clients
 
 La liste montre tous les clients qui ne sont pas archivés, par nom. La **recherche** trouve noms, numéros de client,

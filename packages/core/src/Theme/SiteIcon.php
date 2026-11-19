@@ -218,7 +218,7 @@ final class SiteIcon
     {
         $key = 'media:'.$media->id.':'.$media->path.':'.($media->updated_at?->getTimestamp() ?? 0);
         if ($media->mime === 'image/svg+xml') {
-            return ['key' => $key, 'raster' => null, 'svg' => $media->url(), 'origin' => $origin];
+            return ['key' => $key, 'raster' => null, 'svg' => $media->publicUrl(), 'origin' => $origin];
         }
         $bytes = Storage::disk($media->disk)->get($media->path);
 

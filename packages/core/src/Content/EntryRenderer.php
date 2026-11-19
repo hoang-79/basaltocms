@@ -301,7 +301,7 @@ final class EntryRenderer
     {
         $media = Media::query()->withTrashed()->find($id);
 
-        return $media === null ? null : $media->url(isset($media->variants['content']) ? 'content' : null);
+        return $media === null ? null : $media->publicUrl(isset($media->variants['content']) ? 'content' : null);
     }
 
     /**
@@ -386,16 +386,16 @@ final class EntryRenderer
             $srcset = [];
             $avifset = [];
             foreach ([1 => $file] + array_combine(array_map('intval', array_keys($file['densities'] ?? [])), array_values($file['densities'] ?? [])) as $density => $f) {
-                $srcset[] = sprintf('%s %dx', $media->url($name, 'webp', $density), $density);
+                $srcset[] = sprintf('%s %dx', $media->publicUrl($name, 'webp', $density), $density);
                 if (($f['avif'] ?? null) !== null) {
-                    $avifset[] = sprintf('%s %dx', $media->url($name, 'avif', $density), $density);
+                    $avifset[] = sprintf('%s %dx', $media->publicUrl($name, 'avif', $density), $density);
                 }
             }
-            $variants[$name] = ['src' => $media->url($name), 'srcset' => count($srcset) > 1 ? implode(', ', $srcset) : null, 'avif' => $avifset !== [] ? implode(', ', $avifset) : null,
+            $variants[$name] = ['src' => $media->publicUrl($name), 'srcset' => count($srcset) > 1 ? implode(', ', $srcset) : null, 'avif' => $avifset !== [] ? implode(', ', $avifset) : null,
                 'width' => $file['width'], 'height' => $file['height'], 'sizes' => $spec->sizes, 'lazy' => $spec->lazy];
         }
 
-        return ['id' => $media->id, 'src' => $media->url(isset($media->variants['content']) ? 'content' : null), 'alt' => $alt, 'title' => $media->title, 'credit' => $media->credit,
+        return ['id' => $media->id, 'src' => $media->publicUrl(isset($media->variants['content']) ? 'content' : null), 'alt' => $alt, 'title' => $media->title, 'credit' => $media->credit,
             'width' => $media->width, 'height' => $media->height, 'variants' => $variants];
     }
 

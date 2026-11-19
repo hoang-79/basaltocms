@@ -334,8 +334,9 @@ final class SeoHead
 
         $alt = is_array($media->alt) ? ($media->alt[$locale] ?? $media->alt[$site->default_locale] ?? '') : '';
 
-        // Über die Auslieferung der Site, nie als befristete Adresse eines Buckets — Netzwerke behalten das Bild lange
-        return ['src' => route('basalto.media.show', ['media' => $media->id], false), 'width' => $media->width, 'height' => $media->height, 'alt' => (string) $alt];
+        // Dauerhaft signiert über die Site, nie befristet — Netzwerke behalten das Bild lange (vorher die Route des
+        // Backends, die eine Anmeldung verlangt)
+        return ['src' => $media->publicUrl(null, 'webp', 1, false), 'width' => $media->width, 'height' => $media->height, 'alt' => (string) $alt];
     }
 
     /** @return array<string, string> Name des Meta-Tags → Bestätigungscode */

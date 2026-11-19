@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 /**
  * Eine hochgeladene Datei im Objektspeicher, je Site (K-08). `variants` hält die erzeugten Bildvarianten
@@ -170,7 +171,30 @@ final class Media extends Model
         return $format === 'avif' ? ($file['avif'] ?? null) : $file['path'];
     }
 
-    /** URL des Originals oder einer Variante — temporär signiert, wenn die Disk das kann (private Buckets), sonst über die Auslieferungsroute. */
+    /**
+     * Dauerhafte Adresse des Originals oder einer Variante für alles, was Besucher, Mailprogramme oder Netzwerke später
+     * laden: öffentliche Seiten (auch aus dem Seiten-Cache), Fliesstexte, Vorschaubilder, Logo in Mails. Signiert ohne
+     * Ablauf (`/_medien/…`, MediaFileController) — `url()` ist befristet und nur fürs Backend gedacht. `$absolute`
+     * false gibt den Pfad ohne Host (für Mails und Vorschaubilder, die den Host der Site davorsetzen).
+     */
+    public function publicUrl(?string $variant = null, string $format = 'webp', int $density = 1, bool $absolute = true): string
+    {
+        $parameters = ['media' => $this->id];
+        if ($variant !== null) {
+            $parameters['variant'] = $variant;
+        }
+        if ($format !== 'webp') {
+            $parameters['format'] = $format;
+        }
+        if ($density > 1) {
+            $parameters['density'] = $density;
+        }
+        $relative = URL::signedRoute('basalto.media.public', $parameters, null, false);
+
+        return $absolute ? url($relative) : $relative;
+    }
+
+    /** URL des Originals oder einer Variante fürs Backend — temporär signiert, wenn die Disk das kann (private Buckets, lokale Disk mit «serve»), sonst über die Auslieferungsroute des Backends. Für öffentliche Seiten `publicUrl()`. */
     public function url(?string $variant = null, string $format = 'webp', int $density = 1): string
     {
         $path = $variant !== null ? ($this->variantPath($variant, $format, $density) ?? $this->path) : $this->path;

@@ -104,6 +104,27 @@ Offene Aufgaben stehen beim Kunden zuoberst; ist das Datum vorbei, sind sie rot.
 eine Aufgabe erledigt. Die Kennzahl **«Fällige Aufgaben»** über der Liste und die Zahl am Menüeintrag zählen alle offenen
 Aufgaben, die heute oder früher fällig sind.
 
+## Um eine Bewertung bitten
+
+Bewertungen bei Google oder auf anderen Plattformen helfen neuen Kunden bei der Wahl. Das CRM schickt die Bitte für Sie —
+von Hand, wenn es passt, etwa nach einem abgeschlossenen Projekt.
+
+1. Einmal unter **CRM › «Bewertungen»** den **Link zur Bewertung** eintragen: am besten eine Seite Ihrer Website, die
+   zum Bewertungsformular führt — oder direkt den Link aus Ihrem Google-Unternehmensprofil («Bewertungen anfordern»).
+   Auf Wunsch schreiben Sie dort einen **eigenen Text**; leer gelassen kommt der Text in der Sprache des Kunden.
+2. Beim Kunden auf **«Um Bewertung bitten»**. Als Empfänger steht der Hauptkontakt zuerst; zur Wahl stehen alle
+   Kontaktpersonen mit E-Mail und die Adresse des Kunden. **Betreff** und **Text** sind vorausgefüllt — Deutsch,
+   Englisch, Französisch oder Italienisch nach dem Feld **Sprache** des Kunden — und lassen sich ändern.
+3. **«Senden»** schickt die Mail: Anrede, Ihr Text, der Knopf **«Bewertung schreiben»** mit Ihrem Link und Ihr Name
+   im Gruss. Beim Kunden steht danach eine Aktivität «Bitte um Bewertung» mit Empfänger und Text; öffnen Sie das
+   Formular wieder, zeigt es, wann Sie zuletzt gebeten haben.
+
+Im Plugin «Projektmanagement» führt bei einem abgeschlossenen Projekt mit Kunde aus dem CRM **«Kunde um Bewertung
+bitten»** direkt dorthin.
+
+**Fair bitten:** Bitten Sie alle Kunden gleich, nicht nur zufriedene, und bieten Sie nichts dafür an — so verlangen es
+Google und die anderen Plattformen.
+
 ## Kunden finden
 
 Die Liste zeigt alle Kunden, die nicht im Archiv sind, nach Name. Die **Suche** findet Namen, Kundennummern, Orte,

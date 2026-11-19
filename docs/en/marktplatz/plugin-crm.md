@@ -100,6 +100,27 @@ Open tasks are listed first on the customer; once the date has passed they turn 
 task. The key figure **“Tasks due”** above the list and the number next to the menu entry count all open tasks due today
 or earlier.
 
+## Ask for a review
+
+Reviews on Google or other platforms help new customers choose. The CRM sends the request for you — by hand, when it
+fits, for example after a completed project.
+
+1. Once, under **CRM › “Reviews”**, enter the **review link**: ideally a page on your website that leads to the review
+   form — or the link from your Google Business Profile (“Ask for reviews”). If you like, write your **own text** there;
+   left empty, the text comes in the customer’s language.
+2. On the customer, click **“Ask for a review”**. The primary contact comes first as recipient; you can choose any
+   contact person with an email address and the customer’s own address. **Subject** and **text** are filled in —
+   German, English, French or Italian according to the customer’s **Language** field — and can be changed.
+3. **“Send”** sends the email: greeting, your text, the **“Write a review”** button with your link and your name in
+   the closing. The customer then shows an activity “Review request” with recipient and text; opening the form again
+   shows when you last asked.
+
+In the “Project management” plugin, **“Ask the customer for a review”** leads there directly for a completed project
+with a customer from the CRM.
+
+**Ask fairly:** ask all customers alike, not only satisfied ones, and offer nothing in return — Google and the other
+platforms require this.
+
 ## Find customers
 
 The list shows all customers that are not archived, by name. The **search** finds names, customer numbers, towns, email

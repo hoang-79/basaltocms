@@ -12,6 +12,7 @@ use Basalto\Core\Http\Controllers\FrontendController;
 use Basalto\Core\Http\Controllers\FrontendEditorController;
 use Basalto\Core\Http\Controllers\LegalController;
 use Basalto\Core\Http\Controllers\LiveController;
+use Basalto\Core\Http\Controllers\MediaFileController;
 use Basalto\Core\Http\Controllers\PaymentReturnController;
 use Basalto\Core\Http\Controllers\ProofOfWorkController;
 use Basalto\Core\Http\Controllers\ShareImageController;
@@ -62,6 +63,11 @@ Route::post('_live/auth', [LiveController::class, 'auth'])->middleware('throttle
 
 // CR-019 TB 106: erzeugtes Vorschaubild einer Seite (og:image) — ohne Sitzung und Cookies wie die Dateien eines Themes
 Route::get('_teilen/{site}/{file}', ShareImageController::class)->whereNumber('site')->where('file', '[a-f0-9]{32}\.png')->name('basalto.share.image');
+
+// Dateien der Mediathek in öffentlichen Seiten, Mails und Vorschaubildern (19.11.2026): dauerhaft signiert statt für
+// 30 Minuten — der Seiten-Cache hält Seiten einen Tag, Fliesstexte speichern die Adresse; ohne Sitzung und Cookies
+Route::get('_medien/{media}/{variant?}', MediaFileController::class)->whereNumber('media')->where('variant', '[a-z0-9_-]+')
+    ->middleware('signed:relative')->name('basalto.media.public');
 
 // Website-Symbol (Favicon): `/favicon.ico` je Host, die erzeugten Grössen einer Site, die Symbole von Basalto fürs
 // Backend — ohne Sitzung und Cookies wie die Dateien eines Themes
