@@ -7,7 +7,7 @@
         "laravel",
         "framework"
     ],
-    "license": "MIT",
+    "license": "LicenseRef-Basalto",
     "require": {
         "php": "^8.3",
         "basalto/core": "@dev",
