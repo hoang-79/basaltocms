@@ -2,14 +2,17 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "basalto/basalto",
     "type": "project",
-    "description": "Basalto — Content-Management-System auf Laravel mit der Theme-Sprache Lava",
+    "description": "Basalto — a Laravel CMS for agencies and SMEs: themes in one file, editing without a plugin puzzle, backend and frontend from one hand. Source-available, free for one site.",
     "keywords": [
+        "laravel-cms",
         "laravel",
-        "framework"
+        "cms",
+        "inertiajs",
+        "vue"
     ],
-    "license": "LicenseRef-Basalto",
+    "license": "MIT",
     "require": {
-        "php": "^8.3",
+        "php": "^8.4",
         "basalto/core": "@dev",
         "basalto/lava": "@dev",
         "basalto/module-ai": "@dev",
@@ -52,7 +55,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "exclude-from-classmap": [
+            "vendor/laravel/cloud-cli/"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -110,7 +116,11 @@
             "@php artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi",
-            "@php artisan vendor:publish --tag=basalto-assets --force --ansi"
+            "npm install",
+            "npm run build",
+            "npm run build:backend",
+            "@php artisan vendor:publish --tag=basalto-assets --force --ansi",
+            "@php -r \"echo PHP_EOL, 'Weiter mit «php artisan basalto:install»: erste Site, erstes Konto und Einmal-Link zur Anmeldung.', PHP_EOL;\""
         ],
         "pre-package-uninstall": [
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
@@ -150,5 +160,11 @@
                 "symlink": true
             }
         }
-    ]
+    ],
+    "homepage": "https://basaltocms.com",
+    "support": {
+        "issues": "https://github.com/hoang-79/basaltocms/issues",
+        "forum": "https://basaltocms.com/community",
+        "source": "https://github.com/hoang-79/basaltocms"
+    }
 }
